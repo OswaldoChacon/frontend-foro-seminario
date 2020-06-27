@@ -1,0 +1,17 @@
+.mat-dialog-content{
+    height: 85% !important;
+    /* padding-top:18px !important; */
+    padding: 3% 5% 0 5% !important;
+    font-size: 13px;
+    overflow-x: hidden !important;
+    /* margin-top:5% !important; */
+}
+.container{
+    padding-left: 5% !important;
+    margin-top:3% !important;
+}
+span{
+    /* margin-bottom:5% !important; */
+    font-size: 15px !important;
+    font-weight: bold;
+}

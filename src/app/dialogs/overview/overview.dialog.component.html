@@ -1,0 +1,49 @@
+<mat-dialog-content>  
+   <!-- <form
+        [formGroup]="formFechaForo"
+        #formFechaForoDirective="ngForm"
+        (ngSubmit)="submitFechaForo(formFechaForoDirective)"
+      >
+        <mat-form-field class="input">
+          <mat-label>Fecha</mat-label>
+          <input
+            matInput
+            formControlName="fecha"
+            [min]="hoy"
+            [matDatepicker]="picker"
+          />
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="picker"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field class="input">
+          <mat-label>Hora de inicio</mat-label>
+          <input type="time" matInput formControlName="hora_inicio" />
+        </mat-form-field>
+        <mat-form-field class="input">
+          <mat-label>Hora de termino</mat-label>
+          <input type="time" matInput formControlName="hora_termino" />
+        </mat-form-field>
+        <div fxLayout="row" fxLayoutAlign="end center">
+          <button mat-raised-button color="primary" [disabled]="formFechaForo.invalid">Guardar</button>
+        </div>
+      </form> -->
+</mat-dialog-content>
+<mat-dialog-actions>
+  <div *ngIf="!test.instance.guardando; else spinner">
+    <button mat-raised-button color="primary"  [disabled]="test.instance.formUsuario.invalid" (click)="test.instance.form.ngSubmit.emit()">                  
+      Guardar
+    </button>
+    <button mat-raised-button color="warn" [mat-dialog-close]="1">
+      Cancelar
+    </button>
+  </div>
+  <ng-template #spinner>
+    <mat-progress-spinner
+      mode="indeterminate"
+      diameter="25"
+    ></mat-progress-spinner>
+  </ng-template>
+</mat-dialog-actions>

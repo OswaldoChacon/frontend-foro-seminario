@@ -1,0 +1,84 @@
+<mat-table [dataSource]="dataSource">
+  <ng-container matColumnDef="no_foro">
+    <mat-header-cell *matHeaderCellDef fxShow fxHide.xs> No. Foro </mat-header-cell>
+    <mat-cell *matCellDef="let foro"> 
+      <span class="mobile-label">No. Foro</span>
+      <span class="text-content">{{ foro.no_foro }}</span>
+    </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="nombre">
+    <mat-header-cell *matHeaderCellDef fxHide fxShow.gt-sm> Nombre </mat-header-cell>
+    <mat-cell *matCellDef="let foro" fxHide fxShow.gt-sm>      
+      <span class="mobile-label">Nombre</span> 
+      <span class="text-content">{{ foro.nombre }}</span>
+    </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="periodo">
+    <mat-header-cell *matHeaderCellDef fxShow fxHide.xs>  Periodo </mat-header-cell>
+    <mat-cell *matCellDef="let foro"  ><span class="mobile-label">Periodo</span> 
+      <span class="text-content">{{ foro.periodo }} </span>
+    </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="anio">
+    <mat-header-cell *matHeaderCellDef fxShow fxHide.xs> Año </mat-header-cell>
+    <mat-cell *matCellDef="let foro" ><span class="mobile-label">Año</span> 
+      <span class="text-content">{{ foro.anio }} </span>
+    </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="acciones">
+    <mat-header-cell *matHeaderCellDef fxLayoutAlign.xs="end center">
+      <button mat-icon-button color="primary" (click)="abrirDialog()">
+        <mat-icon>add</mat-icon>
+      </button>
+    </mat-header-cell>
+    <mat-cell *matCellDef="let foro">
+      <span class="mobile-label">Acciones</span>
+      <button mat-icon-button color="primary" (click)="editarForo(foro)">
+        <mat-icon>edit</mat-icon>
+      </button>
+      <button mat-icon-button color="warn" (click)="eliminarForo(foro.slug)">
+        <mat-icon>delete</mat-icon>
+      </button>
+      <a mat-icon-button [routerLink]="[ 'configurar-foro', foro.slug ]" *ngIf="foro.acceso">
+      <!-- <button mat-icon-button class="green" (click)="configurarForo(foro.id)"> -->
+        <mat-icon>settings</mat-icon>
+      </a>
+      <a mat-icon-button style="color:green" [routerLink]="[ 'proyectos', foro.slug ]" *ngIf="foro.acceso">
+        <!-- <button mat-icon-button class="green" (click)="configurarForo(foro.id)"> -->
+          <mat-icon>book</mat-icon>
+        </a>
+      <!-- </button> -->
+    </mat-cell>
+  </ng-container>
+
+  <!-- a-md-data-table-column -->
+  <!-- press ctrl + space to add more column snippet or delete this line -->
+
+  <mat-header-row *matHeaderRowDef="columnas"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: columnas"></mat-row>
+</mat-table>
+
+<div *ngIf="!dataSource.spinnerValueBoolean() && !dataSource.getTotalFiltrados()" class="center-message">
+  No se ha encontrado ningún registro
+</div>
+<mat-spinner
+  *ngIf="dataSource.spinnerValue() | async"
+  diameter="50"
+  class="table-loading"
+></mat-spinner>
+<!-- *ngIf="dataSource.totalItems() > 1"   -->
+<!-- [pageSize]="dataSource.ItemsPorPagina()" -->
+<!-- <mat-paginator  
+  [length]="dataSource.totalItems()"
+  [pageSize]="1"
+  (page)="pageEvent = nextPage($event)"
+  showFirstLastButtons
+></mat-paginator> -->
+<mat-paginator
+[length]="dataSource.totalItems()"
+[pageSize]="dataSource.ItemsPorPagina()"   
+(page)="pageEvent = nextPage($event)"
+showFirstLastButtons
+></mat-paginator>
+
+<!-- <router-outlet></router-outlet> -->

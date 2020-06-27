@@ -1,0 +1,41 @@
+<mat-table [dataSource]="dataSource">
+  <ng-container matColumnDef="clave">
+    <mat-header-cell *matHeaderCellDef >Clave</mat-header-cell>
+    <!-- fxFlex="25" -->
+    <mat-cell *matCellDef="let linea">
+      <span class="mobile-label">Clave</span>
+      <span class="text-content">{{ linea.clave }}</span>
+    </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="nombre">
+    <mat-header-cell *matHeaderCellDef>Nombre</mat-header-cell>
+    <mat-cell *matCellDef="let linea">
+      <span class="mobile-label">Nombre</span>
+    <span class="text-content">{{ linea.nombre }}</span>
+    </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="acciones">
+    <mat-header-cell *matHeaderCellDef>
+      <button mat-icon-button aria-label="Agregar nuevo registro" (click)="abrirDialog()">
+        <mat-icon>add</mat-icon>
+      </button>
+    </mat-header-cell>
+    <mat-cell *matCellDef="let linea">      
+      <span class="mobile-label">Acciones</span>
+      <div>
+      <button color="primary" mat-icon-button aria-label="Edit" (click)="editarLinea(linea)">
+        <mat-icon>edit</mat-icon>
+      </button>
+      <button color="warn" mat-icon-button (click)="eliminarLinea(linea)">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </div>
+    </mat-cell>
+  </ng-container>
+  <mat-header-row *matHeaderRowDef="columnasTabla"></mat-header-row>
+  <mat-row *matRowDef="let linea; columns: columnasTabla"></mat-row>
+</mat-table>
+<div *ngIf="!dataSource.spinnerValueBoolean() && !dataSource.totalItems()" class="center-message">
+  No se ha encontrado ningún registro
+</div>
+<mat-spinner *ngIf="dataSource.spinnerValue() | async" diameter="50" class="table-loading"></mat-spinner>

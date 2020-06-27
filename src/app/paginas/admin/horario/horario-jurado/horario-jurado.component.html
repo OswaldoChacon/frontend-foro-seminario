@@ -1,0 +1,54 @@
+<mat-table [dataSource]="dataSource">
+  <ng-container matColumnDef="num_control">
+    <mat-header-cell *matHeaderCellDef >
+      <!-- fxFlex="20%" -->
+      No. Control
+    </mat-header-cell>
+    <mat-cell *matCellDef="let usuario">
+      <span class="mobile-label">No. Control</span>
+      {{ usuario.num_control }}
+    </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="nombre">
+    <mat-header-cell *matHeaderCellDef> Nombre</mat-header-cell>
+    <!-- fxFlex="65" -->
+    <mat-cell *matCellDef="let usuario">
+      <span class="mobile-label">Nombre</span>
+      {{ usuario.nombre }}
+    </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="acciones">
+    <mat-header-cell *matHeaderCellDef> Acciones</mat-header-cell>
+    <!-- fxFlex="15" -->
+    <mat-cell *matCellDef="let usuario">
+      <span class="mobile-label">Acciones</span>
+      <button mat-icon-button color="primary" (click)="abrirDialog()">
+        <mat-icon>date_range</mat-icon>
+        <!-- Agregar hora -->
+      </button>
+    </mat-cell>
+  </ng-container>
+
+  a-md-data-table-column
+  <!-- press ctrl + space to add more column snippet or delete this line -->
+
+  <!-- press ctrl + space to add more column snippet or delete this line -->
+
+  <!-- press ctrl + space to add more column snippet or delete this line -->
+
+  <mat-header-row *matHeaderRowDef="columnas" fxShow fxHide.xs></mat-header-row>
+  <mat-row *matRowDef="let usuario; columns: columnas"></mat-row>
+</mat-table>
+<mat-spinner
+  *ngIf="dataSource.spinnerValue() | async"
+  diameter="50"
+  class="table-loading"
+>
+</mat-spinner>
+<mat-paginator
+  [length]="dataSource.totalItems()"
+  [pageSize]="dataSource.ItemsPorPagina()"
+  showFirstLastButtons
+></mat-paginator>

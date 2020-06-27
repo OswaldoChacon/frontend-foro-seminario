@@ -1,1 +1,117 @@
 /* You can add global styles to this file, and also import other style files */
+@import "../node_modules/@angular/material/prebuilt-themes/indigo-pink.css";
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  /* font-family: Roboto, "Helvetica Neue", sans-serif; */
+  font-family: Roboto, sans-serif;
+}
+/* input formulario */
+.mat-form-field {
+  width: 100%;
+  margin-top: 10px;
+  /* margin-top:15px */
+}
+/* toolbar dialog */
+.mat-dialog-container {
+  padding-top: 0px !important;
+}
+/* toolbar dialog */
+.barra {
+  margin-left: -24px;
+  margin-right: -24px;
+}
+/* centrado del spinner */
+.table-loading {
+  margin: 20px auto;
+}
+/* tabla ocupe el 100% */
+.mat-table {
+  width: 100%;
+  /* overflow: auto; */
+}
+/* Mensaje de tabla vacia centrado */
+.center-message {
+  text-align: center;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  background: white;
+}
+
+.mat-card-title {
+  font-weight: 400 !important;
+  font-size: 20px;
+}
+
+/* .mat-form-field-underline {
+  background-color: green;
+} */
+
+/* margin que existe en la tabla responsive */
+mat-cell:first-child,
+mat-footer-cell:first-child,
+mat-header-cell:first-child {
+  padding-left: 0px !important;
+}
+
+.mat-expansion-panel-body {
+  padding: 0px !important;
+}
+
+.my-class .mat-dialog-container {
+  height: 520px;
+  /* width: 90%; */
+  /* border-radius: 10px; */
+  /* background: lightcyan; */
+  /* color: #039be5; */
+}
+
+
+
+
+
+/* Responsive table */
+
+
+.mobile-label {
+  display: none;
+}
+
+
+@media (max-width: 599px) {
+  .mat-cell {
+    width: 100% !important;
+  }
+  .mobile-label {
+    width: 30%;
+    padding-right: 20px;
+    display: inline-block;
+    font-weight: bold;
+  }
+
+  .text-content{
+    /* padding-right: 16px; */
+    width: 70%;
+  }
+  .mat-header-row {
+    /* display: none; */
+    /* border: solid; */
+  }
+  .nombre {
+    display: none;
+  }
+
+  .mat-row {
+    /* min-width: 100%; */
+    flex-direction: column;
+    align-items: start;
+    padding: 0px 6px !important;
+  }
+}
+
+.eyes{
+  cursor: pointer;
+}

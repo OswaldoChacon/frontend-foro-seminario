@@ -1,0 +1,111 @@
+<div fxLayout="row" fxFlex>
+  <app-header fxFlex="100">
+    <button mat-icon-button>
+      <mat-icon aria-label="label" (click)="sidenav.toggle()">menu</mat-icon>
+    </button>
+    <span class="btn-user"></span>
+    <button mat-icon-button [matMenuTriggerFor]="menu">
+      <mat-icon aria-label="label">account_circle</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item (click)="logout()">
+        <mat-icon>exit_to_app</mat-icon>
+        <span>Cerrar sesión</span>
+      </button>
+      <div *ngIf="contarRoles() > 1">
+        <a mat-menu-item *ngFor="let rol of roles" [routerLink]="['/' + rol]">{{ rol }}</a>
+      </div>
+    </mat-menu>
+  </app-header>
+  <mat-sidenav-container class="sidenav-container" autosize>
+    <mat-sidenav #sidenav [mode]="screenWidth > 1200 ? 'side' : 'over'" [opened]="screenWidth > 1200" autosize>
+      <!-- <ng-content></ng-content> -->
+      <!-- <app-admin></app-admin> -->
+      
+      <mat-nav-list>
+        <a [routerLink]="['home']" routerLinkActive="active" *ngxPermissionsOnly="['Administrador','Docente']">
+          <mat-list-item>
+            <mat-icon class="icon-sidenav-list" matListIcon>home</mat-icon>
+            Inicio
+          </mat-list-item>
+        </a>
+        <a [routerLink]="['usuarios']" routerLinkActive="active" *ngxPermissionsOnly="['Administrador']" >
+          <mat-list-item role="listitem">
+            <mat-icon class="icon-sidenav-list" matListIcon>group</mat-icon>
+            Usuarios
+          </mat-list-item>
+        </a>
+        <a [routerLink]="['lineas-investigacion']" routerLinkActive="active" *ngxPermissionsOnly="['Administrador']">
+          <mat-list-item role="listitem">
+            Lineas de investigación
+          </mat-list-item>
+        </a>
+        <a [routerLink]="['tipos-proyectos']" routerLinkActive="active" *ngxPermissionsOnly="['Administrador']">
+          <mat-list-item role="listitem">
+            Tipos de proyectos
+          </mat-list-item>
+        </a>       
+        <a [routerLink]="['foros']" routerLinkActive="active" *ngxPermissionsOnly="['Administrador']">
+          <mat-list-item role="listitem">
+            <mat-icon matListIcon>forum</mat-icon>
+            Foros
+          </mat-list-item>
+        </a>
+        <mat-expansion-panel class="mat-elevation-z0" *ngxPermissionsOnly="['Administrador']">
+          <mat-expansion-panel-header>
+            <mat-icon matListIcon>access_time</mat-icon>
+            Horarios
+          </mat-expansion-panel-header>
+          <mat-nav-list>
+            <a class="submenu" mat-list-item [routerLink]="['jurado']">Horario del jurado</a>
+            <a class="submenu" mat-list-item [routerLink]="['generar_horario']">Generar horario</a>
+          </mat-nav-list>
+        </mat-expansion-panel>
+        <a [routerLink]="['asignar-jurado']" routerLinkActive="active" *ngxPermissionsOnly="['Administrador']">
+          <mat-list-item role="listitems">Asignar jurado</mat-list-item>
+        </a>
+
+
+
+        <!-- Docente -->
+        <!-- [routerLink]="['proyectos']" routerLinkActive="active"  -->
+        <a *ngxPermissionsOnly="['Docente']">
+          <mat-list-item role="listitems">Proyectos</mat-list-item>
+        </a>
+        <a [routerLink]="['asignar-jurado']" routerLinkActive="active" *ngxPermissionsOnly="['Docente']">
+          <mat-list-item role="listitems">Horario</mat-list-item>
+        </a>
+        <!-- <a [routerLink]="['asignar-jurado']" routerLinkActive="active" *ngxPermissionsOnly="['Docente']">
+          <mat-list-item role="listitems">Asignar jurado</mat-list-item>
+        </a>
+        <a [routerLink]="['asignar-jurado']" routerLinkActive="active" *ngxPermissionsOnly="['Docente']">
+          <mat-list-item role="listitems">Asignar jurado</mat-list-item>
+        </a> -->
+        <!-- Alumno -->
+        <a [routerLink]="['registrar-proyecto']" routerLinkActive="active" *ngxPermissionsOnly="['Alumno']">
+          <mat-list-item role="listitems">Registrar proyecto</mat-list-item>
+        </a>
+      </mat-nav-list> 
+    </mat-sidenav>
+    <mat-sidenav-content class="sidenav-content">
+      <mat-card>
+        <router-outlet></router-outlet>
+      </mat-card>      
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>
+
+ <!-- <a [routerLink]="['horarios']" routerLinkActive="active">
+            <mat-list-item role="listitem">
+              <mat-icon matListIcon>access_time</mat-icon>
+              Horarios
+            </mat-list-item>
+          </a> -->
+        <!-- <mat-divider></mat-divider> -->
+        <!-- <a [routerLink]="['foros']" routerLinkActive="active">
+            <mat-list-item role="listitem">
+              <mat-icon class="icon-sidenav-list" matListIcon>library_books</mat-icon>
+              Tipos de proyectos
+            </mat-list-item>          
+          </a> -->
+        <!-- <mat-divider></mat-divider> -->

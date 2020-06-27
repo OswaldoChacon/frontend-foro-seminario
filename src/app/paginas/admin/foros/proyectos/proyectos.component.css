@@ -1,0 +1,16 @@
+@media(min-width: 600px){
+  .mat-column-folio{
+      min-width:11% !important;        
+      max-width:11% !important;
+  }
+  .mat-column-titulo{
+      min-width:60% !important;
+      padding: 0 12px;
+      /* max-width:60% !important;       */
+  }
+  .mat-column-participa{
+     min-width:10% !important;
+     max-width: 10% !important;
+     /* max-width: 20% !important; */
+  }
+}

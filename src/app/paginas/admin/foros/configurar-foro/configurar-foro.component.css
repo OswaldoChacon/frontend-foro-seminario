@@ -1,0 +1,48 @@
+.mat-card {
+  box-shadow: none !important;
+  margin-bottom: 15px;
+}
+.mat-card-header {
+  margin-bottom: 15px !important;
+}
+
+.intervalos {
+  margin-top: 45px;
+}
+.row-selected {
+  background-color: gold;
+  /* #FF9800   */
+}
+.blue {
+  color: blue;
+}
+.edit {
+  color: rgb(235, 238, 37);
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+input[type="number"]:hover,
+input[type="number"]:focus {
+  -moz-appearance: number-input;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+
+@media (max-width: 1000px) and (min-width: 600px) {
+  .mat-icon-button {
+    width: 30px;
+  }
+}

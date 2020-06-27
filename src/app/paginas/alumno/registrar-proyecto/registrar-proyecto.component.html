@@ -1,0 +1,78 @@
+<mat-progress-bar mode="indeterminate" value="50" *ngIf="this.cargando; else formulario">
+</mat-progress-bar>
+<ng-template #formulario>
+  <div class="mat-card-title">
+    <!-- REGISTRO AL {{foro.no_foro}}° {{foro.nombre}} -->
+    {{ "REGISTRO AL " + foro.no_foro + "° " + foro.nombre }}
+  </div>
+  <div class="mat-card-subtitle">{{ foro.periodo + " " + foro.anio }}</div>
+  <div [ngStyle.gt-xs]="{ 'padding.px': 20 }">
+    <form [formGroup]="formRegistrar" #formRegistrarProyecto="ngForm" (ngSubmit)="registrar()">
+      <mat-form-field>
+        <input matInput formControlName="titulo" placeholder="Titulo del proyecto" required />
+      </mat-form-field>
+      <div fxLayout.gt-sm="row" fxLayout="column" fxLayoutGap.gt-sm="20px">
+        <mat-form-field>
+          <mat-label>Linea de investigacion</mat-label>
+          <mat-select formControlName="linea" required>
+            <mat-option *ngFor="let linea of lineas" [value]="linea.clave">
+              {{ linea.nombre }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Tipo de proyecto</mat-label>
+          <mat-select formControlName="tipo" required>
+            <mat-option *ngFor="let tipo of tipos" [value]="tipo.clave">
+              {{ tipo.nombre }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <mat-form-field>
+        <!-- appearance="outline" -->
+        <!-- <mat-label>Outline form field</mat-label> -->
+        <textarea matInput formControlName="objetivo" placeholder="Objetivo" required></textarea>
+      </mat-form-field>
+      <div fxLayout.gt-sm="row" fxLayout="column" fxLayoutGap.gt-sm="20px">
+        <mat-form-field>
+          <mat-label>Asesor</mat-label>
+          <mat-select formControlName="asesor" required>
+            <mat-option *ngFor="let docente of docentes" [value]="docente.num_control">
+              {{ docente.nombre }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput formControlName="empresa" placeholder="Empresa" required>
+        </mat-form-field>
+      </div>
+      <div fxLayoutAlign="end center">
+        <button *ngIf="lim_alumnos < foro.lim_alumnos" type="button" mat-raised-button color="primary"
+          (click)="openPanel()">
+          Añadir integrantes
+        </button>
+      </div>
+      <!-- <mat-expansion-panel class="mat-elevation-z0" [expanded]="isOpen"> -->
+      <div formArrayName="alumnos" [ngClass]="{'integrantes': lim_alumnos >= foro.lim_alumnos}">
+        <!-- <div *ngFor="let item of lim_alumnos; let i = index"> -->
+        <div *ngFor="let control of formData.controls ; let i = index ">
+          <!-- {{'Integrante #'+(i+2)}}   -->
+          <mat-form-field>
+            <!-- formArrayName -->
+            <!-- <mat-select placeholder="Integrantes" formArrayName="alumnos"> -->
+            <mat-select placeholder="Integrante {{i+2}}" [formControlName]="i">
+              <mat-option *ngFor="let alumno of alumnos" [value]="alumno.num_control">{{ alumno.nombre }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <button (click)="remove(i)">Remove</button>
+        </div>
+      </div>
+      <!-- <mat-expansion-panel-header>
+          title
+        </mat-expansion-panel-header> -->
+      <!-- </mat-expansion-panel> -->
+      <button mat-raised-button color="primary" [disabled]="formRegistrarProyecto.invalid">¡Registrar!</button>
+    </form>
+  </div>
+</ng-template>

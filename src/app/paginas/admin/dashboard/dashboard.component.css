@@ -1,0 +1,92 @@
+/* Iconos tablas*/
+.edit-icon {
+  color: #e6e600;
+}
+.delete-icon {
+  color: red;
+}
+/*************************************************************************************************************  */
+
+/* cerrar sesión derecha */
+.btn-user {
+  flex: 1 1 auto;
+}
+/*************************************************************************************************************  */
+
+/* nav */
+
+/*************************************************************************************************************  */
+
+/* sidenav */
+.sidenav-container {
+  position: absolute;
+  top: 64px;
+  bottom: 0px;
+  left: 0;
+  right: 0;
+  padding-bottom: 60px;
+  /* min-height: 90%; */
+}
+.sidenav-content {
+  padding: 30px;
+  background-color: #fafafa;
+  /* padding-bottom: 60px !important; */
+}
+.mat-sidenav {
+  position: fixed;
+  /* margin-top: 64px; */
+  top: 64px;
+  display: flex;
+  width: 300px;
+}
+/*************************************************************************************************************  */
+
+
+/* mat-list-icon menu */
+.mat-list-icon {
+  color: #707070;
+  min-width: 42px;
+  font-size: 22px !important;
+  border-radius: 0% !important;
+}
+.mat-list-item {
+  font-size: 13px;
+  height: 40px !important;
+  max-width: 100% !important;
+}
+.submenu{
+  padding: 0 26px !important;
+}
+.mat-list-base {
+  padding-top: 0px;  
+}
+/*************************************************************************************************************  */
+
+/* submenu horario  */
+
+.mat-expansion-panel-header {
+  min-height: 48px;
+  max-height: 48px;
+  font-size: 12px;
+  padding: 0 21px !important;
+}
+/*************************************************************************************************************  */
+
+/* Active routerlink */
+.active * {
+  color:#1976D2;  
+  /* font-weight: bold; */
+}
+/*************************************************************************************************************  */
+
+/* MediaQueries responsive sidenav */
+
+@media (max-width: 600px) {
+  .mat-sidenav {
+    top: 56px;
+  }
+  .mat-sidenav-container {
+    top: 56px;
+  }
+}
+
