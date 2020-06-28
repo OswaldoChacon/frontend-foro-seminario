@@ -1,8 +1,8 @@
 <div class="barra">
   <app-header></app-header>
 </div>
-<form [formGroup]="formUsuario" (ngSubmit)="editar ? editarUsuario() : registrarUsuario()" #form="ngForm">
-  <mat-dialog-content>
+<mat-dialog-content>
+  <form [formGroup]="formUsuario" (ngSubmit)="editar ? editarUsuario() : registrarUsuario()" #form="ngForm">
     <mat-form-field>
       <input matInput formControlName="num_control" placeholder="Número de control" required />
       <mat-error *ngIf="formUsuario.get('num_control').hasError('required')">
@@ -34,19 +34,6 @@
         El email ya ha sido registrado
       </mat-error>
     </mat-form-field>
-  </mat-dialog-content>
-  <!-- <mat-dialog-actions>
-    <div *ngIf="!guardando; else spinner">
-      <button mat-raised-button color="primary" [disabled]="formUsuario.invalid">
-        Guardar
-      </button>
-      <button mat-raised-button color="warn" [mat-dialog-close]="1">
-        Cancelar
-      </button>
-    </div>
-    <ng-template #spinner>
-      <mat-progress-spinner mode="indeterminate" diameter="25"></mat-progress-spinner>
-    </ng-template>
-  </mat-dialog-actions> -->
-  <app-buttons [form]="form" [guardando]="guardando"></app-buttons>
-</form>
+  </form>
+</mat-dialog-content>
+<app-buttons [form]="form" [guardando]="guardando"></app-buttons>

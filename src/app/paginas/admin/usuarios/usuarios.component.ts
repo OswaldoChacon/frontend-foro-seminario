@@ -42,82 +42,77 @@ export class UsuariosComponent implements OnInit {
     { nombre: "Confirmados" },
     { nombre: "No confirmados" },
   ];
-  
+
   private searchTerms = new Subject<string>();
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild('inputFiltro') input: ElementRef
-  
+
   constructor(
     private usersServices: UsersService,
     private dialog: MatDialog,
   ) { }
 
-  filtros(event: MatRadioChange) {
-    this.dataSource.filtro("confirmado", 0);
-  }
+
   ngOnInit(): void {
     this.dataSource = new UsuarioDataSource(this.usersServices);
     this.dataSource.getUsuarios(1);
     this.searchTerms.pipe(
-        tap(()=>this.dataSource.resetData()),
-        debounceTime(5000),
-        distinctUntilChanged(),
-        tap((num_control) => this.dataSource.buscarUsuarios(num_control))
-      ).subscribe();
+      tap(() => this.dataSource.resetData()),
+      debounceTime(5000),
+      distinctUntilChanged(),
+      tap((num_control) => this.dataSource.buscarUsuarios(num_control))
+    ).subscribe();
+  }
+
+  filtros(event: MatRadioChange) {
+    this.dataSource.filtro("confirmado", 0);
   }
 
   ngAfterViewInit() {
-    fromEvent(this.input.nativeElement,'keyup')
-    .pipe(
+    fromEvent(this.input.nativeElement, 'keyup')
+      .pipe(
         debounceTime(150),
         distinctUntilChanged(),
-        tap(() => {            
-            this.paginator.pageIndex = 0;
-            this.dataSource.buscarUsuarios(this.input.nativeElement.value);
-        })
-    )
-    .subscribe();
-    this.paginator.page.pipe(
-          tap(() => {
-          this.dataSource.resetData();
-          this.dataSource.getUsuarios(this.paginator.pageIndex + 1);
+        tap(() => {
+          this.paginator.pageIndex = 0;
+          this.dataSource.buscarUsuarios(this.input.nativeElement.value);
         })
       ).subscribe();
-  } 
 
-  buscarUsuarios(num_control: string) {    
-    this.searchTerms.next(num_control);
+    this.paginator.page.pipe(
+      tap(() => {
+        this.dataSource.resetData();
+        this.dataSource.getUsuarios(this.paginator.pageIndex + 1);
+      })
+    ).subscribe();
   }
 
   agregarUsuario(): void {
     let dialogRef = this.dialog.open(UsuarioDialogComponent);
     dialogRef.afterClosed().pipe(
-      takeWhile(res=>res!=1),
-      tap(()=>this.dataSource.resetData()),
-    ).subscribe(()=>this.dataSource.getUsuarios(this.paginator.pageIndex + 1));    
+      takeWhile(res => res != 1),
+      tap(() => this.dataSource.resetData()),
+    ).subscribe(() => this.dataSource.getUsuarios(this.paginator.pageIndex + 1));
   }
 
   editarUsuario(usuario: Usuario) {
     let dialogRef = this.dialog.open(UsuarioDialogComponent, {
       data: usuario,
-    });   
+    });
     dialogRef.afterClosed().pipe(
-        takeWhile(res=>res!=1),
-        tap(()=>this.dataSource.resetData())
-      ).subscribe(()=>this.dataSource.getUsuarios(this.paginator.pageIndex + 1));
+      takeWhile(res => res != 1),
+      tap(() => this.dataSource.resetData())
+    ).subscribe(() => this.dataSource.getUsuarios(this.paginator.pageIndex + 1));
   }
 
   eliminarUsuario(id: string) {
     this.dataSource.resetData();
-    this.usersServices
-      .eliminarUsuario(id)
-      .pipe(
-        catchError((error)=>{
+    this.usersServices.eliminarUsuario(id).pipe(
+        catchError((error) => {
           this.dataSource.handleError();
           return throwError(error);
-        }),        
-      )
-      .subscribe(()=>this.dataSource.getUsuarios(this.paginator.pageIndex + 1));
+        }),
+      ).subscribe(() => this.dataSource.getUsuarios(this.paginator.pageIndex + 1));
   }
 
   agregarRol(event: MatCheckboxChange, user: Usuario, rol: string) {
@@ -125,19 +120,17 @@ export class UsuariosComponent implements OnInit {
     rolSelected.is = !rolSelected.is;
     if (event.checked)
       this.usersServices.agregarRol(user.num_control, rol).pipe(
-          catchError((error) => {
-            rolSelected.is = !rolSelected.is;
-            return throwError(error);
-          })
-        )
-        .subscribe();
-    else 
+        catchError((error) => {
+          rolSelected.is = !rolSelected.is;
+          return throwError(error);
+        })
+      ).subscribe();
+    else
       this.usersServices.eliminarRol(user.num_control, rol).pipe(
-        catchError((error)=>{
+        catchError((error) => {
           rolSelected.is = !rolSelected.is;
           return throwError(error)
         })
-      )
-      .subscribe();
+      ).subscribe();
   }
 }

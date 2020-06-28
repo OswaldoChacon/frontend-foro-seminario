@@ -6,12 +6,14 @@ import { HeaderComponent } from './header/header.component';
 import { MaterialModule } from '../material.module';
 import { NgxPermissionsModule } from 'ngx-permissions';
 import { ButtonsComponent } from './buttons/buttons.component';
+import { TableComponent } from './table/table.component';
 
 @NgModule({
   declarations: [
     HeaderComponent,
     SidenavComponent,
     ButtonsComponent,
+    TableComponent,
   ],
   imports: [
     CommonModule,
@@ -23,6 +25,7 @@ import { ButtonsComponent } from './buttons/buttons.component';
     HeaderComponent,    
     SidenavComponent,
     ButtonsComponent,
+    TableComponent,
   ]
 })
 export class SharedModule { }

@@ -34,11 +34,9 @@ export class ForosComponent implements OnInit {
     dialogRef.afterClosed().pipe(
       takeWhile(res=>res!=1),
       tap(()=>this.dataSource.resetData()),
+      finalize(()=>this.dataSource.cargarForos(this.paginator.pageIndex + 1))
     )
-    .subscribe((result) => {
-      // if (result != 1)
-        this.dataSource.cargarForos(this.paginator.pageIndex + 1);
-    });
+    .subscribe();
   }
   configurarForo(id: number) {
     // this.route.navigate([])
@@ -50,6 +48,7 @@ export class ForosComponent implements OnInit {
     this.dataSource.cargarForos(event.pageIndex + 1);
     return event;
   }
+  
   editarForo(foro: Foros) {
     let dialogRef = this.dialog.open(ForosDialogComponent, { data: foro });
     dialogRef

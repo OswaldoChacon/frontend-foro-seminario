@@ -13,7 +13,6 @@ body {
 .mat-form-field {
   width: 100%;
   margin-top: 10px;
-  /* margin-top:15px */
 }
 /* toolbar dialog */
 .mat-dialog-container {
@@ -81,7 +80,7 @@ mat-header-cell:first-child {
 }
 
 
-@media (max-width: 599px) {
+@media (max-width: 959px) {
   .mat-cell {
     width: 100% !important;
   }
@@ -96,10 +95,7 @@ mat-header-cell:first-child {
     /* padding-right: 16px; */
     width: 70%;
   }
-  .mat-header-row {
-    /* display: none; */
-    /* border: solid; */
-  }
+  
   .nombre {
     display: none;
   }

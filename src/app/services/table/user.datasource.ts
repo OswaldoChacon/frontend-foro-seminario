@@ -84,7 +84,7 @@ export class UsuarioDataSource extends DataSource<Usuario> {
     }
   }
 
-  getTotalUsuariosFiltrados() {
+  getTotalUsuariosPerPage() {
     return this.usuariosSubject?.value?.length;
   }
 

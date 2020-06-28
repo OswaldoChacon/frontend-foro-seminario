@@ -6,8 +6,8 @@ import { LineaService } from 'src/app/services/lineas/lineas.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { HttpClient } from '@angular/common/http';
 import { MatSort } from '@angular/material/sort';
-import { fromEvent, BehaviorSubject, Observable, merge } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { fromEvent, BehaviorSubject, Observable, merge, throwError } from 'rxjs';
+import { map, catchError, finalize, takeWhile, tap } from 'rxjs/operators';
 import { MatDialog } from '@angular/material/dialog';
 import { LineaDialogComponent } from 'src/app/dialogs/linea/linea.dialog.component';
 import { LineaDataSource } from 'src/app/services/table/lineas.datasource';
@@ -19,40 +19,48 @@ import { LineaDataSource } from 'src/app/services/table/lineas.datasource';
   styleUrls: ['./lineas.component.css']
 })
 export class LineasComponent implements OnInit {
-  columnasTabla = ['clave', 'nombre','acciones'];    
-  dataSource: LineaDataSource = null;  
-  constructor(          
-              private LineaService: LineaService,
-              private dialogLinea: MatDialog) {}
-  
-  ngOnInit() {   
-    this.dataSource = new LineaDataSource(this.LineaService);    
-    this.dataSource.cargarLineas();                     
-  }
- 
-  abrirDialog()
-  {
-    let dialogRef = this.dialogLinea.open(LineaDialogComponent);
-    dialogRef.afterClosed().subscribe(
-      result=>{                      
-        if(result != 1)
-            this.dataSource.cargarLineas();        
-      }
-    );    
-  }
-  editarLinea(linea: Linea){    
-    let dialogRef = this.dialogLinea.open(LineaDialogComponent, {data:linea});
-    dialogRef.afterClosed().subscribe(result=>{
-      if(result != 1)
-        this.dataSource.cargarLineas();                        
-    });
-  }
-  
+  columnasTabla = ['clave', 'nombre', 'acciones'];
+  columnHeader = {'clave': 'Clave', 'nombre': 'Nombre', 'acciones': 'Acciones'};
+  dataSource: LineaDataSource = null;
+  componentDialog = LineaDialogComponent;
+  constructor(
+    private LineaService: LineaService,
+    private dialog: MatDialog) { }
 
-  eliminarLinea(linea: Linea)
-  {    
+  ngOnInit() {
+    this.dataSource = new LineaDataSource(this.LineaService);
+    this.dataSource.getLineas();
+    // console.log(this.dataSource);
+  }
+
+  agregarLinea() {
+    let dialogRef = this.dialog.open(LineaDialogComponent);
+    dialogRef.afterClosed().pipe(
+      takeWhile(res => res != 1),
+      tap(() => this.dataSource.resetData()),
+      finalize(() => this.dataSource.getLineas())
+    ).subscribe();
+  }
+
+  editarLinea(linea: Linea) {
+    let dialogRef = this.dialog.open(LineaDialogComponent, {
+      data: linea
+    });
+    dialogRef.afterClosed().pipe(
+      takeWhile(res=>res!=1),
+      tap(()=>this.dataSource.resetData()),
+      finalize(()=>this.dataSource.getLineas())
+    ).subscribe();
+  }
+
+  eliminarLinea(linea: Linea) {
     this.dataSource.resetData();
-    this.LineaService.eliminarLinea(linea.clave).subscribe(()=>this.dataSource.cargarLineas());
-    // this.dataSource.eliminarLinea();
+    this.LineaService.eliminarLinea(linea.clave).pipe(      
+      catchError((error) => {
+        this.dataSource.handleError();
+        return throwError(error);
+      }),
+      // finalize(() => )
+    ).subscribe(() => this.dataSource.getLineas());    
   }
 }

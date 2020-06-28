@@ -22,41 +22,41 @@
   </div>
   <mat-table [dataSource]="dataSource">
     <ng-container matColumnDef="num_control">
-      <mat-header-cell *matHeaderCellDef fxShow fxHide.xs>No. Control</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef fxShow fxHide.lt-md>No. Control</mat-header-cell>
       <mat-cell *matCellDef="let usuario">
         <span class="mobile-label">No. Control</span>
         {{ usuario.num_control }}
       </mat-cell>
     </ng-container>
     <ng-container matColumnDef="nombre">
-      <mat-header-cell *matHeaderCellDef fxShow fxHide.xs>Nombre</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef fxShow fxHide.lt-md>Nombre</mat-header-cell>
       <mat-cell *matCellDef="let usuario">
         <span class="mobile-label">Nombre</span>
         {{ usuario.nombre }}
       </mat-cell>
     </ng-container>
     <ng-container matColumnDef="apellidoP">
-      <mat-header-cell *matHeaderCellDef fxShow fxHide.xs>Apellido paterno</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef fxShow fxHide.lt-md>Apellido paterno</mat-header-cell>
       <mat-cell *matCellDef="let usuario">
         <span class="mobile-label">Apellido paterno</span>
         {{ usuario.apellidoP }}
       </mat-cell>
     </ng-container>
     <ng-container matColumnDef="apellidoM">
-      <mat-header-cell *matHeaderCellDef fxShow fxHide.xs>Apellido materno</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef fxShow fxHide.lt-md>Apellido materno</mat-header-cell>
       <mat-cell *matCellDef="let usuario">
         <span class="mobile-label">Apellido materno</span>
         {{ usuario.apellidoM }}
       </mat-cell>
     </ng-container>
     <ng-container matColumnDef="email">
-      <mat-header-cell *matHeaderCellDef fxShow fxHide.xs>Email</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef fxShow fxHide.lt-md>Email</mat-header-cell>
       <mat-cell *matCellDef="let usuario">
         <span class="mobile-label">Email</span>
         {{ usuario.email }}</mat-cell>
     </ng-container>
     <ng-container matColumnDef="acciones">
-      <mat-header-cell *matHeaderCellDef fxLayoutAlign.xs="end center">
+      <mat-header-cell *matHeaderCellDef fxLayoutAlign.lt-md="end center">
         <button mat-icon-button aria-label="Agregar nuevo registro" (click)="agregarUsuario()">
           <mat-icon>add</mat-icon>
         </button>
@@ -83,7 +83,7 @@
     <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
   </mat-table>
 
-  <div *ngIf="!(dataSource.loading$ | async) && !dataSource.getTotalUsuariosFiltrados()" class="center-message">
+  <div *ngIf="!(dataSource.loading$ | async) && !dataSource.getTotalUsuariosPerPage()" class="center-message">
     No se ha encontrado ningún registro
   </div>
 

@@ -1,15 +1,8 @@
 <div class="barra">
   <app-header></app-header>
-  <!-- <mat-toolbar color="primary">
-    <span>title</span>
-  </mat-toolbar> -->
 </div>
-
-<form
-  [formGroup]="formLinea"
-  (ngSubmit)="editar ? editarLinea() : registrar()" #form="ngForm"
->
-  <mat-dialog-content>   
+<mat-dialog-content>
+  <form [formGroup]="formLinea" (ngSubmit)="editar ? editarLinea() : guardarLinea()" #form="ngForm">
     <mat-form-field>
       <input matInput formControlName="clave" placeholder="Clave" required />
       <mat-error *ngIf="formLinea.get('clave').hasError('required')">
@@ -19,41 +12,13 @@
         La clave ya ha sido registrada
       </mat-error>
     </mat-form-field>
-
     <mat-form-field>
       <input matInput formControlName="nombre" placeholder="Nombre" required />
-      <mat-error *ngIf="formLinea.get('nombre').hasError('required')"
-        >El campo nombre es requerido</mat-error
-      >
+      <mat-error *ngIf="formLinea.get('nombre').hasError('required')">El campo nombre es requerido</mat-error>
       <mat-error *ngIf="formLinea.get('nombre').hasError('serverError')">
         El nombre ya ha sido registrada
       </mat-error>
     </mat-form-field>
-  </mat-dialog-content>
-  <app-buttons [form]="form" [guardando]="guardando"></app-buttons>
-  <!-- <mat-dialog-actions>
-    <button
-      *ngIf="!guardando && !editar; else spinner"
-      mat-raised-button
-      color="primary"      
-      [disabled]="!formulario.valid"
-    >
-      Guardar
-    </button>
-    <button mat-raised-button color="warn" [mat-dialog-close]="1" *ngIf="!guardando">
-      Cancelar
-    </button>
-    <ng-template #spinner>
-      <mat-progress-spinner
-        *ngIf="guardando; else botonEditar"
-        mode="indeterminate"
-        diameter="25"
-      ></mat-progress-spinner>
-    </ng-template>
-    <ng-template #botonEditar>
-      <button mat-raised-button color="primary" [disabled]="formulario.invalid">
-        Editar
-      </button>
-    </ng-template>
-  </mat-dialog-actions> -->
-</form>
+  </form>
+</mat-dialog-content>
+<app-buttons [form]="form" [guardando]="guardando"></app-buttons>

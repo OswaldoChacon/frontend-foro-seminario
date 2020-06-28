@@ -33,9 +33,7 @@ export class UsuarioDialogComponent implements OnInit {
   editar: boolean = false;  
   // @Output() formularioLinea = new EventEmitter<User>();
 
-  @ViewChild("form") form:FormGroupDirective;// myNgForm;
-  @Output() formulario = new EventEmitter<any>();
-  @Output() guardandoStatus = new EventEmitter<boolean>();
+  @ViewChild("form") form:FormGroupDirective;// myNgForm;  
 
   constructor(
     private formBuilder: FormBuilder,    
@@ -56,8 +54,6 @@ export class UsuarioDialogComponent implements OnInit {
       this.formUsuario.controls["apellidoM"].setValue(this.data.apellidoM);
       this.formUsuario.controls["email"].setValue(this.data.email);
     }          
-    this.formulario.emit(this.form);
-    this.guardandoStatus.emit(this.guardando);
   }
   
   registrarUsuario() {

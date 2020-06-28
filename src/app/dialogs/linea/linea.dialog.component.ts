@@ -62,13 +62,14 @@ export class LineaDialogComponent implements OnInit {
       }
     );
   }
-  registrar(){    
+
+  guardarLinea(){    
     this.guardando = true;
-    this.lineaService.guardarLinea(this.formLinea.value).pipe(
+    this.lineaService.guardarLinea(this.formLinea.value).pipe(      
       finalize(()=>this.guardando=false)
     ).subscribe(
       res=>{        
-        this.dialog.close();
+        this.dialog.close({result:'ok'});
       }
     );
     
