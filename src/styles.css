@@ -1,5 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
-@import "../node_modules/@angular/material/prebuilt-themes/indigo-pink.css";
+/* @import "../node_modules/@angular/material/prebuilt-themes/indigo-pink.css"; */
 html,
 body {
   height: 100%;
@@ -80,9 +80,11 @@ mat-header-cell:first-child {
 }
 
 
-@media (max-width: 959px) {
+@media (max-width: 599px) {
   .mat-cell {
     width: 100% !important;
+    /* padding:10px; */
+    padding: 8px 0px;
   }
   .mobile-label {
     width: 30%;
@@ -101,13 +103,14 @@ mat-header-cell:first-child {
   }
 
   .mat-row {
-    /* min-width: 100%; */
+    min-height: max-content;
+    /* max-width: auto; */
     flex-direction: column;
     align-items: start;
-    padding: 0px 6px !important;
+    padding: 0px 6px !important;    
   }
 }
 
-.eyes{
+.mat-row{
   cursor: pointer;
 }

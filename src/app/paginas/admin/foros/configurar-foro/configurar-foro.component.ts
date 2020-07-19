@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
-import { ForosService } from "src/app/services/foros/foros.service";
+import { ForoService } from "src/app/services/foro/foro.service";
 import {
   FormControl,
   Validators,
@@ -23,7 +23,7 @@ import { FechaDialogComponent } from 'src/app/dialogs/fecha/fecha.dialog.compone
 
 export class ConfigurarForoComponent implements OnInit {
   
-  formConfigForo = this.formBuilder.group({
+  formConfigForo = this._formBuilder.group({
     lim_alumnos: new FormControl("", [Validators.required, Validators.min(1)]),
     num_aulas: new FormControl("", [Validators.required, Validators.min(2)]),
     duracion: new FormControl("", [Validators.required, Validators.min(15)]),
@@ -37,17 +37,17 @@ export class ConfigurarForoComponent implements OnInit {
   fecha: Fechas;
   cargando = true;  
   constructor(
-    private foroService: ForosService,
-    private formBuilder: FormBuilder,
-    private route: Router,
-    private activeRoute: ActivatedRoute,
-    private dialog: MatDialog
+    private _foroService: ForoService,
+    private _formBuilder: FormBuilder,
+    private _route: Router,
+    private _activeRoute: ActivatedRoute,
+    private _dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
-    // const params = this.activeRoute.snapshot.params;    
-    if (this.activeRoute.snapshot.params.id) {      
-      this.foroService.getForo(this.activeRoute.snapshot.params.id).subscribe(
+    // const params = this.___activeRoute.snapshot.params;    
+    if (this._activeRoute.snapshot.params.id) {      
+      this._foroService.getForo(this._activeRoute.snapshot.params.id).subscribe(
         (res) => {
           this.cargando = false;
           this.formConfigForo.get("lim_alumnos").setValue(res.lim_alumnos);
@@ -55,22 +55,22 @@ export class ConfigurarForoComponent implements OnInit {
           this.formConfigForo.get("duracion").setValue(res.duracion);
           this.formConfigForo.get("num_maestros").setValue(res.num_maestros);
           this.foro = res;
-          this.fechasDataSource = new FechasDataSource(res.fechas,this.foroService);
+          this.fechasDataSource = new FechasDataSource(res.fechas,this._foroService);
         },
-        (error) => this.route.navigate(["/Administrador/foros"])
+        (error) => this._route.navigate(["/Administrador/foros"])
       );
     }
   }
 
   submitConfigForo() {
-    this.foroService
+    this._foroService
       .configurarForo(this.foro.slug, this.formConfigForo.value).subscribe();
   }
   
   eliminarFechaForo(fecha: Date) {
     this.cerrarET();
     this.fechasDataSource.resetData();
-    this.foroService.eliminarFechaForo(fecha).pipe(
+    this._foroService.eliminarFechaForo(fecha).pipe(
         catchError(()=>{
           this.fechasDataSource.handleError();
           return throwError;
@@ -80,15 +80,15 @@ export class ConfigurarForoComponent implements OnInit {
   }
 
   openDialog() {
-    let dialog = this.dialog.open(FechaDialogComponent,{
+    let dialog = this._dialog.open(FechaDialogComponent,{
       data:{
-        slug: this.activeRoute.snapshot.params.id
+        slug: this._activeRoute.snapshot.params.id
       }
     });
     dialog.afterClosed().pipe(
       takeWhile(res=>res!=1),
       tap(()=>this.fechasDataSource.resetData()),
-      finalize(()=>this.fechasDataSource.agregarFecha(this.activeRoute.snapshot.params.id))
+      finalize(()=>this.fechasDataSource.agregarFecha(this._activeRoute.snapshot.params.id))
     ).subscribe();
   }
   mostrarET(fecha: Fechas) {
@@ -102,7 +102,7 @@ export class ConfigurarForoComponent implements OnInit {
   guardarBreak(event: MatCheckboxChange, intervalo: Fechas["intervalos"]) {
     intervalo.break = !intervalo.break;
     if (event.checked) {
-      this.foroService
+      this._foroService
         .agregarBreak(this.fecha.fecha, {
           hora: intervalo.hora,
           posicion: intervalo.posicion,
@@ -115,7 +115,7 @@ export class ConfigurarForoComponent implements OnInit {
         )
         .subscribe();
     } else {
-      this.foroService
+      this._foroService
         .eliminarBreak(this.fecha.fecha, intervalo.posicion)
         .pipe(
           catchError(() => {

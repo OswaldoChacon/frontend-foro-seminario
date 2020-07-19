@@ -3,24 +3,24 @@ import { AuthService } from 'src/app/services/auth/auth.service';
 import { NgxPermissionsService } from 'ngx-permissions';
 import { Router } from '@angular/router';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+import { MediaMatcher } from '@angular/cdk/layout';
 
 @Component({
   selector: 'app-sidenav',
   templateUrl: './sidenav.component.html',
   styleUrls: ['./sidenav.component.css']
 })
-export class SidenavComponent implements OnInit {
-  screenWidth: number;
+export class SidenavComponent implements OnInit {  
+  mobileQuery: MediaQueryList;
   roles: string[];  
   constructor(
     private permissionsService: NgxPermissionsService,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private media: MediaMatcher
   ) { 
-    this.screenWidth = window.innerWidth;
-    window.onresize = () => {
-      this.screenWidth = window.innerWidth;
-    };
+    this.mobileQuery = media.matchMedia('(min-width:1280px)');
+        
   }
 
   ngOnInit(): void {        
@@ -38,9 +38,7 @@ export class SidenavComponent implements OnInit {
   contarRoles(){
     return this.roles?.length;
   }
-  ngOnDestroy(): void {
-    //Called once, before the instance is destroyed.
-    //Add 'implements OnDestroy' to the class.
+  ngOnDestroy(): void {    
     this.permissionsService.flushPermissions();    
   }
 }

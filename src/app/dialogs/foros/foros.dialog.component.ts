@@ -1,5 +1,5 @@
 import { Component, OnInit, Optional, Inject, ViewChild, Output,EventEmitter } from '@angular/core';
-import { ForosService } from 'src/app/services/foros/foros.service';
+import { ForoService } from 'src/app/services/foro/foro.service';
 import { FormGroup, FormControl, Validators, FormGroupDirective } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Foros } from 'src/app/modelos/foro.model';
@@ -26,10 +26,10 @@ export class ForosDialogComponent implements OnInit {
     anio : new FormControl("",[Validators.required])
   }));
   editar: boolean = false;
-  constructor(private foroService: ForosService,
-    private dialog: MatDialogRef<ForosDialogComponent>,
+  constructor(private _foroService: ForoService,
+    private _dialog: MatDialogRef<ForosDialogComponent>,
     @Optional() @Inject (MAT_DIALOG_DATA) public data: Foros ) { 
-      dialog.disableClose = true;
+      _dialog.disableClose = true;
   }
 
   ngOnInit(): void {
@@ -45,20 +45,20 @@ export class ForosDialogComponent implements OnInit {
   }
   guardarForo(){
     this.guardando = true;
-    this.foroService.guardarForo(this.formForo.value).pipe(
+    this._foroService.guardarForo(this.formForo.value).pipe(
       // finalize(()=>this.guardando=false)
     ).subscribe(
-      res=>this.dialog.close()
+      res=>this._dialog.close()
     );    
   } 
   actualizarForo(){
     // console.log(form.value);
     this.guardando = true;
-    this.foroService.actualizarForo(this.data.slug, this.formForo.value).pipe(
+    this._foroService.actualizarForo(this.data.slug, this.formForo.value).pipe(
       finalize(()=>this.guardando=false)
     )
     .subscribe(
-      res=>this.dialog.close(),
+      res=>this._dialog.close(),
       (err: HttpErrorResponse) => {        
         const errores = err.error.errors;
         Object.keys(errores).forEach(fields=>{

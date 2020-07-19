@@ -1,0 +1,32 @@
+@media(min-width:599px) {
+    .mat-column-acceso{
+        max-width: 12%;        
+    }
+    .mat-column-nombreCompleto{
+        max-width: 70%;
+        padding-right: 16px;
+    }
+    .mat-column-acciones{
+        max-width: 10%;
+    }
+}
+
+.verificado {
+    color: green;
+}
+
+.error {
+    color: red;
+}
+
+.icon-check {
+    font-size: 18px;
+}
+
+.align-right {
+    display: flex;    
+    justify-content: flex-end;
+}
+/* mat-row{
+    height: auto;
+} */

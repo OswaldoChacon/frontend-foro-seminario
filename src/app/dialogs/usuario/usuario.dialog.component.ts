@@ -10,7 +10,7 @@ import {
   FormControl,
   FormGroupDirective
 } from "@angular/forms";
-import { UsersService } from "src/app/services/usuarios/users.service";
+import { UsuarioService } from "src/app/services/usuario/usuario.service";
 import { ToastrService } from "ngx-toastr";
 import { Usuario } from "src/app/modelos/usuario.model";
 import { HttpErrorResponse } from "@angular/common/http";
@@ -38,7 +38,7 @@ export class UsuarioDialogComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,    
     @Optional() @Inject(MAT_DIALOG_DATA) public data: Usuario,    
-    private usersServices: UsersService,    
+    private usersServices: UsuarioService,    
     private dialog: MatDialogRef<UsuarioDialogComponent>
   ) {    
     dialog.disableClose = true;

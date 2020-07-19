@@ -7,6 +7,7 @@ import { MaterialModule } from '../material.module';
 import { NgxPermissionsModule } from 'ngx-permissions';
 import { ButtonsComponent } from './buttons/buttons.component';
 import { TableComponent } from './table/table.component';
+import { CambiarContrasenaComponent } from './cambiar-contrasena/cambiar-contrasena.component';
 
 @NgModule({
   declarations: [
@@ -14,6 +15,7 @@ import { TableComponent } from './table/table.component';
     SidenavComponent,
     ButtonsComponent,
     TableComponent,
+    CambiarContrasenaComponent,
   ],
   imports: [
     CommonModule,

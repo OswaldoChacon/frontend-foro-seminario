@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { MatTableDataSource, MatTable } from '@angular/material/table';
 import { Linea } from 'src/app/modelos/linea.model';
 
-import { LineaService } from 'src/app/services/lineas/lineas.service';
+import { LineaService } from 'src/app/services/linea/linea.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { HttpClient } from '@angular/common/http';
 import { MatSort } from '@angular/material/sort';
@@ -24,17 +24,17 @@ export class LineasComponent implements OnInit {
   dataSource: LineaDataSource = null;
   componentDialog = LineaDialogComponent;
   constructor(
-    private LineaService: LineaService,
-    private dialog: MatDialog) { }
+    private _LineaService: LineaService,
+    private _dialog: MatDialog) { }
 
   ngOnInit() {
-    this.dataSource = new LineaDataSource(this.LineaService);
+    this.dataSource = new LineaDataSource(this._LineaService);
     this.dataSource.getLineas();
     // console.log(this.dataSource);
   }
 
   agregarLinea() {
-    let dialogRef = this.dialog.open(LineaDialogComponent);
+    let dialogRef = this._dialog.open(LineaDialogComponent);
     dialogRef.afterClosed().pipe(
       takeWhile(res => res != 1),
       tap(() => this.dataSource.resetData()),
@@ -43,7 +43,7 @@ export class LineasComponent implements OnInit {
   }
 
   editarLinea(linea: Linea) {
-    let dialogRef = this.dialog.open(LineaDialogComponent, {
+    let dialogRef = this._dialog.open(LineaDialogComponent, {
       data: linea
     });
     dialogRef.afterClosed().pipe(
@@ -55,7 +55,7 @@ export class LineasComponent implements OnInit {
 
   eliminarLinea(linea: Linea) {
     this.dataSource.resetData();
-    this.LineaService.eliminarLinea(linea.clave).pipe(      
+    this._LineaService.eliminarLinea(linea.clave).pipe(      
       catchError((error) => {
         this.dataSource.handleError();
         return throwError(error);

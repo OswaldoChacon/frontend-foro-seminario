@@ -2,7 +2,7 @@ import { Component, OnInit, EventEmitter, Output, Inject, Optional, ViewChild } 
 import { FormBuilder, FormGroup, Validators, FormControl, FormGroupDirective } from "@angular/forms";
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Linea } from 'src/app/modelos/linea.model';
-import { LineaService } from 'src/app/services/lineas/lineas.service';
+import { LineaService } from 'src/app/services/linea/linea.service';
 import { finalize } from 'rxjs/operators';
 import { HttpErrorResponse } from '@angular/common/http';
 
@@ -24,9 +24,9 @@ export class LineaDialogComponent implements OnInit {
   @Output() guardandoStatus = new EventEmitter<boolean>();
   constructor(private formBuilder: FormBuilder,   
     @Optional() @Inject (MAT_DIALOG_DATA) private data: Linea,    
-    private dialog: MatDialogRef<LineaDialogComponent>,
-    private lineaService:LineaService) {
-    dialog.disableClose = true;
+    private _dialog: MatDialogRef<LineaDialogComponent>,
+    private _lineaService:LineaService) {
+    _dialog.disableClose = true;
    }
 
   ngOnInit(): void {
@@ -42,12 +42,12 @@ export class LineaDialogComponent implements OnInit {
   editarLinea()
   {
     this.guardando = true;    
-    this.lineaService.actualizarLinea(this.data.clave, this.formLinea.value).pipe(
+    this._lineaService.actualizarLinea(this.data.clave, this.formLinea.value).pipe(
       finalize(()=>this.guardando=false)
       )
     .subscribe(
       (res : any)=> {              
-        this.dialog.close();        
+        this._dialog.close();        
       },
       (err: HttpErrorResponse) => {        
         const errores = err.error.errors;
@@ -65,11 +65,11 @@ export class LineaDialogComponent implements OnInit {
 
   guardarLinea(){    
     this.guardando = true;
-    this.lineaService.guardarLinea(this.formLinea.value).pipe(      
+    this._lineaService.guardarLinea(this.formLinea.value).pipe(      
       finalize(()=>this.guardando=false)
     ).subscribe(
       res=>{        
-        this.dialog.close({result:'ok'});
+        this._dialog.close({result:'ok'});
       }
     );
     

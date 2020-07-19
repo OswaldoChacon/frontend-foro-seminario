@@ -18,7 +18,7 @@
     </mat-menu>
   </app-header>
   <mat-sidenav-container class="sidenav-container" autosize>
-    <mat-sidenav #sidenav [mode]="screenWidth > 1200 ? 'side' : 'over'" [opened]="screenWidth > 1200" autosize>
+    <mat-sidenav #sidenav [mode]="mobileQuery.matches  ? 'side' : 'over'" [opened]="mobileQuery.matches" autosize>
       <!-- <ng-content></ng-content> -->
       <!-- <app-admin></app-admin> -->
       
@@ -85,12 +85,13 @@
         <a [routerLink]="['registrar-proyecto']" routerLinkActive="active" *ngxPermissionsOnly="['Alumno']">
           <mat-list-item role="listitems">Registrar proyecto</mat-list-item>
         </a>
+        <a mat-list-item [routerLink]="[ 'cambiar_contrasena']">Cambiar contraseña</a>
       </mat-nav-list> 
     </mat-sidenav>
     <mat-sidenav-content class="sidenav-content">
-      <mat-card>
+      <!-- <mat-card> -->
         <router-outlet></router-outlet>
-      </mat-card>      
+      <!-- </mat-card>       -->
     </mat-sidenav-content>
   </mat-sidenav-container>
 </div>

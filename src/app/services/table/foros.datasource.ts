@@ -2,7 +2,7 @@ import { DataSource } from "@angular/cdk/table";
 import { CollectionViewer } from "@angular/cdk/collections";
 import { BehaviorSubject, of } from "rxjs";
 import { Foros } from "src/app/modelos/foro.model";
-import { ForosService } from "../foros/foros.service";
+import { ForoService } from "../foro/foro.service";
 import { finalize, catchError } from "rxjs/operators";
 
 export class ForosDataSource extends DataSource<Foros> {
@@ -11,7 +11,7 @@ export class ForosDataSource extends DataSource<Foros> {
   private total: number = 0;
   private por_pagina: number = 0;
   private foros: Foros[] = [];
-  constructor(private foroService: ForosService) {
+  constructor(private foroService: ForoService) {
     super();
   }
   cargarForos(pagina) {

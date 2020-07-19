@@ -7,7 +7,7 @@ import {
   FormArray,
   AbstractControl,
 } from "@angular/forms";
-import { ForosService } from "src/app/services/foros/foros.service";
+import { ForoService } from "src/app/services/foro/foro.service";
 import { tap, finalize, filter, map } from "rxjs/operators";
 import { ProyectosService } from "src/app/services/proyectos/proyectos.service";
 
@@ -27,7 +27,7 @@ export class RegistrarProyectoComponent implements OnInit {
   alumnos: any;
   lim_alumnos: number = 0;
 
-  formRegistrar = this.formBuilder.group({
+  formRegistrar = this._formBuilder.group({
     alumnos: new FormArray([]),
     titulo: ["", [Validators.required]],
     linea: new FormControl("", [Validators.required]),
@@ -38,13 +38,13 @@ export class RegistrarProyectoComponent implements OnInit {
     // alumnos: new FormControl([])
   });
   constructor(
-    private formBuilder: FormBuilder,
-    private foroService: ForosService,
-    private proyectoService: ProyectosService
+    private _formBuilder: FormBuilder,
+    private _foroService: ForoService,
+    private _proyectoService: ProyectosService
   ) {}
 
   ngOnInit(): void {
-    this.foroService
+    this._foroService
       .foroActual()
       .pipe(finalize(() => (this.cargando = false)))
       .subscribe((res: any) => {
@@ -75,7 +75,7 @@ export class RegistrarProyectoComponent implements OnInit {
     return <FormArray>this.formRegistrar.get("alumnos");
   }
   registrar() {
-    this.proyectoService
+    this._proyectoService
       .registrarProyecto(this.formRegistrar.value)
       .subscribe();
     console.log(this.formRegistrar.value);

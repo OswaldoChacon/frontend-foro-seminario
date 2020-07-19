@@ -1,9 +1,9 @@
 import { CollectionViewer, DataSource } from "@angular/cdk/collections";
 import { Observable, BehaviorSubject, of, merge, throwError } from "rxjs";
 
-import { catchError, finalize, map } from "rxjs/operators";
+import { catchError, finalize, map, tap } from "rxjs/operators";
 import { Usuario } from "src/app/modelos/usuario.model";
-import { UsersService } from "../usuarios/users.service";
+import { UsuarioService } from "../usuario/usuario.service";
 
 export class UsuarioDataSource extends DataSource<Usuario> {
   private usuariosSubject = new BehaviorSubject<Usuario[]>([]);
@@ -13,19 +13,15 @@ export class UsuarioDataSource extends DataSource<Usuario> {
   private usuarios: Usuario[];
   total: number = 0;
   por_pagina: number = 0;
-  constructor(private userService: UsersService) {
+  constructor(private _usuarioService: UsuarioService) {
     super();
   }
 
 
-  confirmados() {
-    this.userService
-      .confirmados()
-      .subscribe((res) => this.usuariosSubject.next(res));
-  }
+ 
 
-  getUsuarios(pagina: number) {
-    this.userService.getUsuarios(pagina).pipe(
+  getUsuarios(pagina: number,rol:string,num_control:string ) {
+    this._usuarioService.getUsuarios(pagina,rol,num_control).pipe(      
       catchError((error) => {
         this.handleError();
         return throwError(error)
@@ -65,43 +61,10 @@ export class UsuarioDataSource extends DataSource<Usuario> {
     this.usuarios[index] = usuario;
     this.usuariosSubject.next(this.usuarios);
   }
-  
-  buscarUsuarios(num_control: string) {
-    this.resetData();
-    if (!num_control.trim()) {
-      this.getUsuarios(0);
-    } else {
-      this.userService
-        .buscarUsuarios(num_control)
-        .pipe(
-          catchError(() => of([])),
-          finalize(() => this.loadingSubject.next(false))
-        )
-        .subscribe((usuarios) => {                    
-          this.usuariosSubject.next(usuarios);          
-          this.total = usuarios.length;          
-        });
-    }
-  }
 
   getTotalUsuariosPerPage() {
     return this.usuariosSubject?.value?.length;
   }
 
-  filtro(filtro, valorFiltro) {
-    this.usuariosSubject.next([]);
-    this.loadingSubject.next(true);
-    this.userService
-      .filtrado(filtro, valorFiltro)
-      .pipe(
-        catchError(() => of([])),
-        finalize(() => this.loadingSubject.next(false))
-      )
-      .subscribe((lessons) => {
-        this.total = lessons['total'];
-        this.por_pagina = lessons['per_page'];
-        this.usuariosSubject.next(lessons);
-        this.usuarios = lessons['data'];
-      });
-  }
+ 
 }

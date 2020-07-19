@@ -7,7 +7,7 @@ import { Fechas } from "src/app/modelos/fechas.model";
 @Injectable({
   providedIn: "root",
 })
-export class ForosService {
+export class ForoService {
   constructor(private http: HttpClient) {}
   cargarForos(pagina) {
     return this.http.get<Foros[]>(`api/foros`, {

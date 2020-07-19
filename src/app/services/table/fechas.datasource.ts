@@ -2,14 +2,14 @@ import { DataSource } from "@angular/cdk/table";
 import { CollectionViewer } from "@angular/cdk/collections";
 import { Observable, BehaviorSubject, throwError } from "rxjs";
 import { Fechas } from "src/app/modelos/fechas.model";
-import { ForosService } from "../foros/foros.service";
+import { ForoService } from "../foro/foro.service";
 import { finalize, catchError } from "rxjs/operators";
 
 export class FechasDataSource extends DataSource<any> {
   private fechasSubject = new BehaviorSubject<Fechas[]>([]);
   private listaFechas: Fechas[];
   private fechasLoading = new BehaviorSubject<boolean>(false);
-  constructor(fechas: Fechas[], private foroService: ForosService) {
+  constructor(fechas: Fechas[], private _foroService: ForoService) {
     super();
     this.fechasSubject.next(fechas);
     this.listaFechas = fechas;
@@ -24,7 +24,7 @@ export class FechasDataSource extends DataSource<any> {
   // agregarFecha(fecha: Fechas) {
   agregarFecha(slug: string) {
     this.fechasLoading.next(true);
-    this.foroService
+    this._foroService
       .getForo(slug)
       .pipe(
         catchError(()=>{

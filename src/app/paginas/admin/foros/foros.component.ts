@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from "@angular/core";
 import { MatTabGroup } from "@angular/material/tabs";
 import { MatTableDataSource } from "@angular/material/table";
 import { ForosDataSource } from "src/app/services/table/foros.datasource";
-import { ForosService } from "src/app/services/foros/foros.service";
+import { ForoService } from "src/app/services/foro/foro.service";
 import { PageEvent, MatPaginator } from "@angular/material/paginator";
 import { MatDialog } from "@angular/material/dialog";
 import { ForosDialogComponent } from "src/app/dialogs/foros/foros.dialog.component";
@@ -23,14 +23,14 @@ export class ForosComponent implements OnInit {
   pageEvent: PageEvent;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  constructor(private foroService: ForosService, private dialog: MatDialog) {}
+  constructor(private _foroService: ForoService, private _dialog: MatDialog) {}
 
   ngOnInit(): void {
-    this.dataSource = new ForosDataSource(this.foroService);
+    this.dataSource = new ForosDataSource(this._foroService);
     this.dataSource.cargarForos(1);
   }
   abrirDialog() {
-    let dialogRef = this.dialog.open(ForosDialogComponent);
+    let dialogRef = this._dialog.open(ForosDialogComponent);
     dialogRef.afterClosed().pipe(
       takeWhile(res=>res!=1),
       tap(()=>this.dataSource.resetData()),
@@ -50,7 +50,7 @@ export class ForosComponent implements OnInit {
   }
   
   editarForo(foro: Foros) {
-    let dialogRef = this.dialog.open(ForosDialogComponent, { data: foro });
+    let dialogRef = this._dialog.open(ForosDialogComponent, { data: foro });
     dialogRef
       .afterClosed()
       .pipe(
@@ -63,7 +63,7 @@ export class ForosComponent implements OnInit {
   }
   eliminarForo(slug: string) {    
     this.dataSource.resetData()
-    this.foroService.eliminarForo(slug).pipe(        
+    this._foroService.eliminarForo(slug).pipe(        
         catchError((error)=>{
           this.dataSource.cargarForosLocal();
           return throwError(error)

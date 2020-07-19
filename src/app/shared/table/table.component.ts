@@ -1,8 +1,8 @@
-import { Component, OnInit, Input, Output } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { UsuarioDialogComponent } from 'src/app/dialogs/usuario/usuario.dialog.component';
 import { ComponentType } from '@angular/cdk/portal';
-import { EventEmitter } from 'protractor';
+
 
 @Component({
   selector: 'app-table',
@@ -14,22 +14,32 @@ export class TableComponent implements OnInit {
   @Input() dataSource;
   @Input() columnsHeader;
   @Input() componentDialog: ComponentType<any>;
-  @Output() resultado = new EventEmitter();
+  @Output() emitData = new EventEmitter();
   // componentDialog : ComponentType<any> = UsuarioDialogComponent;
   objectKeys = Object.keys;
   constructor(
-    private dialog: MatDialog
+    private _dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
   }
   
   agregarRegistro(){
-    let dialogRef = this.dialog.open(this.componentDialog);
+    const dialogRef = this._dialog.open(this.componentDialog);
     dialogRef.afterClosed().subscribe(res=>{
       console.log(res);
       // this.resultado.emit(res);
     });
+  }
+  editarRegistro(registro:any){
+    const dialogRef = this._dialog.open(this.componentDialog,{
+      data: registro
+    })
+  }
+
+  emitirData(data:any, opcion?:any, valorOpcion?:string){
+    this.emitData.emit({data,opcion,valorOpcion});
+
   }
 
 

@@ -8,7 +8,7 @@ import {
   ValidationErrors,
 } from "@angular/forms";
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { ForosService } from 'src/app/services/foros/foros.service';
+import { ForoService } from 'src/app/services/foro/foro.service';
 import { finalize } from 'rxjs/operators';
 
 @Component({
@@ -22,7 +22,7 @@ export class FechaDialogComponent implements OnInit {
   @Output() formulario = new EventEmitter<any>();
   @Output() guardandoStatus = new EventEmitter<boolean>();
 
-  formFechaForo  = this.formBuilder.group({
+  formFechaForo  = this._formBuilder.group({
     fecha: new FormControl("",[Validators.required]),
     hora_inicio: new FormControl("",[Validators.required]),
     hora_termino: new FormControl("",[Validators.required])
@@ -30,12 +30,12 @@ export class FechaDialogComponent implements OnInit {
   hoy = new Date();
   guardando: boolean = false;
   constructor(
-    private formBuilder: FormBuilder,
-    private dialog: MatDialogRef<FechaDialogComponent>,
-    private foroService: ForosService,
+    private _formBuilder: FormBuilder,
+    private _dialog: MatDialogRef<FechaDialogComponent>,
+    private _foroService: ForoService,
     @Optional() @Inject(MAT_DIALOG_DATA) private data: any,    
   ) { 
-    dialog.disableClose = true;
+    _dialog.disableClose = true;
   }
 
   ngOnInit(): void {
@@ -45,10 +45,10 @@ export class FechaDialogComponent implements OnInit {
 
   guardarFechaForo() {
     this.guardando = true;
-    this.foroService.agregarFechaForo(this.data.slug,this.formFechaForo.value).pipe(      
+    this._foroService.agregarFechaForo(this.data.slug,this.formFechaForo.value).pipe(      
       finalize(()=>this.guardando=false)
     ).subscribe(
-      res=>this.dialog.close({data: this.formFechaForo.value})
+      res=>this._dialog.close({data: this.formFechaForo.value})
     );
     // this.fechasDataSource.resetData();
     // this.foroService

@@ -1,14 +1,14 @@
-export class Usuario{
+export class Usuario {
     id: number;
-    nombre:string;
-    apellidoP?:string;
-    apellidoM?:string;
-    num_control:string;
-    email?: string;    
+    nombre: string;
+    apellidoP?: string;
+    apellidoM?: string;
+    num_control: string;
+    email?: string;
     jurado?: boolean
     roles?: [
         {
-            nombre:string,
+            nombre: string,
             is: boolean
         }
     ]
