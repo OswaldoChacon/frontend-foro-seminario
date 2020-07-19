@@ -11,6 +11,7 @@ import { map, catchError, finalize, takeWhile, tap } from 'rxjs/operators';
 import { MatDialog } from '@angular/material/dialog';
 import { LineaDialogComponent } from 'src/app/dialogs/linea/linea.dialog.component';
 import { LineaDataSource } from 'src/app/services/table/lineas.datasource';
+import { Router, ActivatedRoute } from '@angular/router';
 
 
 @Component({
@@ -19,48 +20,41 @@ import { LineaDataSource } from 'src/app/services/table/lineas.datasource';
   styleUrls: ['./lineas.component.css']
 })
 export class LineasComponent implements OnInit {
-  columnasTabla = ['clave', 'nombre', 'acciones'];
-  columnHeader = {'clave': 'Clave', 'nombre': 'Nombre', 'acciones': 'Acciones'};
+  columnHeader = { 'clave': 'Clave', 'nombre': 'Nombre', 'acciones': '' };
   dataSource: LineaDataSource = null;
   componentDialog = LineaDialogComponent;
+  private url: string;
   constructor(
     private _LineaService: LineaService,
+    private _router: Router,
     private _dialog: MatDialog) { }
 
   ngOnInit() {
+    this.url = this._router.url.includes('lineas-investigacion') ? 'lineas' : 'tiposProyecto';
+    console.log(this.url);
     this.dataSource = new LineaDataSource(this._LineaService);
-    this.dataSource.getLineas();
+    this.dataSource.getLineas(this.url);
     // console.log(this.dataSource);
   }
 
-  agregarLinea() {
-    let dialogRef = this._dialog.open(LineaDialogComponent);
-    dialogRef.afterClosed().pipe(
-      takeWhile(res => res != 1),
-      tap(() => this.dataSource.resetData()),
-      finalize(() => this.dataSource.getLineas())
-    ).subscribe();
+  cargarTable(event: { data?: Linea, opcion?: string, valorOpcion?: string }) {
+    if (event.opcion === 'refresh')
+      this.dataSource.getLineas(this.url)
+    if (event.opcion === 'eliminar')
+      this.eliminarLinea(event.data);
+    console.log(event);
   }
 
-  editarLinea(linea: Linea) {
-    let dialogRef = this._dialog.open(LineaDialogComponent, {
-      data: linea
-    });
-    dialogRef.afterClosed().pipe(
-      takeWhile(res=>res!=1),
-      tap(()=>this.dataSource.resetData()),
-      finalize(()=>this.dataSource.getLineas())
-    ).subscribe();
-  }
+
 
   eliminarLinea(linea: Linea) {
-    this.dataSource.resetData();
-    this._LineaService.eliminarLinea(linea.clave).pipe(      
+    // this.dataSource.resetData();
+    this._LineaService.eliminarLinea(linea.clave).pipe(
       catchError((error) => {
         this.dataSource.handleError();
         return throwError(error);
       }),
       // finalize(() => )
-    ).subscribe(() => this.dataSource.getLineas());    
+    ).subscribe(() => this.dataSource.getLineas(this.url));
   }
 }

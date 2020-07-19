@@ -6,11 +6,10 @@ import { Usuario } from "src/app/modelos/usuario.model";
 import { UsuarioService } from "../usuario/usuario.service";
 
 export class UsuarioDataSource extends DataSource<Usuario> {
+  private usuarios: Usuario[];
   private usuariosSubject = new BehaviorSubject<Usuario[]>([]);
   private loadingSubject = new BehaviorSubject<boolean>(true);
   loading$ = this.loadingSubject.asObservable();
-
-  private usuarios: Usuario[];
   total: number = 0;
   por_pagina: number = 0;
   constructor(private _usuarioService: UsuarioService) {
@@ -21,6 +20,7 @@ export class UsuarioDataSource extends DataSource<Usuario> {
  
 
   getUsuarios(pagina: number,rol:string,num_control:string ) {
+    this.resetData();
     this._usuarioService.getUsuarios(pagina,rol,num_control).pipe(      
       catchError((error) => {
         this.handleError();

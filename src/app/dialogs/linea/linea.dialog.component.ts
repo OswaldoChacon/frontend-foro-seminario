@@ -23,7 +23,7 @@ export class LineaDialogComponent implements OnInit {
   @Output() formulario = new EventEmitter<FormGroupDirective>();
   @Output() guardandoStatus = new EventEmitter<boolean>();
   constructor(private formBuilder: FormBuilder,   
-    @Optional() @Inject (MAT_DIALOG_DATA) private data: Linea,    
+    @Optional() @Inject (MAT_DIALOG_DATA) private data: {linea:Linea,url:string},    
     private _dialog: MatDialogRef<LineaDialogComponent>,
     private _lineaService:LineaService) {
     _dialog.disableClose = true;
@@ -32,8 +32,8 @@ export class LineaDialogComponent implements OnInit {
   ngOnInit(): void {
     if (this.data != null) {
       this.editar = true;
-      this.formLinea.get('clave').setValue(this.data.clave);
-      this.formLinea.get('nombre').setValue(this.data.nombre);      
+      this.formLinea.get('clave').setValue(this.data.linea.clave);
+      this.formLinea.get('nombre').setValue(this.data.linea.nombre);      
     }    
     this.formulario.emit(this.form);
     this.guardandoStatus.emit(this.guardando);
@@ -42,12 +42,13 @@ export class LineaDialogComponent implements OnInit {
   editarLinea()
   {
     this.guardando = true;    
-    this._lineaService.actualizarLinea(this.data.clave, this.formLinea.value).pipe(
+    this._lineaService.actualizarLinea(this.data.linea.clave, this.formLinea.value, this.data.url).pipe(
       finalize(()=>this.guardando=false)
       )
     .subscribe(
       (res : any)=> {              
-        this._dialog.close();        
+        this._dialog.close({opcion:'refresh'});        
+        // res=>this.dialog.close({opcion:'refresh'}),
       },
       (err: HttpErrorResponse) => {        
         const errores = err.error.errors;
@@ -65,11 +66,11 @@ export class LineaDialogComponent implements OnInit {
 
   guardarLinea(){    
     this.guardando = true;
-    this._lineaService.guardarLinea(this.formLinea.value).pipe(      
+    this._lineaService.guardarLinea(this.formLinea.value,this.data.url).pipe(      
       finalize(()=>this.guardando=false)
     ).subscribe(
       res=>{        
-        this._dialog.close({result:'ok'});
+        this._dialog.close({opcion:'refresh'});
       }
     );
     

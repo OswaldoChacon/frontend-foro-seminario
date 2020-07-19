@@ -38,8 +38,7 @@ export class UsuariosComponent implements OnInit {
 
   constructor(
     private _usuarioService: UsuarioService,
-    private _rolService: RolesService,
-    private _dialog: MatDialog,
+    private _rolService: RolesService,    
   ) { }
 
 
@@ -48,18 +47,18 @@ export class UsuariosComponent implements OnInit {
     this._rolService.getRoles().subscribe(res => this.roles = res);
   }
 
-  seleccionarRol(rolSeleccionado: string) {
-    this.dataSource.resetData();
+  seleccionarRol(rolSeleccionado: string) {    
     this.rolSeleccionado = rolSeleccionado;
-    this.dataSource.getUsuarios(1, this.rolSeleccionado, this.input.nativeElement.value);
+    this.paginator.pageIndex = 0;    
+    this.getUsuarios();
   }
-  cargarTable(event: {data:Usuario, opcion?:any, valorOpcion?:string}) {
-    if(event.opcion === 'Eliminar')
+  cargarTable(event: { data?: Usuario, opcion?: any, valorOpcion?: string }) {
+    if (event.opcion === 'Eliminar')
       this.eliminarUsuario(event.data.num_control);
-    if(event.opcion instanceof MatCheckboxChange)
-      this.agregarRol(event.opcion,event.data,event.valorOpcion);
-    // if(event.opcion === 'Agregar rol')      
-    //   this.agregarRol()
+    if (event.opcion instanceof MatCheckboxChange)
+      this.agregarRol(event.opcion, event.data, event.valorOpcion);
+    if (event.opcion === 'refresh')
+      this.getUsuarios();    
     console.log(event);
   }
 
@@ -67,49 +66,36 @@ export class UsuariosComponent implements OnInit {
     fromEvent(this.input.nativeElement, 'keyup').pipe(
       debounceTime(150),
       distinctUntilChanged(),
-      tap(() => {
-        this.dataSource.resetData();
-        this.paginator.pageIndex = 0;
-        this.dataSource.getUsuarios(this.paginator.pageIndex + 1, this.rolSeleccionado, this.input.nativeElement.value);
+      tap(() => {        
+        this.paginator.pageIndex = 0;        
+        this.getUsuarios();
       })
     ).subscribe();
 
     this.paginator.page.pipe(
-      tap(() => {
-        this.dataSource.resetData();
-        this.dataSource.getUsuarios(this.paginator.pageIndex + 1, this.rolSeleccionado, this.input.nativeElement.value);
+      tap(() => {        
+        this.getUsuarios();        
       })
     ).subscribe();
-    this.dataSource.getUsuarios(1, this.rolSeleccionado, this.input.nativeElement.value);
+    this.getUsuarios();    
 
-  }
+  } 
 
-  agregarUsuario(): void {
-    let dialogRef = this._dialog.open(UsuarioDialogComponent);
-    dialogRef.afterClosed().pipe(
-      takeWhile(res => res != 1),
-      tap(() => this.dataSource.resetData()),
-    ).subscribe(() => this.dataSource.getUsuarios(1, this.rolSeleccionado, this.input.nativeElement.value));
-  }
-
-  editarUsuario(usuario: Usuario) {
-    let dialogRef = this._dialog.open(UsuarioDialogComponent, {
-      data: usuario,
-    });
-    dialogRef.afterClosed().pipe(
-      takeWhile(res => res != 1),
-      tap(() => this.dataSource.resetData())
-    ).subscribe(() => this.dataSource.getUsuarios(1, this.rolSeleccionado, this.input.nativeElement.value));
-  }
-
-  eliminarUsuario(num_control: string) {
+  eliminarUsuario(num_control: string) {    
     this.dataSource.resetData();
     this._usuarioService.eliminarUsuario(num_control).pipe(
       catchError((error) => {
         this.dataSource.handleError();
         return throwError(error);
       }),
-    ).subscribe(() => this.dataSource.getUsuarios(1, this.rolSeleccionado, this.input.nativeElement.value));
+    ).subscribe(() => this.getUsuarios());
+  }
+
+  getUsuarios() {
+    this.dataSource.getUsuarios(
+      this.paginator.pageIndex + 1,
+      this.rolSeleccionado,
+      this.input.nativeElement.value);
   }
 
   agregarRol(event: MatCheckboxChange, user: Usuario, rol: string) {

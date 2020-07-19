@@ -1,13 +1,19 @@
-@media(min-width:599px) {
+@media(min-width:600px) {
     .mat-column-acceso{
         max-width: 12%;        
     }
     .mat-column-nombreCompleto{
-        max-width: 70%;
-        padding-right: 16px;
+        max-width: 75%;
+        /* padding-right: 16px; */
     }
     .mat-column-acciones{
         max-width: 10%;
+    }
+    .mat-column-clave{
+        max-width: 30%;
+    }
+    .mat-column-nombre, .mat-column-clave, .mat-column-nombreCompleto{
+        padding-right: 14px;
     }
 }
 

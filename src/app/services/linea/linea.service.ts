@@ -7,25 +7,21 @@ import { Linea } from 'src/app/modelos/linea.model';
 @Injectable({
   providedIn: 'root'
 })
-export class LineaService  {
-  API_URL = "http://localhost:8000/api";    
+export class LineaService {
   constructor(private http: HttpClient) { }
-  
 
-  cargarLineas():  Observable<Linea[]> 
-  {
-    return this.http.get<Linea[]>(`/api/lineas`);
-  }  
-  guardarLinea(linea:Linea)
-  {
-    return this.http.post(`/api/registrar_linea`,linea);
+
+  getLineas(url: string) {
+    return this.http.get<Linea[]>(`/api/${url}`);
   }
-  actualizarLinea(claveLinea: string, linea: Linea){
-    return this.http.put(`${this.API_URL}/actualizar_linea/${claveLinea}`,linea);
+  guardarLinea(linea: Linea, url: string) {
+    return this.http.post(`/api/registrar_${url}`, linea);
   }
-  eliminarLinea(linea_id : string)
-  {
-    return this.http.delete(`${this.API_URL}/eliminar_linea/${linea_id}`);
+  actualizarLinea(claveLinea: string, linea: Linea, url: string) {
+    return this.http.put(`api/actualizar_${url}/${claveLinea}`, linea);
+  }
+  eliminarLinea(linea_id: string) {
+    return this.http.delete(`api/eliminar_linea/${linea_id}`);
   }
 }
 

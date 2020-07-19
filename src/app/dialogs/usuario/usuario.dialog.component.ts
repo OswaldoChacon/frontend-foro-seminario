@@ -22,7 +22,7 @@ import { finalize, tap } from 'rxjs/operators';
   styleUrls: ["./usuario.dialog.component.css"]
 })
 export class UsuarioDialogComponent implements OnInit {
-  formUsuario = this.formBuilder.group({      
+  formUsuario = this._formBuilder.group({      
     email: ["", [Validators.required, Validators.email]],
     nombre: new FormControl("", [Validators.required]),
     apellidoP: new FormControl("", [Validators.required]),
@@ -36,12 +36,12 @@ export class UsuarioDialogComponent implements OnInit {
   @ViewChild("form") form:FormGroupDirective;// myNgForm;  
 
   constructor(
-    private formBuilder: FormBuilder,    
+    private _formBuilder: FormBuilder,    
     @Optional() @Inject(MAT_DIALOG_DATA) public data: Usuario,    
-    private usersServices: UsuarioService,    
-    private dialog: MatDialogRef<UsuarioDialogComponent>
+    private _usuarioService: UsuarioService,    
+    private _dialog: MatDialogRef<UsuarioDialogComponent>
   ) {    
-    dialog.disableClose = true;
+    _dialog.disableClose = true;
   }
 
 
@@ -58,11 +58,11 @@ export class UsuarioDialogComponent implements OnInit {
   
   registrarUsuario() {
     this.guardando = true;
-    this.usersServices.guardarUsuario(this.formUsuario.value).pipe(
+    this._usuarioService.guardarUsuario(this.formUsuario.value).pipe(
       finalize(()=>this.guardando = false)
     ).subscribe(
       (res: any) => {                           
-        this.dialog.close();                
+        this._dialog.close({opcion:'refresh'});
       },
       (err: HttpErrorResponse) => {                
         let errores = err.error.errors;
@@ -79,11 +79,11 @@ export class UsuarioDialogComponent implements OnInit {
   }
   editarUsuario() {    
     this.guardando = true;
-    this.usersServices.actualizarUsuario(this.data.num_control, this.form.value).pipe(    
+    this._usuarioService.actualizarUsuario(this.data.num_control, this.form.value).pipe(    
       finalize(()=>this.guardando=false)
       )
     .subscribe(
-      res=>this.dialog.close(),
+      res=>this._dialog.close({opcion:'refresh'}),
       (err: HttpErrorResponse) => {        
         const errores = err.error.errors;
         Object.keys(errores).forEach(fields=>{

@@ -9,30 +9,33 @@ export class LineaDataSource extends DataSource<Linea> {
   private lineas: Linea[] = [];
   private loadingSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
   loading$ = this.loadingSubject.asObservable();
-  constructor(private lineaService: LineaService) {
+  total: number = 0;
+  constructor(private _lineaService: LineaService) {
     super();
   }
-  
+
   connect(CollectionViewer: CollectionViewer): Observable<Linea[]> {
     return this.lineaSubject.asObservable();
   }
-  
-  disconnect() { 
+
+  disconnect() {
     this.lineaSubject.complete();
     this.loadingSubject.complete();
   }
 
-  getLineas() {
-    this.lineaService.cargarLineas().pipe(
-        catchError(() => []),
-        finalize(() => this.loadingSubject.next(false))
-      ).subscribe((res) => {
-        this.lineas = res;
-        this.lineaSubject.next(this.lineas);
-      });
+  getLineas(url:string) {
+    this.resetData();
+    this._lineaService.getLineas(url).pipe(
+      catchError(() => []),
+      finalize(() => this.loadingSubject.next(false))
+    ).subscribe((res) => {
+      this.lineas = res;
+      this.lineaSubject.next(this.lineas);
+      this.total =  this.lineas?.length;
+    });
   }
-  
-  handleError(){
+
+  handleError() {
     this.lineaSubject.next(this.lineas);
     this.loadingSubject.next(false);
   }

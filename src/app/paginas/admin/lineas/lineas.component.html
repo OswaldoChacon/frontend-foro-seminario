@@ -34,7 +34,9 @@
   <mat-header-row *matHeaderRowDef="columnasTabla"></mat-header-row>
   <mat-row *matRowDef="let linea; columns: columnasTabla"></mat-row>
 </mat-table> -->
-<app-table [dataSource]="dataSource" [columnsHeader]="columnHeader" [componentDialog]="componentDialog"></app-table>
+<mat-card>
+  <app-table [dataSource]="dataSource" [columnsHeader]="columnHeader" [componentDialog]="componentDialog" (emitData)="cargarTable($event)"></app-table>
+</mat-card>
 <!-- <div *ngIf="!(dataSource.loading$  | async) && !dataSource.totalItems()" class="center-message">
   No se ha encontrado ningún registro
 </div>

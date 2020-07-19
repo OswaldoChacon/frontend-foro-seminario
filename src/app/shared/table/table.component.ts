@@ -34,7 +34,8 @@ export class TableComponent implements OnInit {
   editarRegistro(registro:any){
     const dialogRef = this._dialog.open(this.componentDialog,{
       data: registro
-    })
+    });
+    dialogRef.afterClosed().subscribe(res=>this.emitData.emit(res));
   }
 
   emitirData(data:any, opcion?:any, valorOpcion?:string){
