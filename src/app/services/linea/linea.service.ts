@@ -20,8 +20,8 @@ export class LineaService {
   actualizarLinea(claveLinea: string, linea: Linea, url: string) {
     return this.http.put(`api/actualizar_${url}/${claveLinea}`, linea);
   }
-  eliminarLinea(linea_id: string) {
-    return this.http.delete(`api/eliminar_linea/${linea_id}`);
+  eliminarLinea(linea_id: string,url:string) {
+    return this.http.delete(`api/eliminar_${url}/${linea_id}`);
   }
 }
 

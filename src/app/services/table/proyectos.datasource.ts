@@ -6,54 +6,49 @@ import { finalize, catchError } from 'rxjs/operators';
 import { ProyectosService } from '../proyectos/proyectos.service';
 
 export class ProyectosDataSource extends DataSource<Proyectos> {
+  private proyectosSubject: BehaviorSubject<Proyectos[]> = new BehaviorSubject<Proyectos[]>([]);
+  private loadingSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
+  loading$ = this.loadingSubject.asObservable();
   total: number;
   por_pagina: number;
-  proyectos: any;  
+  private proyectos: Proyectos[];
   private docentes: any;
   constructor(private proyectoService: ProyectosService, private slug: string) {
     super();
   }
 
-  proyectosSubject: BehaviorSubject<Proyectos[]> = new BehaviorSubject<
-    Proyectos[]
-  >([]);
-  proyectosLoading: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(
-    true
-  );
+  
 
   connect(collectionViewer: CollectionViewer) {
     return this.proyectosSubject.asObservable();
   }
-  disconnect() {}
-  cargarProyectos(pagina:string) {
+  disconnect() { 
+    this.proyectosSubject.complete();
+    this.loadingSubject.complete();
+  }
+
+  cargarProyectos(pagina: string) {
     this.resetData();
-    this.proyectoService.getProyectos(this.slug,pagina).pipe(
-      finalize(()=>this.proyectosLoading.next(false)),
-      catchError(()=>([]))
+    this.proyectoService.getProyectos(this.slug, pagina).pipe(
+      finalize(() => this.loadingSubject.next(false)),
+      catchError(() => ([]))
     ).subscribe((res: any) => {
       this.proyectosSubject.next(res['proyectos']['data']);
       this.total = res['proyectos']['total'];
       this.por_pagina = res['proyectos']['per_page'];
-      this.proyectos = res['proyectos']['data'];      
+      this.proyectos = res['proyectos']['data'];
+      localStorage.setItem('docentes',JSON.stringify(res['docentes']));
       this.docentes = res['docentes'];
-    });  
-    
-  }
-  totalItems(): number {
-    return this.total;
-  }
+    });
 
-  ItemsPorPagina(): number {
-    return this.por_pagina;
   }
+ 
   resetData() {
     this.proyectosSubject.next([]);
-    this.proyectosLoading.next(true);
+    this.loadingSubject.next(true);
   }
-  spinnerValue(){
-    return this.proyectosLoading;
-  } 
-  getDocentes(){
+ 
+  getDocentes() {
     return this.docentes;
   }
 }

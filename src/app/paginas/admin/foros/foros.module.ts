@@ -7,6 +7,7 @@ import { ConfigurarForoComponent } from './configurar-foro/configurar-foro.compo
 import { MaterialModule } from "src/app/material.module";
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ListaForosComponent } from './lista-foros/lista-foros.component';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { ListaForosComponent } from './lista-foros/lista-foros.component';
     ForosRoutingModule,
     MaterialModule,
     FormsModule,
+    SharedModule,
     ReactiveFormsModule,
   ]
 })

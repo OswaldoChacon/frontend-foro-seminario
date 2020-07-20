@@ -23,7 +23,7 @@ export class LineasComponent implements OnInit {
   columnHeader = { 'clave': 'Clave', 'nombre': 'Nombre', 'acciones': '' };
   dataSource: LineaDataSource = null;
   componentDialog = LineaDialogComponent;
-  private url: string;
+  url: string;
   constructor(
     private _LineaService: LineaService,
     private _router: Router,
@@ -40,7 +40,7 @@ export class LineasComponent implements OnInit {
   cargarTable(event: { data?: Linea, opcion?: string, valorOpcion?: string }) {
     if (event.opcion === 'refresh')
       this.dataSource.getLineas(this.url)
-    if (event.opcion === 'eliminar')
+    if (event.opcion === 'Eliminar')
       this.eliminarLinea(event.data);
     console.log(event);
   }
@@ -48,8 +48,8 @@ export class LineasComponent implements OnInit {
 
 
   eliminarLinea(linea: Linea) {
-    // this.dataSource.resetData();
-    this._LineaService.eliminarLinea(linea.clave).pipe(
+    this.dataSource.resetData();
+    this._LineaService.eliminarLinea(linea.clave,this.url).pipe(
       catchError((error) => {
         this.dataSource.handleError();
         return throwError(error);

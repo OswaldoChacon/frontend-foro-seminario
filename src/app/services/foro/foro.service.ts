@@ -9,9 +9,10 @@ import { Fechas } from "src/app/modelos/fechas.model";
 })
 export class ForoService {
   constructor(private http: HttpClient) {}
-  cargarForos(pagina) {
+  getForos(pagina:number,no_foro:number) {
     return this.http.get<Foros[]>(`api/foros`, {
-      params: new HttpParams().set("page", pagina),
+      params: new HttpParams().set("page", pagina.toString())
+      .set('no_foro',no_foro.toString())
     });
   }
   getForo(slug: string) {
@@ -25,6 +26,9 @@ export class ForoService {
   }
   actualizarForo(slug: string, foro: Foros) {
     return this.http.put(`api/actualizar_foro/${slug}`, foro);
+  }
+  activar_desactivar(slug:string, valor:number){
+    return this.http.put(`api/activar_foro/${slug}`,{acceso:valor});
   }
   configurarForo(slug: string, foro: Foros) {
     return this.http.put(`api/configurar_foro/${slug}`, foro);

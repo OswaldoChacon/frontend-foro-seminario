@@ -8,17 +8,16 @@ import { finalize, catchError } from "rxjs/operators";
 export class ForosDataSource extends DataSource<Foros> {
   private forosSubject = new BehaviorSubject<Foros[]>([]);
   private forosLoading = new BehaviorSubject<boolean>(true);
-  private total: number = 0;
-  private por_pagina: number = 0;
+  loading$ = this.forosLoading.asObservable();
+  total: number = 0;
+  por_pagina: number = 0;
   private foros: Foros[] = [];
-  constructor(private foroService: ForoService) {
+  constructor(private _foroService: ForoService) {
     super();
   }
-  cargarForos(pagina) {
-    // this.resetData();
-    this.foroService
-      .cargarForos(pagina)
-      .pipe(
+  getForos(pagina:number,no_foro:number) {
+    this.resetData();
+    this._foroService.getForos(pagina,no_foro).pipe(
         // catchError((error) => {
         //   this.cargarForosLocal();
         //   return of(`Error load foros ${error}`)

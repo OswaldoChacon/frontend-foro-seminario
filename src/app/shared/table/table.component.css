@@ -2,18 +2,37 @@
     .mat-column-acceso{
         max-width: 12%;        
     }
-    .mat-column-nombreCompleto{
-        max-width: 75%;
+    .mat-column-activo{
+        /* max-width: 8%; */
+    }
+    .mat-column-nombreCompleto, .mat-column-titulo{
+        max-width: 82%;
         /* padding-right: 16px; */
     }
-    .mat-column-acciones{
-        max-width: 10%;
+    .mat-column-acciones,  .mat-column-folio{
+        /* .mat-column-no_foro, */
+        max-width: 12%;
     }
     .mat-column-clave{
         max-width: 30%;
     }
     .mat-column-nombre, .mat-column-clave, .mat-column-nombreCompleto{
         padding-right: 14px;
+    }
+    .mat-column-titulo{
+        padding: 0 14px;
+    }
+    .mat-column-nombre{
+        max-width: 60%;
+    }
+    .mat-column-periodo{
+        /* max-width: 18%; */
+    }
+    .mat-column-anio{
+        /* max-width: 15%; */
+    }
+    .mat-column-participa{
+        max-width: 8%
     }
 }
 

@@ -1,6 +1,5 @@
-<mat-table [dataSource]="proyectosDataSource">
+<!-- <mat-table [dataSource]="proyectosDataSource">
   <ng-container matColumnDef="folio">
-    <!-- fxFlex="15%" -->
     <mat-header-cell *matHeaderCellDef > Folio </mat-header-cell>
     <mat-cell *matCellDef="let proyecto">
       <span class="mobile-label">Folio</span>
@@ -9,7 +8,6 @@
   </ng-container>
 
   <ng-container matColumnDef="titulo">
-    <!-- fxFlex="70%" -->
     <mat-header-cell *matHeaderCellDef > Titulo</mat-header-cell>
     <mat-cell *matCellDef="let proyecto">
       <span class="mobile-label">Titulo</span>
@@ -18,33 +16,24 @@
   </ng-container>
 
   <ng-container matColumnDef="participa">
-    <!-- fxFlex="15%" -->
     <mat-header-cell *matHeaderCellDef> Participa</mat-header-cell>
     <mat-cell *matCellDef="let proyecto">
       <span class="mobile-label">Acciones</span>
-      <!-- {{proyecto.participa}} -->
       <mat-checkbox
         color="primary"
         (change)="participa($event, proyecto.folio)"
         [checked]="proyecto.participa"
       ></mat-checkbox>
       <button mat-icon-button (click)="abrirDialog(proyecto)"><mat-icon>supervisor_account</mat-icon></button>
-      <!-- <mat-menu #menu="matMenu" xPosition="before">
         <div *ngFor="let docente of proyectosDataSource.getDocentes()">
           <mat-checkbox>{{docente.Nombre}}</mat-checkbox>
         </div>                
-      </mat-menu> -->
+      </mat-menu> 
 
-      <!-- <button mat-icon-button><mat-icon>supervisor_account</mat-icon></button> -->
     </mat-cell>
   </ng-container>
 
   a-md-data-table-column
-  <!-- press ctrl + space to add more column snippet or delete this line -->
-
-  <!-- press ctrl + space to add more column snippet or delete this line -->
-
-  <!-- press ctrl + space to add more column snippet or delete this line -->
 
   <mat-header-row *matHeaderRowDef="displayedColumns" fxShow fxHide.xs></mat-header-row>
   <mat-row *matRowDef="let row; columns: displayedColumns"> </mat-row>
@@ -53,10 +42,9 @@
   *ngIf="proyectosDataSource.spinnerValue() | async"
   diameter="50"
   class="table-loading"
-></mat-spinner>
-<mat-paginator
-  [length]="proyectosDataSource.totalItems()"
-  [pageSize]="proyectosDataSource.ItemsPorPagina()"
-  showFirstLastButtons
-></mat-paginator>
-
+></mat-spinner> -->
+<mat-card>
+  <app-table [dataSource]="dataSource" [columnsHeader]="columnsHeader" [componentDialog]="componentDialog"
+    (emitData)="cargarTable($event)"></app-table>
+  <mat-paginator [length]="dataSource.total" [pageSize]="dataSource.por_pagina" showFirstLastButtons></mat-paginator>
+</mat-card>

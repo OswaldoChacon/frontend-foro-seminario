@@ -13,16 +13,16 @@ import { HttpErrorResponse } from '@angular/common/http';
 })
 export class LineaDialogComponent implements OnInit {
   
-  formLinea = this.formBuilder.group({
+  formLinea = this._formBuilder.group({
     clave : new FormControl('',[Validators.required]),
     nombre : new FormControl('',[Validators.required])
   });
   guardando: boolean = false;
   editar: boolean = false;
   @ViewChild('form') form: FormGroupDirective;
-  @Output() formulario = new EventEmitter<FormGroupDirective>();
-  @Output() guardandoStatus = new EventEmitter<boolean>();
-  constructor(private formBuilder: FormBuilder,   
+  
+  constructor(
+    private _formBuilder: FormBuilder,   
     @Optional() @Inject (MAT_DIALOG_DATA) private data: {linea:Linea,url:string},    
     private _dialog: MatDialogRef<LineaDialogComponent>,
     private _lineaService:LineaService) {
@@ -30,13 +30,12 @@ export class LineaDialogComponent implements OnInit {
    }
 
   ngOnInit(): void {
-    if (this.data != null) {
+    if (this.data.linea != null) {
       this.editar = true;
+      console.log(this.data);
       this.formLinea.get('clave').setValue(this.data.linea.clave);
       this.formLinea.get('nombre').setValue(this.data.linea.nombre);      
-    }    
-    this.formulario.emit(this.form);
-    this.guardandoStatus.emit(this.guardando);
+    }        
   }
   
   editarLinea()

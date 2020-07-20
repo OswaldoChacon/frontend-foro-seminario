@@ -1,8 +1,9 @@
 <mat-table [dataSource]="dataSource">
     <ng-container [matColumnDef]="column" *ngFor="let column of objectKeys(columnsHeader)">
         <!-- column === 'acciones' ? 'end center':'center center' -->
-        <mat-header-cell *matHeaderCellDef fxShow [fxHide.xs]="!(column === 'acciones')" [ngClass]="{'align-right': column==='acciones'}" >
-             <!-- fxLayoutAlign.xs="end center" -->
+        <mat-header-cell *matHeaderCellDef fxShow [fxHide.xs]="!(column === 'acciones')"
+            [ngClass]="{'align-right': column==='acciones'}">
+            <!-- fxLayoutAlign.xs="end center" -->
             <div *ngIf="column === 'acciones'; else columnString">
                 <button mat-icon-button aria-label="Agregar nuevo registro" title="Agregar nuevo registro"
                     (click)="agregarRegistro()">
@@ -17,7 +18,8 @@
             <span class="mobile-label">{{columnsHeader[column]}}</span>
             <ng-container [ngSwitch]="column">
                 <ng-container *ngSwitchCase="'acciones'">
-                    <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Menu with button" (click)="$event.stopPropagation()">
+                    <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Menu with button"
+                        (click)="$event.stopPropagation()">
                         <mat-icon>more_vert</mat-icon>
                     </button>
                     <mat-menu #menu="matMenu">
@@ -25,25 +27,55 @@
                             <mat-icon>delete</mat-icon>
                             <span>Eliminar</span>
                         </button>
-                        <button mat-menu-item [matMenuTriggerFor]="menuRoles" aria-label="Menu with button" (click)="$event.stopPropagation()">
-                            <mat-icon>group</mat-icon>
-                            <span>Agregar rol</span>
-                        </button>
-                        <mat-menu #menuRoles="matMenu" xPosition="before">
-                            <mat-checkbox class="mat-menu-item" (change)="emitirData(data,$event,rol.nombre)" [checked]="rol.is" *ngFor="let rol of data.roles" (click)="$event.stopPropagation()">{{rol.nombre}}</mat-checkbox>
-                        </mat-menu>
-                    </mat-menu>                    
+                        <ng-container *ngIf="data.roles">
+                            <button mat-menu-item [matMenuTriggerFor]="menuRoles" aria-label="Menu with button"
+                                (click)="$event.stopPropagation()">
+                                <mat-icon>group</mat-icon>
+                                <span>Agregar rol</span>
+                            </button>
+                            <mat-menu #menuRoles="matMenu" xPosition="before">
+                                <mat-checkbox class="mat-menu-item" (change)="emitirData(data,$event,rol.nombre)"
+                                    [checked]="rol.is" *ngFor="let rol of data.roles"
+                                    (click)="$event.stopPropagation()">{{rol.nombre}}</mat-checkbox>
+                            </mat-menu>
+                        </ng-container>
+                        <ng-container *ngIf="data.no_foro">
+                            <a mat-menu-item [routerLink]="['proyectos',data.slug]">
+                                <mat-icon>book</mat-icon>
+                                <span>Proyectos</span>
+                            </a>
+                            <a mat-menu-item [routerLink]="['configurar-foro',data.slug]" *ngIf="data.canActivate">
+                                <mat-icon>settings</mat-icon>
+                                <span>Config. Foro</span>
+                            </a>
+                            <button (click)="emitirData(data,'Activar/Desactivar',!data.acceso)" mat-menu-item *ngIf="data.canActivate">
+                                <mat-icon>power_settings_new</mat-icon>
+                                <span> {{data.acceso ? 'Off':'On'}}</span>
+                            </button>                            
+                        </ng-container>
+
+                    </mat-menu>
                 </ng-container>
                 <ng-container *ngSwitchCase="'acceso'">
                     <mat-icon class="icon-check"
                         [ngClass]="{'verificado': data[column] == 1,'error':data[column] == 0}">
                         {{data[column] == 1 ? 'verified_user':'error'}}</mat-icon>
                 </ng-container>
-
+                <ng-container *ngSwitchCase="'activo'">
+                    <mat-icon class="icon-check" [ngClass]="{'verificado': data['acceso']== 1,'error': data['acceso']==0}">stars
+                    </mat-icon>
+                </ng-container>
+                <ng-container *ngSwitchCase="'participa'">
+                    <!-- <button mat-icon-button>
+                        <mat-icon>group</mat-icon>
+                    </button> -->
+                    <mat-checkbox (change)="emitirData(data,$event)" (click)="$event.stopPropagation()" [checked]="data.participa"></mat-checkbox>                    
+                </ng-container>
+                
                 <ng-container *ngSwitchDefault>
                     <span class="text-content">{{data[column]}}</span>
                 </ng-container>
-            </ng-container>         
+            </ng-container>
         </mat-cell>
     </ng-container>
 

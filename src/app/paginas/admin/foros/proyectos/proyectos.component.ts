@@ -21,29 +21,34 @@ import { Proyectos } from "src/app/modelos/proyectos.model";
 export class ProyectosComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   constructor(
-    private activeRoute: ActivatedRoute,
-    private proyectoService: ProyectosService,
-    private dialog: MatDialog
+    private _activeRoute: ActivatedRoute,
+    private _proyectoService: ProyectosService,
+    private _dialog: MatDialog
   ) {}
 
   displayedColumns = ["folio", "titulo", "participa"];
-  proyectosDataSource: ProyectosDataSource;
+  columnsHeader = { 'participa':'Part.','folio':'Folio','titulo':'Titulo'};
+  componentDialog = DocenteDiaogComponent;
+  dataSource: ProyectosDataSource;
   ngOnInit(): void {
-    const params = this.activeRoute.snapshot.params;
+    const params = this._activeRoute.snapshot.params;
     if (params) {
-      this.proyectosDataSource = new ProyectosDataSource(
-        this.proyectoService,
+      this.dataSource = new ProyectosDataSource(
+        this._proyectoService,
         params.id
       );
-      this.proyectosDataSource.cargarProyectos("1");
+      this.dataSource.cargarProyectos("1");
     }
+  }
+  cargarTable(event: { data?: Proyectos, opcion?: any, valorOpcion?: string }) {
+
   }
   ngAfterViewInit(): void {
     this.paginator.page
       .pipe(
         tap(() => {
-          this.proyectosDataSource.resetData();
-          this.proyectosDataSource.cargarProyectos(
+          this.dataSource.resetData();
+          this.dataSource.cargarProyectos(
             (this.paginator.pageIndex + 1).toString()
           );
         })
@@ -52,13 +57,13 @@ export class ProyectosComponent implements OnInit {
   }
   participa(event: MatCheckboxChange, folio: number) {
     let participa = event.checked == true ? "1" : "0";
-    this.proyectoService.participa(folio, participa).subscribe();
+    this._proyectoService.participa(folio, participa).subscribe();
   }
   abrirDialog(proyecto: Proyectos) {
-    const dialogRef = this.dialog.open(DocenteDiaogComponent, {
+    const dialogRef = this._dialog.open(DocenteDiaogComponent, {
       data: {
         proyecto: proyecto,
-        docentes: this.proyectosDataSource.getDocentes(),
+        docentes: this.dataSource.getDocentes(),
       },
       // height: '70%',
       // width: '98%'

@@ -33,6 +33,7 @@ export class ForosDialogComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    console.log(this.data);
     for(let i = 0; i <3; i++)
       this.anios.push(new Date().getFullYear()+i);    
     if(this.data != null){
@@ -48,7 +49,7 @@ export class ForosDialogComponent implements OnInit {
     this._foroService.guardarForo(this.formForo.value).pipe(
       // finalize(()=>this.guardando=false)
     ).subscribe(
-      res=>this._dialog.close()
+      res=>this._dialog.close({opcion:'refresh'})
     );    
   } 
   actualizarForo(){
@@ -58,7 +59,7 @@ export class ForosDialogComponent implements OnInit {
       finalize(()=>this.guardando=false)
     )
     .subscribe(
-      res=>this._dialog.close(),
+      res=>this._dialog.close({opcion:'refresh'}),
       (err: HttpErrorResponse) => {        
         const errores = err.error.errors;
         Object.keys(errores).forEach(fields=>{
