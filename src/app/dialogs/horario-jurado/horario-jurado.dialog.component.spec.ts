@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { JuradoDialogComponent } from './jurado.dialog.component';
+import { HorarioJuradoDialogComponent } from './horario-jurado.dialog.component';
 
 describe('JuradoComponent', () => {
-  let component: JuradoDialogComponent;
-  let fixture: ComponentFixture<JuradoDialogComponent>;
+  let component: HorarioJuradoDialogComponent;
+  let fixture: ComponentFixture<HorarioJuradoDialogComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ JuradoDialogComponent ]
+      declarations: [ HorarioJuradoDialogComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(JuradoDialogComponent);
+    fixture = TestBed.createComponent(HorarioJuradoDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

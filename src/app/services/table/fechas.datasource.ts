@@ -53,15 +53,7 @@ export class FechasDataSource extends DataSource<any> {
     this.fechasSubject.next(this.listaFechas);
     this.fechasLoading.next(false);
   }
-  cambiarValorSpinner() {
-    this.fechasLoading.next(!this.fechasLoading.value);
-  }
-  spinnerValue() {
-    return this.fechasLoading;
-  }
-  spinnerValueBoolean() {
-    return this.fechasLoading.value;
-  }
+  
   getTotalFechas() {
     return this.fechasSubject?.value?.length;
   }

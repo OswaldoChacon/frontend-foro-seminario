@@ -5,7 +5,7 @@ import { ForosDataSource } from "src/app/services/table/foros.datasource";
 import { ForoService } from "src/app/services/foro/foro.service";
 import { PageEvent, MatPaginator } from "@angular/material/paginator";
 import { MatDialog } from "@angular/material/dialog";
-import { ForosDialogComponent } from "src/app/dialogs/foros/foros.dialog.component";
+import { ForoDialogComponent } from "src/app/dialogs/foro/foro.dialog.component";
 import { Foros } from "src/app/modelos/foro.model";
 import { finalize, tap, takeWhile, first, catchError, map, debounceTime, distinctUntilChanged } from "rxjs/operators";
 import { of, throwError, fromEvent } from 'rxjs';
@@ -18,7 +18,7 @@ import { of, throwError, fromEvent } from 'rxjs';
 export class ForosComponent implements OnInit {
   columnsHeader = {'activo':'Activo', 'no_foro': 'No. Foro', 'periodo': 'Periodo', 'anio': 'Año', 'acciones': '' };
   // 'nombre': 'Nombre',
-  componentDialog = ForosDialogComponent;
+  componentDialog = ForoDialogComponent;
   // dataSource = ELEMENT_DATA;
   dataSource: ForosDataSource = null;
   pageEvent: PageEvent;

@@ -3,24 +3,24 @@ import { HorarioJuradoService } from 'src/app/services/horario/horario-jurado.se
 import { JuradoDataSource } from 'src/app/services/table/jurado.datasource';
 import { MatPaginator } from '@angular/material/paginator';
 import { tap } from 'rxjs/operators';
-import { MatDialog } from '@angular/material/dialog';
-import { JuradoDialogComponent } from 'src/app/dialogs/horario/jurado/jurado.dialog.component';
+import { HorarioJuradoDialogComponent } from 'src/app/dialogs/horario-jurado/horario-jurado.dialog.component';
 
 @Component({
-  selector: 'app-horario-jurado',
-  templateUrl: './horario-jurado.component.html',
-  styleUrls: ['./horario-jurado.component.css']
+  selector: 'app-jurado',
+  templateUrl: './jurado.component.html',
+  styleUrls: ['./jurado.component.css']
 })
-export class HorarioJuradoComponent implements OnInit {
+export class JuradoComponent implements OnInit {
 
-  constructor(private juradoService: HorarioJuradoService,
-    private dialog: MatDialog) { }
+  constructor(private _juradoService: HorarioJuradoService) { }
   dataSource:JuradoDataSource;
+  columnsHeader = { 'num_control':'No. Control','nombreCompleto':'Nombre completo'};
+  componentDialog = HorarioJuradoDialogComponent;
   @ViewChild(MatPaginator,{static: false}) paginator: MatPaginator;
   columnas = ['num_control','nombre','acciones'];  
   ngOnInit(): void {
     // this.juradoService.getJuraro().subscribe();
-    this.dataSource = new JuradoDataSource(this.juradoService);
+    this.dataSource = new JuradoDataSource(this._juradoService);
     this.dataSource.cargarJurado("1");
   }
   ngAfterViewInit(): void {
@@ -35,9 +35,8 @@ export class HorarioJuradoComponent implements OnInit {
       })
     ).subscribe();
   }
-  abrirDialog(){
-    const dialogRef = this.dialog.open(JuradoDialogComponent,{
-      data: {}
-    })
+  cargarTable(event: { data?: any, opcion?: any, valorOpcion?: string }) {
+
   }
+ 
 }

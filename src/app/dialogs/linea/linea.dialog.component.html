@@ -3,8 +3,10 @@
 </div>
 <mat-dialog-content>
   <form [formGroup]="formLinea" (ngSubmit)="editar ? editarLinea() : guardarLinea()" #form="ngForm">
-    <mat-form-field>
-      <input matInput formControlName="clave" placeholder="Clave" required />
+    <mat-form-field appearance="fill">
+      <mat-label>Clave</mat-label>
+      <input matInput formControlName="clave" required />
+      <mat-icon matSuffix>vpn_key</mat-icon>
       <mat-error *ngIf="formLinea.get('clave').hasError('required')">
         El campo clave es requerido
       </mat-error>
@@ -12,8 +14,9 @@
         La clave ya ha sido registrada
       </mat-error>
     </mat-form-field>
-    <mat-form-field>
-      <input matInput formControlName="nombre" placeholder="Nombre" required />
+    <mat-form-field appearance="fill">
+      <mat-label>Nombre</mat-label>
+      <input matInput formControlName="nombre" required />
       <mat-error *ngIf="formLinea.get('nombre').hasError('required')">El campo nombre es requerido</mat-error>
       <mat-error *ngIf="formLinea.get('nombre').hasError('serverError')">
         El nombre ya ha sido registrada

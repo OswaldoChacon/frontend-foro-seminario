@@ -13,7 +13,7 @@ import {
 } from "rxjs/operators";
 import { MatDialog } from "@angular/material/dialog";
 import { UsuarioDialogComponent } from "src/app/dialogs/usuario/usuario.dialog.component";
-import { UsuarioDataSource } from "src/app/services/table/usuario.datasource";
+import { UsuariosDataSource } from "src/app/services/table/usuarios.datasource";
 import { MatCheckboxChange } from "@angular/material/checkbox";
 import { RolesService } from 'src/app/services/rol/rol.service';
 @Component({
@@ -30,7 +30,7 @@ export class UsuariosComponent implements OnInit {
   };
   roles: any;
   componentDialog = UsuarioDialogComponent;
-  dataSource: UsuarioDataSource = null;
+  dataSource: UsuariosDataSource = null;
   rolSeleccionado: string = 'Todos';
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
@@ -43,7 +43,7 @@ export class UsuariosComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.dataSource = new UsuarioDataSource(this._usuarioService);
+    this.dataSource = new UsuariosDataSource(this._usuarioService);
     this._rolService.getRoles().subscribe(res => this.roles = res);
   }
 

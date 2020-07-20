@@ -10,4 +10,5 @@ export class Proyectos {
   calificacion_foro?: number;
   calificacion_seminario?: number;
   promedio?: number;
+  jurado? : any;
 }

@@ -5,7 +5,7 @@ import { catchError, finalize, map, tap } from "rxjs/operators";
 import { Usuario } from "src/app/modelos/usuario.model";
 import { UsuarioService } from "../usuario/usuario.service";
 
-export class UsuarioDataSource extends DataSource<Usuario> {
+export class UsuariosDataSource extends DataSource<Usuario> {
   private usuarios: Usuario[];
   private usuariosSubject = new BehaviorSubject<Usuario[]>([]);
   private loadingSubject = new BehaviorSubject<boolean>(true);

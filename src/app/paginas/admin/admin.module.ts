@@ -6,21 +6,22 @@ import { UsuariosComponent } from './usuarios/usuarios.component';
 import { LineasComponent } from './lineas/lineas.component';
 import { MaterialModule } from '../../material.module';
 import { FormsModule,ReactiveFormsModule } from '@angular/forms';
-import { AsignarJuradoComponent } from './foros/asignar-jurado/asignar-jurado.component';
+// import { AsignarJuradoComponent } from './foros/asignar-jurado/asignar-jurado.component';
 import { OverviewDialogComponent } from '../../dialogs/overview/overview.dialog.component';
-import { HorarioComponent } from '../admin/horario/horario.component';
-import { HorarioJuradoComponent } from '../admin/horario/horario-jurado/horario-jurado.component';
+// import { HorarioComponent } from '../admin/horario/horario.component';
+import { JuradoComponent } from './horario/jurado/jurado.component';
 import { LineaDialogComponent } from '../../dialogs/linea/linea.dialog.component';
 import { UsuarioDialogComponent } from '../../dialogs/usuario/usuario.dialog.component';
-import { ForosDialogComponent } from '../../dialogs/foros/foros.dialog.component';
-import { DocenteDiaogComponent } from '../../dialogs/docentes/docentes.dialog.component';
-import { JuradoDialogComponent } from '../../dialogs/horario/jurado/jurado.dialog.component';
+import { ForoDialogComponent } from '../../dialogs/foro/foro.dialog.component';
+import { DocentesDiaogComponent } from '../../dialogs/docentes/docentes.dialog.component';
+import { HorarioJuradoDialogComponent } from '../../dialogs/horario-jurado/horario-jurado.dialog.component';
 // import { UsersService } from '../services/usuarios/users.service';
 import { SharedModule } from '../../shared/shared.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { NgxPermissionsModule } from 'ngx-permissions';
 import { RouterModule } from '@angular/router';
 import { FechaDialogComponent } from 'src/app/dialogs/fecha/fecha.dialog.component';
+import { GenerarHorarioComponent } from './horario/generar-horario/generar-horario.component';
 
 
 @NgModule({
@@ -29,16 +30,17 @@ import { FechaDialogComponent } from 'src/app/dialogs/fecha/fecha.dialog.compone
     DashboardComponent,
     UsuariosComponent,
     LineasComponent,    
-    AsignarJuradoComponent,
+    // AsignarJuradoComponent,
     OverviewDialogComponent,
-    HorarioComponent,
-    HorarioJuradoComponent,    
+    // HorarioComponent,
+    JuradoComponent,    
     UsuarioDialogComponent,
     LineaDialogComponent,
-    ForosDialogComponent,
-    DocenteDiaogComponent,
-    JuradoDialogComponent,
-    FechaDialogComponent
+    ForoDialogComponent,
+    DocentesDiaogComponent,
+    HorarioJuradoDialogComponent,
+    FechaDialogComponent, 
+    GenerarHorarioComponent
   ],
   imports: [
     CommonModule,

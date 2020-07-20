@@ -10,7 +10,7 @@ import {
   MatDialogRef,
   MAT_DIALOG_DATA,
 } from "@angular/material/dialog";
-import { DocenteDiaogComponent } from "src/app/dialogs/docentes/docentes.dialog.component";
+import { DocentesDiaogComponent } from "src/app/dialogs/docentes/docentes.dialog.component";
 import { Proyectos } from "src/app/modelos/proyectos.model";
 
 @Component({
@@ -28,7 +28,7 @@ export class ProyectosComponent implements OnInit {
 
   displayedColumns = ["folio", "titulo", "participa"];
   columnsHeader = { 'participa':'Part.','folio':'Folio','titulo':'Titulo'};
-  componentDialog = DocenteDiaogComponent;
+  componentDialog = DocentesDiaogComponent;
   dataSource: ProyectosDataSource;
   ngOnInit(): void {
     const params = this._activeRoute.snapshot.params;
@@ -41,7 +41,8 @@ export class ProyectosComponent implements OnInit {
     }
   }
   cargarTable(event: { data?: Proyectos, opcion?: any, valorOpcion?: string }) {
-
+    if(event.opcion instanceof MatCheckboxChange)
+    this.participa(event.opcion, event.data.folio)
   }
   ngAfterViewInit(): void {
     this.paginator.page
@@ -55,19 +56,9 @@ export class ProyectosComponent implements OnInit {
       )
       .subscribe();
   }
-  participa(event: MatCheckboxChange, folio: number) {
+  participa(event: MatCheckboxChange, folio: string) {
     let participa = event.checked == true ? "1" : "0";
     this._proyectoService.participa(folio, participa).subscribe();
   }
-  abrirDialog(proyecto: Proyectos) {
-    const dialogRef = this._dialog.open(DocenteDiaogComponent, {
-      data: {
-        proyecto: proyecto,
-        docentes: this.dataSource.getDocentes(),
-      },
-      // height: '70%',
-      // width: '98%'
-      panelClass: "my-class",
-    });
-  }
+  
 }

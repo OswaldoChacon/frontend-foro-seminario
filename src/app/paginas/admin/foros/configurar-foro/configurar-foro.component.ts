@@ -31,7 +31,9 @@ export class ConfigurarForoComponent implements OnInit {
   });
    
   mostrarEspaciosTiempo = false;
-  fechasDataSource: FechasDataSource = null;
+  dataSource: FechasDataSource = null;
+  componentDialog = FechaDialogComponent;
+  columnsHeader = {'fecha':'Fecha','hora_inicio':'Hora de inicio','hora_termino':'Hora de termino','acciones':''}
   displayedColumns = ["fecha", "hora_inicio", "hora_termino", "acciones"];
   foro: Foros;
   fecha: Fechas;
@@ -55,7 +57,7 @@ export class ConfigurarForoComponent implements OnInit {
           this.formConfigForo.get("duracion").setValue(res.duracion);
           this.formConfigForo.get("num_maestros").setValue(res.num_maestros);
           this.foro = res;
-          this.fechasDataSource = new FechasDataSource(res.fechas,this._foroService);
+          this.dataSource = new FechasDataSource(res.fechas,this._foroService);
         },
         (error) => this._route.navigate(["/Administrador/foros"])
       );
@@ -69,14 +71,14 @@ export class ConfigurarForoComponent implements OnInit {
   
   eliminarFechaForo(fecha: Date) {
     this.cerrarET();
-    this.fechasDataSource.resetData();
+    this.dataSource.resetData();
     this._foroService.eliminarFechaForo(fecha).pipe(
         catchError(()=>{
-          this.fechasDataSource.handleError();
+          this.dataSource.handleError();
           return throwError;
-        }),
-        finalize(() => this.fechasDataSource.cambiarValorSpinner()))
-      .subscribe((res) => this.fechasDataSource.actualizarListaFechas(fecha));
+        })
+        // finalize(() => this.dataSource.cambiarValorSpinner())
+        ).subscribe((res) => this.dataSource.actualizarListaFechas(fecha));
   }
 
   openDialog() {
@@ -87,8 +89,8 @@ export class ConfigurarForoComponent implements OnInit {
     });
     dialog.afterClosed().pipe(
       takeWhile(res=>res!=1),
-      tap(()=>this.fechasDataSource.resetData()),
-      finalize(()=>this.fechasDataSource.agregarFecha(this._activeRoute.snapshot.params.id))
+      tap(()=>this.dataSource.resetData()),
+      finalize(()=>this.dataSource.agregarFecha(this._activeRoute.snapshot.params.id))
     ).subscribe();
   }
   mostrarET(fecha: Fechas) {

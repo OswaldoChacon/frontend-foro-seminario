@@ -6,8 +6,9 @@ import { Usuario } from "src/app/modelos/usuario.model";
 import { finalize } from 'rxjs/operators';
 
 export class JuradoDataSource extends DataSource<Usuario> {
-  juradoSubject = new BehaviorSubject<Usuario[]>([]);
-  loadingSubject = new BehaviorSubject<boolean>(true);
+  private juradoSubject = new BehaviorSubject<Usuario[]>([]);
+  private loadingSubject = new BehaviorSubject<boolean>(true);
+  loading$ = this.loadingSubject.asObservable()
   total: number;
   por_pagina: number;
   constructor(private juradoService: HorarioJuradoService) {
@@ -28,15 +29,11 @@ export class JuradoDataSource extends DataSource<Usuario> {
       this.por_pagina = res["jurado"]["per_page"];
     });
   }
-  totalItems(): number {
-    return this.total;
-  }
+ 
   spinnerValue() {
     return this.loadingSubject;
   }
-  ItemsPorPagina(): number {
-    return this.por_pagina;
-  }
+ 
   resetData(){
       this.loadingSubject.next(true);
       this.juradoSubject.next([]);

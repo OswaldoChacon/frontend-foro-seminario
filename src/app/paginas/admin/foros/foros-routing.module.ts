@@ -3,7 +3,7 @@ import { Routes, RouterModule } from "@angular/router";
 import { ForosComponent } from "./foros.component";
 import { ProyectosComponent } from "./proyectos/proyectos.component";
 import { ConfigurarForoComponent } from "./configurar-foro/configurar-foro.component";
-import { AsignarJuradoComponent } from "./asignar-jurado/asignar-jurado.component";
+
 
 const routes: Routes = [
   {
@@ -12,8 +12,7 @@ const routes: Routes = [
   },
   // children: [
   { path: "proyectos/:id", component: ProyectosComponent },
-  { path: "configurar-foro/:id", component: ConfigurarForoComponent },
-  { path: "asignar-jurado", component: AsignarJuradoComponent },
+  { path: "configurar-foro/:id", component: ConfigurarForoComponent }  
   // ],
   // },
 ];

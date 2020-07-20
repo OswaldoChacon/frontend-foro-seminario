@@ -1,6 +1,5 @@
 export class Usuario {
-    id: number;
-    nombre: string;
+    nombre?: string;
     apellidoP?: string;
     apellidoM?: string;
     num_control: string;

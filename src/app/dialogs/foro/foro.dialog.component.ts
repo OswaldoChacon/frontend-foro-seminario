@@ -8,11 +8,11 @@ import { HttpErrorResponse } from '@angular/common/http';
 
 
 @Component({
-  selector: 'app-foros',
-  templateUrl: './foros.dialog.component.html',
-  styleUrls: ['./foros.dialog.component.css']
+  selector: 'app-foro',
+  templateUrl: './foro.dialog.component.html',
+  styleUrls: ['./foro.dialog.component.css']
 })
-export class ForosDialogComponent implements OnInit {
+export class ForoDialogComponent implements OnInit {
 
   @ViewChild('form') form : FormGroupDirective;  
   @Output() guardandoStatus = new EventEmitter<boolean>();
@@ -27,7 +27,7 @@ export class ForosDialogComponent implements OnInit {
   }));
   editar: boolean = false;
   constructor(private _foroService: ForoService,
-    private _dialog: MatDialogRef<ForosDialogComponent>,
+    private _dialog: MatDialogRef<ForoDialogComponent>,
     @Optional() @Inject (MAT_DIALOG_DATA) public data: Foros ) { 
       _dialog.disableClose = true;
   }

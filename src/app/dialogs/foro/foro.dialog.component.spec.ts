@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { HorarioComponent } from './horario.component';
+import { ForoDialogComponent } from './foro.dialog.component';
 
-describe('HorarioComponent', () => {
-  let component: HorarioComponent;
-  let fixture: ComponentFixture<HorarioComponent>;
+describe('ForosComponent', () => {
+  let component: ForoDialogComponent;
+  let fixture: ComponentFixture<ForoDialogComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ HorarioComponent ]
+      declarations: [ ForoDialogComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(HorarioComponent);
+    fixture = TestBed.createComponent(ForoDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

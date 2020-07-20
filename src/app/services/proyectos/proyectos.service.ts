@@ -17,7 +17,7 @@ export class ProyectosService {
       params: new HttpParams().set('page',pagina)
     });
   }
-  participa(folio: number, participa: string){
+  participa(folio: string, participa: string){
     return this.http.put(`api/proyecto/${folio}`, {'participa':participa}   
     );
   }
