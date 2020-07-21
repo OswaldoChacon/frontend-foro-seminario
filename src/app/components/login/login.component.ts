@@ -2,6 +2,8 @@ import { Component, OnInit } from "@angular/core";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { finalize } from 'rxjs/operators';
+import { ForgotPasswordDialogComponent } from 'src/app/dialogs/forgot-password/forgot-password.dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: "app-login",
@@ -10,8 +12,8 @@ import { finalize } from 'rxjs/operators';
 })
 export class LoginComponent implements OnInit {
   constructor(private _authService: AuthService,
-    // private router: Router,
-    ) {}
+    private _dialog: MatDialog
+  ) { }
 
   formLogin = new FormGroup({
     num_control: new FormControl('', [Validators.required]),
@@ -19,19 +21,25 @@ export class LoginComponent implements OnInit {
   });
   hide: boolean = true;
   cargando: boolean = false;
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
-  login() {    
+  login() {
     console.log(this.formLogin.value);
-    this.cargando=true;
-    this._authService.login(this.formLogin.value).pipe(      
-      finalize(()=>this.cargando=false)
+    this.cargando = true;
+    this._authService.login(this.formLogin.value).pipe(
+      finalize(() => this.cargando = false)
     ).subscribe(
       (res: any) => {
-        localStorage.setItem("token", res.token);        
-        localStorage.setItem("profile", JSON.stringify(res.profile));                  
-        this._authService.redirectLogin();        
-      }     
-    );    
+        localStorage.setItem("token", res.token);
+        localStorage.setItem("profile", JSON.stringify(res.profile));
+        this._authService.redirectLogin();
+      }
+    );
+  }
+  forgotPassword() {
+    const dialogRef = this._dialog.open(ForgotPasswordDialogComponent,{
+      width: '400px'
+      // width: '65vh'
+    });
   }
 }

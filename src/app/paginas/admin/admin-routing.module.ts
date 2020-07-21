@@ -8,6 +8,7 @@ import { AuthGuard } from "../../services/auth/guards/auth.guard";
 import { JuradoComponent } from "./horario/jurado/jurado.component";
 import { SidenavComponent } from '../../shared/sidenav/sidenav.component';
 import { GenerarHorarioComponent } from './horario/generar-horario/generar-horario.component';
+import { CambiarContrasenaComponent } from 'src/app/shared/cambiar-contrasena/cambiar-contrasena.component';
 
 const routes: Routes = [
   {
@@ -24,6 +25,7 @@ const routes: Routes = [
       { path: 'foros', loadChildren: () => import('./foros/foros.module').then(m => m.ForosModule) },
       { path: 'jurado', component: JuradoComponent },
       { path: 'generar_horario', component: GenerarHorarioComponent },
+      { path: 'cambiar_contrasena', component: CambiarContrasenaComponent },
       // { path: 'horarios', component: HorarioComponent },      
       // { path: 'generar-horario', component: HorarioComponent },
       // {path:"proyectos_jurado" ,component:},

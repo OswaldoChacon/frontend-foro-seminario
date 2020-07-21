@@ -54,3 +54,6 @@ input:focus .user-input+.mat-icon {
 .mat-raised-button {
     padding: 8px 16px !important;
 }
+.eyes{
+    cursor: pointer;
+}

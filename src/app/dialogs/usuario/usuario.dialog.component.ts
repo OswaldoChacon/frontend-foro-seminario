@@ -31,7 +31,6 @@ export class UsuarioDialogComponent implements OnInit {
   });
   guardando: boolean = false;
   editar: boolean = false;  
-  // @Output() formularioLinea = new EventEmitter<User>();
 
   @ViewChild("form") form:FormGroupDirective;// myNgForm;  
 

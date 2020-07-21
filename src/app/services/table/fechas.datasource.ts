@@ -9,10 +9,13 @@ export class FechasDataSource extends DataSource<any> {
   private fechasSubject = new BehaviorSubject<Fechas[]>([]);
   private listaFechas: Fechas[];
   private fechasLoading = new BehaviorSubject<boolean>(false);
+  loading$ = this.fechasLoading.asObservable();
+  total : number;
   constructor(fechas: Fechas[], private _foroService: ForoService) {
     super();
     this.fechasSubject.next(fechas);
     this.listaFechas = fechas;
+    this.total = this.listaFechas.length;
   }
   connect(CollectionViewer: CollectionViewer) {
     return this.fechasSubject.asObservable();
@@ -21,12 +24,11 @@ export class FechasDataSource extends DataSource<any> {
     this.fechasSubject.complete();
     this.fechasLoading.complete();
   }
+  
   // agregarFecha(fecha: Fechas) {
-  agregarFecha(slug: string) {
-    this.fechasLoading.next(true);
-    this._foroService
-      .getForo(slug)
-      .pipe(
+  getFechas(slug: string) {
+    this.resetData();
+    this._foroService.getForo(slug).pipe(
         catchError(()=>{
           this.handleError();
           return throwError;
@@ -35,16 +37,12 @@ export class FechasDataSource extends DataSource<any> {
       )
       .subscribe((res) => {
         this.listaFechas = res.fechas;
-        this.fechasSubject.next(res.fechas);
+        this.fechasSubject.next(res.fechas);        
+        this.total = this.listaFechas.length;
       });
   }
 
-  actualizarListaFechas(fecha: Date) {
-    this.listaFechas = this.listaFechas.filter(
-      (fechaItem) => fechaItem.fecha !== fecha
-    );
-    this.fechasSubject.next(this.listaFechas);
-  }
+ 
   resetData() {
     this.fechasLoading.next(true);
     this.fechasSubject.next([]);

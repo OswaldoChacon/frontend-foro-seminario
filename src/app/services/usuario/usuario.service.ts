@@ -47,4 +47,8 @@ export class UsuarioService {
   eliminarUsuario(num_control: string) {
     return this._http.delete(`api/eliminar_usuario/${num_control}`);
   }
+
+  cambiarPassword(data: {password:string,nuevo_password:string}){
+    return this._http.put(`api/cambiar_contrasena`,data);
+  }
 }

@@ -19,6 +19,7 @@ import { AdminModule } from './paginas/admin/admin.module';
 import { HttpErrorInterceptor } from './services/interceptors/http-error.interceptor';
 import { AdminComponent } from './paginas/admin/admin.component';
 import { SharedModule } from './shared/shared.module';
+import { ForgotPasswordDialogComponent } from './dialogs/forgot-password/forgot-password.dialog.component';
 // import { SharedModule } from './shared/shared.module';
 
 
@@ -26,7 +27,7 @@ import { SharedModule } from './shared/shared.module';
   declarations: [
     AppComponent,        
     HomeComponent,    
-    LoginComponent,
+    LoginComponent, ForgotPasswordDialogComponent,
     // DashboardComponent,
   ],
   imports: [

@@ -53,7 +53,13 @@
                                 <span> {{data.acceso ? 'Off':'On'}}</span>
                             </button>                            
                         </ng-container>
-
+                        <ng-container *ngIf="data.fecha">
+                            <button mat-menu-item (click)="emitirData(data,'Break')">
+                                <mat-icon>free_breakfast</mat-icon>
+                                <span>Agregar receso</span>
+                            </button>
+                        </ng-container>
+                        
                     </mat-menu>
                 </ng-container>
                 <ng-container *ngSwitchCase="'acceso'">

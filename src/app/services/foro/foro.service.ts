@@ -33,6 +33,7 @@ export class ForoService {
   configurarForo(slug: string, foro: Foros) {
     return this.http.put(`api/configurar_foro/${slug}`, foro);
   }
+  getFechaForo(){}
   agregarFechaForo(slug: string, fecha: any) {
     if (fecha["fecha"] != "")
       fecha["fecha"] = formatDate(fecha["fecha"], "yyyy-MM-dd", "en");

@@ -23,31 +23,29 @@ export class LineaDialogComponent implements OnInit {
   
   constructor(
     private _formBuilder: FormBuilder,   
-    @Optional() @Inject (MAT_DIALOG_DATA) private data: {linea:Linea,url:string},    
+    @Optional() @Inject (MAT_DIALOG_DATA) private data: {data:Linea,url:string},    
     private _dialog: MatDialogRef<LineaDialogComponent>,
     private _lineaService:LineaService) {
     _dialog.disableClose = true;
    }
 
   ngOnInit(): void {
-    if (this.data.linea != null) {
-      this.editar = true;
-      console.log(this.data);
-      this.formLinea.get('clave').setValue(this.data.linea.clave);
-      this.formLinea.get('nombre').setValue(this.data.linea.nombre);      
+    if (this.data.data) {
+      this.editar = true;      
+      this.formLinea.get('clave').setValue(this.data.data.clave);
+      this.formLinea.get('nombre').setValue(this.data.data.nombre);      
     }        
   }
   
   editarLinea()
   {
     this.guardando = true;    
-    this._lineaService.actualizarLinea(this.data.linea.clave, this.formLinea.value, this.data.url).pipe(
+    this._lineaService.actualizarLinea(this.data.data.clave, this.formLinea.value, this.data.url).pipe(
       finalize(()=>this.guardando=false)
       )
     .subscribe(
       (res : any)=> {              
-        this._dialog.close({opcion:'refresh'});        
-        // res=>this.dialog.close({opcion:'refresh'}),
+        this._dialog.close({opcion:'refresh'});                
       },
       (err: HttpErrorResponse) => {        
         const errores = err.error.errors;

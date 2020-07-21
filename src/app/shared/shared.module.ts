@@ -8,6 +8,7 @@ import { NgxPermissionsModule } from 'ngx-permissions';
 import { ButtonsComponent } from './buttons/buttons.component';
 import { TableComponent } from './table/table.component';
 import { CambiarContrasenaComponent } from './cambiar-contrasena/cambiar-contrasena.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,9 @@ import { CambiarContrasenaComponent } from './cambiar-contrasena/cambiar-contras
   ],
   imports: [
     CommonModule,
-    MaterialModule,    
+    FormsModule,
+    ReactiveFormsModule,  
+    MaterialModule,  
     RouterModule,
     NgxPermissionsModule.forChild()
   ],

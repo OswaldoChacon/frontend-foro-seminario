@@ -22,33 +22,35 @@ import { FechaDialogComponent } from 'src/app/dialogs/fecha/fecha.dialog.compone
 })
 
 export class ConfigurarForoComponent implements OnInit {
-  
+
   formConfigForo = this._formBuilder.group({
     lim_alumnos: new FormControl("", [Validators.required, Validators.min(1)]),
     num_aulas: new FormControl("", [Validators.required, Validators.min(2)]),
     duracion: new FormControl("", [Validators.required, Validators.min(15)]),
     num_maestros: new FormControl("", [Validators.required, Validators.min(2)]),
   });
-   
+
   mostrarEspaciosTiempo = false;
   dataSource: FechasDataSource = null;
   componentDialog = FechaDialogComponent;
-  columnsHeader = {'fecha':'Fecha','hora_inicio':'Hora de inicio','hora_termino':'Hora de termino','acciones':''}
+  columnsHeader = { 'fecha': 'Fecha', 'hora_inicio': 'Hora de inicio', 'hora_termino': 'Hora de termino', 'acciones': '' }
   displayedColumns = ["fecha", "hora_inicio", "hora_termino", "acciones"];
   foro: Foros;
   fecha: Fechas;
-  cargando = true;  
+  cargando = true;
+  slug: string;
   constructor(
     private _foroService: ForoService,
     private _formBuilder: FormBuilder,
     private _route: Router,
     private _activeRoute: ActivatedRoute,
     private _dialog: MatDialog
-  ) {}
+  ) { }
 
   ngOnInit(): void {
-    // const params = this.___activeRoute.snapshot.params;    
-    if (this._activeRoute.snapshot.params.id) {      
+    if (this._activeRoute.snapshot.params.id) {
+      this.slug = this._activeRoute.snapshot.params.id;
+      console.log(this.slug);
       this._foroService.getForo(this._activeRoute.snapshot.params.id).subscribe(
         (res) => {
           this.cargando = false;
@@ -57,50 +59,49 @@ export class ConfigurarForoComponent implements OnInit {
           this.formConfigForo.get("duracion").setValue(res.duracion);
           this.formConfigForo.get("num_maestros").setValue(res.num_maestros);
           this.foro = res;
-          this.dataSource = new FechasDataSource(res.fechas,this._foroService);
+          this.dataSource = new FechasDataSource(res.fechas, this._foroService);
         },
         (error) => this._route.navigate(["/Administrador/foros"])
       );
     }
   }
-
-  submitConfigForo() {
-    this._foroService
-      .configurarForo(this.foro.slug, this.formConfigForo.value).subscribe();
+  cargarTable(event: { data?: Fechas, opcion?: any, valorOpcion?: string }) {
+    console.log(event);
+    if (event.opcion === 'refresh')
+      this.dataSource.getFechas(this.slug);
+    if (event.opcion === 'Eliminar')
+      this.eliminarFechaForo(event.data.fecha);
+    if(event.opcion === 'Break')  
+      this.mostrarET(event.data);
   }
-  
+
+  configurarForo() {
+    this._foroService.configurarForo(this.foro.slug, this.formConfigForo.value).subscribe();
+  }
+
   eliminarFechaForo(fecha: Date) {
     this.cerrarET();
     this.dataSource.resetData();
     this._foroService.eliminarFechaForo(fecha).pipe(
-        catchError(()=>{
-          this.dataSource.handleError();
-          return throwError;
-        })
-        // finalize(() => this.dataSource.cambiarValorSpinner())
-        ).subscribe((res) => this.dataSource.actualizarListaFechas(fecha));
+      catchError(() => {
+        this.dataSource.handleError();
+        return throwError;
+      })      
+    ).subscribe((res) => this.dataSource.getFechas(this.slug));
   }
 
-  openDialog() {
-    let dialog = this._dialog.open(FechaDialogComponent,{
-      data:{
-        slug: this._activeRoute.snapshot.params.id
-      }
-    });
-    dialog.afterClosed().pipe(
-      takeWhile(res=>res!=1),
-      tap(()=>this.dataSource.resetData()),
-      finalize(()=>this.dataSource.agregarFecha(this._activeRoute.snapshot.params.id))
-    ).subscribe();
-  }
+  
+
   mostrarET(fecha: Fechas) {
     this.fecha = fecha;
     this.mostrarEspaciosTiempo = true;
   }
+
   cerrarET() {
     this.fecha = null;
     this.mostrarEspaciosTiempo = false;
   }
+
   guardarBreak(event: MatCheckboxChange, intervalo: Fechas["intervalos"]) {
     intervalo.break = !intervalo.break;
     if (event.checked) {
