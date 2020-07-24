@@ -24,12 +24,14 @@ export class LineasComponent implements OnInit {
   dataSource: LineaDataSource = null;
   componentDialog = LineaDialogComponent;
   url: string;
+  title:string
   constructor(
     private _LineaService: LineaService,
     private _router: Router,
     private _dialog: MatDialog) { }
 
   ngOnInit() {
+    this.title = this._router.url.includes('lineas-investigacion') ? 'Lineas de investigacion' : 'Tipos de proyecto';
     this.url = this._router.url.includes('lineas-investigacion') ? 'lineas' : 'tiposProyecto';
     console.log(this.url);
     this.dataSource = new LineaDataSource(this._LineaService);

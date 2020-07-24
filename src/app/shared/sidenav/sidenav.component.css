@@ -1,12 +1,3 @@
-/* Iconos tablas*/
-.edit-icon {
-    color: #e6e600;
-  }
-  .delete-icon {
-    color: red;
-  }
-  /*************************************************************************************************************  */
-  
   /* cerrar sesión derecha */
   .btn-user {
     flex: 1 1 auto;
@@ -89,5 +80,3 @@
       top: 56px;
     }
   }
-  
-  

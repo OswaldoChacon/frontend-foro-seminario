@@ -44,7 +44,29 @@
   class="table-loading"
 ></mat-spinner> -->
 <mat-card>
+  <mat-card-header>
+    <app-card-header [title]="'Proyectos'">
+      <div fxFlex="50" class="content-filtro"  fxLayoutAlign="start center">
+        
+        <mat-icon matPrefix>search</mat-icon>
+        <input class="input-filter" placeholder="Número de folio" #inputFiltro />
+      </div>    
+      <div fxFlex fxLayoutAlign="end">
+        <button mat-icon-button [matMenuTriggerFor]="filtros">
+          <mat-icon aria-label="label">filter_list</mat-icon>
+        </button>
+        <mat-menu #filtros="matMenu" xPosition="before">
+          <!-- <mat-checkbox *ngFor="let rol of roles" (change)="seleccionarRol(rol.nombre)"
+            [checked]="rolSeleccionado === rol.nombre" class="mat-menu-item" (click)="$event.stopPropagation()">
+            {{ rol.nombre }}
+          </mat-checkbox> -->
+        </mat-menu>
+      </div>
+    </app-card-header>
+  </mat-card-header>
+  <mat-card-content>
   <app-table [dataSource]="dataSource" [columnsHeader]="columnsHeader" [componentDialog]="componentDialog"
     (emitData)="cargarTable($event)"></app-table>
   <mat-paginator [length]="dataSource.total" [pageSize]="dataSource.por_pagina" showFirstLastButtons></mat-paginator>
+</mat-card-content>
 </mat-card>

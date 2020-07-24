@@ -5,7 +5,7 @@
             [ngClass]="{'align-right': column==='acciones'}">
             <!-- fxLayoutAlign.xs="end center" -->
             <div *ngIf="column === 'acciones'; else columnString">
-                <button mat-icon-button aria-label="Agregar nuevo registro" title="Agregar nuevo registro"
+                <button mat-mini-fab color="primary" aria-label="Agregar nuevo registro" title="Agregar nuevo registro"
                     (click)="agregarRegistro()">
                     <mat-icon>add</mat-icon>
                 </button>
@@ -48,10 +48,11 @@
                                 <mat-icon>settings</mat-icon>
                                 <span>Config. Foro</span>
                             </a>
-                            <button (click)="emitirData(data,'Activar/Desactivar',!data.acceso)" mat-menu-item *ngIf="data.canActivate">
+                            <!-- <button (click)="emitirData(data,'Activar/Desactivar',!data.acceso)" mat-menu-item
+                                *ngIf="data.canActivate">
                                 <mat-icon>power_settings_new</mat-icon>
                                 <span> {{data.acceso ? 'Off':'On'}}</span>
-                            </button>                            
+                            </button> -->
                         </ng-container>
                         <ng-container *ngIf="data.fecha">
                             <button mat-menu-item (click)="emitirData(data,'Break')">
@@ -59,25 +60,26 @@
                                 <span>Agregar receso</span>
                             </button>
                         </ng-container>
-                        
+
                     </mat-menu>
                 </ng-container>
                 <ng-container *ngSwitchCase="'acceso'">
                     <mat-icon class="icon-check"
                         [ngClass]="{'verificado': data[column] == 1,'error':data[column] == 0}">
                         {{data[column] == 1 ? 'verified_user':'error'}}</mat-icon>
+                        
                 </ng-container>
-                <ng-container *ngSwitchCase="'activo'">
-                    <mat-icon class="icon-check" [ngClass]="{'verificado': data['acceso']== 1,'error': data['acceso']==0}">stars
-                    </mat-icon>
+                <ng-container *ngSwitchCase="'activo'">                    
+                    <mat-slide-toggle (click)="emitirData(data,'Activar/Desactivar',!data.acceso)" (click)="$event.stopPropagation()" [checked]="data.acceso ? 'true':'false'" [disabled]="!data.canActivate"></mat-slide-toggle>
                 </ng-container>
                 <ng-container *ngSwitchCase="'participa'">
                     <!-- <button mat-icon-button>
                         <mat-icon>group</mat-icon>
                     </button> -->
-                    <mat-checkbox (change)="emitirData(data,$event)" (click)="$event.stopPropagation()" [checked]="data.participa"></mat-checkbox>                    
+                    <mat-checkbox (change)="emitirData(data,$event)" (click)="$event.stopPropagation()"
+                        [checked]="data.participa"></mat-checkbox>
                 </ng-container>
-                
+
                 <ng-container *ngSwitchDefault>
                     <span class="text-content">{{data[column]}}</span>
                 </ng-container>

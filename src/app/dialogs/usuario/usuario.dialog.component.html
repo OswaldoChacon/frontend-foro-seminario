@@ -1,12 +1,11 @@
-<div class="barra">
+<!-- <div class="barra">
   <app-header></app-header>
 </div>
 <mat-dialog-content>
   <form [formGroup]="formUsuario" (ngSubmit)="editar ? editarUsuario() : registrarUsuario()" #form="ngForm">
     <mat-form-field appearance="outline">
       <mat-label>Número de control</mat-label>
-      <input matInput formControlName="num_control" required />
-      <!-- placeholder="Número de control"  -->
+      <input matInput formControlName="num_control" required />      
       <mat-icon matSuffix>vpn_key</mat-icon>
       <mat-error *ngIf="formUsuario.get('num_control').hasError('required')">
         El campo número de control es requerido
@@ -18,25 +17,85 @@
     <mat-form-field appearance="outline">
       <mat-label>Nombre del usuario</mat-label>
       <input matInput formControlName="nombre" required />      
-      <!-- placeholder="Nombre del usuario" -->
       <mat-icon matSuffix>account_circle</mat-icon>
       <mat-error *ngIf="formUsuario.get('nombre').hasError('required')">El campo nombre es requerido</mat-error>
     </mat-form-field>
     <div fxLayout.gt-sm="row" fxLayout="column" fxLayoutGap.gt-sm="20px">
       <mat-form-field appearance="outline">
         <mat-label>Apellido paterno</mat-label>
-        <input matInput formControlName="apellidoP" required />
-        <!-- placeholder="Apellido paterno"  -->
+        <input matInput formControlName="apellidoP" required />        
         <mat-error *ngIf="formUsuario.get('apellidoP').hasError('required')">El campo email es requerido</mat-error>
       </mat-form-field>
       <mat-form-field appearance="outline">
         <mat-label>Apellido materno</mat-label>
-        <input matInput formControlName="apellidoM" required />
-        <!-- placeholder="Apellido materno"  -->
+        <input matInput formControlName="apellidoM" required />        
         <mat-error *ngIf="formUsuario.get('apellidoM').hasError('required')">El campo email es requerido</mat-error>
       </mat-form-field>
     </div>
     <mat-form-field appearance="outline">
+      <mat-label>Email</mat-label>
+      <input matInput formControlName="email" placeholder="Email" required />
+      <mat-icon matSuffix>email</mat-icon>
+      <mat-error *ngIf="formUsuario.get('email').hasError('required')">El campo email es requerido</mat-error>
+      <mat-error *ngIf="formUsuario.get('email').hasError('email')">Formato de email incorrecto</mat-error>
+      <mat-error *ngIf="formUsuario.get('email').hasError('serverError')">
+        El email ya ha sido registrado
+      </mat-error>
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <app-buttons [form]="form" [guardando]="guardando"></app-buttons>
+</mat-dialog-actions> -->
+
+<!-- <div class="barra">
+  <app-header></app-header>
+</div> -->
+<div mat-dialog-title fxLayout="row">
+  <div mat-card-avatar class="example-header-image"></div>
+  <ng-container *ngIf="data; else nuevoRegistro">
+    <h4 style="padding-right: 1rem;">{{data.nombreCompleto}}</h4>
+    <mat-icon [ngClass]="{'verificado': data.acceso == 1,'error':data.acceso == 0}">
+      {{data.acceso == 1 ? 'verified_user':'error'}}</mat-icon>
+  </ng-container>
+  <ng-template #nuevoRegistro>
+    <h2 style="padding-right: 1rem;">Nuevo registro</h2>
+  </ng-template>
+  
+</div>
+<mat-divider></mat-divider>
+<mat-dialog-content class="mat-typography">
+  <form [formGroup]="formUsuario" (ngSubmit)="editar ? editarUsuario() : registrarUsuario()" #form="ngForm">
+    <mat-form-field appearance="fill">
+      <mat-label>Número de control</mat-label>
+      <input matInput formControlName="num_control" required />
+      <mat-icon matSuffix>vpn_key</mat-icon>
+      <mat-error *ngIf="formUsuario.get('num_control').hasError('required')">
+        El campo número de control es requerido
+      </mat-error>
+      <mat-error *ngIf="formUsuario.get('num_control').hasError('serverError')">
+        El número de control ya ha sido registrado
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Nombre del usuario</mat-label>
+      <input matInput formControlName="nombre" required />
+      <mat-icon matSuffix>account_circle</mat-icon>
+      <mat-error *ngIf="formUsuario.get('nombre').hasError('required')">El campo nombre es requerido</mat-error>
+    </mat-form-field>
+    <div fxLayout.gt-sm="row" fxLayout="column" fxLayoutGap.gt-sm="20px">
+      <mat-form-field appearance="fill">
+        <mat-label>Apellido paterno</mat-label>
+        <input matInput formControlName="apellidoP" required />
+        <mat-error *ngIf="formUsuario.get('apellidoP').hasError('required')">El campo email es requerido</mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Apellido materno</mat-label>
+        <input matInput formControlName="apellidoM" required />
+        <mat-error *ngIf="formUsuario.get('apellidoM').hasError('required')">El campo email es requerido</mat-error>
+      </mat-form-field>
+    </div>
+    <mat-form-field appearance="fill">
       <mat-label>Email</mat-label>
       <input matInput formControlName="email" placeholder="Email" required />
       <mat-icon matSuffix>email</mat-icon>

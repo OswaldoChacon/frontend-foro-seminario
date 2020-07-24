@@ -60,5 +60,9 @@ export class ProyectosComponent implements OnInit {
     let participa = event.checked == true ? "1" : "0";
     this._proyectoService.participa(folio, participa).subscribe();
   }
-  
+  ngOnDestroy(): void {
+    //Called once, before the instance is destroyed.
+    //Add 'implements OnDestroy' to the class.
+    localStorage.removeItem('docentes');
+  }
 }

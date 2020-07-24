@@ -21,9 +21,10 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
-import {MatCheckboxModule} from '@angular/material/checkbox';
-import {MatStepperModule} from '@angular/material/stepper';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatStepperModule } from '@angular/material/stepper';
 import { PortalModule } from '@angular/cdk/portal';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 // Toastr
 
 
@@ -34,7 +35,7 @@ import { PortalModule } from '@angular/cdk/portal';
     MatToolbarModule,
     MatIconModule,
     MatCardModule,
-    MatSidenavModule,    
+    MatSidenavModule,
     MatListModule,
     MatFormFieldModule,
     MatInputModule,
@@ -42,7 +43,7 @@ import { PortalModule } from '@angular/cdk/portal';
     MatTableModule,
     MatProgressBarModule,
     MatPaginatorModule,
-    MatProgressSpinnerModule,    
+    MatProgressSpinnerModule,
     MatDialogModule,
     MatSortModule,
     MatRadioModule,
@@ -53,7 +54,8 @@ import { PortalModule } from '@angular/cdk/portal';
     MatNativeDateModule,
     MatCheckboxModule,
     MatStepperModule,
-    PortalModule
+    PortalModule,
+    MatSlideToggleModule
   ],
   exports: [
     MatButtonModule,
@@ -69,7 +71,7 @@ import { PortalModule } from '@angular/cdk/portal';
     MatTableModule,
     MatProgressBarModule,
     MatPaginatorModule,
-    MatProgressSpinnerModule,  
+    MatProgressSpinnerModule,
     MatDialogModule,
     MatSortModule,
     MatRadioModule,
@@ -80,8 +82,9 @@ import { PortalModule } from '@angular/cdk/portal';
     MatNativeDateModule,
     MatCheckboxModule,
     MatStepperModule,
-    PortalModule
+    PortalModule,
+    MatSlideToggleModule
     // ToastrModule.forRoot()
   ]
 })
-export class MaterialModule {}
+export class MaterialModule { }

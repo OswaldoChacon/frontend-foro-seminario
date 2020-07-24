@@ -2,12 +2,19 @@
     .mat-column-acceso{
         max-width: 12%;        
     }
+    .mat-column-num_control{
+        max-width: 20%;
+    }
     .mat-column-activo{
         /* max-width: 8%; */
     }
     .mat-column-nombreCompleto, .mat-column-titulo{
-        max-width: 82%;
+        /* max-width: 82%; */
         /* padding-right: 16px; */
+    }
+    .mat-column-email{        
+        /* max-width: 40%;
+        display: block; */
     }
     .mat-column-acciones,  .mat-column-folio{
         /* .mat-column-no_foro, */
@@ -17,7 +24,7 @@
         max-width: 30%;
     }
     .mat-column-nombre, .mat-column-clave, .mat-column-nombreCompleto{
-        padding-right: 14px;
+        /* padding-right: 14px; */
     }
     .mat-column-titulo{
         padding: 0 14px;
@@ -35,14 +42,18 @@
         max-width: 8%
     }
 }
-
-.verificado {
+@media (min-width: 600px) and (max-width: 850px){
+    .mat-column-email{
+        display: none;
+    }
+}
+/* .verificado {
     color: green;
 }
 
 .error {
     color: red;
-}
+} */
 
 .icon-check {
     font-size: 18px;
@@ -52,6 +63,10 @@
     display: flex;    
     justify-content: flex-end;
 }
-/* mat-row{
-    height: auto;
-} */
+
+
+
+
+.mat-card{
+    padding: 0 !important;
+}

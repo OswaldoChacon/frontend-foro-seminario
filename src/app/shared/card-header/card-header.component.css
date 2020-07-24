@@ -4,13 +4,15 @@
 }
 .mat-toolbar{
     background-color: #EBEBEE;    
+    width: 100%;
 }
-/* .content-filtro{
+.content-filtro{
     border-radius:9999px;
     background-color: #ffff;
     height: 42px;
-    padding: .2rem 1rem;     
-} */
+    padding: .2rem 1rem;    
+    /* align-items: center; */
+}
 input{
     width: 100%;
     border:none
@@ -18,4 +20,8 @@ input{
 
 input:focus{
     outline: none;
+}
+
+:host {
+    width: 100%;
 }

@@ -9,6 +9,7 @@ import { ButtonsComponent } from './buttons/buttons.component';
 import { TableComponent } from './table/table.component';
 import { CambiarContrasenaComponent } from './cambiar-contrasena/cambiar-contrasena.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CardHeaderComponent } from './card-header/card-header.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     ButtonsComponent,
     TableComponent,
     CambiarContrasenaComponent,
+    CardHeaderComponent,
   ],
   imports: [
     CommonModule,
@@ -31,6 +33,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     SidenavComponent,
     ButtonsComponent,
     TableComponent,
+    CardHeaderComponent,
   ]
 })
 export class SharedModule { }

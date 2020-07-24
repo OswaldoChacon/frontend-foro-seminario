@@ -4,6 +4,7 @@ import { NgxPermissionsService } from 'ngx-permissions';
 import { Router } from '@angular/router';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { MediaMatcher } from '@angular/cdk/layout';
+import { Usuario } from 'src/app/modelos/usuario.model';
 
 @Component({
   selector: 'app-sidenav',
@@ -13,6 +14,7 @@ import { MediaMatcher } from '@angular/cdk/layout';
 export class SidenavComponent implements OnInit {  
   mobileQuery: MediaQueryList;
   roles: string[];  
+  usuarioLogueado: Usuario;
   constructor(
     private permissionsService: NgxPermissionsService,
     private authService: AuthService,
@@ -23,7 +25,8 @@ export class SidenavComponent implements OnInit {
         
   }
 
-  ngOnInit(): void {        
+  ngOnInit(): void {  
+    this.usuarioLogueado = JSON.parse(localStorage.getItem('profile'));
     this.roles = this.authService.getRoles();  
     if(this.router.url.includes("Administrador") && this.roles.includes("Administrador"))
       this.permissionsService.addPermission("Administrador");

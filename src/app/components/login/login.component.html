@@ -15,7 +15,15 @@
           </div>
         </div>
         <form [formGroup]="formLogin" (ngSubmit)="login()" #form="ngForm">
-          <div fxLayout="row">
+          <mat-form-field appearance="fill">
+            <mat-label>Número de control</mat-label>
+            <input matInput formControlName="num_control" #num_control="matInput" required />
+            <mat-icon [ngClass]="{'icon-active': num_control.focused}"  matPrefix>person</mat-icon>
+            <!-- [color]="num_control.focused ? 'primary':''" -->
+            <mat-error *ngIf="formLogin.get('num_control').hasError('required')">El número de control es requerida
+            </mat-error>
+          </mat-form-field>                   
+          <!-- <div fxLayout="row">
             <div class="user-input" fxFlex="10" fxLayoutAlign="center center">
               <mat-icon matSuffix>person</mat-icon>
             </div>
@@ -27,24 +35,25 @@
                 </mat-error>
               </mat-form-field>
             </div>
-          </div>
-          <div fxLayout="row">
-            <div fxFlex="10" fxLayoutAlign="center center">
-              <mat-icon matSuffix>lock</mat-icon>
-            </div>
-            <div fxFlex>
+          </div> -->
+          <!-- <div fxLayout="row"> -->
+            <!-- <div fxFlex="10" fxLayoutAlign="center center"> -->
+              <!-- <mat-icon matSuffix>lock</mat-icon> -->
+            <!-- </div> -->
+            <!-- <div fxFlex> -->
               <mat-form-field appearance="fill">
                 <mat-label>Contraseña</mat-label>
-                <input matInput formControlName="password" [type]="hide ? 'password':'text'" required />
+                <input matInput formControlName="password" [type]="hide ? 'password':'text'" #password="matInput" required />
+                <mat-icon  [ngClass]="{'icon-active': password.focused}" matPrefix>lock</mat-icon>
                 <!-- <button type="button" (click)="hide = !hide;$event.stopPropagation()" mat-icon-button matSuffix>
                     <mat-icon>{{hide ? 'visibility_off':'visibility'}}</mat-icon>
                 </button> -->
-                <mat-icon matSuffix (click)="hide = !hide" class="eyes">{{hide ? 'visibility_off' : 'visibility'}}
-                </mat-icon>
+                <!-- <mat-icon matSuffix (click)="hide = !hide" class="eyes">{{hide ? 'visibility_off' : 'visibility'}}
+                </mat-icon> -->
                 <mat-error *ngIf="formLogin.get('password').hasError('required')">La contraseña es requerida</mat-error>
               </mat-form-field>
-            </div>
-          </div>
+            <!-- </div> -->
+          <!-- </div> -->
         </form>
       </mat-card-content>
       <mat-card-actions align="center">

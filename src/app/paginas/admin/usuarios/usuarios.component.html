@@ -1,7 +1,6 @@
-<div fxLayout="row" fxLayoutGap="12px">
+<!-- <div fxLayout="row" fxLayoutGap="12px">
   <div fxFlex.lt-md="70" fxFlex="100">
     <mat-form-field>
-      <!-- <mat-label>No. de control</mat-label> -->
       <input matInput placeholder="No. de control" #inputFiltro />
     </mat-form-field>
   </div>
@@ -20,19 +19,85 @@
 <div fxLayout="row" fxLayoutGap="12px">
   <div fxFlex="35" fxShow fxHide.lt-md>
     <mat-card>
-      <mat-selection-list>
-        <mat-list-option [selected]="rolSeleccionado === rol.nombre" (click)="seleccionarRol(rol.nombre)"
-          *ngFor="let rol of roles">{{ rol.nombre }}</mat-list-option>
-      </mat-selection-list>
+      <mat-card-content>
+        <mat-selection-list>
+          <mat-list-option [selected]="rolSeleccionado === rol.nombre" (click)="seleccionarRol(rol.nombre)"
+            *ngFor="let rol of roles">{{ rol.nombre }}</mat-list-option>
+        </mat-selection-list>
+      </mat-card-content>
     </mat-card>
   </div>
   <div fxFlex>
     <mat-card>
-      <app-table [dataSource]="dataSource" [componentDialog]="componentDialog" [columnsHeader]="columnsHeader"
-        (emitData)="cargarTable($event)">
-      </app-table>
-      <mat-paginator [length]="dataSource.total" [pageSize]="dataSource.por_pagina" showFirstLastButtons>
-      </mat-paginator>
+      <mat-card-header>
+        <mat-toolbar>
+          <button mat-icon-button [matMenuTriggerFor]="filtros">
+            <mat-icon aria-label="label">filter_list</mat-icon>
+          </button>
+          <mat-menu #filtros="matMenu" xPosition="before">
+            <mat-checkbox *ngFor="let rol of roles" (change)="seleccionarRol(rol.nombre)"
+              [checked]="rolSeleccionado === rol.nombre" class="mat-menu-item" (click)="$event.stopPropagation()">
+              {{ rol.nombre }}
+            </mat-checkbox>
+          </mat-menu>
+        </mat-toolbar>
+      </mat-card-header>
+      <mat-card-content>
+        <app-table [dataSource]="dataSource" [componentDialog]="componentDialog" [columnsHeader]="columnsHeader"
+          (emitData)="cargarTable($event)">
+        </app-table>
+        <mat-paginator [length]="dataSource.total" [pageSize]="dataSource.por_pagina" showFirstLastButtons>
+        </mat-paginator>
+      </mat-card-content>
     </mat-card>
   </div>
-</div>
+</div> -->
+
+<mat-card>
+  <mat-card-header>
+    <app-card-header [title]="'Usuarios'">
+      <div class="content-filtro" fxFlex="50" fxFlex.xs="75" fxLayoutAlign="start center">
+        <mat-icon matPrefix>search</mat-icon>
+        <input class="input-filter" placeholder="Número de control" #inputFiltro />
+      </div>
+      <div fxFlex fxLayoutAlign="end end">
+        <button mat-icon-button [matMenuTriggerFor]="filtros">
+          <mat-icon aria-label="label">filter_list</mat-icon>
+        </button>
+        <mat-menu #filtros="matMenu" xPosition="before">
+          <mat-checkbox *ngFor="let rol of roles" (change)="seleccionarRol(rol.nombre)"
+            [checked]="rolSeleccionado === rol.nombre" class="mat-menu-item" (click)="$event.stopPropagation()">
+            {{ rol.nombre }}
+          </mat-checkbox>
+        </mat-menu>
+      </div>
+    </app-card-header>
+    <!-- <mat-toolbar>
+      <div class="content-header" fxLayoutAlign="start center">
+        <h2 style="margin-right: 1rem; padding-right: 1rem; border-right-width: 2px !important;" fxShow fxHide.xs>Usuarios</h2>                 
+        <div class="content-filtro" fxFlex="50" fxFlex.xs="75" fxLayoutAlign="start center">
+          <mat-icon matPrefix>search</mat-icon>
+          <input placeholder="No. de control" #inputFiltro />
+        </div>
+        <div fxFlex fxLayoutAlign="end end">
+          <button mat-icon-button [matMenuTriggerFor]="filtros">
+            <mat-icon aria-label="label">filter_list</mat-icon>
+          </button>
+          <mat-menu #filtros="matMenu" xPosition="before">
+            <mat-checkbox *ngFor="let rol of roles" (change)="seleccionarRol(rol.nombre)"
+              [checked]="rolSeleccionado === rol.nombre" class="mat-menu-item" (click)="$event.stopPropagation()">
+              {{ rol.nombre }}
+            </mat-checkbox>
+          </mat-menu>
+        </div>
+      </div>
+    </mat-toolbar> -->
+  </mat-card-header>
+  <mat-card-content>
+    <app-table [dataSource]="dataSource" [componentDialog]="componentDialog" [columnsHeader]="columnsHeader"
+      (emitData)="cargarTable($event)">
+    </app-table>
+    <mat-paginator [length]="dataSource.total" [pageSize]="dataSource.por_pagina" showFirstLastButtons>
+    </mat-paginator>
+  </mat-card-content>
+</mat-card>

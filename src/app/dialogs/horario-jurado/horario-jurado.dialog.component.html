@@ -1,1 +1,37 @@
-<p>jurado works!</p>
+<!-- <span>{{data.num_control}}</span>
+<mat-dialog-content>
+    <div fxLayout="column" *ngFor="let fecha of fechas">
+        {{fecha.fecha}}
+        <div fxLayout="row wrap" *ngFor="let intervalo of fecha.intervalos">
+            <div fxFlex="50">
+                <mat-checkbox>{{intervalo.hora}}</mat-checkbox>
+            </div>
+        </div>
+
+    </div>
+</mat-dialog-content>
+<mat-dialog-actions>
+
+</mat-dialog-actions> -->
+
+<span mat-dialog-title>{{data.nombreCompleto}}</span>
+<mat-dialog-content style="padding:24px">
+    <!-- <div fxLayoutGap="12px"> -->
+    <div fxLayout="column" *ngFor="let fecha of fechas" style="padding-left:12px; margin-bottom: 12px;">
+        <mat-checkbox color="primary" [checked]="fecha.checked" (change)="seleccionarTodos($event,fecha)">{{ fecha.fecha }}</mat-checkbox>
+        <div fxLayout="row wrap" fxLayout.xs="column" style="padding: 0 20px;" fxLayoutGap="12px">
+            <div *ngFor="let intervalo of fecha.intervalos" fxFlex="30">
+                <!-- <ng-container *ngIf="!intervalo.break"></ng-container> -->                
+                <mat-checkbox color="primary"  [checked]="intervalo.selected"
+                    (change)="agregarHora($event,fecha,intervalo)" >{{ intervalo.hora }}
+                </mat-checkbox>
+            </div>
+        </div>
+    </div>
+    <!-- </div> -->
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-button [mat-dialog-close]="1">
+        ¡Listo!
+    </button>
+</mat-dialog-actions>

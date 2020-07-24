@@ -18,38 +18,29 @@
     </mat-menu>
   </app-header>
   <mat-sidenav-container class="sidenav-container" autosize>
-    <mat-sidenav #sidenav [mode]="mobileQuery.matches  ? 'side' : 'over'" [opened]="mobileQuery.matches" autosize>
-      <!-- <ng-content></ng-content> -->
-      <!-- <app-admin></app-admin> -->
-      
+    <mat-sidenav #sidenav [mode]="mobileQuery.matches  ? 'side' : 'over'" [opened]="mobileQuery.matches" autosize>          
       <mat-nav-list>
-        <a [routerLink]="['home']" routerLinkActive="active" *ngxPermissionsOnly="['Administrador','Docente']">
-          <mat-list-item>
+        <a mat-list-item [routerLink]="['home']" routerLinkActive="active" *ngxPermissionsOnly="['Administrador','Docente']">          
             <mat-icon class="icon-sidenav-list" matListIcon>home</mat-icon>
-            Inicio
-          </mat-list-item>
+            Inicio          
         </a>
-        <a [routerLink]="['usuarios']" routerLinkActive="active" *ngxPermissionsOnly="['Administrador']" >
-          <mat-list-item role="listitem">
+        <a mat-list-item [routerLink]="['usuarios']" routerLinkActive="active" *ngxPermissionsOnly="['Administrador']" >          
             <mat-icon class="icon-sidenav-list" matListIcon>group</mat-icon>
-            Usuarios
-          </mat-list-item>
+            Usuarios          
         </a>
-        <a [routerLink]="['lineas-investigacion']" routerLinkActive="active" *ngxPermissionsOnly="['Administrador']">
-          <mat-list-item role="listitem">
-            Lineas de investigación
-          </mat-list-item>
+        <a mat-list-item [routerLink]="['lineas-investigacion']" routerLinkActive="active" *ngxPermissionsOnly="['Administrador']">          
+            Lineas de investigación          
         </a>
         <a [routerLink]="['tipos-proyectos']" routerLinkActive="active" *ngxPermissionsOnly="['Administrador']">
           <mat-list-item role="listitem">
             Tipos de proyectos
           </mat-list-item>
         </a>       
-        <a [routerLink]="['foros']" routerLinkActive="active" *ngxPermissionsOnly="['Administrador']">
-          <mat-list-item role="listitem">
+        <a mat-list-item [routerLink]="['foros']" routerLinkActive="active" *ngxPermissionsOnly="['Administrador']">
+          <!-- <mat-list-item role="listitem"> -->
             <mat-icon matListIcon>forum</mat-icon>
             Foros
-          </mat-list-item>
+          <!-- </mat-list-item> -->
         </a>
         <mat-expansion-panel class="mat-elevation-z0" *ngxPermissionsOnly="['Administrador']">
           <mat-expansion-panel-header>
@@ -60,25 +51,15 @@
             <a class="submenu" mat-list-item [routerLink]="['jurado']">Horario del jurado</a>
             <a class="submenu" mat-list-item [routerLink]="['generar_horario']">Generar horario</a>
           </mat-nav-list>
-        </mat-expansion-panel>        
+        </mat-expansion-panel>
 
-
-
-        <!-- Docente -->
-        <!-- [routerLink]="['proyectos']" routerLinkActive="active"  -->
+        
         <a *ngxPermissionsOnly="['Docente']">
           <mat-list-item role="listitems">Proyectos</mat-list-item>
         </a>
         <a [routerLink]="['asignar-jurado']" routerLinkActive="active" *ngxPermissionsOnly="['Docente']">
           <mat-list-item role="listitems">Horario</mat-list-item>
-        </a>
-        <!-- <a [routerLink]="['asignar-jurado']" routerLinkActive="active" *ngxPermissionsOnly="['Docente']">
-          <mat-list-item role="listitems">Asignar jurado</mat-list-item>
-        </a>
-        <a [routerLink]="['asignar-jurado']" routerLinkActive="active" *ngxPermissionsOnly="['Docente']">
-          <mat-list-item role="listitems">Asignar jurado</mat-list-item>
-        </a> -->
-        <!-- Alumno -->
+        </a>      
         <a [routerLink]="['registrar-proyecto']" routerLinkActive="active" *ngxPermissionsOnly="['Alumno']">
           <mat-list-item role="listitems">Registrar proyecto</mat-list-item>
         </a>
@@ -86,24 +67,85 @@
       </mat-nav-list> 
     </mat-sidenav>
     <mat-sidenav-content class="sidenav-content">
-      <!-- <mat-card> -->
         <router-outlet></router-outlet>
-      <!-- </mat-card>       -->
     </mat-sidenav-content>
   </mat-sidenav-container>
 </div>
-
- <!-- <a [routerLink]="['horarios']" routerLinkActive="active">
-            <mat-list-item role="listitem">
-              <mat-icon matListIcon>access_time</mat-icon>
-              Horarios
-            </mat-list-item>
-          </a> -->
-        <!-- <mat-divider></mat-divider> -->
-        <!-- <a [routerLink]="['foros']" routerLinkActive="active">
-            <mat-list-item role="listitem">
-              <mat-icon class="icon-sidenav-list" matListIcon>library_books</mat-icon>
-              Tipos de proyectos
-            </mat-list-item>          
-          </a> -->
-        <!-- <mat-divider></mat-divider> -->
+<!-- 
+<mat-sidenav-container>
+  <mat-sidenav #sidenav [mode]="mobileQuery.matches  ? 'side' : 'over'" [opened]="mobileQuery.matches" autosize>
+    <mat-toolbar></mat-toolbar>
+    <div class="sidenav-header" fxLayout="column" fxLayoutAlign="center center">
+      <div>      
+        <img src="../../../assets/img/ittg.png" alt="Perfil" height="64px" >      
+      </div>     
+    </div>
+    <mat-nav-list>
+      <a mat-list-item [routerLink]="['home']" routerLinkActive="active"
+        *ngxPermissionsOnly="['Administrador','Docente']">
+        <mat-icon class="icon-sidenav-list" matListIcon>home</mat-icon>
+        Inicio
+      </a>
+      <a mat-list-item [routerLink]="['usuarios']" routerLinkActive="active" *ngxPermissionsOnly="['Administrador']">
+        <mat-icon class="icon-sidenav-list" matListIcon>group</mat-icon>
+        Usuarios
+      </a>
+      <a mat-list-item [routerLink]="['lineas-investigacion']" routerLinkActive="active"
+        *ngxPermissionsOnly="['Administrador']">
+        Lineas de investigación
+      </a>
+      <a mat-list-item [routerLink]="['tipos-proyectos']" routerLinkActive="active"
+        *ngxPermissionsOnly="['Administrador']">
+        Tipos de proyectos
+      </a>
+      <a mat-list-item [routerLink]="['foros']" routerLinkActive="active" *ngxPermissionsOnly="['Administrador']">
+        <mat-icon matListIcon>forum</mat-icon>
+        Foros
+      </a>
+      <mat-expansion-panel class="mat-elevation-z0" *ngxPermissionsOnly="['Administrador']">
+        <mat-expansion-panel-header>
+          <mat-icon matListIcon>access_time</mat-icon>
+          Horarios
+        </mat-expansion-panel-header>
+        <mat-nav-list>
+          <a class="submenu" mat-list-item [routerLink]="['jurado']">Horario del jurado</a>
+          <a class="submenu" mat-list-item [routerLink]="['generar_horario']">Generar horario</a>
+        </mat-nav-list>
+      </mat-expansion-panel>
+      <a *ngxPermissionsOnly="['Docente']">
+        <mat-list-item role="listitems">Proyectos</mat-list-item>
+      </a>
+      <a [routerLink]="['asignar-jurado']" routerLinkActive="active" *ngxPermissionsOnly="['Docente']">
+        <mat-list-item role="listitems">Horario</mat-list-item>
+      </a>
+      <a [routerLink]="['registrar-proyecto']" routerLinkActive="active" *ngxPermissionsOnly="['Alumno']">
+        <mat-list-item role="listitems">Registrar proyecto</mat-list-item>
+      </a>
+      <a mat-list-item [routerLink]="[ 'cambiar_contrasena']">Cambiar contraseña</a>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar style="position: fixed;z-index: 999;">
+      <button mat-icon-button>
+        <mat-icon aria-label="label" (click)="sidenav.toggle()">menu</mat-icon>
+      </button>
+      <span class="btn-user"></span>
+      <button mat-icon-button [matMenuTriggerFor]="menu">
+        <mat-icon aria-label="label">account_circle</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item (click)="logout()">
+          <mat-icon>exit_to_app</mat-icon>
+          <span>Cerrar sesión</span>
+        </button>
+        <div *ngIf="contarRoles() > 1">
+          <a mat-menu-item *ngFor="let rol of roles" [routerLink]="['/' + rol]">{{ rol }}</a>
+        </div>
+      </mat-menu>
+    </mat-toolbar>
+    <div style="background-color: #153D77; height: 120px; min-height: 120px; max-height: 120px;margin-top:64px"></div>
+    <div class="main-container" [ngStyle]="{'margin-top.px': -64}" [ngStyle.xs]="{'margin-top.px': -56}">
+      <router-outlet></router-outlet>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container> -->

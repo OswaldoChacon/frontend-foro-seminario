@@ -1,15 +1,25 @@
 .mat-dialog-content{    
-    font-size: 13px;    
+    /* font-size: 13px;     */
 }
-.container{    
-}
+
 .mat-dialog-content{
     margin:0;
-    padding-top:14px
+    padding-top:14px;
+    /* overflow-x: hidden; */
 }
 span{
     /* margin-bottom:5% !important; */
     font-size: 15px;
     font-weight: bold;
     /* padding:10px; */
+}
+
+:host {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+mat-dialog-content {
+    flex-grow: 1;
 }

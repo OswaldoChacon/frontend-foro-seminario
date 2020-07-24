@@ -20,19 +20,18 @@ export class JuradoDataSource extends DataSource<Usuario> {
   disconnect() {
     this.juradoSubject.complete();
   }
-  cargarJurado(pagina: string) {
-    this.juradoService.getJuraro(pagina).pipe(
+  getJurado(pagina: string) {
+    this.juradoService.getJurado(pagina).pipe(
         finalize(()=>this.loadingSubject.next(false))
     ).subscribe((res) => {
       this.juradoSubject.next(res["jurado"]["data"]);
       this.total = res["jurado"]["total"];
       this.por_pagina = res["jurado"]["per_page"];
+      localStorage.setItem('fechas',JSON.stringify(res['fechas']));
     });
   }
  
-  spinnerValue() {
-    return this.loadingSubject;
-  }
+ 
  
   resetData(){
       this.loadingSubject.next(true);

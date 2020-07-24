@@ -21,7 +21,7 @@ export class JuradoComponent implements OnInit {
   ngOnInit(): void {
     // this.juradoService.getJuraro().subscribe();
     this.dataSource = new JuradoDataSource(this._juradoService);
-    this.dataSource.cargarJurado("1");
+    this.dataSource.getJurado("1");
   }
   ngAfterViewInit(): void {
     //Called after ngAfterContentInit when the component's view has been initialized. Applies to components only.
@@ -29,9 +29,7 @@ export class JuradoComponent implements OnInit {
     this.paginator.page.pipe(
       tap(() => {
         this.dataSource.resetData();
-        this.dataSource.cargarJurado(
-          (this.paginator.pageIndex + 1).toString()
-        );
+        this.dataSource.getJurado((this.paginator.pageIndex + 1).toString());
       })
     ).subscribe();
   }

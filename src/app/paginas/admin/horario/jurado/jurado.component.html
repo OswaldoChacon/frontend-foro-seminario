@@ -1,4 +1,9 @@
 <mat-card>
+  <mat-card-header>
+    <app-card-header [title]="'Jurado'"></app-card-header>
+  </mat-card-header>
+  <mat-card-content>
   <app-table [dataSource]="dataSource" [columnsHeader]="columnsHeader" [componentDialog]="componentDialog" (emitData)="cargarTable($event)"></app-table>
   <mat-paginator [length]="dataSource.total" [pageSize]="dataSource.por_pagina" showFirstLastButtons></mat-paginator>
+</mat-card-content>
 </mat-card>

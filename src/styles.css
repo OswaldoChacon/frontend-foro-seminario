@@ -1,37 +1,43 @@
 /* You can add global styles to this file, and also import other style files */
-/* @import "../node_modules/@angular/material/prebuilt-themes/indigo-pink.css"; */
-html,
-body {
+
+@import "../node_modules/@angular/material/prebuilt-themes/indigo-pink.css";
+html, body {
   height: 100%;
   margin: 0;
-  font-family: Roboto, sans-serif;
   text-align: justify;
 }
 
 /* input formulario */
+
 .mat-form-field {
   width: 100%;
   margin-top: 10px;
 }
+
 /* toolbar dialog */
-.mat-dialog-container {
-  /* padding-top: 0px !important; */
-}
+
 /* toolbar dialog */
+
 .barra {
   margin-left: -24px;
   margin-right: -24px;
 }
+
 /* centrado del spinner */
+
 .table-loading {
   margin: 20px auto;
 }
+
 /* tabla ocupe el 100% */
+
 .mat-table {
   width: 100%;
   /* overflow: auto; */
 }
+
 /* Mensaje de tabla vacia centrado */
+
 .center-message {
   text-align: center;
   padding-top: 20px;
@@ -49,9 +55,8 @@ body {
 } */
 
 /* margin que existe en la tabla responsive */
-mat-cell:first-child,
-mat-footer-cell:first-child,
-mat-header-cell:first-child {
+
+mat-cell:first-child, mat-footer-cell:first-child, mat-header-cell:first-child {
   padding-left: 0px !important;
 }
 
@@ -60,24 +65,39 @@ mat-header-cell:first-child {
 }
 
 .my-class .mat-dialog-container {
-  height: 520px;
+  /* height: 520px; */
   /* width: 90%; */
   /* border-radius: 10px; */
   /* background: lightcyan; */
   /* color: #039be5; */
 }
 
+/* mat-dialog */
 
+.mat-dialog-container {
+  /* padding-top: 0 !important; */
+  /* padding: 0 !important; */
+  /* height: 80vh !important; */
+  max-height: 80vh !important;
+  height: auto !important;
+}
 
-
+.mat-dialog-content {
+  max-height: 85vh !important;
+  /* padding: 24px !important; */
+  /* margin: 0 !important; */
+  /* flex-grow: 1; */
+}
+.mat-dialog-actions{
+  /* margin-right: 0 !important;
+  margin-left: 0 !important; */
+}
 
 /* Responsive table */
-
 
 .mobile-label {
   display: none;
 }
-
 
 @media (max-width: 599px) {
   .mat-cell {
@@ -91,25 +111,67 @@ mat-header-cell:first-child {
     display: inline-block;
     font-weight: bold;
   }
-
-  .text-content{
+  .text-content {
     /* padding-right: 16px; */
     width: 70%;
   }
-  
   .nombre {
     display: none;
   }
-
   .mat-row {
     min-height: max-content;
     /* max-width: auto; */
     flex-direction: column;
     align-items: start;
-    padding: 0px 6px !important;    
+    padding: 0px 6px !important;
   }
 }
 
-.mat-row{
+.mat-row {
   cursor: pointer;
+}
+
+/* Mat-card */
+
+.mat-card {
+  padding: 0 !important;
+}
+
+.mat-card-header-text {
+  margin: 0 !important;
+}
+
+.mat-card-content {
+  padding: 16px;
+}
+
+
+
+
+.verificado {
+  color: green;
+}
+
+.error {
+  color: red;
+}
+
+
+
+
+/* filtro */
+
+.content-filtro{
+  border-radius:9999px;
+  background-color: #ffff;
+  height: 42px;
+  padding: .2rem 1rem;     
+}
+
+.input-filter{
+  width: 100%;
+  border:none
+}
+.input-filter:focus{
+  outline: none;
 }
