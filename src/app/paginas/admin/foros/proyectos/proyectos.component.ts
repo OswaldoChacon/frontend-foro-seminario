@@ -1,8 +1,8 @@
-import { Component, OnInit, ViewChild, Optional, Inject } from "@angular/core";
+import { Component, OnInit, ViewChild, Optional, Inject, ElementRef } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { ProyectosDataSource } from "src/app/services/table/proyectos.datasource";
 import { MatPaginator } from "@angular/material/paginator";
-import { tap } from "rxjs/operators";
+import { tap, debounceTime, distinctUntilChanged } from "rxjs/operators";
 import { MatCheckboxChange } from "@angular/material/checkbox";
 import { ProyectosService } from "src/app/services/proyectos/proyectos.service";
 import {
@@ -12,6 +12,7 @@ import {
 } from "@angular/material/dialog";
 import { DocentesDiaogComponent } from "src/app/dialogs/docentes/docentes.dialog.component";
 import { Proyectos } from "src/app/modelos/proyectos.model";
+import { fromEvent } from 'rxjs';
 
 @Component({
   selector: "app-proyectos",
@@ -19,50 +20,61 @@ import { Proyectos } from "src/app/modelos/proyectos.model";
   styleUrls: ["./proyectos.component.css"],
 })
 export class ProyectosComponent implements OnInit {
-  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  @ViewChild('inputFiltro', { static: true }) input: ElementRef
   constructor(
     private _activeRoute: ActivatedRoute,
     private _proyectoService: ProyectosService,
     private _dialog: MatDialog
-  ) {}
+  ) { }
 
   displayedColumns = ["folio", "titulo", "participa"];
-  columnsHeader = { 'participa':'Part.','folio':'Folio','titulo':'Titulo'};
+  columnsHeader = { 'participa': 'Part.', 'folio': 'Folio', 'titulo': 'Titulo' };
   componentDialog = DocentesDiaogComponent;
   dataSource: ProyectosDataSource;
+  
   ngOnInit(): void {
     const params = this._activeRoute.snapshot.params;
     if (params) {
-      this.dataSource = new ProyectosDataSource(
-        this._proyectoService,
-        params.id
-      );
-      this.dataSource.cargarProyectos("1");
+      this.dataSource = new ProyectosDataSource(this._proyectoService, params.id);
+      this.dataSource.getProyectos(1, this.input.nativeElement.value);
     }
   }
+
   cargarTable(event: { data?: Proyectos, opcion?: any, valorOpcion?: string }) {
-    if(event.opcion instanceof MatCheckboxChange)
-    this.participa(event.opcion, event.data.folio)
+    if (event.opcion instanceof MatCheckboxChange)
+      this.participa(event.opcion, event.data.folio)
   }
+
   ngAfterViewInit(): void {
-    this.paginator.page
-      .pipe(
-        tap(() => {
-          this.dataSource.resetData();
-          this.dataSource.cargarProyectos(
-            (this.paginator.pageIndex + 1).toString()
-          );
-        })
-      )
-      .subscribe();
+
+    fromEvent(this.input.nativeElement, 'keyup').pipe(
+      debounceTime(150),
+      distinctUntilChanged(),
+      tap(() => {
+        this.paginator.pageIndex = 0;
+        this.getProyectos();
+      })
+    ).subscribe();
+
+    this.paginator.page.pipe(
+      tap(() => {
+        this.dataSource.resetData();
+        this.dataSource.getProyectos(this.paginator.pageIndex + 1, this.input.nativeElement.value);
+      })
+    ).subscribe();
   }
+
+  getProyectos(){
+    this.dataSource.getProyectos(this.paginator.pageIndex+1,this.input.nativeElement.value);
+  }
+
   participa(event: MatCheckboxChange, folio: string) {
     let participa = event.checked == true ? "1" : "0";
     this._proyectoService.participa(folio, participa).subscribe();
   }
-  ngOnDestroy(): void {
-    //Called once, before the instance is destroyed.
-    //Add 'implements OnDestroy' to the class.
+  
+  ngOnDestroy(): void {    
     localStorage.removeItem('docentes');
   }
 }

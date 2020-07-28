@@ -1,4 +1,4 @@
-<div fxLayout="row" fxFlex>
+<!-- <div fxLayout="row" fxFlex>
   <app-header fxFlex="100">
     <button mat-icon-button>
       <mat-icon aria-label="label" (click)="sidenav.toggle()">menu</mat-icon>
@@ -36,11 +36,9 @@
             Tipos de proyectos
           </mat-list-item>
         </a>       
-        <a mat-list-item [routerLink]="['foros']" routerLinkActive="active" *ngxPermissionsOnly="['Administrador']">
-          <!-- <mat-list-item role="listitem"> -->
+        <a mat-list-item [routerLink]="['foros']" routerLinkActive="active" *ngxPermissionsOnly="['Administrador']">          
             <mat-icon matListIcon>forum</mat-icon>
-            Foros
-          <!-- </mat-list-item> -->
+            Foros          
         </a>
         <mat-expansion-panel class="mat-elevation-z0" *ngxPermissionsOnly="['Administrador']">
           <mat-expansion-panel-header>
@@ -70,62 +68,173 @@
         <router-outlet></router-outlet>
     </mat-sidenav-content>
   </mat-sidenav-container>
-</div>
-<!-- 
+</div> -->
+
+
 <mat-sidenav-container>
   <mat-sidenav #sidenav [mode]="mobileQuery.matches  ? 'side' : 'over'" [opened]="mobileQuery.matches" autosize>
-    <mat-toolbar></mat-toolbar>
-    <div class="sidenav-header" fxLayout="column" fxLayoutAlign="center center">
-      <div>      
-        <img src="../../../assets/img/ittg.png" alt="Perfil" height="64px" >      
-      </div>     
-    </div>
-    <mat-nav-list>
-      <a mat-list-item [routerLink]="['home']" routerLinkActive="active"
-        *ngxPermissionsOnly="['Administrador','Docente']">
-        <mat-icon class="icon-sidenav-list" matListIcon>home</mat-icon>
-        Inicio
-      </a>
-      <a mat-list-item [routerLink]="['usuarios']" routerLinkActive="active" *ngxPermissionsOnly="['Administrador']">
-        <mat-icon class="icon-sidenav-list" matListIcon>group</mat-icon>
-        Usuarios
-      </a>
-      <a mat-list-item [routerLink]="['lineas-investigacion']" routerLinkActive="active"
-        *ngxPermissionsOnly="['Administrador']">
-        Lineas de investigación
-      </a>
-      <a mat-list-item [routerLink]="['tipos-proyectos']" routerLinkActive="active"
-        *ngxPermissionsOnly="['Administrador']">
-        Tipos de proyectos
-      </a>
-      <a mat-list-item [routerLink]="['foros']" routerLinkActive="active" *ngxPermissionsOnly="['Administrador']">
-        <mat-icon matListIcon>forum</mat-icon>
-        Foros
-      </a>
-      <mat-expansion-panel class="mat-elevation-z0" *ngxPermissionsOnly="['Administrador']">
-        <mat-expansion-panel-header>
-          <mat-icon matListIcon>access_time</mat-icon>
-          Horarios
-        </mat-expansion-panel-header>
+    <div fxLayout="column" style="height: 100%;">
+      <mat-toolbar style="background-color: #0D47A1; color: white; font-size: 16px;" fxLayoutGap="12px" fxLayoutAlign="start center">
+        <!-- <div style="border-radius: 50%; background-color: white; height: 40px; width: 40px;">
+          <img src="../../../assets/img/ittg.png" alt="Perfil" height="40px">
+        </div> -->
+        <div>
+          TECNM ITTG
+        </div>
+        
+      </mat-toolbar>
+      <!-- <div>
+        <mat-toolbar></mat-toolbar>
+      </div> -->
+
+
+
+      <!-- <div fxLayout="column" style="height: max-content; background-color: #0D47A1; padding:10px 25px; color: white; font-weight: 500; font-size: 14px;border-bottom:1px solid thistle;"
+        fxLayoutAlign="center center" fxLayoutGap="0px">                   
+        <div style="min-height: 50px;">          
+            <span>
+              Oswaldo de Jesús Chacón Pérez
+            </span>          
+        </div>
+        <div style="background-color: #fafafa; border-radius: 50%; height: 50px; width: 50px;top:110px; position:absolute">
+          <img src="../../../assets/img/perfil2.png" alt="Perfil" height="50px">
+        </div>              
+      </div> -->
+
+
+<!-- 
+      <div fxLayout="row" style="height: max-content; background-color: #0D47A1; padding:10px 25px; color: white; font-weight: 500; font-size: 14px;border-bottom:1px solid thistle;"
+      fxLayoutAlign="center center" fxLayoutGap="10px">                   
+      
+      <div style="background-color: #fafafa; border-radius: 50%; height: 50px; width: 50px;">
+        <img src="../../../assets/img/perfil2.png" alt="Perfil" height="50px">
+      </div>   
+      <div >
+        <span>
+          Oswaldo de Jesús Chacón Pérez
+        </span>          
+    </div>           
+    </div> -->
+      
+      
+      
+      
+      <!-- <div class="sidenav-header" fxLayout="column" fxLayoutAlign="center center">
+        <div>
+          <img src="../../../assets/img/ittg.png" alt="Perfil" height="64px">
+        </div>
+      </div> -->
+
+      <!-- <mat-toolbar style="background-color: #153D77;"></mat-toolbar> -->
+      <!-- <div class="sidenav-header" fxLayout="column" fxLayoutAlign="center center">
+      <div>
+        <img src="../../../assets/img/ittg.png" alt="Perfil" height="64px">
+      </div>
+    </div> -->
+      <div style="overflow: auto;">
+        <!-- padding-top: 32px; -->
+        <!-- fxFlex="100" -->
+        <!-- style="overflow: auto;" -->
         <mat-nav-list>
-          <a class="submenu" mat-list-item [routerLink]="['jurado']">Horario del jurado</a>
-          <a class="submenu" mat-list-item [routerLink]="['generar_horario']">Generar horario</a>
+          <a mat-list-item [routerLink]="['home']" routerLinkActive="active"
+            *ngxPermissionsOnly="['Administrador','Docente','Alumno']">
+            <mat-icon matListIcon>home</mat-icon>
+            Inicio
+          </a>
+          <a mat-list-item [routerLink]="['usuarios']" routerLinkActive="active"
+            *ngxPermissionsOnly="['Administrador']">
+            <mat-icon matListIcon>group</mat-icon>
+            <span>Usuarios</span>
+          </a>
+          <a mat-list-item [routerLink]="['lineas-investigacion']" routerLinkActive="active"
+            *ngxPermissionsOnly="['Administrador']">
+            Lineas de investigación
+          </a>
+          <a mat-list-item [routerLink]="['tipos-proyectos']" routerLinkActive="active"
+            *ngxPermissionsOnly="['Administrador']">
+            Tipos de proyectos
+          </a>
+          <a mat-list-item [routerLink]="['foros']" routerLinkActive="active" *ngxPermissionsOnly="['Administrador']">
+            <mat-icon matListIcon>forum</mat-icon>
+            Foros
+          </a>
+          <mat-expansion-panel class="mat-elevation-z0" *ngxPermissionsOnly="['Administrador']">
+            <mat-expansion-panel-header>
+              <mat-icon matListIcon>access_time</mat-icon>
+              Horarios
+            </mat-expansion-panel-header>
+            <mat-nav-list>
+              <a class="submenu" mat-list-item [routerLink]="['jurado']">Horario del jurado</a>
+              <a class="submenu" mat-list-item [routerLink]="['generar_horario']">Generar horario</a>
+            </mat-nav-list>
+          </mat-expansion-panel>
+          <a *ngxPermissionsOnly="['Docente']">
+            <mat-list-item role="listitems">Proyectos</mat-list-item>
+          </a>
+          <a [routerLink]="['asignar-jurado']" routerLinkActive="active" *ngxPermissionsOnly="['Docente']">
+            <mat-list-item role="listitems">Horario</mat-list-item>
+          </a>
+          <a mat-list-item [routerLink]="['registrar-proyecto']" routerLinkActive="active"
+            *ngxPermissionsOnly="['Alumno']">
+            <mat-icon matListIcon>note_add</mat-icon>
+            Registrar proyecto
+          </a>
+          <a mat-list-item [routerLink]="[ 'cambiar_contrasena']">
+            <mat-icon matListIcon>lock_open</mat-icon>
+            Cambiar contraseña
+          </a>
+
+
+
+
+
+          <!-- 
+          <mat-grid-list cols="2" rowHeight="2:1">
+            <mat-grid-tile>
+              <a [routerLink]="[ 'cambiar_contrasena']">
+                <div fxLayout="column" fxLayoutAlign="center center">
+                  <div>
+                    <mat-icon>book</mat-icon>
+                  </div>
+                  <div>Cambiar contraseña</div>
+                </div>
+              </a>
+            </mat-grid-tile>
+            <mat-grid-tile>
+              <a [routerLink]="['home']" routerLinkActive="active" *ngxPermissionsOnly="['Administrador','Docente']">
+                <div fxLayout="column" fxLayoutAlign="center center">
+                  <div>
+                    <mat-icon>home</mat-icon>
+                  </div>
+                  <div>Inicio</div>
+                </div>
+              </a>
+            </mat-grid-tile>
+            <mat-grid-tile>
+              <a [routerLink]="['usuarios']" routerLinkActive="active"
+                *ngxPermissionsOnly="['Administrador']">
+                <div fxLayout="column" fxLayoutAlign="center center">
+                  <div>
+                    <mat-icon>group</mat-icon>
+                  </div>
+                  <div>Usuarios</div>
+                </div>
+              </a>
+            </mat-grid-tile>
+            <mat-grid-tile>4</mat-grid-tile>
+          </mat-grid-list>
+ -->
+
         </mat-nav-list>
-      </mat-expansion-panel>
-      <a *ngxPermissionsOnly="['Docente']">
-        <mat-list-item role="listitems">Proyectos</mat-list-item>
-      </a>
-      <a [routerLink]="['asignar-jurado']" routerLinkActive="active" *ngxPermissionsOnly="['Docente']">
-        <mat-list-item role="listitems">Horario</mat-list-item>
-      </a>
-      <a [routerLink]="['registrar-proyecto']" routerLinkActive="active" *ngxPermissionsOnly="['Alumno']">
-        <mat-list-item role="listitems">Registrar proyecto</mat-list-item>
-      </a>
-      <a mat-list-item [routerLink]="[ 'cambiar_contrasena']">Cambiar contraseña</a>
-    </mat-nav-list>
+
+
+      </div>
+    </div>
   </mat-sidenav>
   <mat-sidenav-content>
-    <mat-toolbar style="position: fixed;z-index: 999;">
+    <!-- <nav style="flex-flow:row wrap"> -->
+    <mat-toolbar style="z-index: 9999; position: sticky; top:0;background-color: #0D47A1; color:white">
+      <!-- style="position: fixed;z-index: 999;" -->
       <button mat-icon-button>
         <mat-icon aria-label="label" (click)="sidenav.toggle()">menu</mat-icon>
       </button>
@@ -143,9 +252,14 @@
         </div>
       </mat-menu>
     </mat-toolbar>
-    <div style="background-color: #153D77; height: 120px; min-height: 120px; max-height: 120px;margin-top:64px"></div>
-    <div class="main-container" [ngStyle]="{'margin-top.px': -64}" [ngStyle.xs]="{'margin-top.px': -56}">
+    <!-- </nav> -->
+    <!-- <div style="background-color: #0D47A1; height: 120px; min-height: 120px; max-height: 120px;"> -->
+    <!-- margin-top:64px -->
+    <!-- </div> -->
+    <!-- <div class="main-container" style="padding:24px" [ngStyle]="{'margin-top.px': -88}" [ngStyle.xs]="{'margin-top.px': -56}"> -->
+    <div class="main-container" style="padding:24px">
+
       <router-outlet></router-outlet>
     </div>
   </mat-sidenav-content>
-</mat-sidenav-container> -->
+</mat-sidenav-container>

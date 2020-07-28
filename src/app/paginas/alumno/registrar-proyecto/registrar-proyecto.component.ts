@@ -10,6 +10,7 @@ import {
 import { ForoService } from "src/app/services/foro/foro.service";
 import { tap, finalize, filter, map } from "rxjs/operators";
 import { ProyectosService } from "src/app/services/proyectos/proyectos.service";
+import { Router } from '@angular/router';
 
 @Component({
   selector: "app-registrar-proyecto",
@@ -29,34 +30,33 @@ export class RegistrarProyectoComponent implements OnInit {
 
   formRegistrar = this._formBuilder.group({
     alumnos: new FormArray([]),
-    titulo: ["", [Validators.required]],
-    linea: new FormControl("", [Validators.required]),
-    tipo: new FormControl("", [Validators.required]),
-    asesor: new FormControl("", [Validators.required]),
-    empresa: new FormControl("", [Validators.required]),
-    objetivo: new FormControl("", [Validators.required]),
+    titulo: ['', [Validators.required]],
+    linea: new FormControl('', [Validators.required]),
+    tipo: new FormControl('', [Validators.required]),
+    asesor: new FormControl('', [Validators.required]),
+    empresa: new FormControl('', [Validators.required]),
+    objetivo: new FormControl('', [Validators.required]),
     // alumnos: new FormControl([])
   });
   constructor(
     private _formBuilder: FormBuilder,
     private _foroService: ForoService,
-    private _proyectoService: ProyectosService
+    private _proyectoService: ProyectosService,
+    private _route: Router
   ) {}
 
   ngOnInit(): void {
-    this._foroService
-      .foroActual()
-      .pipe(finalize(() => (this.cargando = false)))
-      .subscribe((res: any) => {
+    this._foroService.foroActual().pipe(
+      finalize(() => (this.cargando = false))
+      ).subscribe((res: any) => {
         this.foro = res["foro"];
         this.lineas = res["lineas"];
         this.tipos = res["tipos"];
         this.docentes = res["docentes"];
-        this.alumnos = res["alumnos"];
-        // for (let index = 2; index <= this.foro.lim_alumnos; index++) {
-        //   this.lim_alumnos.push(index);
-        // }
-      });
+        this.alumnos = res["alumnos"];       
+      },
+      err=>this._route.navigate(['home'])
+      );
   }
   openPanel() {
     // this.isOpen = !this.isOpen;

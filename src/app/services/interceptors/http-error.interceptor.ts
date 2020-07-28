@@ -48,7 +48,8 @@ export class HttpErrorInterceptor implements HttpInterceptor {
         } else {
           // backend error
           // mensaje = `Server-side error: ${error.status} ${error.message}`;
-        }                
+        }           
+        // this.router.navigate(['home']);
         return throwError(error);
       })
     );

@@ -175,3 +175,9 @@ mat-cell:first-child, mat-footer-cell:first-child, mat-header-cell:first-child {
 .input-filter:focus{
   outline: none;
 }
+
+
+.mat-card-actions{
+  margin: 0 !important;
+  padding: 24px !important;
+}

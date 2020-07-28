@@ -10,7 +10,6 @@ import { TableComponent } from './table/table.component';
 import { CambiarContrasenaComponent } from './cambiar-contrasena/cambiar-contrasena.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CardHeaderComponent } from './card-header/card-header.component';
-
 @NgModule({
   declarations: [
     HeaderComponent,

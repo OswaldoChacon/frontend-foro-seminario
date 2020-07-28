@@ -1,9 +1,9 @@
-<div class="barra">
+<!-- <div class="barra">
     <app-header></app-header>
-</div>
+</div> -->
 <mat-dialog-content>
     <form [formGroup]="formFechaForo" #form="ngForm" (ngSubmit)="guardarFechaForo()">
-        <mat-form-field class="input">
+        <mat-form-field appearance="fill">
             <mat-label>Fecha</mat-label>
             <input matInput formControlName="fecha" [min]="hoy" [matDatepicker]="picker" />
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
@@ -12,11 +12,11 @@
                 El campo fecha es requerido
             </mat-error>
         </mat-form-field>
-        <mat-form-field class="input">
+        <mat-form-field appearance="fill">
             <mat-label>Hora de inicio</mat-label>
             <input type="time" matInput formControlName="hora_inicio" />
         </mat-form-field>
-        <mat-form-field class="input">
+        <mat-form-field appearance="fill">
             <mat-label>Hora de termino</mat-label>
             <input type="time" matInput formControlName="hora_termino" />
         </mat-form-field>

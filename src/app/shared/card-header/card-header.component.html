@@ -1,21 +1,10 @@
-<mat-toolbar>
-  <div class="content-header" fxLayoutAlign="start center">
-    <h2 style="margin-right: 1rem; padding-right: 1rem; border-right-width: 2px !important;" fxShow fxHide.xs>{{title}}
-    </h2>
+<mat-toolbar style="background-color: #0D47A1; color: white;">
+  <!-- <div fxLayout="row" class="content-header" > -->
+    <!-- fxLayoutAlign="start  center" -->
+    <!-- fxHide.xs -->
+    <div>
+      <span style="margin-right: 1rem;  border-right-width: 2px !important;" fxShow>{{title | uppercase }}</span>
+    </div>
     <!-- class="content-header" fxLayout="row"  -->
-
-    <!-- <div class="content-filtro" fxFlex="50" fxFlex.xs="75" fxLayoutAlign="start center"> -->
-      <ng-content>
-
-      </ng-content>
-    <!-- </div> -->
-
-    <!-- <div class="content-filtro" fxFlex="50" fxFlex.xs="75" fxLayoutAlign="start center">
-        <mat-icon matPrefix>search</mat-icon>
-        <input placeholder="No. de foro" #inputFiltro />        
-      </div>
-      <div fxFlex fxLayoutAlign="end end">        
-        s
-      </div> -->
-  </div>
+    <ng-content></ng-content>
 </mat-toolbar>

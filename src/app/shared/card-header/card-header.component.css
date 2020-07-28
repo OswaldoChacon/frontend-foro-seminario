@@ -2,9 +2,14 @@
     /* padding: 0 .5rem; */
     width:100%
 }
-.mat-toolbar{
-    background-color: #EBEBEE;    
+.mat-toolbar{    
+    /* background-color: transparent !important; */
+    /* border-bottom: solid; */
     width: 100%;
+}
+span{
+    font-size: 16px;
+    font-weight: 600;
 }
 .content-filtro{
     border-radius:9999px;
@@ -24,4 +29,5 @@ input:focus{
 
 :host {
     width: 100%;
+    /* flex:1; */
 }

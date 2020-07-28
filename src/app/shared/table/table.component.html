@@ -70,7 +70,7 @@
                         
                 </ng-container>
                 <ng-container *ngSwitchCase="'activo'">                    
-                    <mat-slide-toggle (click)="emitirData(data,'Activar/Desactivar',!data.acceso)" (click)="$event.stopPropagation()" [checked]="data.acceso ? 'true':'false'" [disabled]="!data.canActivate"></mat-slide-toggle>
+                    <mat-slide-toggle (change)="emitirData(data,'Activar/Desactivar',!data.acceso)" (click)="$event.stopPropagation()" [checked]="data.acceso ? 'true':'false'" [disabled]="!data.canActivate"></mat-slide-toggle>
                 </ng-container>
                 <ng-container *ngSwitchCase="'participa'">
                     <!-- <button mat-icon-button>

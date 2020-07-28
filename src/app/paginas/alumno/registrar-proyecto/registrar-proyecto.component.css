@@ -2,3 +2,4 @@
     /* background-color: red; */
     margin-top:30px
 }
+:host{ flex: 1; }

@@ -1,82 +1,98 @@
   /* cerrar sesión derecha */
+
   .btn-user {
     flex: 1 1 auto;
   }
+
   /*************************************************************************************************************  */
-  
+
   /* nav */
-  
+
   /*************************************************************************************************************  */
-  
+
   /* sidenav */
-  .sidenav-container {
+
+  .mat-sidenav-container {
     position: absolute;
-    top: 64px;
+    top: 0px;
     bottom: 0px;
     left: 0;
     right: 0;
-    padding-bottom: 60px;
-    /* min-height: 90%; */
+    /* padding-bottom: 60px; */
   }
+
   .sidenav-content {
     padding: 20px 20px 30px 20px;
     background-color: #fafafa;
-    /* padding-bottom: 60px !important; */
+    
   }
+
   .mat-sidenav {
     position: fixed;
-    /* margin-top: 64px; */
-    top: 64px;
+    /* top: 64px; */
     display: flex;
-    width: 300px;
+    /* width: max-content; */
+    /* width: 20%; */
+    width: 275px;
+    border: none;
+    /* background-color: #FAFAFA; */
   }
+
   /*************************************************************************************************************  */
-  
-  
+
   /* mat-list-icon menu */
+
   .mat-list-icon {
     color: #707070;
     min-width: 42px;
     font-size: 22px !important;
     border-radius: 0% !important;
   }
+
   .mat-list-item {
     font-size: 13px;
     height: 40px !important;
     max-width: 100% !important;
   }
-  .submenu{
+
+  .submenu {
     padding: 0 26px !important;
   }
+
   .mat-list-base {
-    padding-top: 0px;  
+    padding-top: 0px;
   }
+
   /*************************************************************************************************************  */
-  
+
   /* submenu horario  */
-  
+
   .mat-expansion-panel-header {
     min-height: 48px;
     max-height: 48px;
     font-size: 12px;
     padding: 0 21px !important;
   }
+
   /*************************************************************************************************************  */
-  
+
   /* Active routerlink */
+
   .active * {
-    color:#1976D2;  
+    color: #1976D2;
+    /* background: red; */
     /* font-weight: bold; */
   }
+
   /*************************************************************************************************************  */
-  
+
   /* MediaQueries responsive sidenav */
-  
+
   @media (max-width: 600px) {
     .mat-sidenav {
-      top: 56px;
+      /* top: 56px; */
     }
     .mat-sidenav-container {
-      top: 56px;
+      /* top: 56px; */
     }
   }
