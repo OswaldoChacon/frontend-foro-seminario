@@ -5,27 +5,34 @@ import { NoAuthGuard } from "./services/auth/guards/no-auth.guard";
 import { AuthGuard } from "./services/auth/guards/auth.guard";
 import { AdminComponent } from "./paginas/admin/admin.component";
 import { DashboardComponent } from "./paginas/admin/dashboard/dashboard.component";
+import { CambiarContrasenaComponent } from './shared/cambiar-contrasena/cambiar-contrasena.component';
 
 const routes: Routes = [
   { path: "login", component: LoginComponent, canActivate: [NoAuthGuard] },
   {
-    path: "Administrador",
-    // canActivate: [AuthGuard],
+    path: 'Administrador',
+    canActivate: [AuthGuard],
     // component:DashboardComponent,
     loadChildren: () =>
-      import("./paginas/admin/admin.module").then((m) => m.AdminModule),
+      import('./paginas/admin/admin.module').then((m) => m.AdminModule),
+    data: { rol: 'Administrador' }
   },
   {
-    path: "Docente",
+    path: 'Docente',
+    canActivate: [AuthGuard],
     loadChildren: () =>
-      import("./paginas/profesor/profesor.module").then(
-        (m) => m.ProfesorModule
-      ),
+      import('./paginas/profesor/profesor.module').then((m) => m.ProfesorModule),
+    data: { rol: 'Docente' }
   },
   {
-    path:"Alumno",
-    loadChildren: ()=> import('./paginas/alumno/alumno.module').then((m)=>m.AlumnoModule)
+    path: 'Alumno',
+    canActivate:[AuthGuard],
+    loadChildren: () => import('./paginas/alumno/alumno.module').then((m) => m.AlumnoModule),
+    data:{rol:'Alumno'}
   },
+  // {
+  //   path: 'cambiar_contrasena', component:CambiarContrasenaComponent
+  // },
   { path: "**", redirectTo: "login" },
 ];
 
@@ -33,4 +40,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes, { useHash: true })],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

@@ -25,7 +25,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatStepperModule } from '@angular/material/stepper';
 import { PortalModule } from '@angular/cdk/portal';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import {MatGridListModule} from '@angular/material/grid-list';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatBadgeModule } from '@angular/material/badge';
 // Toastr
 
 
@@ -57,7 +58,8 @@ import {MatGridListModule} from '@angular/material/grid-list';
     MatStepperModule,
     PortalModule,
     MatSlideToggleModule,
-    MatGridListModule
+    MatGridListModule,
+    MatBadgeModule
   ],
   exports: [
     MatButtonModule,
@@ -86,7 +88,8 @@ import {MatGridListModule} from '@angular/material/grid-list';
     MatStepperModule,
     PortalModule,
     MatSlideToggleModule,
-    MatGridListModule
+    MatGridListModule,
+    MatBadgeModule
     // ToastrModule.forRoot()
   ]
 })

@@ -12,10 +12,10 @@ import { CambiarContrasenaComponent } from 'src/app/shared/cambiar-contrasena/ca
 
 const routes: Routes = [
   {
-    path: "",
+    path: '',
     // component: AdminComponent,
-    component: SidenavComponent,
-    canActivate: [AuthGuard],
+    component: AdminComponent,
+    // canActivate: [AuthGuard],
     children: [
       { path: 'home', component: HomeComponent },
       { path: 'usuarios', component: UsuariosComponent },
@@ -29,7 +29,7 @@ const routes: Routes = [
       // { path: 'horarios', component: HorarioComponent },      
       // { path: 'generar-horario', component: HorarioComponent },
       // {path:"proyectos_jurado" ,component:},
-      { path: "**", redirectTo: "home" },
+      { path: '**', redirectTo: 'home' },
     ],
   },
 ];

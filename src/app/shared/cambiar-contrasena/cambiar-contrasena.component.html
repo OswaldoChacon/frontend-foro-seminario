@@ -1,8 +1,7 @@
+<!-- <app-sidenav></app-sidenav> -->
 <mat-card>
     <mat-card-header>
-        <!-- <mat-card-title>Cambiar contraseña</mat-card-title> -->
         <app-card-header [title]="'Cambiar contraseña'"></app-card-header>
-        <!-- <mat-card-subtitle>subtitle</mat-card-subtitle> -->
     </mat-card-header>
     <mat-card-content>
         <form [formGroup]="formPassword" (ngSubmit)="cambiarPassword()" #form="ngForm">

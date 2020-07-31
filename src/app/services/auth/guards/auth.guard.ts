@@ -19,8 +19,8 @@ export class AuthGuard implements CanActivate {
   ) {}
   // next: ActivatedRouteSnapshot,
   // state: RouterStateSnapshot
-  canActivate() {
-    if (this.authService.loggedIn()) {
+  canActivate(route: ActivatedRouteSnapshot) {    
+    if (this.authService.loggedIn() && this.authService.getRoles().includes(route.data.rol)) {
       // this.authService.redirectLogin();
       return true;
     }

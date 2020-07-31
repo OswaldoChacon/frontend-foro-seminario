@@ -35,7 +35,7 @@ export class UsuariosComponent implements OnInit {
   rolSeleccionado: string = 'Todos';
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
-  @ViewChild('inputFiltro') input: ElementRef
+  @ViewChild('inputFiltro', { static: true }) input: ElementRef
 
   constructor(
     private _usuarioService: UsuarioService,
