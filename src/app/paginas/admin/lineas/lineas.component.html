@@ -1,8 +1,13 @@
 <mat-card>
-  <mat-card-header>
-    <app-card-header [title]="title"></app-card-header>
+  <!-- <mat-card-header> -->
+  <!-- <app-card-header [title]="title"></app-card-header> -->
+  <mat-card-header style="background-color: #EBEBEE;">
+    <!-- <h2 style="margin:0 !important">{{title}}</h2> -->
+    <mat-card-title>{{title}}</mat-card-title>
   </mat-card-header>
+  <!-- </mat-card-header> -->
   <mat-card-content>
-  <app-table [dataSource]="dataSource" [columnsHeader]="columnHeader" [componentDialog]="componentDialog" (emitData)="cargarTable($event)" [url]="url"></app-table>
-</mat-card-content>
+    <app-table [dataSource]="dataSource" [columnsHeader]="columnHeader" [componentDialog]="componentDialog"
+      (emitData)="cargarTable($event)" [url]="url"></app-table>
+  </mat-card-content>
 </mat-card>

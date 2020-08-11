@@ -14,4 +14,5 @@ export class Usuario {
             is: boolean
         }
     ]
+    myTeam?: boolean;
 }

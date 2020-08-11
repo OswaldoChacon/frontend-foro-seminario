@@ -9,6 +9,7 @@ import { JuradoComponent } from "./horario/jurado/jurado.component";
 import { SidenavComponent } from '../../shared/sidenav/sidenav.component';
 import { GenerarHorarioComponent } from './horario/generar-horario/generar-horario.component';
 import { CambiarContrasenaComponent } from 'src/app/shared/cambiar-contrasena/cambiar-contrasena.component';
+import { RolesSolicitudComponent } from './roles-solicitud/roles-solicitud.component';
 
 const routes: Routes = [
   {
@@ -18,6 +19,7 @@ const routes: Routes = [
     // canActivate: [AuthGuard],
     children: [
       { path: 'home', component: HomeComponent },
+      { path: 'roles_solicitud', component: RolesSolicitudComponent},
       { path: 'usuarios', component: UsuariosComponent },
       { path: 'lineas-investigacion', component: LineasComponent },
       { path: 'tipos-proyectos', component: LineasComponent },

@@ -8,26 +8,37 @@ import { map } from 'rxjs/operators';
 })
 export class ProyectosService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private _http: HttpClient) { }
   registrarProyecto(body: any){
-    return this.http.post(`api/registrar_proyecto`,body)
+    return this._http.post(`api/registrar_proyecto`,body)
   }
   getProyectos(slug: string,pagina: number,folio:string){
-    return this.http.get(`api/proyectos/${slug}`,{
+    return this._http.get(`api/proyectos/${slug}`,{
       params: new HttpParams().set('page',pagina.toString())
       .set('folio',folio)
     });
   }
   participa(folio: string, participa: string){
-    return this.http.put(`api/proyecto/${folio}`, {'participa':participa}   
+    return this._http.put(`api/proyecto/${folio}`, {'participa':participa}   
     );
   }
   asignarJurado(folio:string,num_control:string){
-    return this.http.post(`api/asignar_jurado/${folio}`,{'num_control':num_control})
+    return this._http.post(`api/asignar_jurado/${folio}`,{'num_control':num_control})
   }
   eliminarJurado(folio:string,num_control:string){
-    return this.http.delete(`api/eliminar_jurado/${folio}`,{
+    return this._http.delete(`api/eliminar_jurado/${folio}`,{
       params: new HttpParams().set('num_control',num_control)      
-    })
+    });
   } 
+  listaAlumnos(){
+    return this._http.get(`api/lista_alumnos`);
+  }
+  agregarIntegrante(folio:string, num_control:string){
+    return this._http.post(`api/agregar_integrante/${folio}`,{num_control:num_control});
+  }
+  eliminarIntegrante(folio:string, num_control:string){
+    return this._http.delete(`api/eliminar_integrante/${folio}`,{
+      params: new HttpParams().set('num_control',num_control)
+    });
+  }
 }

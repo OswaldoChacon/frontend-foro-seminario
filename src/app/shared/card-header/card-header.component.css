@@ -6,6 +6,8 @@
     /* background-color: transparent !important; */
     /* border-bottom: solid; */
     width: 100%;
+    min-height: 56px;
+    max-height: 56px;
 }
 span{
     font-size: 16px;

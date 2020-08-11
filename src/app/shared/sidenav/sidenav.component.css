@@ -24,7 +24,12 @@
   .sidenav-content {
     padding: 20px 20px 30px 20px;
     /* background-color: #fafafa; */
-    background-color: #9E9E9E;
+    /* background-color: #9E9E9E; */
+    background-color: red !important;
+  }
+
+  .mat-sidenav-content {
+    background-color: #EDEDED;
   }
 
   .mat-sidenav {
@@ -82,15 +87,16 @@
 
   /* Active routerlink */
 
-  .active, .active:hover {   
+  .active, .active:hover {
     /* color: #1976D2; */
-    color:white !important;
+    color: white !important;
     background-color: #0D47A1 !important;
     /* background: red; */
     /* font-weight: bold; */
   }
-  .active .mat-icon{
-    color:white;
+
+  .active .mat-icon {
+    color: white;
   }
 
   /*************************************************************************************************************  */
@@ -108,4 +114,15 @@
 
   .mat-menu-content:not(:empty) {
     /* padding-top:0px; */
+  }
+
+  .mat-card-subtitle {
+    margin-bottom: 0 !important;
+  }
+
+
+
+
+  .mat-menu-panel{
+    max-width: none !important;
   }

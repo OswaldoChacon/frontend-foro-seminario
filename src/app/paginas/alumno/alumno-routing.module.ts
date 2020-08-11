@@ -3,6 +3,7 @@ import { Routes, RouterModule } from "@angular/router";
 import { SidenavComponent } from "src/app/shared/sidenav/sidenav.component";
 import { RegistrarProyectoComponent } from './registrar-proyecto/registrar-proyecto.component';
 import { HomeComponent } from '../admin/home/home.component';
+import { NotificacionesComponent } from 'src/app/shared/notificaciones/notificaciones.component';
 
 const routes: Routes = [
   {
@@ -10,6 +11,7 @@ const routes: Routes = [
     children: [
       { path: 'home', component: HomeComponent },
       { path: 'registrar-proyecto', component: RegistrarProyectoComponent },
+      { path: 'notificaciones', component: NotificacionesComponent},
       { path: '**', redirectTo: 'home' },
     ]
   },

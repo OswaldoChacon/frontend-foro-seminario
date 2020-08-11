@@ -5,7 +5,7 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material.module';
 import { HttpClientModule, HTTP_INTERCEPTORS, HttpErrorResponse } from '@angular/common/http';
-import { FormsModule,ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr';
 import { HomeComponent } from './paginas/admin/home/home.component';
 import { RouterModule } from '@angular/router';
@@ -25,9 +25,10 @@ import { ForgotPasswordDialogComponent } from './dialogs/forgot-password/forgot-
 
 @NgModule({
   declarations: [
-    AppComponent,        
-    HomeComponent,    
-    LoginComponent, ForgotPasswordDialogComponent,
+    AppComponent,
+    HomeComponent,
+    LoginComponent, 
+    ForgotPasswordDialogComponent
     // DashboardComponent,
   ],
   imports: [
@@ -42,7 +43,7 @@ import { ForgotPasswordDialogComponent } from './dialogs/forgot-password/forgot-
     RouterModule,
     ToastrModule.forRoot({
       preventDuplicates: true,
-      maxOpened:1,
+      maxOpened: 1,
       timeOut: 3000,
     }),
     NgxPermissionsModule.forRoot(),
@@ -59,7 +60,7 @@ import { ForgotPasswordDialogComponent } from './dialogs/forgot-password/forgot-
     {
       provide: HTTP_INTERCEPTORS,
       useClass: HttpErrorInterceptor,
-      multi:true
+      multi: true
     }
   ],
   bootstrap: [AppComponent]

@@ -1,5 +1,5 @@
 import { CollectionViewer, DataSource } from "@angular/cdk/collections";
-import { Observable, BehaviorSubject, of, merge, throwError } from "rxjs";
+import { Observable, BehaviorSubject, throwError } from "rxjs";
 
 import { catchError, finalize, map, tap } from "rxjs/operators";
 import { Usuario } from "src/app/modelos/usuario.model";
@@ -12,6 +12,7 @@ export class UsuariosDataSource extends DataSource<Usuario> {
   loading$ = this.loadingSubject.asObservable();
   total: number = 0;
   por_pagina: number = 0;
+  
   constructor(private _usuarioService: UsuarioService) {
     super();
   }

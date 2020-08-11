@@ -50,32 +50,40 @@
   background-color: #FFF;
 }
 .StepProgress-item.is-done::before {
-  border-left: 2px solid green;
+  /* border-left: 2px solid green; */
+  border-left: 2px solid #0D47A1;  
 }
 .StepProgress-item.is-done::after {
   content: "✔";
   font-size: 10px;
   color: #FFF;
   text-align: center;
-  border: 2px solid green;
-  background-color: green;
+  /* border: 2px solid green;
+  background-color: green; */
+  border: 2px solid #0D47A1;
+  background-color: #0D47A1;  
 }
 .StepProgress-item.current::before {
-  border-left: 2px solid green;
+  border-left: 2px solid red;
 }
 .StepProgress-item.current::after {
-  content: counter(list);
+  /* content: counter(list); */
+  content: "X";
   padding-top: 1px;
   width: 19px;
   height: 18px;
-  top: -4px;
+  /* top: -4px; */
   left: -40px;
   font-size: 14px;
   text-align: center;
-  color: green;
-  border: 2px solid green;
-  background-color: white;
+  /* color: green;
+  border: 2px solid green; */
+  color: white;
+  border: 2px solid red;
+  background-color: red;
 }
 .StepProgress strong {
   display: block;
 }
+
+

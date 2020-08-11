@@ -1,5 +1,5 @@
 .mat-card {
-  box-shadow: none !important;
+  /* box-shadow: none !important; */
   margin-bottom: 15px;
 }
 .mat-card-header {

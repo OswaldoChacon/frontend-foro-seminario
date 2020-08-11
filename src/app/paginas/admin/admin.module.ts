@@ -15,6 +15,7 @@ import { UsuarioDialogComponent } from '../../dialogs/usuario/usuario.dialog.com
 import { ForoDialogComponent } from '../../dialogs/foro/foro.dialog.component';
 import { DocentesDiaogComponent } from '../../dialogs/docentes/docentes.dialog.component';
 import { HorarioJuradoDialogComponent } from '../../dialogs/horario-jurado/horario-jurado.dialog.component';
+import { RolesDialogComponent } from '../../dialogs/roles/roles.dialog.component';
 // import { UsersService } from '../services/usuarios/users.service';
 import { SharedModule } from '../../shared/shared.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -22,6 +23,7 @@ import { NgxPermissionsModule } from 'ngx-permissions';
 import { RouterModule } from '@angular/router';
 import { FechaDialogComponent } from 'src/app/dialogs/fecha/fecha.dialog.component';
 import { GenerarHorarioComponent } from './horario/generar-horario/generar-horario.component';
+import { RolesSolicitudComponent } from './roles-solicitud/roles-solicitud.component';
 
 
 @NgModule({
@@ -40,7 +42,9 @@ import { GenerarHorarioComponent } from './horario/generar-horario/generar-horar
     DocentesDiaogComponent,
     HorarioJuradoDialogComponent,
     FechaDialogComponent, 
-    GenerarHorarioComponent
+    RolesDialogComponent,
+    GenerarHorarioComponent, 
+    RolesSolicitudComponent
   ],
   imports: [
     CommonModule,

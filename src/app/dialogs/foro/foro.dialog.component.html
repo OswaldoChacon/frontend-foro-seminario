@@ -8,19 +8,22 @@
   #form="ngForm">
   <!-- (ngSubmit)="editar ? editarLinea(this.formulario.value) : registrar()" -->
   <mat-dialog-content>
-    <mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>No. Foro</mat-label>
       <input matInput formControlName="no_foro" placeholder="No. Foro" required />
       <mat-error *ngIf="formForo.get('no_foro').hasError('required')">
         El campo No. Foro es requerido
       </mat-error>
     </mat-form-field>
-    <mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Nombre del foro</mat-label>
       <input matInput formControlName="nombre" placeholder="Nombre del foro" type="text" required />
       <mat-error *ngIf="formForo.get('nombre').hasError('required')">
         El campo nombre es requerido
       </mat-error>
     </mat-form-field>
-    <mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Periodo</mat-label>
       <mat-select placeholder="Periodo" formControlName="periodo" required>
         <mat-option value="Enero-Junio">Enero-Junio</mat-option>
         <mat-option value="Agosto-Diciembre">Agosto-Diciembre</mat-option>
@@ -29,7 +32,8 @@
         El campo periodo es requerido
       </mat-error>
     </mat-form-field>
-    <mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Año</mat-label>
       <mat-select placeholder="Año" formControlName="anio" required>
         <mat-option *ngFor="let anio of anios" [value]="anio">{{anio}}</mat-option>
       </mat-select>

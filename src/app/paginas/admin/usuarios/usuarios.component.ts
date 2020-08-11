@@ -33,6 +33,7 @@ export class UsuariosComponent implements OnInit {
   componentDialog = UsuarioDialogComponent;
   dataSource: UsuariosDataSource = null;
   rolSeleccionado: string = 'Todos';
+  // rolSeleccionado: string = '';
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild('inputFiltro', { static: true }) input: ElementRef
@@ -48,7 +49,7 @@ export class UsuariosComponent implements OnInit {
     this._rolService.getRoles().subscribe(res => this.roles = res);
   }
 
-  seleccionarRol(rolSeleccionado: string) {    
+  seleccionarRol(rolSeleccionado: string) {
     this.rolSeleccionado = rolSeleccionado;
     this.paginator.pageIndex = 0;    
     this.getUsuarios();

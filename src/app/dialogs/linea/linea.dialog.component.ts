@@ -22,8 +22,8 @@ export class LineaDialogComponent implements OnInit {
   @ViewChild('form') form: FormGroupDirective;
   
   constructor(
-    private _formBuilder: FormBuilder,   
-    @Optional() @Inject (MAT_DIALOG_DATA) private data: {data:Linea,url:string},    
+    private _formBuilder: FormBuilder,
+    @Optional() @Inject (MAT_DIALOG_DATA) private data: {data:Linea,url:string},
     private _dialog: MatDialogRef<LineaDialogComponent>,
     private _lineaService:LineaService) {
     _dialog.disableClose = true;

@@ -64,8 +64,33 @@
 </div> -->
 <!-- <mat-card style="margin-top:-75px"> -->
   <mat-card>
-  <mat-card-header>
-    <app-card-header [title]="'Usuarios'">
+  <mat-card-header style="background-color: #EBEBEE;" fxLayoutGap="12px">
+    <div fxFlex fxLayoutAlign="start center">
+      <h2 style="margin:0 !important">Usuario</h2>
+    </div>
+    <div class="content-filtro" fxFlex="50" fxFlex.xs="75" fxLayoutAlign="start center">
+      <mat-icon matPrefix>search</mat-icon>
+      <input class="input-filter" placeholder="Número de control" #inputFiltro />
+    </div>
+    <div fxFlex fxLayoutAlign="end end">
+      <button mat-icon-button [matMenuTriggerFor]="filtros">
+        <mat-icon aria-label="label">filter_list</mat-icon>
+      </button>
+      <mat-menu #filtros="matMenu" xPosition="before">        
+        <mat-checkbox *ngFor="let rol of roles" (change)="seleccionarRol(rol.nombre)"
+          [checked]="rolSeleccionado === rol.nombre" class="mat-menu-item" (click)="$event.stopPropagation()">
+          {{ rol.nombre }}
+        </mat-checkbox>
+        <mat-checkbox (change)="seleccionarRol('Todos')"
+        [checked]="rolSeleccionado === 'Todos'" class="mat-menu-item" (click)="$event.stopPropagation()">
+        Todos
+      </mat-checkbox>       
+      </mat-menu>
+    </div>
+
+
+
+    <!-- <app-card-header [title]="'Usuarios'">
       <div class="content-filtro" fxFlex="50" fxFlex.xs="75" fxLayoutAlign="start center">
         <mat-icon matPrefix>search</mat-icon>
         <input class="input-filter" placeholder="Número de control" #inputFiltro />
@@ -81,7 +106,7 @@
           </mat-checkbox>
         </mat-menu>
       </div>
-    </app-card-header>
+    </app-card-header> -->
     <!-- <mat-toolbar>
       <div class="content-header" fxLayoutAlign="start center">
         <h2 style="margin-right: 1rem; padding-right: 1rem; border-right-width: 2px !important;" fxShow fxHide.xs>Usuarios</h2>                 

@@ -76,34 +76,34 @@
     <div fxLayout="column" style="height: 100%;">
       <!-- <mat-toolbar style=" background-color: #0D47A1; border-bottom:1px solid white"></mat-toolbar> -->
       <!-- <mat-toolbar> -->
-        <!-- <mat-toolbar-row style="background-color: white;">
+      <!-- <mat-toolbar-row style="background-color: white;">
           <div style="border-radius: 50%; background-color: #fff; height: 40px; width: 40px;">
             <img src="../../../assets/img/ittg.png" alt="Perfil" height="40px" width="40px">
           </div>
           ITTG
         </mat-toolbar-row>       -->
-        <!-- 0D47A1 -->
-        <div fxLayout="column"
-          style="padding:12px 16px;min-height:136px; max-height:136px; background-color: #fff; font-size: 16px;"
-          fxLayoutGap="6px" fxLayoutAlign="end start">
-          <!-- <div style="border-radius: 50%; background-color: #0D47A1; height: 40px; width: 40px;"> -->
-          <div mat-card-avatar style="background-image: url('../../../assets/img/perfil2.png'); background-size: cover;">
-            <!-- <img src="../../../assets/img/perfil2.png" alt="Perfil" height="40px"> -->
-          </div>
-          <!-- <div> -->
-          <!-- <span> -->
-            <!-- <span>Octavio Ariosto</span><br> -->
-            <mat-card-title>Ariosto</mat-card-title>
-            <mat-card-subtitle>maestro18@gmail.com</mat-card-subtitle>
-            <!-- <span>maestro18@gmail.com</span> -->
-            <!-- maestro18@gmail.com -->
-          <!-- </span> -->
-          <!-- </div> -->
-          <!-- <div>
+      <!-- 0D47A1 -->
+      <div fxLayout="column"
+        style="padding:12px 16px;min-height:136px; max-height:136px; background-color: #fff; font-size: 16px;"
+        fxLayoutGap="6px" fxLayoutAlign="end start">
+        <!-- <div style="border-radius: 50%; background-color: #0D47A1; height: 40px; width: 40px;"> -->
+        <div mat-card-avatar style="background-image: url('../../../assets/img/perfil2.png'); background-size: cover;">
+          <!-- <img src="../../../assets/img/perfil2.png" alt="Perfil" height="40px"> -->
+        </div>
+        <!-- <div> -->
+        <!-- <span> -->
+        <!-- <span>Octavio Ariosto</span><br> -->
+        <mat-card-title>Ariosto</mat-card-title>
+        <mat-card-subtitle style="margin-bottom: 0 !important;">maestro18@gmail.com</mat-card-subtitle>
+        <!-- <span>maestro18@gmail.com</span> -->
+        <!-- maestro18@gmail.com -->
+        <!-- </span> -->
+        <!-- </div> -->
+        <!-- <div>
             maestro18@gmail.com
           </div> -->
-        </div>
-        <mat-divider></mat-divider>
+      </div>
+      <mat-divider></mat-divider>
 
       <!-- </mat-toolbar> -->
 
@@ -214,6 +214,15 @@
             <mat-icon matListIcon>home</mat-icon>
             Inicio
           </a>
+          <a mat-list-item [routerLink]="['roles_solicitud']" routerLinkActive="active">
+            <mat-icon matListIcon>supervised_user_circle</mat-icon>
+            Roles y solicitudes
+          </a>
+          <a mat-list-item [routerLink]="['notificaciones']" routerLinkActive="active">
+            <mat-icon matListIcon>notifications</mat-icon>
+            <!-- Notificaciones -->
+            <span matBadge="{{_notificacionService.totalNotificaciones}}" matBadgeOverlap="false" matBadgeColor="warn">Notificaciones</span>
+          </a>
           <a mat-list-item routerLink="usuarios" [routerLinkActive]="['active']"
             *ngxPermissionsOnly="['Administrador']">
             <mat-icon matListIcon>group</mat-icon>
@@ -306,21 +315,30 @@
   </mat-sidenav>
   <mat-sidenav-content>
     <!-- <nav style="flex-flow:row wrap"> -->
-    <mat-toolbar style="z-index: 9999; position: sticky; top:0;background-color: #0D47A1; color:white">
-    <!-- <mat-toolbar style="z-index: 9999; position: sticky; top:0;background-color: white; color:black"> -->
+    <!-- <mat-toolbar style="z-index: 9999; position: sticky; top:0;background-color: #0D47A1; color:white"> -->
+    <mat-toolbar style="z-index: 9999; position: sticky; top:0;background-color: white; color:black">
       <!-- style="position: fixed;z-index: 999;" -->
       <button mat-icon-button>
         <mat-icon aria-label="label" (click)="sidenav.toggle()">menu</mat-icon>
       </button>
       <span class="btn-user"></span>
-      <button mat-icon-button [matMenuTriggerFor]="notificaciones">
-        <!-- <mat-icon aria-label="label">notifications</mat-icon> -->
+      <!-- <button mat-icon-button [matMenuTriggerFor]="menuNotificaciones">       
         <mat-icon matBadge="15" matBadgeColor="warn">notifications</mat-icon>
       </button>
-      <mat-menu #notificaciones="matMenu" xPosition="before">
-        <app-card-header [title]="'Notificaciones'"></app-card-header>
-        s
-      </mat-menu>
+      <mat-menu #menuNotificaciones="matMenu" xPosition="before" >
+
+        <mat-nav-list style="width: 100% !important;">
+          <mat-list-item *ngFor="let item of notificaciones" style="height: 299px !important">
+            <div fxFlex="25">
+              <mat-icon>book</mat-icon>
+            </div>
+            <div fxFlex="75">
+              <h3 matLine> {{item.proyecto.titulo}} </h3>
+              <p matLine> {{item.proyecto.folio}} </p>
+            </div>
+          </mat-list-item>
+        </mat-nav-list>
+      </mat-menu> -->
       <button mat-icon-button [matMenuTriggerFor]="menu">
         <mat-icon>account_circle</mat-icon>
       </button>

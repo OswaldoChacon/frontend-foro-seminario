@@ -62,12 +62,12 @@ export class ForosComponent implements OnInit {
     console.log(event);
   }
 
-  nextPage(event: any) {
-    console.log(event);
-    this.dataSource.resetData();
-    // this.dataSource.getForos(event.pageIndex + 1);
-    return event;
-  }
+  // nextPage(event: any) {
+  //   console.log(event);
+  //   this.dataSource.resetData();
+  //   // this.dataSource.getForos(event.pageIndex + 1);
+  //   return event;
+  // }
 
 
   eliminarForo(foro: Foros) {

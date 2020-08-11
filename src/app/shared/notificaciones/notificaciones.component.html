@@ -1,0 +1,59 @@
+<!-- <div *ngFor="let item of notificaciones">
+{{item.proyecto.titulo}}
+</div> -->
+<div fxLayout="row wrap">
+    <mat-card *ngFor="let notificacion of _notificacionesService.notificaciones" fxFlex="30" fxFlex.xs="100"
+        style="margin: 10px !important; border-left:10px solid" [style.border-color]="notificacion.respuesta ? 'green':'red'">
+        <!-- fxFlex.lt-md="100" -->
+        <mat-card-content>
+            <mat-icon>book</mat-icon>
+            <mat-card-title style="font-size: 12px;">{{notificacion.proyecto.titulo}}</mat-card-title>
+            <mat-card-subtitle>
+                <span>Folio: {{notificacion.proyecto.folio}}</span><br>
+                <span>llslslsls</span>
+            </mat-card-subtitle>
+            <!-- <div fxFlex="15" fxHide.sm fxLayoutAlign="center center">
+                <mat-icon>book</mat-icon>
+            </div>
+            <div fxFlex="60" style="padding-left:0px" fxLayout="column" fxLayoutAlign="center start">
+                <mat-card-title>{{item.proyecto.titulo}}</mat-card-title>
+                <mat-card-subtitle>{{item.proyecto.folio}}</mat-card-subtitle>
+            </div> -->
+        </mat-card-content>
+        <mat-card-actions align="end">
+            <!-- <div fxFlex fxLayoutAlign="center center" fxLayoutGap="12px" style="font-size: 10px;">
+                <div fxLayout="column" fxLayoutAlign="center center">
+                    <div>
+                        <button mat-icon-button>
+                            <mat-icon style="color: green;">check</mat-icon><br>
+                        </button>
+                    </div>
+                    <div>
+                        Aceptar
+                    </div>
+                </div>
+                <div fxLayout="column" fxLayoutAlign="center center">
+                    <div>
+                        <button mat-icon-button>
+                            <mat-icon color="warn">close</mat-icon><br>
+                        </button>
+                    </div>
+                    <div>
+                        Rechazar
+                    </div>
+                </div>
+            </div> -->
+
+            <!-- <button mat-icon-button> -->
+            <button mat-button *ngIf="!notificacion.respuesta" (click)="responder(notificacion)">
+                <mat-icon style="color: green;">check</mat-icon>
+                Aceptar
+            </button>
+            <!-- <button mat-icon-button> -->
+            <button mat-button *ngIf="notificacion.respuesta" (click)="responder(notificacion)">
+                <mat-icon color="warn">close</mat-icon>
+                Rechazar
+            </button>
+        </mat-card-actions>
+    </mat-card>
+</div>
