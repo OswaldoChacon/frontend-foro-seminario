@@ -1,3 +1,3 @@
 export class Rol {
-    nombre:string;
+    nombre_:string;
 }

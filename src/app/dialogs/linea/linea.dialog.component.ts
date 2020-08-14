@@ -1,5 +1,5 @@
 import { Component, OnInit, EventEmitter, Output, Inject, Optional, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, FormControl, FormGroupDirective } from "@angular/forms";
+import { FormBuilder, Validators, FormControl, FormGroupDirective } from "@angular/forms";
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Linea } from 'src/app/modelos/linea.model';
 import { LineaService } from 'src/app/services/linea/linea.service';
@@ -12,64 +12,62 @@ import { HttpErrorResponse } from '@angular/common/http';
   styleUrls: ['./linea.dialog.component.css']
 })
 export class LineaDialogComponent implements OnInit {
-  
+
   formLinea = this._formBuilder.group({
-    clave : new FormControl('',[Validators.required]),
-    nombre : new FormControl('',[Validators.required])
+    clave: new FormControl('', [Validators.required]),
+    nombre: new FormControl('', [Validators.required])
   });
   guardando: boolean = false;
   editar: boolean = false;
   @ViewChild('form') form: FormGroupDirective;
-  
+
   constructor(
     private _formBuilder: FormBuilder,
-    @Optional() @Inject (MAT_DIALOG_DATA) private data: {data:Linea,url:string},
+    @Optional() @Inject(MAT_DIALOG_DATA) private data: { data: Linea, url: string },
     private _dialog: MatDialogRef<LineaDialogComponent>,
-    private _lineaService:LineaService) {
+    private _lineaService: LineaService) {
     _dialog.disableClose = true;
-   }
+  }
 
   ngOnInit(): void {
     if (this.data.data) {
-      this.editar = true;      
+      this.editar = true;
       this.formLinea.get('clave').setValue(this.data.data.clave);
-      this.formLinea.get('nombre').setValue(this.data.data.nombre);      
-    }        
+      this.formLinea.get('nombre').setValue(this.data.data.nombre);
+    }
   }
-  
-  editarLinea()
-  {
-    this.guardando = true;    
+
+  editarLinea() {
+    this.guardando = true;
     this._lineaService.actualizarLinea(this.data.data.clave, this.formLinea.value, this.data.url).pipe(
-      finalize(()=>this.guardando=false)
-      )
-    .subscribe(
-      (res : any)=> {              
-        this._dialog.close({opcion:'refresh'});                
-      },
-      (err: HttpErrorResponse) => {        
-        const errores = err.error.errors;
-        Object.keys(errores).forEach(fields=>{
+      finalize(() => this.guardando = false)
+    )
+      .subscribe(
+        (res: any) => {
+          this._dialog.close({ opcion: 'refresh' });
+        },
+        (err: HttpErrorResponse) => {
+          const errores = err.error.errors;
+          Object.keys(errores).forEach(fields => {
             const field = this.formLinea.get(fields);
-            if(field){
+            if (field) {
               field.setErrors({
                 serverError: errores[fields]
               });
             }
-        });
-      }
-    );
+          });
+        }
+      );
   }
 
-  guardarLinea(){    
+  guardarLinea() {
     this.guardando = true;
-    this._lineaService.guardarLinea(this.formLinea.value,this.data.url).pipe(      
-      finalize(()=>this.guardando=false)
+    this._lineaService.guardarLinea(this.formLinea.value, this.data.url).pipe(
+      finalize(() => this.guardando = false)
     ).subscribe(
-      res=>{        
-        this._dialog.close({opcion:'refresh'});
+      res => {
+        this._dialog.close({ opcion: 'refresh' });
       }
     );
-    
   }
 }

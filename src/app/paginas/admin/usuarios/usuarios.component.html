@@ -77,9 +77,9 @@
         <mat-icon aria-label="label">filter_list</mat-icon>
       </button>
       <mat-menu #filtros="matMenu" xPosition="before">        
-        <mat-checkbox *ngFor="let rol of roles" (change)="seleccionarRol(rol.nombre)"
-          [checked]="rolSeleccionado === rol.nombre" class="mat-menu-item" (click)="$event.stopPropagation()">
-          {{ rol.nombre }}
+        <mat-checkbox *ngFor="let rol of roles" (change)="seleccionarRol(rol.nombre_)"
+          [checked]="rolSeleccionado === rol.nombre_" class="mat-menu-item" (click)="$event.stopPropagation()">
+          {{ rol.nombre_ }}
         </mat-checkbox>
         <mat-checkbox (change)="seleccionarRol('Todos')"
         [checked]="rolSeleccionado === 'Todos'" class="mat-menu-item" (click)="$event.stopPropagation()">

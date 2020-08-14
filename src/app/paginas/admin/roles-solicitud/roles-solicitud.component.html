@@ -1,20 +1,21 @@
-<div fxLayout="row" fxLayout.xs="column" fxLayoutGap="12px" >
+<!-- <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="12px" > -->
     <!-- fxLayoutAlign="center start" -->
-    <mat-card fxFlex="50">
+    <mat-card>
+        <!-- fxFlex="50" -->
         <mat-card-header style="background-color: #EBEBEE;">
             <h2 style="margin:0 !important">Roles</h2>
         </mat-card-header>
         <mat-card-content>
-            <app-table [dataSource]="rolesDataSource" [columnsHeader]="columnsHeader" [componentDialog]="componentDialog"></app-table>
+            <app-table [dataSource]="dataSource" [columnsHeader]="columnsHeader" [componentDialog]="componentDialog"  (emitData)="cargarTable($event)" [url]="url"></app-table>
         </mat-card-content>
     </mat-card>
 
-    <mat-card fxFlex="50">
+    <!-- <mat-card>    
         <mat-card-header style="background-color: #EBEBEE;">
             <h2 style="margin:0 !important">Tipos de solicitudes</h2>
         </mat-card-header>
         <mat-card-content>
             <app-table [dataSource]="solicitudesDataSource" [columnsHeader]="columnsHeader" [componentDialog]="componentDialog"></app-table>
         </mat-card-content>
-    </mat-card>
-</div>
+    </mat-card> -->
+<!-- </div> -->

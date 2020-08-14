@@ -3,15 +3,13 @@ import { MatTableDataSource, MatTable } from '@angular/material/table';
 import { Linea } from 'src/app/modelos/linea.model';
 
 import { LineaService } from 'src/app/services/linea/linea.service';
-import { MatPaginator } from '@angular/material/paginator';
-import { HttpClient } from '@angular/common/http';
-import { MatSort } from '@angular/material/sort';
+
 import { fromEvent, BehaviorSubject, Observable, merge, throwError } from 'rxjs';
 import { map, catchError, finalize, takeWhile, tap } from 'rxjs/operators';
 import { MatDialog } from '@angular/material/dialog';
 import { LineaDialogComponent } from 'src/app/dialogs/linea/linea.dialog.component';
 import { LineaDataSource } from 'src/app/services/table/lineas.datasource';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 
 
 @Component({

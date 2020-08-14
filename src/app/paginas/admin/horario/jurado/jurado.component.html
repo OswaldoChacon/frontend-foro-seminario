@@ -1,6 +1,7 @@
 <mat-card>
-  <mat-card-header>
-    <app-card-header [title]="'Jurado'"></app-card-header>
+  <mat-card-header style="background-color: #EBEBEE;" fxLayoutGap="12px">
+    <!-- <app-card-header [title]="'Jurado'"></app-card-header> -->
+    <h2 style="margin:0 !important">Jurado</h2>
   </mat-card-header>
   <mat-card-content>
   <app-table [dataSource]="dataSource" [columnsHeader]="columnsHeader" [componentDialog]="componentDialog" (emitData)="cargarTable($event)"></app-table>

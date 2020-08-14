@@ -10,7 +10,7 @@ export class Usuario {
     horarios?:Array<any>;
     roles?: [
         {
-            nombre: string,
+            nombre_: string,
             is: boolean
         }
     ]

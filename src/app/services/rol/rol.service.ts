@@ -11,19 +11,21 @@ export class RolesService {
     private _http: HttpClient
   ) { }
 
-  getRoles() {
-    return this._http.get<Rol[]>(`api/roles`);
+  getRoles(url:string) {
+    return this._http.get<Rol[]>(`api/${url}`);
   }
 
-  agregarRol(rol:string){
-    return this._http.post(`api/agregar_rol`,{nombre:rol});
+  guardarRol(rol:Rol,url:string){
+    // return this._http.post(`api/agregar_rol`,{nombre:rol});
+    return this._http.post(`api/agregar_${url}`,rol);
   }
 
-  actualizarRol(rol:string, nombre:string){
-    return this._http.put(`api/actualizar_rol/${rol}`,{rol:nombre});
+  actualizarRol(rol:string, nombre:Rol,url:string){
+    // return this._http.put(`api/actualizar_rol/${rol}`,{rol:nombre});
+    return this._http.put(`api/actualizar_${url}/${rol}`,nombre);
   }
 
-  eliminarRol(rol:string){
-    return this._http.delete(`api/eliminar_rol/${rol}`);
+  eliminarRol(rol:string,url:string){
+    return this._http.delete(`api/eliminar_${url}/${rol}`);
   }
 }

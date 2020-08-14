@@ -46,7 +46,7 @@ export class UsuariosComponent implements OnInit {
 
   ngOnInit(): void {
     this.dataSource = new UsuariosDataSource(this._usuarioService);
-    this._rolService.getRoles().subscribe(res => this.roles = res);
+    this._rolService.getRoles('roles').subscribe(res => this.roles = res);
   }
 
   seleccionarRol(rolSeleccionado: string) {
@@ -55,6 +55,7 @@ export class UsuariosComponent implements OnInit {
     this.getUsuarios();
   }
   cargarTable(event: { data?: Usuario, opcion?: any, valorOpcion?: string }) {
+    console.log(event);
     if (event.opcion === 'Eliminar')
       this.eliminarUsuario(event.data.num_control);
     if (event.opcion instanceof MatCheckboxChange)
@@ -101,7 +102,7 @@ export class UsuariosComponent implements OnInit {
   }
 
   agregarRol(event: MatCheckboxChange, user: Usuario, rol: string) {
-    const rolSelected = user.roles.find((Users) => Users.nombre === rol);
+    const rolSelected = user.roles.find((roles) => roles.nombre_ === rol);    
     rolSelected.is = !rolSelected.is;
     if (event.checked)
       this._usuarioService.agregarRol(user.num_control, rol).pipe(
