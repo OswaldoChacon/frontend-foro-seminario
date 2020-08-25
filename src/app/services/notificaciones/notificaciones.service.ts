@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { BehaviorSubject } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -11,10 +12,13 @@ export class NotificacionesService {
   private notificacionesSubject = new BehaviorSubject<any>([]);
   // notificaciones = this.notificacionesSubject.asObservable();
   notificaciones:any;
+  // rolActual:string = '';
   constructor(
-    private _http: HttpClient
-  ) { 
+    private _http: HttpClient,    
+    private _router: Router,
+  ) {     
     this.misNotificaciones();
+    console.log(this._router.url);
   }
 
   miSolicitud() {
@@ -22,19 +26,20 @@ export class NotificacionesService {
   }
 
   misNotificaciones(){
+    const rolActual = this._router.url.includes('Administrador') ? 'Administrador': this._router.url.includes('Alumno') ? 'Alumno':'Docente';
     // return this._http.get(`api/misNotificaciones`);
-    this._http.get(`api/misNotificaciones`).subscribe((res:any)=>{
-      // this.notificacionesSubject.next(res);
-      // console.log(res.length)
-      // console.log(this.notificaciones);
+    this._http.get(`api/misNotificaciones`,{
+      params: new HttpParams().set('rol',rolActual)
+    }).subscribe((res:any)=>{
+      // this.notificacionesSubject.next(res);      
       this.notificaciones = res;
-      this.totalNotificaciones = this.notificaciones.length
+      this.totalNotificaciones = this.notificaciones.total
       // this.notificaciones.
     });
   }
  
-  responderNotificacion(respuesta:boolean,folio:string){
-    return this._http.put(`api/responder_notificacion/${folio}`,{respuesta:respuesta});
+  responderNotificacion(respuesta:boolean,folio:string,solicitud:string){
+    return this._http.put(`api/responder_notificacion/${folio}`,{respuesta:respuesta,solicitud:solicitud});
   }
 
 

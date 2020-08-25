@@ -24,11 +24,9 @@ export class OverviewDialogComponent implements OnInit {
   // formulario(ref: CdkPortalOutletAttachedRef) {
   formulario(ref: CdkPortalOutletAttachedRef) {
     this.test = ref as ComponentRef<any>;
-    // ref.instance.for
-    // console.log(ref.instance.form);
+    // ref.instance.for    
     this.formCheck = this.test.instance.formUsuario;
-    this.test.instance.currentUser = this.data.recordValue;        
-    console.log(this.test)
+    this.test.instance.currentUser = this.data.recordValue;            
     // console.error(_event, this.formCheck['status'])
   }
 

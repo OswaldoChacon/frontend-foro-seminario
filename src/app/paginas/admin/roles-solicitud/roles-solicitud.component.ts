@@ -20,6 +20,7 @@ export class RolesSolicitudComponent implements OnInit {
   solicitudesDataSource: SolicitudesDataSource;
   columnsHeader = { nombre_: 'Nombre', acciones: '' }
   url: string;
+  title:string;
   componentDialog = RolesDialogComponent;
 
   constructor(
@@ -29,6 +30,7 @@ export class RolesSolicitudComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.title = this._router.url.includes('roles') ? 'Roles' : 'Tipos de solicitud';
     this.url = this._router.url.includes('roles') ? 'roles' : 'solicitudes';
     this.dataSource = new RolesDataSource(this._rolService);
     // this.solicitudesDataSource = new SolicitudesDataSource(this._solicitudesService);
@@ -41,8 +43,7 @@ export class RolesSolicitudComponent implements OnInit {
     if (event.opcion === 'refresh')
       this.dataSource.getRoles(this.url)
     if (event.opcion === 'Eliminar')
-      this.eliminarRol(event.data);
-    console.log(event);
+      this.eliminarRol(event.data);    
   }
 
   eliminarRol(rol: Rol) {

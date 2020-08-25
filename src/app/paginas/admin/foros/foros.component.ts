@@ -58,12 +58,10 @@ export class ForosComponent implements OnInit {
     if(event.opcion === 'Activar/Desactivar'){
       this.dataSource.resetData();
       this._foroService.activar_desactivar(event.data.slug,event.valorOpcion).subscribe(()=>this.getForos())
-    }
-    console.log(event);
+    }    
   }
 
-  // nextPage(event: any) {
-  //   console.log(event);
+  // nextPage(event: any) {  
   //   this.dataSource.resetData();
   //   // this.dataSource.getForos(event.pageIndex + 1);
   //   return event;

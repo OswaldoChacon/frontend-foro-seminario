@@ -5,11 +5,7 @@ import { MatPaginator } from "@angular/material/paginator";
 import { tap, debounceTime, distinctUntilChanged } from "rxjs/operators";
 import { MatCheckboxChange } from "@angular/material/checkbox";
 import { ProyectosService } from "src/app/services/proyectos/proyectos.service";
-import {
-  MatDialog,
-  MatDialogRef,
-  MAT_DIALOG_DATA,
-} from "@angular/material/dialog";
+import { MatDialog } from "@angular/material/dialog";
 import { DocentesDiaogComponent } from "src/app/dialogs/docentes/docentes.dialog.component";
 import { Proyectos } from "src/app/modelos/proyectos.model";
 import { fromEvent } from 'rxjs';
@@ -32,13 +28,19 @@ export class ProyectosComponent implements OnInit {
   columnsHeader = { 'participa': 'Part.', 'folio': 'Folio', 'titulo': 'Titulo' };
   componentDialog = DocentesDiaogComponent;
   dataSource: ProyectosDataSource;
-  
+  filtro: string = 'Aceptados'
+
   ngOnInit(): void {
     const params = this._activeRoute.snapshot.params;
     if (params) {
       this.dataSource = new ProyectosDataSource(this._proyectoService, params.id);
-      this.dataSource.getProyectos(1, this.input.nativeElement.value);
+      this.dataSource.getProyectos(1, this.input.nativeElement.value, this.filtro);
     }
+  }
+
+  seleccionarFiltro(filtro: string) {
+    this.filtro = filtro;    
+    this.getProyectos();
   }
 
   cargarTable(event: { data?: Proyectos, opcion?: any, valorOpcion?: string }) {
@@ -47,7 +49,6 @@ export class ProyectosComponent implements OnInit {
   }
 
   ngAfterViewInit(): void {
-
     fromEvent(this.input.nativeElement, 'keyup').pipe(
       debounceTime(150),
       distinctUntilChanged(),
@@ -60,21 +61,21 @@ export class ProyectosComponent implements OnInit {
     this.paginator.page.pipe(
       tap(() => {
         this.dataSource.resetData();
-        this.dataSource.getProyectos(this.paginator.pageIndex + 1, this.input.nativeElement.value);
+        this.getProyectos();
       })
     ).subscribe();
   }
 
-  getProyectos(){
-    this.dataSource.getProyectos(this.paginator.pageIndex+1,this.input.nativeElement.value);
+  getProyectos() {
+    this.dataSource.getProyectos(this.paginator.pageIndex + 1, this.input.nativeElement.value, this.filtro);    
   }
 
   participa(event: MatCheckboxChange, folio: string) {
     let participa = event.checked == true ? "1" : "0";
     this._proyectoService.participa(folio, participa).subscribe();
   }
-  
-  ngOnDestroy(): void {    
+
+  ngOnDestroy(): void {
     localStorage.removeItem('docentes');
   }
 }

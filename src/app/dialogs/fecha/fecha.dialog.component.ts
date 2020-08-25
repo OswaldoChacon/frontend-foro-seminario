@@ -35,11 +35,9 @@ export class FechaDialogComponent implements OnInit {
     _dialog.disableClose = true;
   }
 
-  ngOnInit(): void {    
-    console.log(this.data);
+  ngOnInit(): void {        
     if(this.data.data){
-      // this.data.data.fecha.setMinutes(this.data.data.fecha.getMinutes() + this.data.data.fecha.getTimezoneOffset());
-      // console.log(this.data.data.fecha);
+      // this.data.data.fecha.setMinutes(this.data.data.fecha.getMinutes() + this.data.data.fecha.getTimezoneOffset());      
       this.formFechaForo.controls['fecha'].setValue(this.data.data.fecha);
       this.formFechaForo.controls['hora_inicio'].setValue(this.data.data.hora_inicio);
       this.formFechaForo.controls['hora_termino'].setValue(this.data.data.hora_termino);

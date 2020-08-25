@@ -1,78 +1,39 @@
-<!-- <mat-table [dataSource]="proyectosDataSource">
-  <ng-container matColumnDef="folio">
-    <mat-header-cell *matHeaderCellDef > Folio </mat-header-cell>
-    <mat-cell *matCellDef="let proyecto">
-      <span class="mobile-label">Folio</span>
-      <span class="text-content">{{ proyecto.folio }}</span>
-    </mat-cell>
-  </ng-container>
+<div fxLayout="column">
+  <div fxLayout.xs="column" fxLayout="row" fxLayoutGap="12px" fxLayoutAlign="start center"
+    fxLayoutAlign.xs="center start"
+    style="background-color: #0d47a1;  min-height: 100px; max-height: 100px; margin:-24px -24px 20px; padding:24px; top:64px; position: sticky; z-index: 2;">
+    <div fxFlex="30" style="color:white" fxLayoutAlign="start center" fxLayoutGap="12px">
+      <mat-icon>collections_bookmark</mat-icon>
+      <mat-card-title class="font-600">Proyectos</mat-card-title>
+    </div>
+    <div class="content-filtro" fxLayoutAlign="end center">
+      <mat-icon matPrefix>search</mat-icon>
+      <input class="input-filter" placeholder="Número de folio" #inputFiltro />
+    </div>
+  </div>
 
-  <ng-container matColumnDef="titulo">
-    <mat-header-cell *matHeaderCellDef > Titulo</mat-header-cell>
-    <mat-cell *matCellDef="let proyecto">
-      <span class="mobile-label">Titulo</span>
-      <span class="text-content">{{ proyecto.titulo }}</span>
-    </mat-cell>
-  </ng-container>
-
-  <ng-container matColumnDef="participa">
-    <mat-header-cell *matHeaderCellDef> Participa</mat-header-cell>
-    <mat-cell *matCellDef="let proyecto">
-      <span class="mobile-label">Acciones</span>
-      <mat-checkbox
-        color="primary"
-        (change)="participa($event, proyecto.folio)"
-        [checked]="proyecto.participa"
-      ></mat-checkbox>
-      <button mat-icon-button (click)="abrirDialog(proyecto)"><mat-icon>supervisor_account</mat-icon></button>
-        <div *ngFor="let docente of proyectosDataSource.getDocentes()">
-          <mat-checkbox>{{docente.Nombre}}</mat-checkbox>
-        </div>                
-      </mat-menu> 
-
-    </mat-cell>
-  </ng-container>
-
-  a-md-data-table-column
-
-  <mat-header-row *matHeaderRowDef="displayedColumns" fxShow fxHide.xs></mat-header-row>
-  <mat-row *matRowDef="let row; columns: displayedColumns"> </mat-row>
-</mat-table>
-<mat-spinner
-  *ngIf="proyectosDataSource.spinnerValue() | async"
-  diameter="50"
-  class="table-loading"
-></mat-spinner> -->
-<mat-card>
-  <mat-card-header style="background-color: #EBEBEE;" fxLayoutGap="12px">
-    <!-- <app-card-header [title]="'Proyectos'"> -->
-      <div fxFlex fxLayoutAlign="start center">
-        <h2 style="margin:0 !important">Proyectos</h2>
-      </div>
-      <!-- <div fxFlex="50" class="content-filtro"  fxLayoutAlign="start center">
-        <mat-icon matPrefix>search</mat-icon>
-        <input class="input-filter" placeholder="Número de folio" #inputFiltro />
-      </div> -->
-      <div class="content-filtro" fxFlex="50" fxFlex.xs="75" fxLayoutAlign="start center">
-        <mat-icon matPrefix>search</mat-icon>
-        <input class="input-filter" placeholder="Número de control" #inputFiltro />
-      </div>
-      <div fxFlex fxLayoutAlign="end end">
-        <button mat-icon-button [matMenuTriggerFor]="filtros">
-          <mat-icon aria-label="label">filter_list</mat-icon>
-        </button>
-        <mat-menu #filtros="matMenu" xPosition="before">
-          <!-- <mat-checkbox *ngFor="let rol of roles" (change)="seleccionarRol(rol.nombre)"
-            [checked]="rolSeleccionado === rol.nombre" class="mat-menu-item" (click)="$event.stopPropagation()">
-            {{ rol.nombre }}
-          </mat-checkbox> -->
-        </mat-menu>
-      </div>
-    <!-- </app-card-header> -->
-  </mat-card-header>
-  <mat-card-content>
-  <app-table [dataSource]="dataSource" [columnsHeader]="columnsHeader" [componentDialog]="componentDialog"
-    (emitData)="cargarTable($event)"></app-table>
-  <mat-paginator [length]="dataSource.total" [pageSize]="dataSource.por_pagina" showFirstLastButtons></mat-paginator>
-</mat-card-content>
-</mat-card>
+  <div fxLayout.lt-md="column" fxLayout="row" fxLayoutGap.gt-sm="12px">
+    <div fxFlex="20">
+      <mat-form-field appearance="outline" fxLayoutAlign.lt-md="end end">
+        <mat-label>Filtrar por:</mat-label>
+        <mat-select [value]="filtro" (selectionChange)="seleccionarFiltro($event.value)">
+          
+          <mat-option value="Aceptados">Aceptados</mat-option>
+          <mat-option value="No aceptados">No aceptados</mat-option>
+          <!-- <mat-option [value]="'Todos'">Todos</mat-option> -->
+          <!-- <mat-option *ngFor="let rol of roles" [value]="rol.nombre_">{{rol.nombre_}}</mat-option> -->
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div fxFlex="80">
+      <mat-card>
+        <mat-card-content>
+          <app-table [dataSource]="dataSource" [columnsHeader]="columnsHeader" [componentDialog]="componentDialog"
+            (emitData)="cargarTable($event)"></app-table>
+          <mat-paginator [length]="dataSource.total" [pageSize]="dataSource.por_pagina" showFirstLastButtons>
+          </mat-paginator>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</div>

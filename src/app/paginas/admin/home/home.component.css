@@ -4,6 +4,19 @@
   font-size: 14px;
   border: 1px solid #CCC;
 } */
+
+.a
+/* notificacion-details */
+{
+  display: none !important;
+}
+
+.icon-email{
+  color:#707070 !important;
+  font-size: 40px !important;
+  width: 40px !important;
+  height: 40px !important;
+}
 .StepProgress {
   position: relative;
   padding-left: 45px;

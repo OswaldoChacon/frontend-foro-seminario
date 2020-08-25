@@ -27,9 +27,9 @@ export class ProyectosDataSource extends DataSource<Proyectos> {
     this.loadingSubject.complete();
   }
 
-  getProyectos(pagina: number,folio:string) {
+  getProyectos(pagina: number,folio:string,filtro:string) {
     this.resetData();
-    this.proyectoService.getProyectos(this.slug, pagina,folio).pipe(
+    this.proyectoService.getProyectos(this.slug, pagina,folio,filtro).pipe(
       finalize(() => this.loadingSubject.next(false)),
       catchError(() => ([]))
     ).subscribe((res: any) => {

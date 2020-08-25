@@ -1,138 +1,34 @@
-<!-- <div fxLayout="row" fxLayoutGap="12px">
-  <div fxFlex.lt-md="70" fxFlex="100">
-    <mat-form-field>
-      <input matInput placeholder="No. de control" #inputFiltro />
-    </mat-form-field>
-  </div>
-  <div fxFlex fxHide fxShow.lt-md fxLayoutAlign="end center">
-    <button mat-icon-button [matMenuTriggerFor]="filtros">
-      <mat-icon aria-label="label">filter_list</mat-icon>
-    </button>
-    <mat-menu #filtros="matMenu" xPosition="before">
-      <mat-checkbox *ngFor="let rol of roles" (change)="seleccionarRol(rol.nombre)"
-        [checked]="rolSeleccionado === rol.nombre" class="mat-menu-item" (click)="$event.stopPropagation()">
-        {{ rol.nombre }}
-      </mat-checkbox>
-    </mat-menu>
-  </div>
-</div>
-<div fxLayout="row" fxLayoutGap="12px">
-  <div fxFlex="35" fxShow fxHide.lt-md>
-    <mat-card>
-      <mat-card-content>
-        <mat-selection-list>
-          <mat-list-option [selected]="rolSeleccionado === rol.nombre" (click)="seleccionarRol(rol.nombre)"
-            *ngFor="let rol of roles">{{ rol.nombre }}</mat-list-option>
-        </mat-selection-list>
-      </mat-card-content>
-    </mat-card>
-  </div>
-  <div fxFlex>
-    <mat-card>
-      <mat-card-header>
-        <mat-toolbar>
-          <button mat-icon-button [matMenuTriggerFor]="filtros">
-            <mat-icon aria-label="label">filter_list</mat-icon>
-          </button>
-          <mat-menu #filtros="matMenu" xPosition="before">
-            <mat-checkbox *ngFor="let rol of roles" (change)="seleccionarRol(rol.nombre)"
-              [checked]="rolSeleccionado === rol.nombre" class="mat-menu-item" (click)="$event.stopPropagation()">
-              {{ rol.nombre }}
-            </mat-checkbox>
-          </mat-menu>
-        </mat-toolbar>
-      </mat-card-header>
-      <mat-card-content>
-        <app-table [dataSource]="dataSource" [componentDialog]="componentDialog" [columnsHeader]="columnsHeader"
-          (emitData)="cargarTable($event)">
-        </app-table>
-        <mat-paginator [length]="dataSource.total" [pageSize]="dataSource.por_pagina" showFirstLastButtons>
-        </mat-paginator>
-      </mat-card-content>
-    </mat-card>
-  </div>
-</div> -->
-
-<!-- <div style="background-color: #0D47A1; height: 160px; min-height: 160px; max-height: 160px; margin:-24px; padding:24px" >
-  <div fxFlex="30" style="height: max-content;"> 
-    <h2 style="color:white">Usuarios</h2>
-  </div>
-  <div class="content-filtro" fxFlex="50" fxFlex.xs="75" fxLayoutAlign="end center">
-    <mat-icon matPrefix>search</mat-icon>
-    <input class="input-filter" placeholder="Número de control" #inputFiltro />
-  </div>
-</div> -->
-<!-- <mat-card style="margin-top:-75px"> -->
-  <mat-card>
-  <mat-card-header style="background-color: #EBEBEE;" fxLayoutGap="12px">
-    <div fxFlex fxLayoutAlign="start center">
-      <h2 style="margin:0 !important">Usuario</h2>
+<div fxLayout="column">
+  <div class="main-container-header" fxLayout.xs="column" fxLayout="row" fxLayoutGap="12px" fxLayoutAlign="start center" fxLayoutAlign.xs="center start">    
+    <div fxFlex="30" style="color:white" fxLayoutAlign="start center" fxLayoutGap="12px">
+      <mat-icon>account_box</mat-icon>
+      <mat-card-title class="font-600">Usuarios</mat-card-title>
     </div>
-    <div class="content-filtro" fxFlex="50" fxFlex.xs="75" fxLayoutAlign="start center">
+    <div class="content-filtro" fxLayoutAlign="end center">
       <mat-icon matPrefix>search</mat-icon>
       <input class="input-filter" placeholder="Número de control" #inputFiltro />
     </div>
-    <div fxFlex fxLayoutAlign="end end">
-      <button mat-icon-button [matMenuTriggerFor]="filtros">
-        <mat-icon aria-label="label">filter_list</mat-icon>
-      </button>
-      <mat-menu #filtros="matMenu" xPosition="before">        
-        <mat-checkbox *ngFor="let rol of roles" (change)="seleccionarRol(rol.nombre_)"
-          [checked]="rolSeleccionado === rol.nombre_" class="mat-menu-item" (click)="$event.stopPropagation()">
-          {{ rol.nombre_ }}
-        </mat-checkbox>
-        <mat-checkbox (change)="seleccionarRol('Todos')"
-        [checked]="rolSeleccionado === 'Todos'" class="mat-menu-item" (click)="$event.stopPropagation()">
-        Todos
-      </mat-checkbox>       
-      </mat-menu>
+  </div>
+  <div fxLayout.lt-md="column" fxLayout="row" fxLayoutGap.gt-sm="12px">
+    <div fxFlex="20">
+      <mat-form-field appearance="outline" fxLayoutAlign.lt-md="end end">
+        <mat-label>Filtrar por:</mat-label>
+        <mat-select [value]="rolSeleccionado" (selectionChange)="seleccionarRol($event.value)">
+          <mat-option [value]="'Todos'">Todos</mat-option>
+          <mat-option *ngFor="let rol of roles" [value]="rol.nombre_">{{rol.nombre_}}</mat-option>
+        </mat-select>
+      </mat-form-field>
     </div>
-
-
-
-    <!-- <app-card-header [title]="'Usuarios'">
-      <div class="content-filtro" fxFlex="50" fxFlex.xs="75" fxLayoutAlign="start center">
-        <mat-icon matPrefix>search</mat-icon>
-        <input class="input-filter" placeholder="Número de control" #inputFiltro />
-      </div>
-      <div fxFlex fxLayoutAlign="end end">
-        <button mat-icon-button [matMenuTriggerFor]="filtros">
-          <mat-icon aria-label="label">filter_list</mat-icon>
-        </button>
-        <mat-menu #filtros="matMenu" xPosition="before">
-          <mat-checkbox *ngFor="let rol of roles" (change)="seleccionarRol(rol.nombre)"
-            [checked]="rolSeleccionado === rol.nombre" class="mat-menu-item" (click)="$event.stopPropagation()">
-            {{ rol.nombre }}
-          </mat-checkbox>
-        </mat-menu>
-      </div>
-    </app-card-header> -->
-    <!-- <mat-toolbar>
-      <div class="content-header" fxLayoutAlign="start center">
-        <h2 style="margin-right: 1rem; padding-right: 1rem; border-right-width: 2px !important;" fxShow fxHide.xs>Usuarios</h2>                 
-        <div class="content-filtro" fxFlex="50" fxFlex.xs="75" fxLayoutAlign="start center">
-          <mat-icon matPrefix>search</mat-icon>
-          <input placeholder="No. de control" #inputFiltro />
-        </div>
-        <div fxFlex fxLayoutAlign="end end">
-          <button mat-icon-button [matMenuTriggerFor]="filtros">
-            <mat-icon aria-label="label">filter_list</mat-icon>
-          </button>
-          <mat-menu #filtros="matMenu" xPosition="before">
-            <mat-checkbox *ngFor="let rol of roles" (change)="seleccionarRol(rol.nombre)"
-              [checked]="rolSeleccionado === rol.nombre" class="mat-menu-item" (click)="$event.stopPropagation()">
-              {{ rol.nombre }}
-            </mat-checkbox>
-          </mat-menu>
-        </div>
-      </div>
-    </mat-toolbar> -->
-  </mat-card-header>
-  <mat-card-content>
-    <app-table [dataSource]="dataSource" [componentDialog]="componentDialog" [columnsHeader]="columnsHeader"
-      (emitData)="cargarTable($event)">
-    </app-table>
-    <mat-paginator [length]="dataSource.total" [pageSize]="dataSource.por_pagina" showFirstLastButtons>
-    </mat-paginator>
-  </mat-card-content>
-</mat-card>
+    <div fxFlex="80">
+      <mat-card>
+        <mat-card-content>
+          <app-table [dataSource]="dataSource" [componentDialog]="componentDialog" [columnsHeader]="columnsHeader"
+            (emitData)="cargarTable($event)">
+          </app-table>
+          <mat-paginator [length]="dataSource.total" [pageSize]="dataSource.por_pagina" showFirstLastButtons>
+          </mat-paginator>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</div>

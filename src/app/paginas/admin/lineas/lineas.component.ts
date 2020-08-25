@@ -30,19 +30,16 @@ export class LineasComponent implements OnInit {
 
   ngOnInit() {
     this.title = this._router.url.includes('lineas-investigacion') ? 'Lineas de investigacion' : 'Tipos de proyecto';
-    this.url = this._router.url.includes('lineas-investigacion') ? 'lineas' : 'tiposProyecto';
-    console.log(this.url);
+    this.url = this._router.url.includes('lineas-investigacion') ? 'lineas' : 'tiposProyecto';    
     this.dataSource = new LineaDataSource(this._LineaService);
-    this.dataSource.getLineas(this.url);
-    // console.log(this.dataSource);
+    this.dataSource.getLineas(this.url);    
   }
 
   cargarTable(event: { data?: Linea, opcion?: string, valorOpcion?: string }) {
     if (event.opcion === 'refresh')
       this.dataSource.getLineas(this.url)
     if (event.opcion === 'Eliminar')
-      this.eliminarLinea(event.data);
-    console.log(event);
+      this.eliminarLinea(event.data);    
   }
 
 

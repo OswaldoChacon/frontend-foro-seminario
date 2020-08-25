@@ -1,26 +1,34 @@
-<!-- <mat-form-field>
-  <mat-label>Número de foro</mat-label>
-  <input matInput #inputFiltro />
-</mat-form-field> -->
-<mat-card>
-  <!-- <mat-card-header> -->
-    <mat-card-header style="background-color: #EBEBEE;" fxLayoutGap="12px">
-    <!-- <app-card-header [title]="'Foros'"> -->
+<div fxLayout="column">
+  <div fxLayout.xs="column" fxLayout="row" fxLayoutGap="12px" fxLayoutAlign="start center"
+    fxLayoutAlign.xs="center start"
+    style="background-color: #0d47a1;  min-height: 100px; max-height: 100px; margin:-24px -24px 20px; padding:24px; top:64px; position: sticky; z-index: 2;">
+    <div fxFlex="30" style="color:white" fxLayoutAlign="start center" fxLayoutGap="12px">
+      <mat-icon>forum</mat-icon>
+      <mat-card-title class="font-600">Foros</mat-card-title>
+    </div>
+    <div class="content-filtro" fxLayoutAlign="end center">
+      <mat-icon matPrefix>search</mat-icon>
+      <input class="input-filter" placeholder="Número de foro" #inputFiltro />
+    </div>
+  </div>
+
+
+  <mat-card>
+    <!-- <mat-card-header style="background-color: #EBEBEE;" fxLayoutGap="12px">
       <div fxFlex fxLayoutAlign="start center">
-        <!-- <h2 style="margin:0 !important">Foros</h2> -->
         <mat-card-title fxFlex fxLayoutAlign="start center" style="margin:0 !important">Foros</mat-card-title>
       </div>
       <div class="content-filtro" fxFlex="50" fxFlex.xs="75" fxLayoutAlign="start center">
         <mat-icon matPrefix>search</mat-icon>
         <input class="input-filter" placeholder="Número de foro" #inputFiltro />
       </div>
-    <!-- </app-card-header> -->
-  </mat-card-header>
-  <mat-card-content>
-    <app-table [dataSource]="dataSource" [componentDialog]="componentDialog" [columnsHeader]="columnsHeader"
-      (emitData)="cargarTable($event)">
-    </app-table>
-    <mat-paginator [length]="dataSource.total" [pageSize]="dataSource.por_pagina" showFirstLastButtons>
-    </mat-paginator>
-  </mat-card-content>
-</mat-card>
+    </mat-card-header> -->
+    <mat-card-content>
+      <app-table [dataSource]="dataSource" [componentDialog]="componentDialog" [columnsHeader]="columnsHeader"
+        (emitData)="cargarTable($event)">
+      </app-table>
+      <mat-paginator [length]="dataSource.total" [pageSize]="dataSource.por_pagina" showFirstLastButtons>
+      </mat-paginator>
+    </mat-card-content>
+  </mat-card>
+</div>

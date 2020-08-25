@@ -32,8 +32,7 @@ export class ForoDialogComponent implements OnInit {
       _dialog.disableClose = true;
   }
 
-  ngOnInit(): void {
-    console.log(this.data);
+  ngOnInit(): void {    
     for(let i = 0; i <3; i++)
       this.anios.push(new Date().getFullYear()+i);    
     if(this.data != null){
@@ -52,8 +51,7 @@ export class ForoDialogComponent implements OnInit {
       res=>this._dialog.close({opcion:'refresh'})
     );    
   } 
-  actualizarForo(){
-    // console.log(form.value);
+  actualizarForo(){    
     this.guardando = true;
     this._foroService.actualizarForo(this.data.slug, this.formForo.value).pipe(
       finalize(()=>this.guardando=false)

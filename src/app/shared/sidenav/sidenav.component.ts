@@ -29,7 +29,7 @@ export class SidenavComponent implements OnInit {
   }
 
   ngOnInit(): void {    
-    // this.misNotificaciones();
+    this._notificacionService.misNotificaciones();
     this.usuarioLogueado = JSON.parse(localStorage.getItem('profile'));
     this.roles = this._authService.getRoles();
     if (this._router.url.includes("Administrador") && this.roles.includes("Administrador"))

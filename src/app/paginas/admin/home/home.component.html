@@ -1,77 +1,69 @@
 <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="12px">
 
   <div fxFlex="70">
-    <!-- <div> -->
     <mat-card>
-      <mat-card-header style="padding:16px">
-        <!-- <div *ngIf="!editar; else editarTitulo"> -->
-        <ng-container *ngIf="!editar; else editarTitulo">          
-          <button mat-button (click)="editar=!editar" *ngIf="miSolicitud" style="white-space:pre-line; text-align: start;">
-            <h4>{{miSolicitud ? miSolicitud.proyecto.titulo:'Sin solicitud' }}</h4>
-          </button>
-          <!-- <h4>{{miSolicitud ? miSolicitud.proyecto.titulo:'Sin solicitud' }}</h4>           -->
-        </ng-container>
-        <!-- </div> -->
-        <!-- <div *ngIf="editar">
-sss
-        </div> -->
-        <ng-template #editarTitulo>
-          <div fxFlex="85">
-            <form [formGroup]="formProyecto" (ngSubmit)="editar_titulo()" #form="ngForm">
-              <mat-form-field appearance="fill">
-                <mat-label>Titulo del proyecto</mat-label>
-                <input matInput type="text" formControlName="titulo">
-              </mat-form-field>
-            </form>
-          </div>
-          <div fxFlex fxLayoutAlign="center center">
-            <button mat-icon-button (click)="form.ngSubmit.emit()"><mat-icon>save</mat-icon></button>
-            <button mat-icon-button (click)="editar=!editar"><mat-icon>close</mat-icon></button>
-          </div>
-        </ng-template>
-
+      <!-- <mat-card-header style="padding:16px"> -->
+      <mat-card-header >
+        <!-- style="background-color: #EBEBEE;" -->
+       <mat-card-title>Solicitudes</mat-card-title>
       </mat-card-header>
-      <mat-card-content *ngIf="miSolicitud" style="font-size: 12px">
-        <!-- <div *ngIf="!miSolicitud;else solicitud">
-          <strong>Sin Solicitud</strong>
-        </div> -->
-        <!-- <ng-template #solicitud>           -->
-        <ul class="StepProgress">
-          <li class="StepProgress-item" [ngClass]="{'is-done': item.respuesta, 'current':!item.respuesta}"
-            *ngFor="let item of miSolicitud.data">
-            <strong>{{item.receptor.nombreCompleto}}</strong>
-            {{item.respuesta === 1 ? 'Solicitud aceptada': item.respuesta === 0 ? 'Solicitud rechazada':'Sin respuesta'}}
-          </li>
-          <li class="StepProgress-item"
-            [ngClass]="{'is-done': miSolicitud.aceptados === miSolicitud.length, 'current': miSolicitud.aceptados !== miSolicitud.length}">
-            <strong>PROYECTO ACEPTADO</strong></li>
-        </ul>
-        <!-- </ng-template> -->
+      <mat-divider></mat-divider>       
+      <mat-card-content *ngIf="miSolicitud" style="font-size: 12px" fxLayoutGap="20px">
+        <!-- <div *ngFor="let itemSolicitud of miSolicitud.data | keyvalue"> -->
+        <div fxFlex="55" fxFlex.lt-md="100" [ngClass.lt-md]="{'a': notificacionSeleccionado}">
+          <mat-nav-list>
+            <mat-list-item *ngFor="let itemSolicitud of miSolicitud.data | keyvalue"
+              (click)="elegirNotificacion(itemSolicitud.value)">
+              <mat-icon matListIcon [ngStyle]="{'background-color': setBackgroundColor(itemSolicitud.key)}"
+                style="background-color: red; color: white;">{{iconos(itemSolicitud.key)}}</mat-icon>
+
+              <span matLine>{{ itemSolicitud.key}}</span>              
+              <mat-divider></mat-divider>
+            </mat-list-item>
+          </mat-nav-list>
+                    
+        </div>        
+        <div fxFlex [ngClass.lt-md]="{'a': !notificacionSeleccionado}">
+          <!-- *ngIf="notificacionSeleccionado" -->
+          <div *ngIf="!notificacionSeleccionado; else stepper" fxLayoutAlign="center center" fxLayout="column">
+            <mat-icon class="icon-email"> email</mat-icon>
+            <h4>Seleccionada alguna notificación para ver más detalles</h4>
+          </div>
+          <ng-template #stepper>
+            <ul class="StepProgress">
+              <li class="StepProgress-item" [ngClass]="{'is-done': item.respuesta, 'current':!item.respuesta}"
+                *ngFor="let item of notificacionSeleccionado | slice:0:notificacionSeleccionado.length-1">
+                <strong>{{item.receptor.nombreCompleto}}</strong>
+                {{item.respuesta === 1 ? 'Solicitud aceptada': item.respuesta === 0 ? 'Solicitud rechazada':'Sin respuesta'}}<br>
+                {{ item.motivo ? item.motivo:'Sin comentarios'}}
+
+              </li>
+              <li class="StepProgress-item" [ngClass]="{'is-done': aceptado, 'current': !aceptado}">
+                <!-- [ngClass]="{'is-done': item.aceptados === miSolicitud.length, 'current': miSolicitud.aceptados !== miSolicitud.length}" -->
+                <strong>SOLICITUD ACEPTADA</strong></li>
+            </ul>
+          </ng-template>
+        </div>
       </mat-card-content>
-
-
     </mat-card>
-    <!-- </div> -->
   </div>
-  <div fxFlex="30" fxLayout="column" fxLayoutGap="12px">
-
-    <div>
+  <div fxFlex="30" fxLayout="column" fxLayoutGap="12px" *ngIf="miSolicitud?.proyecto.editar">
+    <!-- <div> -->
       <mat-card>
         <mat-card-header>
           <!-- <app-card-header [title]="'Alumnos'"></app-card-header> -->
           <mat-card-title>Añadir integrantes</mat-card-title>
         </mat-card-header>
         <mat-divider></mat-divider>
-
-        <mat-card-content style="overflow-y: scroll; max-height: 300px; "
-          [ngStyle]="{'padding.px': alumnos ? '0':'16'}">
+        <mat-card-content style="overflow-y: scroll; max-height: 300px;" [ngStyle]="{'padding.px': alumnos ? '0':'16'}">
+          
           <ng-container *ngIf="!alumnos; else listadoAlumnos">
             <h3>Sin integrantes</h3>
           </ng-container>
           <ng-template #listadoAlumnos>
             <mat-list>
               <mat-list-item *ngFor="let alumno of alumnos" style="font-size: 12px !important;">
-                <img matListAvatar src="../../../../assets/img/perfil2.png" alt="Photo of a Shiba Inu">
+                <img matListAvatar src="../../../../assets/img/perfil2.png">
                 <button mat-icon-button (click)="agregarIntegrante(alumno)">
                   <mat-icon matSuffix style="color:#0D47A1">{{ alumno.myTeam ? 'check':'person_add'}}</mat-icon>
                 </button>
@@ -82,6 +74,6 @@ sss
           </ng-template>
         </mat-card-content>
       </mat-card>
-    </div>
+    <!-- </div> -->
   </div>
 </div>

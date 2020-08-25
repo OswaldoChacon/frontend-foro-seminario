@@ -24,7 +24,7 @@ import { RolesService } from 'src/app/services/rol/rol.service';
 export class UsuariosComponent implements OnInit {
   columnsHeader = {
     'acceso': 'Estatus',
-    'num_control':'No. Control',
+    'num_control': 'No. Control',
     'nombreCompleto': 'Nombre completo',
     'email': 'Email',
     'acciones': ''
@@ -40,7 +40,7 @@ export class UsuariosComponent implements OnInit {
 
   constructor(
     private _usuarioService: UsuarioService,
-    private _rolService: RolesService,    
+    private _rolService: RolesService,
   ) { }
 
 
@@ -51,40 +51,41 @@ export class UsuariosComponent implements OnInit {
 
   seleccionarRol(rolSeleccionado: string) {
     this.rolSeleccionado = rolSeleccionado;
-    this.paginator.pageIndex = 0;    
+    this.paginator.pageIndex = 0;
     this.getUsuarios();
   }
-  cargarTable(event: { data?: Usuario, opcion?: any, valorOpcion?: string }) {
-    console.log(event);
+
+
+
+  cargarTable(event: { data?: Usuario, opcion?: any, valorOpcion?: string }) {    
     if (event.opcion === 'Eliminar')
       this.eliminarUsuario(event.data.num_control);
     if (event.opcion instanceof MatCheckboxChange)
       this.agregarRol(event.opcion, event.data, event.valorOpcion);
     if (event.opcion === 'refresh')
       this.getUsuarios();    
-    console.log(event);
   }
 
   ngAfterViewInit() {
     fromEvent(this.input.nativeElement, 'keyup').pipe(
       debounceTime(150),
       distinctUntilChanged(),
-      tap(() => {        
-        this.paginator.pageIndex = 0;        
+      tap(() => {
+        this.paginator.pageIndex = 0;
         this.getUsuarios();
       })
     ).subscribe();
 
     this.paginator.page.pipe(
-      tap(() => {        
-        this.getUsuarios();        
+      tap(() => {
+        this.getUsuarios();
       })
     ).subscribe();
-    this.getUsuarios();    
+    this.getUsuarios();
 
-  } 
+  }
 
-  eliminarUsuario(num_control: string) {    
+  eliminarUsuario(num_control: string) {
     this.dataSource.resetData();
     this._usuarioService.eliminarUsuario(num_control).pipe(
       catchError((error) => {
@@ -102,7 +103,7 @@ export class UsuariosComponent implements OnInit {
   }
 
   agregarRol(event: MatCheckboxChange, user: Usuario, rol: string) {
-    const rolSelected = user.roles.find((roles) => roles.nombre_ === rol);    
+    const rolSelected = user.roles.find((roles) => roles.nombre_ === rol);
     rolSelected.is = !rolSelected.is;
     if (event.checked)
       this._usuarioService.agregarRol(user.num_control, rol).pipe(

@@ -23,8 +23,7 @@ export class LoginComponent implements OnInit {
   cargando: boolean = false;
   ngOnInit(): void { }
 
-  login() {
-    console.log(this.formLogin.value);
+  login() {    
     this.cargando = true;
     this._authService.login(this.formLogin.value).pipe(
       finalize(() => this.cargando = false)

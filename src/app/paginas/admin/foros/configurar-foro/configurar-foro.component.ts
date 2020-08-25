@@ -49,8 +49,7 @@ export class ConfigurarForoComponent implements OnInit {
 
   ngOnInit(): void {
     if (this._activeRoute.snapshot.params.id) {
-      this.slug = this._activeRoute.snapshot.params.id;
-      console.log(this.slug);
+      this.slug = this._activeRoute.snapshot.params.id;      
       this._foroService.getForo(this._activeRoute.snapshot.params.id).subscribe(
         (res) => {
           this.cargando = false;
@@ -65,8 +64,7 @@ export class ConfigurarForoComponent implements OnInit {
       );
     }
   }
-  cargarTable(event: { data?: Fechas, opcion?: any, valorOpcion?: string }) {
-    console.log(event);
+  cargarTable(event: { data?: Fechas, opcion?: any, valorOpcion?: string }) {    
     if (event.opcion === 'refresh')
       this.dataSource.getFechas(this.slug);
     if (event.opcion === 'Eliminar')

@@ -70,13 +70,13 @@
                         
                 </ng-container>
                 <ng-container *ngSwitchCase="'activo'">                    
-                    <mat-slide-toggle (change)="emitirData(data,'Activar/Desactivar',!data.acceso)" (click)="$event.stopPropagation()" [checked]="data.acceso ? 'true':'false'" [disabled]="!data.canActivate"></mat-slide-toggle>
+                    <mat-slide-toggle color="warn" (change)="emitirData(data,'Activar/Desactivar',!data.acceso)" (click)="$event.stopPropagation()" [checked]="data.acceso ? 'true':'false'" [disabled]="!data.canActivate"></mat-slide-toggle>
                 </ng-container>
                 <ng-container *ngSwitchCase="'participa'">
                     <!-- <button mat-icon-button>
                         <mat-icon>group</mat-icon>
                     </button> -->
-                    <mat-checkbox (change)="emitirData(data,$event)" (click)="$event.stopPropagation()"
+                    <mat-checkbox color="warn" (change)="emitirData(data,$event)" (click)="$event.stopPropagation()"
                         [checked]="data.participa"></mat-checkbox>
                 </ng-container>
 

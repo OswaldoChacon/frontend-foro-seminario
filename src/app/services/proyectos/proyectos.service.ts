@@ -12,10 +12,11 @@ export class ProyectosService {
   registrarProyecto(body: any){
     return this._http.post(`api/registrar_proyecto`,body)
   }
-  getProyectos(slug: string,pagina: number,folio:string){
+  getProyectos(slug: string,pagina: number,folio:string,filtro:string){    
     return this._http.get(`api/proyectos/${slug}`,{
       params: new HttpParams().set('page',pagina.toString())
       .set('folio',folio)
+      .set('filtro',filtro)
     });
   }
   participa(folio: string, participa: string){

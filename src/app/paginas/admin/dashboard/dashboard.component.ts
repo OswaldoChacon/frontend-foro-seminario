@@ -7,29 +7,31 @@ import { AuthService } from 'src/app/services/auth/auth.service';
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
 })
-export class DashboardComponent implements OnInit {  
-  roles=[];
+export class DashboardComponent implements OnInit {
+  roles = [];
   screenWidth: number;
   constructor(private permissionsService: NgxPermissionsService,
-    private authService: AuthService) { 
+    private authService: AuthService) {
     this.screenWidth = window.innerWidth;
     window.onresize = () => {
       this.screenWidth = window.innerWidth;
-    };}
-
-  ngOnInit(): void {    
-    this.roles = this.authService.getRoles();    
-    this.permissionsService.loadPermissions(this.roles);        
+    };
   }
 
-  logout(){
+  ngOnInit(): void {
+    this.roles = this.authService.getRoles();
+    this.permissionsService.loadPermissions(this.roles);
+  }
+
+  logout() {
     this.authService.logout();
   }
-  intercambiarRol(index: number){    
-    console.log(this.roles.length);
-    console.log(this.roles[index]);    
+
+  intercambiarRol(index: number) {
+
   }
-  contarRoles(){
+  
+  contarRoles() {
     return this.roles.length;
   }
 }

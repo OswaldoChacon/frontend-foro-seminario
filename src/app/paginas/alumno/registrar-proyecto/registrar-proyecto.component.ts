@@ -77,8 +77,7 @@ export class RegistrarProyectoComponent implements OnInit {
   registrar() {
     this._proyectoService
       .registrarProyecto(this.formRegistrar.value)
-      .subscribe();
-    console.log(this.formRegistrar.value);
+      .subscribe();    
   }
   remove(index:number){
     const control = this.formRegistrar.get("alumnos") as FormArray;

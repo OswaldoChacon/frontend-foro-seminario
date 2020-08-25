@@ -10,6 +10,7 @@ import { SidenavComponent } from '../../shared/sidenav/sidenav.component';
 import { GenerarHorarioComponent } from './horario/generar-horario/generar-horario.component';
 import { CambiarContrasenaComponent } from 'src/app/shared/cambiar-contrasena/cambiar-contrasena.component';
 import { RolesSolicitudComponent } from './roles-solicitud/roles-solicitud.component';
+import { NotificacionesComponent } from 'src/app/shared/notificaciones/notificaciones.component';
 
 const routes: Routes = [
   {
@@ -19,6 +20,7 @@ const routes: Routes = [
     // canActivate: [AuthGuard],
     children: [
       { path: 'home', component: HomeComponent },
+      { path: 'notificaciones', component: NotificacionesComponent},
       { path: 'roles', component: RolesSolicitudComponent},
       { path: 'solicitudes', component: RolesSolicitudComponent},
       { path: 'usuarios', component: UsuariosComponent },
