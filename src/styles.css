@@ -60,7 +60,7 @@ html, body {
 
 .mat-card-title {
   /* font-weight: 600 !important; */
-  /* font-size: 20px; */
+  font-size: 18px !important;
   margin: 6px 0 !important;
 }
 

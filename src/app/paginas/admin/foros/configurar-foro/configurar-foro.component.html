@@ -1,5 +1,4 @@
-<mat-progress-bar value="50" mode="indeterminate" *ngIf="cargando; else configuracionForo" class="table-loading">
-</mat-progress-bar>
+<mat-progress-bar value="50" mode="indeterminate" *ngIf="cargando; else configuracionForo" class="table-loading"></mat-progress-bar>
 
 <ng-template #configuracionForo>
   <div fxLayout="column">
@@ -83,7 +82,8 @@
                 <mat-card-title>Elige los intervalos</mat-card-title>
               </mat-card-header>
               <mat-card-content>
-                <div fxLayout="row wrap" fxLayout.xs="column" fxLayoutGap="12%" fxLayoutGap.xs="2%">
+                <div fxLayout="row wrap" fxLayout.xs="column" fxLayoutGap="40px"  >
+                  <!-- fxLayoutAlign="center start" -->
                   <div *ngIf="!(fecha.length > 0)">
                     <span>Sin espacios de tiempo</span>
                   </div>

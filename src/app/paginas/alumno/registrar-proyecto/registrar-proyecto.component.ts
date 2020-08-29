@@ -43,27 +43,27 @@ export class RegistrarProyectoComponent implements OnInit {
     private _foroService: ForoService,
     private _proyectoService: ProyectosService,
     private _route: Router
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this._foroService.foroActual().pipe(
       finalize(() => (this.cargando = false))
-      ).subscribe((res: any) => {
-        this.foro = res["foro"];
-        this.lineas = res["lineas"];
-        this.tipos = res["tipos"];
-        this.docentes = res["docentes"];
-        this.alumnos = res["alumnos"];       
-      },
-      err=>this._route.navigate(['home'])
-      );
+    ).subscribe((res: any) => {
+      this.foro = res["foro"];
+      this.lineas = res["lineas"];
+      this.tipos = res["tipos"];
+      this.docentes = res["docentes"];
+      this.alumnos = res["alumnos"];
+    });
   }
+
   openPanel() {
     // this.isOpen = !this.isOpen;
     const control = this.formRegistrar.get("alumnos") as FormArray;
     control.push(new FormControl());
     this.lim_alumnos = control.length;
   }
+  
   minLengthArray(min: number) {
     return (c: AbstractControl): { [key: string]: any } => {
       if (c.value.length >= min) return null;
@@ -77,9 +77,9 @@ export class RegistrarProyectoComponent implements OnInit {
   registrar() {
     this._proyectoService
       .registrarProyecto(this.formRegistrar.value)
-      .subscribe();    
+      .subscribe();
   }
-  remove(index:number){
+  remove(index: number) {
     const control = this.formRegistrar.get("alumnos") as FormArray;
     control.removeAt(index);
     this.lim_alumnos = control.length;

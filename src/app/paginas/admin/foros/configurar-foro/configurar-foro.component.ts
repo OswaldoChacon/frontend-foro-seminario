@@ -64,6 +64,7 @@ export class ConfigurarForoComponent implements OnInit {
       );
     }
   }
+  
   cargarTable(event: { data?: Fechas, opcion?: any, valorOpcion?: string }) {    
     if (event.opcion === 'refresh')
       this.dataSource.getFechas(this.slug);

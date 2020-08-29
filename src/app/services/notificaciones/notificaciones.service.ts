@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { BehaviorSubject } from 'rxjs';
 import { Router } from '@angular/router';
+import { Proyectos } from 'src/app/modelos/proyectos.model';
 
 @Injectable({
   providedIn: 'root'
@@ -17,12 +18,11 @@ export class NotificacionesService {
     private _http: HttpClient,    
     private _router: Router,
   ) {     
-    this.misNotificaciones();
-    console.log(this._router.url);
+    this.misNotificaciones();    
   }
 
   miSolicitud() {
-    return this._http.get(`api/miSolicitud`);
+    return this._http.get<{data:any,proyecto:Proyectos,mensaje:string}>(`api/miSolicitud`);
   }
 
   misNotificaciones(){

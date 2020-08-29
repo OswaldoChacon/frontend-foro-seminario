@@ -19,14 +19,16 @@ export class HomeComponent implements OnInit {
 
   // notificaciones: {Array ,aceptados:number};
   // notificaciones:any=[];  
+  cargando: boolean = true
   aceptado: boolean = false;
   notificacionSeleccionado: any;
   editar: boolean = false;
-  miSolicitud: any ;
+  miSolicitud: any;
   alumnos: any;
   formProyecto = this._formBuilder.group({
     titulo: new FormControl('', Validators.required),
-    linea: new FormControl('',Validators.required)
+    linea: new FormControl('', Validators.required),
+    tipo: new FormControl('',Validators.required)
   });
   constructor(
     private _formBuilder: FormBuilder,
@@ -39,7 +41,7 @@ export class HomeComponent implements OnInit {
     this.listarAlumnos();
   }
 
-  editar_titulo() {    
+  editar_titulo() {
   }
 
   setBackgroundColor(value: string) {
@@ -102,11 +104,16 @@ export class HomeComponent implements OnInit {
   }
 
   getSolicitud() {
-    this._notificacionService.miSolicitud().subscribe((solicitud: any) => {
-      this.miSolicitud = solicitud;
-      this.formProyecto.get('titulo').setValue(solicitud.proyecto.titulo)
-      if ('REGISTRO DE PROYECTO' in solicitud['data'])
-        this.listarAlumnos();      
+    this._notificacionService.miSolicitud().subscribe((solicitud) => {      
+      if (!solicitud.mensaje) {
+        this.miSolicitud = solicitud;
+        this.formProyecto.get('titulo').setValue(solicitud.proyecto.titulo)
+        this.formProyecto.get('linea').setValue(solicitud.proyecto.titulo)
+        this.formProyecto.get('tipo').setValue(solicitud.proyecto.titulo)
+        // if ('REGISTRO DE PROYECTO' in solicitud.data)
+        //   this.listarAlumnos();
+      }
+      this.cargando = false;
     });
 
   }

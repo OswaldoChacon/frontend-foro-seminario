@@ -3,7 +3,7 @@
 </div> -->
 <!-- <div fxLayout="row wrap"> -->
 
-<div fxLayout="row" fxLayoutGap="20px">
+<div fxLayout.gt-sm="row" fxLayout="column" fxLayoutGap="20px">
     <mat-form-field fxFlex="20" appearance="outline" fxLayoutAlign="end start">
         <mat-label>Filtrar por:</mat-label>
         <mat-select >
@@ -16,13 +16,13 @@
     <div *ngFor="let notificacionKey of _notificacionesService.notificaciones?.data | keyvalue">
         <h2> {{notificacionKey.key}} </h2>
         <div fxLayout="row wrap">
-            <mat-card fxFlex.gt-sm="45" fxFlex.xs="100" *ngFor="let notificacion of notificacionKey.value "
+            <mat-card fxFlex="45" fxFlex.xs="100" *ngFor="let notificacion of notificacionKey.value "
                 style="margin: 10px !important; ">
                 <!-- border-left:10px solid -->
                 <!-- [style.border-color]="notificacion.respuesta ? 'green': notificacion.respuesta == null ? 'white':'red'" -->
                 <mat-card-header fxLayout="column">
                     <mat-card-title style="font-size: 12px;">{{notificacion.proyecto.titulo}}</mat-card-title>
-                    <div fxLayout="row" fxLayoutGap="12px">
+                    <div fxLayout="row" fxLayout.sm="column" fxLayoutGap="12px">
                         <!-- fxLayoutAlign="start center" -->
                         <div fxFlex="40" style=" border-radius: 999px; height: max-content; padding:3px 0; color:white"
                             fxLayoutAlign="center center"

@@ -34,6 +34,7 @@ export class HttpErrorInterceptor implements HttpInterceptor {
       tap(event =>{
         if(event instanceof HttpResponse){
           if(event.body.message)
+          // if(event.body)
             this._toastr.showToastOk(event.body.message,"");            
         }
       }),
@@ -49,7 +50,7 @@ export class HttpErrorInterceptor implements HttpInterceptor {
           // backend error
           // mensaje = `Server-side error: ${error.status} ${error.message}`;
         }           
-        // this.router.navigate(['home']);
+        this.router.navigate(['home']);
         return throwError(error);
       })
     );

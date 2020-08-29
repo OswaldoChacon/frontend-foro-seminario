@@ -1,7 +1,7 @@
 <mat-progress-bar mode="indeterminate" value="50" *ngIf="this.cargando; else formulario">
 </mat-progress-bar>
 <ng-template #formulario>
-  <form [formGroup]="formRegistrar" #formRegistrarProyecto="ngForm" (ngSubmit)="registrar()">
+  <form [formGroup]="formRegistrar" #form="ngForm" (ngSubmit)="registrar()">
     <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="16px">
       <div fxFlex="60">
         <mat-card>
@@ -16,7 +16,7 @@
             <!-- </div> -->
             <div class="mat-card-subtitle">{{ foro.periodo + " " + foro.anio }}</div>
             <div [ngStyle.gt-xs]="{ 'padding.px': 20 }">
-              <!-- <form [formGroup]="formRegistrar" #formRegistrarProyecto="ngForm" (ngSubmit)="registrar()"> -->
+ 
               <mat-form-field appearance="fill">
                 <input matInput formControlName="titulo" placeholder="Titulo del proyecto" required />
                 <mat-icon matSuffix>book</mat-icon>
@@ -80,7 +80,7 @@
             </div>
           </mat-card-content>
           <mat-card-actions align="end">
-            <button mat-raised-button color="primary" [disabled]="formRegistrarProyecto.invalid">¡Registrar!</button>
+            <button mat-raised-button color="primary" [disabled]="form.invalid">¡Registrar!</button>
           </mat-card-actions>
         </mat-card>
       </div>

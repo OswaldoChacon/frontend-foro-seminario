@@ -1,22 +1,8 @@
-<!-- <mat-dialog-content>
-    <form [formGroup]="formRol" (ngSubmit)="editar ? editarRol() : guardarRol()" #form="ngForm">
-        <mat-form-field appearance="fill">
-            <mat-label>Nombre</mat-label>
-            <input matInput formControlName="nombre" required>
-            <mat-error *ngIf="formRol.get('nombre').hasError('required')">
-                El campo nombre es requerido
-              </mat-error>
-        </mat-form-field>
-    </form>
-</mat-dialog-content>
-<app-buttons [form]="form" [guardando]="guardando"></app-buttons> -->
+
+<!-- <h1 mat-dialog-title>Nuevo registro </h1> -->
 <mat-dialog-content>
   <form [formGroup]="formRol" (ngSubmit)="editar ? editarRol() : guardarRol()" #form="ngForm">
-    <!-- <mat-form-field appearance="fill">
-      <mat-label>Clave</mat-label>
-      <input matInput formControlName="nombre" required />
-      <mat-icon matSuffix>vpn_key</mat-icon>
-    </mat-form-field> -->
+    
     <mat-form-field appearance="fill">
       <mat-label>Nombre</mat-label>
       <input matInput formControlName="nombre_" required />

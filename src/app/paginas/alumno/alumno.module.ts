@@ -7,13 +7,15 @@ import { RegistrarProyectoComponent } from './registrar-proyecto/registrar-proye
 import { MaterialModule } from 'src/app/material.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { SolicitudesComponent } from './solicitudes/solicitudes.component';
+import { RegistrarSolicitudComponent } from './registrar-solicitud/registrar-solicitud.component';
 
 
 @NgModule({
-  declarations: [AlumnoComponent, RegistrarProyectoComponent],
+  declarations: [AlumnoComponent, RegistrarProyectoComponent, SolicitudesComponent, RegistrarSolicitudComponent],
   imports: [
     CommonModule,
-    AlumnoRoutingModule,    
+    AlumnoRoutingModule,
     MaterialModule,
     SharedModule,
     ReactiveFormsModule
