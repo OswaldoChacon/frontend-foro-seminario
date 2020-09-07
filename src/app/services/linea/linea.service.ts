@@ -15,13 +15,13 @@ export class LineaService {
     return this.http.get<Linea[]>(`/api/${url}`);
   }
   guardarLinea(linea: Linea, url: string) {
-    return this.http.post(`/api/registrar_${url}`, linea);
+    return this.http.post(`/api/${url}`, linea);
   }
   actualizarLinea(claveLinea: string, linea: Linea, url: string) {
-    return this.http.put(`api/actualizar_${url}/${claveLinea}`, linea);
+    return this.http.put(`api/${url}/${claveLinea}`, linea);
   }
   eliminarLinea(linea_id: string,url:string) {
-    return this.http.delete(`api/eliminar_${url}/${linea_id}`);
+    return this.http.delete(`api/${url}/${linea_id}`);
   }
 }
 

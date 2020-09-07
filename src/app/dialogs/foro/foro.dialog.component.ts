@@ -58,17 +58,17 @@ export class ForoDialogComponent implements OnInit {
     )
     .subscribe(
       res=>this._dialog.close({opcion:'refresh'}),
-      (err: HttpErrorResponse) => {        
-        const errores = err.error.errors;
-        Object.keys(errores).forEach(fields=>{
-            const field = this.formForo.get(fields);
-            if(field){
-              field.setErrors({
-                serverError: errores[fields]
-              });
-            }
-        });
-      }
+      // (err: HttpErrorResponse) => {
+      //   const errores = err.error.errors;
+      //   Object.keys(errores).forEach(fields=>{
+      //       const field = this.formForo.get(fields);
+      //       if(field){
+      //         field.setErrors({
+      //           serverError: errores[fields]
+      //         });
+      //       }
+      //   });
+      // }
     )
   }
 

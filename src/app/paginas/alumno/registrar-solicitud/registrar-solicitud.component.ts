@@ -3,6 +3,9 @@ import { FormBuilder, Validators, FormControl } from '@angular/forms';
 import { Rol } from 'src/app/modelos/rol.model';
 import { RolesService } from 'src/app/services/rol/rol.service';
 import { SolicitudesService } from 'src/app/services/solicitudes.service';
+import { Proyectos } from 'src/app/modelos/proyectos.model';
+import { Usuario } from 'src/app/modelos/usuario.model';
+import { finalize } from 'rxjs/operators';
 
 @Component({
   selector: 'app-registrar-solicitud',
@@ -18,16 +21,15 @@ export class RegistrarSolicitudComponent implements OnInit {
     tipo_solicitud: [this.solicitudes,[Validators.required]]
   });
   
-  proyectoEnCurso:any;
-  docentes:any;
+  proyectoEnCurso:Proyectos;
+  docentes:Usuario[];
   constructor(
     private _formBuilder: FormBuilder,
     private _solicitudesService: SolicitudesService
   ) { }
 
   ngOnInit(): void {
-    this._solicitudesService.getregistrarSolicitud().subscribe((data) => { 
-      this.cargando = false;
+    this._solicitudesService.getregistrarSolicitud().pipe(finalize(()=>this.cargando = false)).subscribe((data) => {       
       this.solicitudes = data.solicitudes;
       this.proyectoEnCurso = data.proyecto;
       this.docentes = data.docentes;

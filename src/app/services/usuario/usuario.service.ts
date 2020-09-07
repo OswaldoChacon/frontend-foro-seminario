@@ -22,7 +22,7 @@ export class UsuarioService {
   }
 
   guardarUsuario(user: Usuario) {
-    return this._http.post(`api/registrar_usuario`, user);
+    return this._http.post(`api/usuarios`, user);
   }
 
   agregarRol(num_control: string, rol: string) {
@@ -39,16 +39,20 @@ export class UsuarioService {
 
   actualizarUsuario(num_control: string, user: Usuario) {
     return this._http.put(
-      `api/actualizar_usuario/${num_control}`,
+      `api/usuarios/${num_control}`,
       user
     );
   }
 
   eliminarUsuario(num_control: string) {
-    return this._http.delete(`api/eliminar_usuario/${num_control}`);
+    return this._http.delete(`api/usuarios/${num_control}`);
   }
 
   cambiarPassword(data: {password:string,nuevo_password:string}){
     return this._http.put(`api/cambiar_contrasena`,data);
+  }
+
+  getDocentes(){
+    return this._http.get<Usuario[]>(`api/docentes`);
   }
 }

@@ -2,24 +2,45 @@
     <app-header></app-header>
 </div> -->
 <mat-dialog-content>
-    <form [formGroup]="formFechaForo" #form="ngForm" (ngSubmit)="guardarFechaForo()">
+    <form
+        [formGroup]="formFechaForo"
+        #form="ngForm"
+        (ngSubmit)="!editar ? guardarFechaForo():actualizarFechaForo()"
+    >
         <mat-form-field appearance="fill">
             <mat-label>Fecha</mat-label>
-            <input matInput formControlName="fecha" [min]="hoy" [matDatepicker]="picker" />
-            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <input
+                matInput
+                formControlName="fecha"
+                [min]="hoy"
+                [matDatepicker]="picker"
+            >
+            <mat-datepicker-toggle
+                matSuffix
+                [for]="picker"
+            ></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
-            <mat-error *ngIf="formFechaForo.get('fecha').hasError('required')">
-                El campo fecha es requerido
-            </mat-error>
+            <mat-error *ngIf="formFechaForo.get('fecha').hasError('required')">El campo fecha es requerido</mat-error>
         </mat-form-field>
         <mat-form-field appearance="fill">
             <mat-label>Hora de inicio</mat-label>
-            <input type="time" matInput formControlName="hora_inicio" />
+            <input
+                type="time"
+                matInput
+                formControlName="hora_inicio"
+            >
         </mat-form-field>
         <mat-form-field appearance="fill">
             <mat-label>Hora de termino</mat-label>
-            <input type="time" matInput formControlName="hora_termino" />
+            <input
+                type="time"
+                matInput
+                formControlName="hora_termino"
+            >
         </mat-form-field>
     </form>
 </mat-dialog-content>
-<app-buttons [form]="form" [guardando]="guardando"></app-buttons>
+<app-buttons
+    [form]="form"
+    [guardando]="guardando"
+></app-buttons>

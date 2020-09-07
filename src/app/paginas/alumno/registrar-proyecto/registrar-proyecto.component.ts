@@ -1,88 +1,48 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ViewChild, AfterViewInit, ChangeDetectorRef, AfterViewChecked } from "@angular/core";
 import {
-  FormGroup,
-  FormBuilder,
-  Validators,
-  FormControl,
-  FormArray,
-  AbstractControl,
+  FormBuilder,  
+  FormGroupDirective,
 } from "@angular/forms";
 import { ForoService } from "src/app/services/foro/foro.service";
-import { tap, finalize, filter, map } from "rxjs/operators";
+import { finalize } from "rxjs/operators";
 import { ProyectosService } from "src/app/services/proyectos/proyectos.service";
 import { Router } from '@angular/router';
+import { Foros } from 'src/app/modelos/foro.model';
+import { Usuario } from 'src/app/modelos/usuario.model';
+import { Linea } from 'src/app/modelos/linea.model';
+
 
 @Component({
   selector: "app-registrar-proyecto",
   templateUrl: "./registrar-proyecto.component.html",
   styleUrls: ["./registrar-proyecto.component.css"],
 })
-export class RegistrarProyectoComponent implements OnInit {
-  isOpen: boolean = false;
-  cargando: boolean = true;
-  lineas: any;
-  tipos: any;
-  docentes: any;
-  // periodo: any;
-  foro: any;
-  alumnos: any;
-  lim_alumnos: number = 0;
+export class RegistrarProyectoComponent implements OnInit, AfterViewChecked{
+  cargando: boolean = true;  
+  foro: Foros;    
+  form:FormGroupDirective;
 
-  formRegistrar = this._formBuilder.group({
-    alumnos: new FormArray([]),
-    titulo: ['', [Validators.required]],
-    linea: new FormControl('', [Validators.required]),
-    tipo: new FormControl('', [Validators.required]),
-    asesor: new FormControl('', [Validators.required]),
-    empresa: new FormControl('', [Validators.required]),
-    objetivo: new FormControl('', [Validators.required]),
-    // alumnos: new FormControl([])
-  });
-  constructor(
-    private _formBuilder: FormBuilder,
-    private _foroService: ForoService,
-    private _proyectoService: ProyectosService,
-    private _route: Router
+  
+  constructor(    
+    private _foroService: ForoService,    
+    private cdRef:ChangeDetectorRef
   ) { }
 
   ngOnInit(): void {
     this._foroService.foroActual().pipe(
       finalize(() => (this.cargando = false))
-    ).subscribe((res: any) => {
-      this.foro = res["foro"];
-      this.lineas = res["lineas"];
-      this.tipos = res["tipos"];
-      this.docentes = res["docentes"];
-      this.alumnos = res["alumnos"];
+    ).subscribe((res) => {
+      this.foro = res.foro;      
     });
+    
   }
 
-  openPanel() {
-    // this.isOpen = !this.isOpen;
-    const control = this.formRegistrar.get("alumnos") as FormArray;
-    control.push(new FormControl());
-    this.lim_alumnos = control.length;
+  ngAfterViewChecked(): void {   
+    this.cdRef.detectChanges();
   }
-  
-  minLengthArray(min: number) {
-    return (c: AbstractControl): { [key: string]: any } => {
-      if (c.value.length >= min) return null;
 
-      return { minLengthArray: { valid: false } };
-    };
+  onSubmit() {        
+    this.form.ngSubmit.emit();    
   }
-  get formData() {
-    return <FormArray>this.formRegistrar.get("alumnos");
-  }
-  registrar() {
-    this._proyectoService
-      .registrarProyecto(this.formRegistrar.value)
-      .subscribe();
-  }
-  remove(index: number) {
-    const control = this.formRegistrar.get("alumnos") as FormArray;
-    control.removeAt(index);
-    this.lim_alumnos = control.length;
-    // this.formRegistrar.get('alumnos').remove(index)
-  }
+
 }

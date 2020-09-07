@@ -4,6 +4,11 @@
     height: 100%;
 }
 
-mat-dialog-content {
+/* mat-dialog-content {
     flex-grow: 1;
+} */
+
+
+.mat-dialog-container {  
+    /* width: 100vw !important; */
 }

@@ -8,8 +8,9 @@ mat-dialog-content {
     flex-grow: 1;
 }
 
-.example-header-image {
+.header-image {
     background-image: url('../../../assets/img/perfil.png');
     background-size: cover;
     margin-right: 1.25rem;
+    margin-bottom: 12px;
 }

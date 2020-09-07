@@ -4,7 +4,7 @@ import { Routes, RouterModule } from "@angular/router";
 import { ProfesorComponent } from "./profesor.component";
 import { SidenavComponent } from "src/app/shared/sidenav/sidenav.component";
 import { HomeComponent } from '../admin/home/home.component';
-import { NotificacionesComponent } from 'src/app/shared/notificaciones/notificaciones.component';
+import { NotificacionesComponent } from 'src/app/components/notificaciones/notificaciones.component';
 
 const routes: Routes = [
   {

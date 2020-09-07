@@ -10,7 +10,8 @@ import { TableComponent } from './table/table.component';
 import { CambiarContrasenaComponent } from './cambiar-contrasena/cambiar-contrasena.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CardHeaderComponent } from './card-header/card-header.component';
-import { NotificacionesComponent } from './notificaciones/notificaciones.component';
+import { AlertaComponent } from './alerta/alerta.component';
+
 @NgModule({
   declarations: [
     HeaderComponent,
@@ -19,7 +20,7 @@ import { NotificacionesComponent } from './notificaciones/notificaciones.compone
     TableComponent,
     CambiarContrasenaComponent,
     CardHeaderComponent,
-    NotificacionesComponent,
+    AlertaComponent,
   ],
   imports: [
     CommonModule,
@@ -35,6 +36,7 @@ import { NotificacionesComponent } from './notificaciones/notificaciones.compone
     ButtonsComponent,
     TableComponent,
     CardHeaderComponent,
+    AlertaComponent,
   ]
 })
 export class SharedModule { }

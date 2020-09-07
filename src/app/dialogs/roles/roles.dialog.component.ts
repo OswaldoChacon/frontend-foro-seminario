@@ -23,7 +23,7 @@ export class RolesDialogComponent implements OnInit {
   constructor(
     private _formBuilder: FormBuilder,
     private _rolService: RolesService,
-    @Optional() @Inject(MAT_DIALOG_DATA) private data: { data: Rol, url: string },
+    @Optional() @Inject(MAT_DIALOG_DATA) public data: { data: Rol, url: string },
     private _dialog: MatDialogRef<RolesDialogComponent>,
   ) { }
 

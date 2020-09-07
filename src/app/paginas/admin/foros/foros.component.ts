@@ -16,57 +16,47 @@ import { of, throwError, fromEvent } from 'rxjs';
   styleUrls: ["./foros.component.css"],
 })
 export class ForosComponent implements OnInit {
-  columnsHeader = {'activo':'Activo', 'no_foro': 'No. Foro', 'periodo': 'Periodo', 'anio': 'Año', 'acciones': '' };
-  // 'nombre': 'Nombre',
+  columnsHeader = { 'activo': 'Activo', 'no_foro': 'No. Foro', 'periodo': 'Periodo', 'anio': 'Año', 'acciones': '' };
   componentDialog = ForoDialogComponent;
-  // dataSource = ELEMENT_DATA;
   dataSource: ForosDataSource = null;
   pageEvent: PageEvent;
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
-  @ViewChild('inputFiltro',{static:true}) input: ElementRef;
+  @ViewChild('inputFiltro', { static: true }) input: ElementRef;
   constructor(private _foroService: ForoService, private _dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.dataSource = new ForosDataSource(this._foroService);
     this.getForos();
-    fromEvent(this.input.nativeElement,'keyup').pipe(
+    fromEvent(this.input.nativeElement, 'keyup').pipe(
       debounceTime(150),
       distinctUntilChanged(),
-      tap(()=>{
-        this.paginator.pageIndex = 0;        
+      tap(() => {
+        this.paginator.pageIndex = 0;
         this.getForos()
       })
     ).subscribe()
 
     this.paginator.page.pipe(
-      tap(()=>this.getForos())
+      tap(() => this.getForos())
     ).subscribe()
   }
- 
+
 
   getForos() {
-    this.dataSource.getForos(this.paginator.pageIndex + 1,this.input.nativeElement.value);
+    this.dataSource.getForos(this.paginator.pageIndex + 1, this.input.nativeElement.value);
   }
-
 
   cargarTable(event: { data?: Foros, opcion?: string, valorOpcion?: any }) {
     if (event.opcion === 'Eliminar')
       this.eliminarForo(event.data)
     if (event.opcion === 'refresh')
       this.getForos();
-    if(event.opcion === 'Activar/Desactivar'){
+    if (event.opcion === 'Activar/Desactivar') {
       this.dataSource.resetData();
-      this._foroService.activar_desactivar(event.data.slug,event.valorOpcion).subscribe(()=>this.getForos())
-    }    
+      this._foroService.activar_desactivar(event.data.slug, event.valorOpcion).subscribe(() => this.getForos())
+    }
   }
-
-  // nextPage(event: any) {  
-  //   this.dataSource.resetData();
-  //   // this.dataSource.getForos(event.pageIndex + 1);
-  //   return event;
-  // }
-
 
   eliminarForo(foro: Foros) {
     this.dataSource.resetData()
@@ -75,6 +65,6 @@ export class ForosComponent implements OnInit {
         this.dataSource.cargarForosLocal();
         return throwError(error)
       })
-    ).subscribe(res =>this.getForos());
+    ).subscribe(res => this.getForos());
   }
 }

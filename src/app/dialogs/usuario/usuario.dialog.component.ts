@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, Inject, Optional, Output, EventEmitter } from "@angular/core";
-import {  
+import {
   MatDialogRef,
   MAT_DIALOG_DATA
 } from "@angular/material/dialog";
@@ -22,7 +22,7 @@ import { finalize, tap } from 'rxjs/operators';
   styleUrls: ["./usuario.dialog.component.css"]
 })
 export class UsuarioDialogComponent implements OnInit {
-  formUsuario = this._formBuilder.group({      
+  formUsuario = this._formBuilder.group({
     email: ["", [Validators.required, Validators.email]],
     nombre: new FormControl("", [Validators.required]),
     apellidoP: new FormControl("", [Validators.required]),
@@ -30,40 +30,38 @@ export class UsuarioDialogComponent implements OnInit {
     num_control: new FormControl("", [Validators.required])
   });
   guardando: boolean = false;
-  editar: boolean = false;  
+  editar: boolean = false;
 
-  @ViewChild("form") form:FormGroupDirective;// myNgForm;  
+  @ViewChild("form") form: FormGroupDirective;// myNgForm;  
 
   constructor(
-    private _formBuilder: FormBuilder,    
-    @Optional() @Inject(MAT_DIALOG_DATA) public data: Usuario,    
-    private _usuarioService: UsuarioService,    
+    @Optional() @Inject(MAT_DIALOG_DATA) public data: Usuario,
+    private _formBuilder: FormBuilder,
+    private _usuarioService: UsuarioService,
     private _dialog: MatDialogRef<UsuarioDialogComponent>
-  ) {    
-    _dialog.disableClose = true;
-  }
+  ) { _dialog.disableClose = true; }
 
 
-  ngOnInit(): void {    
+  ngOnInit(): void {
     if (this.data != null) {
-      this.editar = true;      
+      this.editar = true;
       this.formUsuario.controls["num_control"].setValue(this.data.num_control);
       this.formUsuario.controls["nombre"].setValue(this.data.nombre);
       this.formUsuario.controls["apellidoP"].setValue(this.data.apellidoP);
       this.formUsuario.controls["apellidoM"].setValue(this.data.apellidoM);
       this.formUsuario.controls["email"].setValue(this.data.email);
-    }          
+    }
   }
-  
+
   registrarUsuario() {
     this.guardando = true;
     this._usuarioService.guardarUsuario(this.formUsuario.value).pipe(
-      finalize(()=>this.guardando = false)
+      finalize(() => this.guardando = false)
     ).subscribe(
-      (res: any) => {                           
-        this._dialog.close({opcion:'refresh'});
+      (res: any) => {
+        this._dialog.close({ opcion: 'refresh' });
       },
-      (err: HttpErrorResponse) => {                
+      (err: HttpErrorResponse) => {
         let errores = err.error.errors;
         Object.keys(errores).forEach(fields => {
           let field = this.formUsuario.get(fields);
@@ -76,22 +74,22 @@ export class UsuarioDialogComponent implements OnInit {
       }
     );
   }
-  editarUsuario() {    
+
+  actualizarUsuario() {
     this.guardando = true;
-    this._usuarioService.actualizarUsuario(this.data.num_control, this.form.value).pipe(    
-      finalize(()=>this.guardando=false)
-      )
-    .subscribe(
-      res=>this._dialog.close({opcion:'refresh'}),
-      (err: HttpErrorResponse) => {        
+    this._usuarioService.actualizarUsuario(this.data.num_control, this.form.value).pipe(
+      finalize(() => this.guardando = false)
+    ).subscribe(
+      res => this._dialog.close({ opcion: 'refresh' }),
+      (err: HttpErrorResponse) => {
         const errores = err.error.errors;
-        Object.keys(errores).forEach(fields=>{
-            const field = this.formUsuario.get(fields);
-            if(field){
-              field.setErrors({
-                serverError: errores[fields]
-              });
-            }
+        Object.keys(errores).forEach(fields => {
+          const field = this.formUsuario.get(fields);
+          if (field) {
+            field.setErrors({
+              serverError: errores[fields]
+            });
+          }
         });
       }
     );

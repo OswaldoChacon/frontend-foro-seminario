@@ -10,12 +10,14 @@ import {
   tap,
   catchError,
   takeWhile,
+  map,
 } from "rxjs/operators";
 import { MatDialog } from "@angular/material/dialog";
 import { UsuarioDialogComponent } from "src/app/dialogs/usuario/usuario.dialog.component";
 import { UsuariosDataSource } from "src/app/services/table/usuarios.datasource";
 import { MatCheckboxChange } from "@angular/material/checkbox";
-import { RolesService } from 'src/app/services/rol/rol.service';
+import { RolesService } from "src/app/services/rol/rol.service";
+import { Rol } from "../../../modelos/rol.model";
 @Component({
   selector: "app-usuarios",
   templateUrl: "./usuarios.component.html",
@@ -23,30 +25,36 @@ import { RolesService } from 'src/app/services/rol/rol.service';
 })
 export class UsuariosComponent implements OnInit {
   columnsHeader = {
-    'acceso': 'Estatus',
-    'num_control': 'No. Control',
-    'nombreCompleto': 'Nombre completo',
-    'email': 'Email',
-    'acciones': ''
+    acceso: "Estatus",
+    num_control: "No. Control",
+    nombreCompleto: "Nombre completo",
+    email: "Email",
+    acciones: "",
   };
-  roles: any;
+  // roles: Rol[] = [];
+  roles: string[] = ['Todos']
   componentDialog = UsuarioDialogComponent;
   dataSource: UsuariosDataSource = null;
   rolSeleccionado: string = 'Todos';
+  // opciones:[]=['Todos']
   // rolSeleccionado: string = '';
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
-  @ViewChild('inputFiltro', { static: true }) input: ElementRef
+  @ViewChild("inputFiltro", { static: true }) input: ElementRef;
 
   constructor(
     private _usuarioService: UsuarioService,
-    private _rolService: RolesService,
+    private _rolService: RolesService
   ) { }
-
 
   ngOnInit(): void {
     this.dataSource = new UsuariosDataSource(this._usuarioService);
-    this._rolService.getRoles('roles').subscribe(res => this.roles = res);
+    this._rolService.getRoles("roles").pipe(map(roles => {        
+        return roles.map(rolesName => rolesName.nombre_)
+      })
+    ).subscribe((roles) => {      
+      this.roles.push(...roles);      
+    });    
   }
 
   seleccionarRol(rolSeleccionado: string) {
@@ -55,20 +63,16 @@ export class UsuariosComponent implements OnInit {
     this.getUsuarios();
   }
 
-
-
-  cargarTable(event: { data?: Usuario, opcion?: any, valorOpcion?: string }) {    
-    if (event.opcion === 'Eliminar')
+  cargarTable(event: { data?: Usuario; opcion?: any; valorOpcion?: string }) {
+    if (event.opcion === "Eliminar")
       this.eliminarUsuario(event.data.num_control);
     if (event.opcion instanceof MatCheckboxChange)
       this.agregarRol(event.opcion, event.data, event.valorOpcion);
-    if (event.opcion === 'refresh')
-      this.getUsuarios();    
+    if (event.opcion === "refresh") this.getUsuarios();
   }
 
   ngAfterViewInit() {
-    fromEvent(this.input.nativeElement, 'keyup').pipe(
-      debounceTime(150),
+    fromEvent(this.input.nativeElement, "keyup").pipe(debounceTime(150),
       distinctUntilChanged(),
       tap(() => {
         this.paginator.pageIndex = 0;
@@ -76,22 +80,20 @@ export class UsuariosComponent implements OnInit {
       })
     ).subscribe();
 
-    this.paginator.page.pipe(
-      tap(() => {
-        this.getUsuarios();
-      })
+    this.paginator.page.pipe(tap(() => {
+      this.getUsuarios();
+    })
     ).subscribe();
-    this.getUsuarios();
 
+    this.getUsuarios();
   }
 
   eliminarUsuario(num_control: string) {
     this.dataSource.resetData();
-    this._usuarioService.eliminarUsuario(num_control).pipe(
-      catchError((error) => {
-        this.dataSource.handleError();
-        return throwError(error);
-      }),
+    this._usuarioService.eliminarUsuario(num_control).pipe(catchError((error) => {
+      this.dataSource.handleError();
+      return throwError(error);
+    })
     ).subscribe(() => this.getUsuarios());
   }
 
@@ -99,25 +101,24 @@ export class UsuariosComponent implements OnInit {
     this.dataSource.getUsuarios(
       this.paginator.pageIndex + 1,
       this.rolSeleccionado,
-      this.input.nativeElement.value);
+      this.input.nativeElement.value
+    );
   }
 
   agregarRol(event: MatCheckboxChange, user: Usuario, rol: string) {
     const rolSelected = user.roles.find((roles) => roles.nombre_ === rol);
     rolSelected.is = !rolSelected.is;
     if (event.checked)
-      this._usuarioService.agregarRol(user.num_control, rol).pipe(
-        catchError((error) => {
-          rolSelected.is = !rolSelected.is;
-          return throwError(error);
-        })
-      ).subscribe();
+      this._usuarioService.agregarRol(user.num_control, rol).pipe(catchError((error) => {
+            rolSelected.is = !rolSelected.is;
+            return throwError(error);
+          })
+        ).subscribe();
     else
-      this._usuarioService.eliminarRol(user.num_control, rol).pipe(
-        catchError((error) => {
-          rolSelected.is = !rolSelected.is;
-          return throwError(error)
-        })
-      ).subscribe();
+      this._usuarioService.eliminarRol(user.num_control, rol).pipe(catchError((error) => {
+            rolSelected.is = !rolSelected.is;
+            return throwError(error);
+          })
+        ).subscribe();
   }
 }

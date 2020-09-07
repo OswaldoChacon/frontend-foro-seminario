@@ -8,15 +8,7 @@
 
 
 
-
-
-
-
-
-
-
 <ng-template #data>
-
     <div
         fxLayout="row"
         fxLayout.lt-md="column"
@@ -27,33 +19,83 @@
             fxLayout="column"
             fxLayoutGap="12px"
         >
-            <!-- fxLayout="row" -->
-            <!-- <div fxLayout="row" fxLayoutGap="12px" fxFlex="100"> -->
-            <div
-                fxFlex="45"
-                fxFlex.lt-md="100"
-            >
+            <div>
+                <!-- fxFlex="48" -->
+                <!-- fxFlex.lt-md="100" -->
                 <mat-card>
                     <mat-card-header>
-                        <mat-card-title>
-                            Mis solicitudes
-                            <!-- </h6> -->
-                        </mat-card-title>
+                        <mat-card-title>PROYECTO EN CURSO</mat-card-title>
                     </mat-card-header>
-                    <mat-divider></mat-divider>
+                    <mat-card-content>
+                        <ng-container [ngSwitch]="true">
+                            <app-alerta
+                                *ngSwitchCase="miProyecto === undefined"
+                                [mensaje]="'No tienes ningún proyecto en curso'"
+                            ></app-alerta>
+                            <div *ngSwitchCase="miProyecto?.editar">
+                                <app-formulario-proyecto
+                                    (formulario)="form = $event"
+                                    [proyecto]="miProyecto"
+                                ></app-formulario-proyecto>
+                            </div>
+                            <div *ngSwitchDefault>
+                                <h4>{{miProyecto.titulo}}</h4>
+                                <h4 mat-card-subtitle>
+                                    Folio: {{miProyecto.folio}}
+                                    <br>
+                                    Asesor: {{miProyecto.asesora.nombreCompleto}}
+                                </h4>
+                            </div>
+                        </ng-container>
+                    </mat-card-content>
+                    <mat-card-actions [ngClass]="{'mat-card-actions-without-padding': !(miProyecto?.editar || miProyecto?.enviar)}">
+                        <!-- <mat-card-actions> -->
+                        <ng-container *ngIf="miProyecto?.editar || miProyecto?.enviar; else misProyectos">
+                            <button
+                                mat-raised-button
+                                color="warn"
+                                (click)="enviarSolicitud()"
+                                *ngIf="miProyecto?.enviar"
+                            >
+                                Enviar solicitud
+                            </button>
+                            <button
+                                mat-raised-button
+                                color="primary"
+                                [disabled]="formProyecto.invalid"
+                            >
+                                Guardar
+                            </button>
+                        </ng-container>
+                        <ng-template #misProyectos>
+                            <a
+                                mat-menu-item
+                                [routerLink]="['../mis-solicitudes']"
+                            >
+                                Ver todos mis proyectos
+                                <mat-icon class="align-right">keyboard_arrow_right</mat-icon>
+                            </a>
+                        </ng-template>
+                    </mat-card-actions>
+                </mat-card>
+            </div>
+            <div>
+                <mat-card>
+                    <mat-card-header>
+                        <mat-card-title>SOLICITUDES RECIENTES</mat-card-title>
+                    </mat-card-header>
                     <mat-card-content
-                        [ngStyle]="{'padding.px': miSolicitud?.data.length > 0  ? '0':'16'}"
+                        [ngStyle]="{'padding.px': objectKeys(misSolicitudes).length ? '0':'16'}"
                         style="margin:0"
                     >
                         <div
-                            *ngIf="miSolicitud?.data.length>0; else sinSolicitud"
+                            *ngIf="objectKeys(misSolicitudes).length; else sinSolicitud"
                             fxLayoutGap="22px"
                         >
-                            <!-- *ngIf="miSolicitud && miSolicitud.data; else sinSolicitud" -->
                             <div [ngClass.xs]="{'a': notificacionSeleccionado}">
-                                <mat-nav-list style="padding:0">
+                                <mat-list style="padding:0">
                                     <mat-list-item
-                                        *ngFor="let itemSolicitud of miSolicitud.data | keyvalue"
+                                        *ngFor="let itemSolicitud of misSolicitudes | keyvalue"
                                         (click)="elegirNotificacion(itemSolicitud.value)"
                                     >
                                         <mat-icon
@@ -69,95 +111,28 @@
                                         >
                                             {{ itemSolicitud.key}}
                                         </h6>
-                                        <!-- <mat-divider></mat-divider> -->
                                     </mat-list-item>
-                                </mat-nav-list>
+                                </mat-list>
+                                <!-- </mat-nav-list> -->
                             </div>
                         </div>
                         <ng-template #sinSolicitud>
-                            <div
-                                fxLayout="row"
-                                fxLayoutGap="12px"
-                                fxLayoutAlign="start center"
-                                style="color:red;  padding:12px;"
-                            >
-                                <mat-icon>warning</mat-icon>
-                                <span>Sin solicitudes</span>
-                            </div>
+                            <app-alerta [mensaje]="'Sin solicitudes'"></app-alerta>
                         </ng-template>
                     </mat-card-content>
-
-
-
-
-
-
-
-
                     <mat-card-actions style="padding:0 !important">
-                        <!-- *ngIf="miSolicitud?.data.length>0;" -->
-                        <mat-divider></mat-divider>
                         <a
                             mat-menu-item
                             [routerLink]="['../mis-solicitudes']"
                         >
-                            Ver todas mis solicitudes
-                            <mat-icon class="align-right">keyboard_arrow_right</mat-icon>
-                        </a>
-
-
-
-
-
-
-
-
-                        <!-- <a mat-list-item routerl> Ver más detalles</a> -->
-
-
-
-
-
-
-
-
-                    </mat-card-actions>
-                </mat-card>
-            </div>
-            <div
-                fxFlex="48"
-                fxFlex.lt-md="100"
-            >
-                <mat-card>
-                    <mat-card-header>
-                        <mat-card-title>Proyecto en curso</mat-card-title>
-                    </mat-card-header>
-                    <mat-divider></mat-divider>
-                    <mat-card-content>
-                        <h4>{{miSolicitud.proyecto.titulo}}</h4>
-                        <h4 mat-card-subtitle>
-                            Folio: {{miSolicitud.proyecto.folio}}
-                            <br>
-                            Asesor: {{miSolicitud.proyecto.asesora.nombreCompleto}}
-                        </h4>
-                        <!-- {{miSolicitud.proyecto.asesora.nombreCompleto}} -->
-                        <!-- {{miSolicitud.proyecto | json}} -->
-                    </mat-card-content>
-                    <mat-card-actions style="padding:0 !important">
-                        <mat-divider></mat-divider>
-                        <a
-                            mat-menu-item
-                            [routerLink]="['../mis-solicitudes']"
-                        >
-                            Ver todos mis proyectos
+                            <!-- Ver todas mis solicitudes -->
+                            {{objectKeys(misSolicitudes).length ? 'Ver más detalles':'Ver todas mis solicitudes' }}
                             <mat-icon class="align-right">keyboard_arrow_right</mat-icon>
                         </a>
                     </mat-card-actions>
                 </mat-card>
             </div>
-            <!-- </div> -->
         </div>
-
 
 
         <div
@@ -165,55 +140,54 @@
             fxLayout="column"
             fxLayoutGap="12px"
         >
-        <mat-card>
-            <mat-card-header>
-                <mat-card-title>{{miSolicitud.proyecto.editar ? 'Añadir integrantes':'Mi equipo'}}</mat-card-title>
-            </mat-card-header>
-            <mat-divider></mat-divider>
-            <mat-card-content
-                style="overflow-y: scroll; max-height: 300px;"
-                [ngStyle]="{'padding.px': alumnos ? '0':'16'}"
-            >
-                <ng-container *ngIf="!alumnos; else listadoAlumnos">
-                    <h3>Sin integrantes</h3>
-                </ng-container>
-                <ng-template #listadoAlumnos>
-                    <mat-list>
-                        <mat-list-item
-                            *ngFor="let alumno of alumnos"
-                            style="font-size: 12px !important;"
-                        >
-                            <img
-                                matListAvatar
-                                src="../../../../assets/img/perfil2.png"
+            <mat-card>
+                <mat-card-header>
+                    <mat-card-title>
+                        {{miProyecto?.editar ? 'AÑADIR INTEGRANTES':'MI EQUIPO'}}
+                    </mat-card-title>
+                </mat-card-header>
+                <mat-card-content
+                    style="overflow-y: scroll; max-height: 300px;"                    
+                    [ngStyle]="{'padding.px': alumnos.length > 0 ? '0':'16'}"
+                >
+                <!-- error por undefined alumnos pero ya esta declarado porque -->
+                    <ng-container *ngIf="!alumnos || alumnos.length === 0; else listadoAlumnos">
+                        <h3>Sin integrantes</h3>
+                    </ng-container>
+                    <ng-template #listadoAlumnos>
+                        <mat-list>
+                            <mat-list-item
+                                *ngFor="let alumno of alumnos"
+                                style="font-size: 12px !important;"
                             >
-                            <button
-                                mat-icon-button
-                                (click)="agregarIntegrante(alumno)"
-                                *ngIf="alumno.myTeam != undefined"
-                            >
-                                <mat-icon
-                                    matSuffix
-                                    style="color:#0D47A1"
+                                <img
+                                    matListAvatar
+                                    src="../../../../assets/img/perfil2.png"
                                 >
-                                    {{ alumno.myTeam ? 'check':'person_add'}}
-                                </mat-icon>
-                            </button>
-                            <span
-                                matLine
-                                style="font-weight: 600;"
-                            >
-                                {{alumno.nombreCompleto}}
-                            </span>
-                            <span matLine>{{alumno.num_control}}</span>
-                        </mat-list-item>
-                    </mat-list>
-                </ng-template>
-            </mat-card-content>
-        </mat-card>
+                                <button
+                                    mat-icon-button
+                                    (click)="agregarIntegrante(alumno)"
+                                    *ngIf="alumno.myTeam != undefined"
+                                >
+                                    <mat-icon
+                                        matSuffix
+                                        style="color:#0D47A1"
+                                    >
+                                        {{ alumno.myTeam ? 'check':'person_add'}}
+                                    </mat-icon>
+                                </button>
+                                <span
+                                    matLine
+                                    style="font-weight: 600;"
+                                >
+                                    {{alumno.nombreCompleto}}
+                                </span>
+                                <span matLine>{{alumno.num_control}}</span>
+                            </mat-list-item>
+                        </mat-list>
+                    </ng-template>
+                </mat-card-content>
+            </mat-card>
         </div>
     </div>
-    <!-- <div fxFlex="50">
-sss
-    </div> -->
 </ng-template>

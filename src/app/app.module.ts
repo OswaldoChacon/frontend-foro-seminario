@@ -9,7 +9,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr';
 import { HomeComponent } from './paginas/admin/home/home.component';
 import { RouterModule } from '@angular/router';
-import { LoginComponent } from './components/login/login.component';
+import { LoginComponent } from './auth/login/login.component';
 import { AuthGuard } from './services/auth/guards/auth.guard';
 import { DashboardComponent } from './paginas/admin/dashboard/dashboard.component';
 import { TokenInterceptorService } from './services/interceptors/token-interceptor.service';
@@ -20,6 +20,7 @@ import { HttpErrorInterceptor } from './services/interceptors/http-error.interce
 import { AdminComponent } from './paginas/admin/admin.component';
 import { SharedModule } from './shared/shared.module';
 import { ForgotPasswordDialogComponent } from './dialogs/forgot-password/forgot-password.dialog.component';
+import { ComponentsModule } from './components/components.module';
 // import { SharedModule } from './shared/shared.module';
 
 
@@ -48,7 +49,12 @@ import { ForgotPasswordDialogComponent } from './dialogs/forgot-password/forgot-
     }),
     NgxPermissionsModule.forRoot(),
     RouterModule,
-    AdminModule
+    AdminModule,
+
+
+
+
+    ComponentsModule
   ],
   providers: [
     AuthGuard,

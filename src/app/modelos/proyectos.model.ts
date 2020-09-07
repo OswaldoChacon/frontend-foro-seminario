@@ -1,4 +1,5 @@
 import { Usuario } from './usuario.model';
+import { Linea } from './linea.model';
 
 export class Proyectos {
   folio: string;
@@ -6,13 +7,14 @@ export class Proyectos {
   empresa?: string;
   objetivo?: string;
   asesor?: number;
-  tipos_proyectos: {nombre:string};
-  lineadeinvestigacion: {nombre:string};
+  tipos_proyectos: Linea
+  lineadeinvestigacion: Linea
   // asesora:{
   //   num_control:string;
   //   nombreCompleto:string;
   // }
-  asesora: Usuario
+  asesora: Usuario;
+  editar?:boolean;
   participa?: number;
   aceptado?: number;
   cancelado?: number;
@@ -20,4 +22,6 @@ export class Proyectos {
   calificacion_seminario?: number;
   promedio?: number;
   jurado? : any;
+  enviado?:boolean;
+  enviar?:boolean;
 }

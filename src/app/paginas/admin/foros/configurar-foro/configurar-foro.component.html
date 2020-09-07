@@ -1,122 +1,178 @@
-<mat-progress-bar value="50" mode="indeterminate" *ngIf="cargando; else configuracionForo" class="table-loading"></mat-progress-bar>
+<mat-progress-bar
+    value="50"
+    mode="indeterminate"
+    *ngIf="cargando; else configuracionForo"
+    class="table-loading"
+></mat-progress-bar>
+
+
 
 <ng-template #configuracionForo>
-  <div fxLayout="column">
-    <div fxLayout.lt-md="column" fxLayout="row" fxLayoutGap="12px" fxLayoutAlign="start center"
-      fxLayoutAlign.lt-md="center start"
-      style="background-color: #0d47a1;  min-height: 100px; max-height: 100px; margin:-24px -24px 20px; padding:24px; top:64px; position: sticky; z-index: 2;">
-      <div style="color:white" fxLayoutAlign="start center" fxLayoutGap="12px">
-        <!-- <mat-icon>settings</mat-icon>
-        <mat-card-title class="font-600">Configuración de foro</mat-card-title> -->
-        <mat-card-title class="font-600">{{ foro.no_foro +'° '+ foro.nombre | uppercase }} <br><br>{{ foro.periodo + ' '+ foro.anio | uppercase}}</mat-card-title>        
-      </div>
-      <!-- <div class="content-filtros" fxLayoutAlign="end center" style="color:white !important">
-        <mat-card-title class="font-600">{{ foro.nombre | uppercase }} {{ foro.periodo + ' '+ foro.anio | uppercase}}
-        </mat-card-title>
-      </div> -->
-    </div>
-    <!-- <div fxLayout.lt-md="column" fxLayout="row" fxLayoutGap="12px"> -->
+    <div fxLayout="column">
+        <div
+            fxLayout.lt-md="column"
+            fxLayout="row"
+            fxLayoutGap="12px"
+            fxLayoutAlign="start center"
+            fxLayoutAlign.lt-md="center start"
+            class="main-container-header"
+        >
+            <div
+                style="color:white"
+                fxLayoutAlign="start center"
+                fxLayoutGap="12px"
+            >
+                <mat-icon>settings</mat-icon>
+                <mat-card-title class="font-600">CONFIGURACION DEL FORO</mat-card-title>
+                <!-- <mat-card-title class="font-600">{{ foro.no_foro +'° '+ foro.nombre | uppercase }} <br><br>{{ foro.periodo + ' '+ foro.anio | uppercase}}</mat-card-title> -->
+            </div>
+        </div>
+        <!-- <div fxLayout.lt-md="column" fxLayout="row" fxLayoutGap="12px"> -->
 
 
-      <mat-tab-group>
-        <mat-tab label="Configuracion">
-          <mat-card>
-            <!-- <mat-card-header>
-              <mat-card-title>Configuración</mat-card-title>
-            </mat-card-header> -->
-            <mat-divider></mat-divider>
-            <mat-card-content>
-              <form [formGroup]="formConfigForo" (ngSubmit)="configurarForo()">
-                <mat-form-field>
-                  <input type="number" matInput formControlName="lim_alumnos"
-                    placeholder="Número de alumnos por proyecto" />
-                  <mat-error *ngIf="formConfigForo.get('lim_alumnos').hasError('required')">El limite de alumnos por
-                    proyecto es requerido</mat-error>
-                  <mat-error *ngIf="formConfigForo.get('lim_alumnos').hasError('min')">El limite de alumnos por proyecto
-                    debe ser mayor a 0</mat-error>
-                </mat-form-field>
-                <mat-form-field>
-                  <input type="number" matInput formControlName="duracion" placeholder="Duración de exposición" />
-                  <mat-error *ngIf="formConfigForo.get('duracion').hasError('required')">El tiempo de exposición es
-                    requerido</mat-error>
-                  <mat-error *ngIf="formConfigForo.get('duracion').hasError('min')">El tiempo de exposición debe ser igual
-                    o mayor a 15</mat-error>
-                </mat-form-field>
-                <mat-form-field>
-                  <input type="number" matInput formControlName="num_aulas" placeholder="Número de aulas para el foro" />
-                  <mat-error *ngIf="formConfigForo.get('num_aulas').hasError('required')">El número de aulas es requerido
-                  </mat-error>
-                  <mat-error *ngIf="formConfigForo.get('num_aulas').hasError('min')">El número de aulas debe ser mayor a 1
-                  </mat-error>
-                </mat-form-field>
-                <mat-form-field>
-                  <input type="number" matInput formControlName="num_maestros"
-                    placeholder="Número de maestros en el jurado" />
-                  <mat-error *ngIf="formConfigForo.get('num_maestros').hasError('required')">El número de maestros en el
-                    jurado es requerido</mat-error>
-                  <mat-error *ngIf="formConfigForo.get('num_maestros').hasError('min')">El número de maestros en el jurado
-                    debe ser mayor a 1</mat-error>
-                </mat-form-field>
-              </form>
-            </mat-card-content>
-            <mat-divider></mat-divider>
-            <mat-card-actions align="end">
-              <button mat-raised-button color="primary" [disabled]="formConfigForo.invalid">
-                Guardar
-              </button>
-            </mat-card-actions>
-          </mat-card>
-        </mat-tab>
-        <mat-tab label="Fechas">
-          <mat-card>
-            <!-- <mat-card-header>            
-            </mat-card-header> -->
-            <mat-card-content>
-              <app-table [dataSource]="dataSource" [columnsHeader]="columnsHeader" [componentDialog]="componentDialog"
-                [url]="slug" (emitData)="cargarTable($event)"></app-table>
-            </mat-card-content>
-          </mat-card>
-          <ng-template [ngIf]="mostrarEspaciosTiempo">
-            <mat-card class="intervalos mat-elevation-z0">
-              <mat-card-header>
-                <mat-card-title>Elige los intervalos</mat-card-title>
-              </mat-card-header>
-              <mat-card-content>
-                <div fxLayout="row wrap" fxLayout.xs="column" fxLayoutGap="40px"  >
-                  <!-- fxLayoutAlign="center start" -->
-                  <div *ngIf="!(fecha.length > 0)">
-                    <span>Sin espacios de tiempo</span>
-                  </div>
-                  <div *ngFor="let intervalo of fecha.intervalos; let i = index">
-                    <mat-checkbox (change)="guardarBreak($event, intervalo)" color="primary"
-                      value="{{ intervalo.posicion }}" [checked]="intervalo.break">{{ intervalo.hora }}
-                    </mat-checkbox>
-                  </div>
-                </div>
-              </mat-card-content>
-              <mat-divider></mat-divider>
-              <mat-card-actions align="end">                
-                <button mat-raised-button color="primary" (click)="cerrarET()">Listo</button>
-              </mat-card-actions>
-            </mat-card>
-          </ng-template>
-        </mat-tab>
-        <mat-tab label="Docentes"> 
-          <mat-card>
-            <mat-card-header>
-              <mat-card-title>title</mat-card-title>
-              <mat-card-subtitle>subtitle</mat-card-subtitle>
-            </mat-card-header>
-            <mat-card-content>
-            sss
-            </mat-card-content>            
-          </mat-card>
-        </mat-tab>
-      </mat-tab-group>
 
 
-<!-- 
-      <div fxFlex="40">
+        <mat-tab-group>
+            <mat-tab label="Configuracion">
+                <mat-card>
+                    <mat-card-content>
+                        <form
+                            [formGroup]="formConfigForo"
+                            (ngSubmit)="configurarForo()"
+                            #form="ngForm"
+                        >
+                            <mat-form-field>
+                                <input
+                                    type="number"
+                                    matInput
+                                    formControlName="lim_alumnos"
+                                    placeholder="Número de alumnos por proyecto"
+                                >
+                                <mat-error *ngIf="formConfigForo.get('lim_alumnos').hasError('required')">
+                                    El limite de alumnos por proyecto es requerido
+                                </mat-error>
+                                <mat-error *ngIf="formConfigForo.get('lim_alumnos').hasError('min')">
+                                    El limite de alumnos por proyecto debe ser mayor a 0
+                                </mat-error>
+                            </mat-form-field>
+                            <mat-form-field>
+                                <input
+                                    type="number"
+                                    matInput
+                                    formControlName="duracion"
+                                    placeholder="Duración de exposición"
+                                >
+                                <mat-error *ngIf="formConfigForo.get('duracion').hasError('required')">
+                                    El tiempo de exposición es requerido
+                                </mat-error>
+                                <mat-error *ngIf="formConfigForo.get('duracion').hasError('min')">
+                                    El tiempo de exposición debe ser igual o mayor a 15
+                                </mat-error>
+                            </mat-form-field>
+                            <mat-form-field>
+                                <input
+                                    type="number"
+                                    matInput
+                                    formControlName="num_aulas"
+                                    placeholder="Número de aulas para el foro"
+                                >
+                                <mat-error *ngIf="formConfigForo.get('num_aulas').hasError('required')">El número de aulas es requerido</mat-error>
+                                <mat-error *ngIf="formConfigForo.get('num_aulas').hasError('min')">El número de aulas debe ser mayor a 1</mat-error>
+                            </mat-form-field>
+                            <mat-form-field>
+                                <input
+                                    type="number"
+                                    matInput
+                                    formControlName="num_maestros"
+                                    placeholder="Número de maestros en el jurado"
+                                >
+                                <mat-error *ngIf="formConfigForo.get('num_maestros').hasError('required')">
+                                    El número de maestros en el jurado es requerido
+                                </mat-error>
+                                <mat-error *ngIf="formConfigForo.get('num_maestros').hasError('min')">
+                                    El número de maestros en el jurado debe ser mayor a 1
+                                </mat-error>
+                            </mat-form-field>
+                        </form>
+                    </mat-card-content>
+                    <mat-card-actions align="end">
+                        <button
+                            mat-raised-button
+                            color="primary"
+                            [disabled]="formConfigForo.invalid"
+                            (click)="form.ngSubmit.emit()"
+                        >
+                            Guardar
+                        </button>
+                    </mat-card-actions>
+                </mat-card>
+            </mat-tab>
+            <mat-tab label="Fechas">
+                <mat-card>                    
+                    <mat-card-content>
+                        <app-table
+                            [dataSource]="dataSource"
+                            [columnsHeader]="columnsHeader"
+                            [componentDialog]="componentDialog"
+                            [url]="slug"
+                            (emitData)="cargarTable($event)"
+                        ></app-table>
+                    </mat-card-content>
+                </mat-card>
+                <ng-template [ngIf]="mostrarEspaciosTiempo">
+                    <mat-card class="intervalos mat-elevation-z0">
+                        <mat-card-header>
+                            <mat-card-title>Elige los intervalos</mat-card-title>
+                        </mat-card-header>
+                        <mat-card-content>
+                            <div
+                                fxLayout="row wrap"
+                                fxLayout.xs="column"
+                                fxLayoutGap="40px"
+                            >
+                                <!-- fxLayoutAlign="center start" -->
+                                <div *ngIf="!(fecha.length > 0)">
+                                    <span>Sin espacios de tiempo</span>
+                                </div>
+                                <div *ngFor="let intervalo of fecha.intervalos; let i = index">
+                                    <mat-checkbox
+                                        (change)="guardarBreak($event, intervalo)"
+                                        color="primary"
+                                        value="{{ intervalo.posicion }}"
+                                        [checked]="intervalo.break"
+                                    >
+                                        {{ intervalo.hora }}
+                                    </mat-checkbox>
+                                </div>
+                            </div>
+                        </mat-card-content>
+                        <mat-card-actions align="end">
+                            <button
+                                mat-raised-button
+                                color="primary"
+                                (click)="cerrarET()"
+                            >
+                                Listo
+                            </button>
+                        </mat-card-actions>
+                    </mat-card>
+                </ng-template>
+            </mat-tab>
+            <mat-tab label="Docentes">
+                <mat-card>
+                    <mat-card-header>
+                        <mat-card-title>title</mat-card-title>
+                        <mat-card-subtitle>subtitle</mat-card-subtitle>
+                    </mat-card-header>
+                    <mat-card-content>sss</mat-card-content>
+                </mat-card>
+            </mat-tab>
+        </mat-tab-group>
+
+
+
+
+        <!-- <div fxFlex="40">
         <mat-card>
           <mat-card-header>
             <mat-card-title>Configuración</mat-card-title>
@@ -198,7 +254,9 @@
           </mat-card>
         </ng-template>
       </div> -->
-    <!-- </div> -->
+        <!-- </div> -->
 
-  </div>
+
+
+    </div>
 </ng-template>

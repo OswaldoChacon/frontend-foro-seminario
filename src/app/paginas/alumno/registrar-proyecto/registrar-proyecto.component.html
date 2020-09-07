@@ -1,145 +1,141 @@
-<mat-progress-bar mode="indeterminate" value="50" *ngIf="this.cargando; else formulario">
-</mat-progress-bar>
-<ng-template #formulario>
-  <form [formGroup]="formRegistrar" #form="ngForm" (ngSubmit)="registrar()">
-    <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="16px">
-      <div fxFlex="60">
+<div
+    class="main-container-header"
+    fxLayout.xs="column"
+    fxLayout="row"
+    fxLayoutGap="12px"
+    fxLayoutAlign="start center"
+    fxLayoutAlign.xs="center start"
+    style="color:white"
+>
+    <mat-card-title>REGISTRO DE PROYECTO</mat-card-title>
+</div>
+<ng-container [ngSwitch]="true">
+    <ng-container *ngSwitchCase="cargando">
+        <mat-progress-bar
+            mode="indeterminate"
+            value="50"
+        >
+            <!-- *ngIf="this.cargando || foro; else formulario" -->
+        </mat-progress-bar>
+    </ng-container>
+    <ng-container *ngSwitchCase="foro != undefined">
         <mat-card>
-          <mat-card-header>
-            <app-card-header [title]="'registro de proyecto'"></app-card-header>
-          </mat-card-header>
-          <mat-card-content>
-            <!-- <div class="mat-card-title"> -->
-            <h4>
-              {{ foro.no_foro + "° " + foro.nombre }}
-            </h4>
-            <!-- </div> -->
-            <div class="mat-card-subtitle">{{ foro.periodo + " " + foro.anio }}</div>
-            <div [ngStyle.gt-xs]="{ 'padding.px': 20 }">
- 
-              <mat-form-field appearance="fill">
-                <input matInput formControlName="titulo" placeholder="Titulo del proyecto" required />
-                <mat-icon matSuffix>book</mat-icon>
-              </mat-form-field>
-              <div fxLayout.gt-sm="row" fxLayout="column" fxLayoutGap.gt-sm="20px">
-                <mat-form-field appearance="fill">
-                  <mat-label>Linea de investigacion</mat-label>
-                  <mat-select formControlName="linea" required>
-                    <mat-option *ngFor="let linea of lineas" [value]="linea.clave">
-                      {{ linea.nombre }}
-                    </mat-option>
-                  </mat-select>
-                </mat-form-field>
-                <mat-form-field appearance="fill">
-                  <mat-label>Tipo de proyecto</mat-label>
-                  <mat-select formControlName="tipo" required>
-                    <mat-option *ngFor="let tipo of tipos" [value]="tipo.clave">
-                      {{ tipo.nombre }}
-                    </mat-option>
-                  </mat-select>
-                </mat-form-field>
-              </div>
-              <mat-form-field appearance="fill">
-                <!-- appearance="outline" -->
-                <!-- <mat-label>Outline form field</mat-label> -->
-                <textarea matInput formControlName="objetivo" placeholder="Objetivo" required></textarea>
-              </mat-form-field>
-              <div fxLayout.gt-sm="row" fxLayout="column" fxLayoutGap.gt-sm="20px">
-                <mat-form-field appearance="fill">
-                  <mat-label>Asesor</mat-label>
-                  <mat-select formControlName="asesor" required>
-                    <mat-option *ngFor="let docente of docentes" [value]="docente.num_control">
-                      {{ docente.nombre }}
-                    </mat-option>
-                  </mat-select>
-                  <mat-icon matPrefix>account_circle</mat-icon>
-                </mat-form-field>
-                <mat-form-field appearance="fill">
-                  <input matInput formControlName="empresa" placeholder="Empresa" required>
-                  <mat-icon matSuffix>business</mat-icon>
-                </mat-form-field>
-              </div>
-              <!-- <div fxLayoutAlign="end center">
-                <button *ngIf="lim_alumnos < foro.lim_alumnos" type="button" mat-raised-button color="primary"
-                  (click)="openPanel()">
-                  Añadir integrantes
+            <mat-card-content>
+                <h3 class="font-600">
+                    {{ foro.no_foro +'° '+ foro.nombre | uppercase }}
+                    <br>
+                    {{ foro.periodo + ' '+ foro.anio | uppercase}}
+                </h3>
+                <app-formulario-proyecto (formulario)="form = $event"></app-formulario-proyecto>
+                <!-- <div [ngStyle.gt-xs]="{ 'padding.px': 20 }"> -->
+                <!-- <form
+                    [formGroup]="formRegistrar"
+                    #form="ngForm"
+                    (ngSubmit)="registrarProyecto()"
+                >
+                    <mat-form-field appearance="fill">
+                        <mat-label>Titulo del proyecto</mat-label>
+                        <input
+                            matInput
+                            formControlName="titulo"
+                            required
+                        >
+                        <mat-icon matPrefix>book</mat-icon>
+                        <mat-error *ngIf="formRegistrar.get('titulo').hasError('required')">El campo titulo es requerido</mat-error>
+                    </mat-form-field>
+                    <div
+                        fxLayout.gt-sm="row"
+                        fxLayout="column"
+                        fxLayoutGap.gt-sm="20px"
+                    >
+                        <mat-form-field appearance="fill">
+                            <mat-label>Linea de investigacion</mat-label>
+                            <mat-select
+                                formControlName="linea"
+                                required
+                            >
+                                <mat-option
+                                    *ngFor="let linea of lineas"
+                                    [value]="linea.clave"
+                                >
+                                    {{ linea.nombre }}
+                                </mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="formRegistrar.get('linea').hasError('required')">El campo linea de investigación es requerido</mat-error>
+                        </mat-form-field>
+                        <mat-form-field appearance="fill">
+                            <mat-label>Tipo de proyecto</mat-label>
+                            <mat-select
+                                formControlName="tipo"
+                                required
+                            >
+                                <mat-option
+                                    *ngFor="let tipo of tipos"
+                                    [value]="tipo.clave"
+                                >
+                                    {{ tipo.nombre }}
+                                </mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="formRegistrar.get('tipo').hasError('required')">El campo tipo de solicitud es requerido</mat-error>
+                        </mat-form-field>
+                    </div>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Objetivo</mat-label>
+                        <textarea
+                            matInput
+                            formControlName="objetivo"
+                            required
+                        ></textarea>
+                        <mat-error *ngIf="formRegistrar.get('objetivo').hasError('required')">El campo objetivo es requerido</mat-error>
+                    </mat-form-field>
+                    <div
+                        fxLayout.gt-sm="row"
+                        fxLayout="column"
+                        fxLayoutGap.gt-sm="20px"
+                    >
+                        <mat-form-field appearance="fill">
+                            <mat-label>Asesor</mat-label>
+                            <mat-select formControlName="asesor">
+                                <mat-option
+                                    *ngFor="let docente of docentes"
+                                    [value]="docente.num_control"
+                                >
+                                    {{ docente.nombre }}
+                                </mat-option>
+                            </mat-select>                            
+                            <mat-error *ngIf="formRegistrar.get('asesor').hasError('required')">El campo asesor es requerido</mat-error>
+                        </mat-form-field>
+                        <mat-form-field appearance="fill">
+                            <mat-label>Empresa</mat-label>
+                            <input
+                                matInput
+                                formControlName="empresa"
+                                required
+                            >
+                            <mat-icon matSuffix>business</mat-icon>
+                            <mat-error *ngIf="formRegistrar.get('empresa').hasError('required')">El campo empresa es requerido</mat-error>
+                        </mat-form-field>
+                    </div>
+                </form> -->
+            </mat-card-content>
+            <mat-card-actions align="end">
+                <button
+                    mat-raised-button
+                    color="primary"
+                    (click)="onSubmit()"                    
+                    [disabled]="form?.form.invalid" 
+                    >
+                    <!-- (click)="form.ngSubmit.emit()"-->
+                    ¡Registrar!
                 </button>
-              </div>
-              <div formArrayName="alumnos" [ngClass]="{'integrantes': lim_alumnos >= foro.lim_alumnos}">
-                <div *ngFor="let control of formData.controls ; let i = index ">
-                  <mat-form-field>
-                    <mat-select placeholder="Integrante {{i+2}}" [formControlName]="i">
-                      <mat-option *ngFor="let alumno of alumnos" [value]="alumno.num_control">{{ alumno.nombre }}
-                      </mat-option>
-                    </mat-select>
-                  </mat-form-field>
-                  <button (click)="remove(i)">Remove</button>
-                </div>
-              </div> -->
-              <!-- </form> -->
-            </div>
-          </mat-card-content>
-          <mat-card-actions align="end">
-            <button mat-raised-button color="primary" [disabled]="form.invalid">¡Registrar!</button>
-          </mat-card-actions>
+            </mat-card-actions>
         </mat-card>
-      </div>
-      <div fxFlex fxLayout="column" fxLayoutGap="12px">
-        <!-- <div>
-          <mat-card>
-            <mat-card-header>
-              <app-card-header [title]="'asesor'"></app-card-header>
-            </mat-card-header>
+    </ng-container>
+    <ng-container *ngSwitchDefault>
+        <mat-card>
             <mat-card-content>
-              <mat-form-field appearance="fill">
-                <mat-label>Asesor</mat-label>
-                <mat-select formControlName="asesor" required>
-                  <mat-option *ngFor="let docente of docentes" [value]="docente.num_control">
-                    {{ docente.nombre }}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
+                <app-alerta [mensaje]="'No puedes registrar ningún proyecto por el momento'"></app-alerta>
             </mat-card-content>
-          </mat-card>
-        </div> -->
-        <div>
-          <mat-card>
-            <mat-card-header>
-              <app-card-header [title]="'integrantes'">
-                <div fxFlex fxLayoutAlign="end center">
-                  <!-- style="display: flex; justify-content: flex-end;" -->
-                  <button type="button" *ngIf="lim_alumnos < foro.lim_alumnos" mat-icon-button (click)="openPanel()">
-                    <mat-icon>person_add</mat-icon>
-                  </button>
-                </div>
-              </app-card-header>
-            </mat-card-header>
-            <mat-card-content>
-              <span *ngIf="lim_alumnos ==0">Sin integrantes</span>
-              <div formArrayName="alumnos" [ngClass]="{'integrantes': lim_alumnos >= foro.lim_alumnos}">
-                <div *ngFor="let control of formData.controls ; let i = index ">
-                  <div fxLayout="row">
-                    <div fxFlex="85">
-                      <mat-form-field appearance="fill">
-                        <mat-select placeholder="Integrante {{i+2}}" [formControlName]="i">
-                          <mat-option *ngFor="let alumno of alumnos" [value]="alumno.num_control">{{ alumno.nombre }}
-                          </mat-option>
-                        </mat-select>
-                      </mat-form-field>
-                    </div>
-                    <div fxFlex fxLayoutAlign="center center">
-                      <button mat-icon-button color="warn" (click)="remove(i)">
-                        <!-- mat-mini-fab -->
-                        <mat-icon>close</mat-icon>
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </mat-card-content>
-          </mat-card>
-        </div>
-      </div>
-    </div>
-  </form>
-</ng-template>
+        </mat-card>
+    </ng-container>
+</ng-container>

@@ -1,101 +1,117 @@
-<mat-progress-bar
-    mode="indeterminate"
-    *ngIf="cargando; else solicitud"
-></mat-progress-bar>
-
-<ng-template #solicitud>
-    <mat-card>
-        <mat-card-header>
-            <mat-card-title>REGISTRAR SOLICITUD</mat-card-title>
-        </mat-card-header>
-        <mat-divider></mat-divider>
-        <mat-card-content>
-            <h4 class="font-600">{{ proyectoEnCurso.titulo }}</h4>
-            <h4 mat-card-subtitle>
-                ASESOR: {{ proyectoEnCurso.asesora.nombreCompleto }}
-            </h4>
-            <form
-                [formGroup]="formSolicitud"
-                (ngSubmit)="registrarSolicitud()"
-                #form="ngForm"
-            >
-                <div fxLayout="column">
-                    <div fxLayoutAlign="end start">
-                        <mat-form-field
-                            appearance="standard"
-                            fxFlex="50"
-                        >
-                            <mat-label>Elige la solicitud que deseas registrar</mat-label>
-                            <mat-select
-                                formControlName="tipo_solicitud"
-                                (selectionChange)="seleccionarSolicitud($event.value)"
+<ng-container [ngSwitch]="true">
+    <ng-container *ngSwitchCase="cargando">
+        <mat-progress-bar
+        mode="indeterminate"
+        *ngIf="cargando; else solicitud"
+    ></mat-progress-bar>
+    </ng-container>
+    <ng-container *ngSwitchCase="proyectoEnCurso !=undefined">
+        <mat-card>
+            <mat-card-header>
+                <mat-card-title>REGISTRAR SOLICITUD</mat-card-title>
+            </mat-card-header>
+            <mat-divider></mat-divider>
+            <mat-card-content>
+                <h4 class="font-600">{{ proyectoEnCurso.titulo }}</h4>
+                <h4 mat-card-subtitle>
+                    ASESOR: {{ proyectoEnCurso.asesora.nombreCompleto }}
+                </h4>
+                <form
+                    [formGroup]="formSolicitud"
+                    (ngSubmit)="registrarSolicitud()"
+                    #form="ngForm"
+                >
+                    <div fxLayout="column">
+                        <div fxLayoutAlign="end start">
+                            <mat-form-field
+                                appearance="standard"
+                                fxFlex="50"
                             >
-                                <mat-option
-                                    *ngFor="let solicitud of solicitudes"
-                                    [value]="solicitud.nombre_"
+                                <mat-label>Elige la solicitud que deseas registrar</mat-label>
+                                <mat-select
+                                    formControlName="tipo_solicitud"
+                                    (selectionChange)="seleccionarSolicitud($event.value)"
                                 >
-                                    {{ solicitud.nombre_ }}
-                                </mat-option>
-                            </mat-select>
-                            <mat-error *ngIf="formSolicitud.get('tipo_solicitud').hasError('required')">
-                                Debes elegir la solicitud que quieres realizar
+                                    <mat-option
+                                        *ngFor="let solicitud of solicitudes"
+                                        [value]="solicitud.nombre_"
+                                    >
+                                        {{ solicitud.nombre_ }}
+                                    </mat-option>
+                                </mat-select>
+                                <mat-error *ngIf="formSolicitud.get('tipo_solicitud').hasError('required')">
+                                    Debes elegir la solicitud que quieres realizar
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+    
+                        <mat-form-field appearance="outline">
+                            <mat-label>Escribe el motivo de tu solicitud</mat-label>
+                            <textarea
+                                matInput
+                                formControlName="motivo"
+                            ></textarea>
+                            <mat-error *ngIf="formSolicitud.get('motivo').hasError('required')">
+                                Debes escribir el motivo de tu solicitud
                             </mat-error>
                         </mat-form-field>
-                    </div>
-
-                    <mat-form-field appearance="outline">
-                        <mat-label>Escribe el motivo de tu solicitud</mat-label>
-                        <textarea
-                            matInput
-                            formControlName="motivo"
-                        ></textarea>
-                        <mat-error *ngIf="formSolicitud.get('motivo').hasError('required')">
-                            Debes escribir el motivo de tu solicitud
-                        </mat-error>
-                    </mat-form-field>
-
-                    <mat-form-field
-                        appearance="outline"
-                        *ngIf="formSolicitud.get('nuevo_asesor')"
-                    >
-                        <mat-label>Elige al nuevo asesor</mat-label>
-                        <mat-select formControlName="nuevo_asesor">
-                            <mat-option
-                                *ngFor="let docente of docentes"
-                                [value]="docente.num_control"
-                            >
-                                {{ docente.nombreCompleto }}
-                            </mat-option>
-                        </mat-select>
-                        <mat-error *ngIf="formSolicitud.get('nuevo_asesor').hasError('required')">
-                            Debes escribir el nuevo asesor de tu proyecto
-                        </mat-error>
-                    </mat-form-field>
-                    <mat-form-field
-                        appearance="outline"
-                        *ngIf="formSolicitud.get('nuevo_titulo')"
-                    >
-                        <mat-label>Escribe el nuevo titulo del proyecto</mat-label>
-                        <input
-                            matInput
-                            formControlName="nuevo_titulo"
+    
+                        <mat-form-field
+                            appearance="outline"
+                            *ngIf="formSolicitud.get('nuevo_asesor')"
                         >
-                    </mat-form-field>
-                </div>
-            </form>
-        </mat-card-content>
+                            <mat-label>Elige al nuevo asesor</mat-label>
+                            <mat-select formControlName="nuevo_asesor">
+                                <mat-option
+                                    *ngFor="let docente of docentes"
+                                    [value]="docente.num_control"
+                                >
+                                    {{ docente.nombreCompleto }}
+                                </mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="formSolicitud.get('nuevo_asesor').hasError('required')">
+                                Debes escribir el nuevo asesor de tu proyecto
+                            </mat-error>
+                        </mat-form-field>
+                        <mat-form-field
+                            appearance="outline"
+                            *ngIf="formSolicitud.get('nuevo_titulo')"
+                        >
+                            <mat-label>Escribe el nuevo titulo del proyecto</mat-label>
+                            <input
+                                matInput
+                                formControlName="nuevo_titulo"
+                            >
+                        </mat-form-field>
+                    </div>
+                </form>
+            </mat-card-content>
+    
+            <mat-divider></mat-divider>
+    
+            <mat-card-actions align="end">
+                <button
+                    mat-raised-button
+                    color="primary"
+                    (click)="form.ngSubmit.emit()"
+                    [disabled]="form.invalid"
+                >
+                    Registrar solicitud
+                </button>
+            </mat-card-actions>
+        </mat-card>
+    </ng-container>
+    <ng-container *ngSwitchDefault>
+        <mat-card>
+            <mat-card-content>
+                <app-alerta [mensaje]="'No puedes registrar ningún solicitud por el momento'"></app-alerta>
+            </mat-card-content>
+        </mat-card>
+    </ng-container>
+    
+</ng-container>
 
-        <mat-divider></mat-divider>
 
-        <mat-card-actions align="end">
-            <button
-                mat-raised-button
-                color="primary"
-                (click)="form.ngSubmit.emit()"
-                [disabled]="form.invalid"
-            >
-                Registrar solicitud
-            </button>
-        </mat-card-actions>
-    </mat-card>
+<ng-template #solicitud>
+ 
 </ng-template>

@@ -1,34 +1,72 @@
 <div fxLayout="column">
-  <div class="main-container-header" fxLayout.xs="column" fxLayout="row" fxLayoutGap="12px" fxLayoutAlign="start center" fxLayoutAlign.xs="center start">    
-    <div fxFlex="30" style="color:white" fxLayoutAlign="start center" fxLayoutGap="12px">
-      <mat-icon>account_box</mat-icon>
-      <mat-card-title class="font-600">Usuarios</mat-card-title>
+    <div
+        class="main-container-header"
+        fxLayout.xs="column"
+        fxLayout="row"
+        fxLayoutGap="12px"
+        fxLayoutAlign="start center"
+        fxLayoutAlign.xs="center start"
+    >
+        <div
+            fxFlex="30"
+            style="color:white"
+            fxLayoutAlign="start center"
+            fxLayoutGap="12px"
+            fxShow
+            fxHide.xs
+        >
+            <mat-icon>account_box</mat-icon>
+            <mat-card-title class="font-600">USUARIOS</mat-card-title>
+        </div>
+        <div
+            class="content-filtro"
+            fxLayoutAlign="end center"
+        >
+            <mat-icon matPrefix>search</mat-icon>
+            <input
+                class="input-filter"
+                placeholder="Número de control"
+                #inputFiltro
+            >
+        </div>
     </div>
-    <div class="content-filtro" fxLayoutAlign="end center">
-      <mat-icon matPrefix>search</mat-icon>
-      <input class="input-filter" placeholder="Número de control" #inputFiltro />
-    </div>
-  </div>
-  <div fxLayout.lt-md="column" fxLayout="row" fxLayoutGap.gt-sm="12px">
-    <div fxFlex="20">
-      <mat-form-field appearance="outline" fxLayoutAlign.lt-md="end end">
+    <div
+        fxLayout.lt-md="column"
+        fxLayout="row"
+        fxLayoutGap.gt-sm="12px"
+    >
+        <div fxFlex="20">
+            <!-- <mat-form-field appearance="outline" fxLayoutAlign.lt-md="end end">
         <mat-label>Filtrar por:</mat-label>
         <mat-select [value]="rolSeleccionado" (selectionChange)="seleccionarRol($event.value)">
           <mat-option [value]="'Todos'">Todos</mat-option>
           <mat-option *ngFor="let rol of roles" [value]="rol.nombre_">{{rol.nombre_}}</mat-option>
         </mat-select>
-      </mat-form-field>
+      </mat-form-field> -->
+            <app-filtro
+                [opciones]="roles"
+                [defaultValue]="'Todos'"
+                (opcionElegida)="rolSeleccionado = $event; getUsuarios()"
+            ></app-filtro>
+        </div>
+        <div fxFlex="80">
+            <mat-card>
+                <mat-card-content>
+                    <app-table
+                        [dataSource]="dataSource"
+                        [componentDialog]="componentDialog"
+                        [columnsHeader]="columnsHeader"
+                        (emitData)="cargarTable($event)"
+                    >
+                    </app-table>
+                    <mat-paginator
+                        [length]="dataSource.total"
+                        [pageSize]="dataSource.por_pagina"
+                        showFirstLastButtons
+                    >
+                    </mat-paginator>
+                </mat-card-content>
+            </mat-card>
+        </div>
     </div>
-    <div fxFlex="80">
-      <mat-card>
-        <mat-card-content>
-          <app-table [dataSource]="dataSource" [componentDialog]="componentDialog" [columnsHeader]="columnsHeader"
-            (emitData)="cargarTable($event)">
-          </app-table>
-          <mat-paginator [length]="dataSource.total" [pageSize]="dataSource.por_pagina" showFirstLastButtons>
-          </mat-paginator>
-        </mat-card-content>
-      </mat-card>
-    </div>
-  </div>
 </div>

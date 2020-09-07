@@ -28,18 +28,19 @@ export class ProyectosComponent implements OnInit {
   columnsHeader = { 'participa': 'Part.', 'folio': 'Folio', 'titulo': 'Titulo' };
   componentDialog = DocentesDiaogComponent;
   dataSource: ProyectosDataSource;
-  filtro: string = 'Aceptados'
+  filtroElegido: string = 'Aceptados'
+  opciones: string[]=['Aceptados','No aceptados'];
 
   ngOnInit(): void {
     const params = this._activeRoute.snapshot.params;
     if (params) {
       this.dataSource = new ProyectosDataSource(this._proyectoService, params.id);
-      this.dataSource.getProyectos(1, this.input.nativeElement.value, this.filtro);
+      this.dataSource.getProyectos(1, this.input.nativeElement.value, this.filtroElegido);
     }
   }
 
   seleccionarFiltro(filtro: string) {
-    this.filtro = filtro;    
+    // this.filtro = filtro;    
     this.getProyectos();
   }
 
@@ -67,7 +68,7 @@ export class ProyectosComponent implements OnInit {
   }
 
   getProyectos() {
-    this.dataSource.getProyectos(this.paginator.pageIndex + 1, this.input.nativeElement.value, this.filtro);    
+    this.dataSource.getProyectos(this.paginator.pageIndex + 1, this.input.nativeElement.value, this.filtroElegido);    
   }
 
   participa(event: MatCheckboxChange, folio: string) {

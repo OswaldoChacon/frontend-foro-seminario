@@ -1,27 +1,47 @@
-<!-- <div class="barra">
-  <app-header></app-header>
-</div> -->
+<div
+    fxLayout="row"
+    fxLayoutGap="12px"
+>
+    <mat-icon class="icon-xg">forum</mat-icon>
+    <ng-container *ngIf="data.data; else nuevoRegistro">
+        <h2>Editando registro...</h2>
+    </ng-container>
+    <ng-template #nuevoRegistro>
+        <h2>Nuevo registro</h2>
+    </ng-template>
+</div>
+<mat-divider></mat-divider>
 <mat-dialog-content>
-  <form [formGroup]="formLinea" (ngSubmit)="editar ? editarLinea() : guardarLinea()" #form="ngForm">
-    <mat-form-field appearance="fill">
-      <mat-label>Clave</mat-label>
-      <input matInput formControlName="clave" required />
-      <mat-icon matSuffix>vpn_key</mat-icon>
-      <mat-error *ngIf="formLinea.get('clave').hasError('required')">
-        El campo clave es requerido
-      </mat-error>
-      <mat-error *ngIf="formLinea.get('clave').hasError('serverError')">
-        La clave ya ha sido registrada
-      </mat-error>
-    </mat-form-field>
-    <mat-form-field appearance="fill">
-      <mat-label>Nombre</mat-label>
-      <input matInput formControlName="nombre" required />
-      <mat-error *ngIf="formLinea.get('nombre').hasError('required')">El campo nombre es requerido</mat-error>
-      <mat-error *ngIf="formLinea.get('nombre').hasError('serverError')">
-        El nombre ya ha sido registrada
-      </mat-error>
-    </mat-form-field>
-  </form>
+    <form
+        [formGroup]="formLinea"
+        (ngSubmit)="editar ? editarLinea() : guardarLinea()"
+        #form="ngForm"
+    >
+        <mat-form-field appearance="fill">
+            <mat-label>Clave</mat-label>
+            <input
+                matInput
+                formControlName="clave"
+                required
+            >
+            <mat-icon matSuffix>vpn_key</mat-icon>
+            <mat-error *ngIf="formLinea.get('clave').hasError('required')">El campo clave es requerido</mat-error>
+            <mat-error *ngIf="formLinea.get('clave').hasError('serverError')">La clave ya ha sido registrada</mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+            <mat-label>Nombre</mat-label>
+            <input
+                matInput
+                formControlName="nombre"
+                required
+            >
+            <mat-error *ngIf="formLinea.get('nombre').hasError('required')">El campo nombre es requerido</mat-error>
+            <mat-error *ngIf="formLinea.get('nombre').hasError('serverError')">El nombre ya ha sido registrada</mat-error>
+        </mat-form-field>
+    </form>
 </mat-dialog-content>
-<app-buttons [form]="form" [guardando]="guardando"></app-buttons>
+<app-buttons
+    [form]="form"
+    [guardando]="guardando"
+></app-buttons>
+<!-- </div> -->

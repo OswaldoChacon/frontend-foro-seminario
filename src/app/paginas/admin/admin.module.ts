@@ -24,6 +24,7 @@ import { RouterModule } from '@angular/router';
 import { FechaDialogComponent } from 'src/app/dialogs/fecha/fecha.dialog.component';
 import { GenerarHorarioComponent } from './horario/generar-horario/generar-horario.component';
 import { RolesSolicitudComponent } from './roles-solicitud/roles-solicitud.component';
+import { ComponentsModule } from 'src/app/components/components.module';
 
 
 @NgModule({
@@ -54,6 +55,7 @@ import { RolesSolicitudComponent } from './roles-solicitud/roles-solicitud.compo
     FormsModule,
     SharedModule,
     ReactiveFormsModule,
+    ComponentsModule
   ],
   providers:[
     // UsersService

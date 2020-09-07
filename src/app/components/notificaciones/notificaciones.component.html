@@ -1,0 +1,204 @@
+<!-- <div fxLayout="column">
+
+    <div
+        fxFlex="row wrap"
+        fxLayoutGap="12px"
+        >
+        <div fxFlex="30">
+            <app-filtro
+                [opciones]="opcionesForo"
+                [defaultValue]="'Foro en curso'"
+                (opcionElegida)="foroElegido = $event; misNotificaciones()"
+            ></app-filtro>
+        </div>
+        <div fxFlex="30">
+
+            <app-filtro
+                [opciones]="opcionesRespuesta"
+                [defaultValue]="'Pendientes'"
+                (opcionElegida)="respuestaElegida = $event; misNotificaciones()"
+            ></app-filtro>
+        </div>
+    </div>
+    <div fxFlex="row">
+        sss
+    </div>
+</div> -->
+
+<div
+    fxLayout.gt-sm="row"
+    fxLayout="column"
+    fxLayoutGap="20px"
+>
+    <div
+        fxFlex="30"
+        fxLayout="column"
+        fxLayout.sm="row"
+        fxLayoutGap.lt-md="20px"
+        style="background-color: white; padding:16px; height: 100%; min-height: 100%;"
+    >
+        <div fxLayout="column">
+            <mat-card-title>Foro</mat-card-title>
+            <app-filtro
+                [opciones]="opcionesForo"
+                [defaultValue]="'Foro en curso'"
+                (opcionElegida)="foroElegido = $event; misNotificaciones()"
+            ></app-filtro>
+        </div>
+        <div fxLayout="column">
+            <mat-card-title>Respuestas</mat-card-title>
+            <app-filtro
+                [opciones]="opcionesRespuesta"
+                [defaultValue]="'Pendientes'"
+                (opcionElegida)="respuestaElegida = $event; misNotificaciones()"
+            ></app-filtro>
+        </div>
+       
+    </div>
+    <div
+        fxFlex="70"
+        *ngIf="objectKeys(_notificacionesService.notificaciones).length > 0; else sinNotificaciones"
+    >
+        <div *ngFor="let notificacionKey of _notificacionesService.notificaciones | keyvalue">
+            <h2>{{notificacionKey.key}}</h2>
+            <div fxLayout="row wrap">               
+                <mat-card
+                    fxFlex="45"
+                    fxFlex.xs="100"
+                    *ngFor="let notificacion of notificacionKey.value "
+                    style="margin: 10px !important;"
+                >
+                    <mat-card-header fxLayout="column">
+                        <h5>{{notificacion.proyecto.titulo}}</h5>
+                        <div
+                            fxLayout="row"
+                            fxLayout.lt-md="column"
+                            fxLayoutGap="12px"
+                        >
+                            <!-- fxLayoutAlign.lt-="start center" -->
+                            <div fxFlex="50">
+                                <mat-card-subtitle>
+                                    <span>Folio: {{notificacion.proyecto.folio}}</span>
+                                    <br>
+                                    <div
+                                        fxLayoutGap="12px"
+                                        fxLayoutAlign="start center"
+                                    >
+                                        <mat-icon>calendar_today</mat-icon>
+                                        <span>{{notificacion.fecha}}</span>
+                                    </div>
+                                </mat-card-subtitle>
+                            </div>
+                            <div
+                                fxFlex="50"
+                                style=" border-radius: 999px; height: max-content; padding:3px 0; color:white"
+                                fxLayoutAlign="center center"
+                                [style.background-color]="notificacion.respuesta ? 'green': notificacion.respuesta == null ? '#0D47A1':'red'"
+                            >
+                                <span class="font-600">
+                                    {{notificacion.respuesta ? 'Aceptado': notificacion.respuesta == null ? 'Sin respuesta':'Rechazado'}}
+                                </span>
+                            </div>
+                        </div>
+                    </mat-card-header>
+                    <mat-card-content>
+                        <div *ngIf="notificacion.nuevo_titulo">
+                            <span
+                                style="font-size: 14px;"
+                                class="font-600"
+                            >
+                                NUEVO TITULO:
+                            </span>
+                            <br>
+                            <span style="font-size: 12px;">{{notificacion.nuevo_titulo}}</span>
+                        </div>
+                        <p>{{notificacion.motivo }}</p>
+                        <p>
+                            {{notificacion.motivo ? notificacion.motivo:'Sin comentarios' }}
+                        </p>
+                    </mat-card-content>
+                    <mat-card-actions
+                        align="end"
+                        *ngIf="notificacion.editar"
+                    >
+                        <!-- *ngIf="notificacion.respuesta ===null" -->
+                        <button
+                            mat-button
+                            *ngIf="!notificacion.respuesta || notificacion.respuesta == null"
+                            (click)="responder(notificacion,notificacionKey.key)"
+                        >
+                            <mat-icon style="color: green;">check</mat-icon>
+                            Aceptar
+                        </button>
+                        <button
+                            mat-button
+                            *ngIf="notificacion.respuesta || notificacion.respuesta == null"
+                            (click)="responder(notificacion,notificacionKey.key)"
+                        >
+                            <mat-icon color="warn">close</mat-icon>
+                            Rechazar
+                        </button>
+                    </mat-card-actions>
+                </mat-card>
+                <!-- </div> -->
+            </div>
+        </div>
+    </div>
+
+    <ng-template #sinNotificaciones>
+        <div fxFlex>
+            <mat-card>
+                <mat-card-content>
+                    <!-- <mat-card-title>Sin notificaciones</mat-card-title> -->
+                    <div
+                        fxLayout="row"
+                        fxLayoutGap="12px"
+                        fxLayoutAlign="start center"
+                        style="color:red;  padding:12px;"
+                    >
+                        <mat-icon>warning</mat-icon>
+                        <span>Sin notificaciones</span>
+                    </div>
+                </mat-card-content>
+            </mat-card>
+        </div>
+    </ng-template>
+
+</div>
+<!-- <mat-card *ngFor="let notificacion of _notificacionesService.notificaciones | keyvalue" fxFlex="30" fxFlex.xs="100"
+        style="margin: 10px !important; border-left:10px solid"
+        [style.border-color]="notificacion.respuesta ? 'green':'red'">        
+        <mat-card-content>
+            <div *ngFor="let items of notificacion.value ">
+                {{items}}
+            </div>
+            <mat-icon>book</mat-icon>
+            <mat-card-title style="font-size: 12px;">{{notificacion.proyecto.titulo}}</mat-card-title>
+            <mat-card-subtitle>
+                <span>Folio: {{notificacion.proyecto.folio}}</span><br>
+                <span>llslslsls</span>
+            </mat-card-subtitle>
+
+
+            <div fxFlex="15" fxHide.sm fxLayoutAlign="center center">
+                <mat-icon>book</mat-icon>
+            </div>
+            <div fxFlex="60" style="padding-left:0px" fxLayout="column" fxLayoutAlign="center start">
+                <mat-card-title>{{item.proyecto.titulo}}</mat-card-title>
+                <mat-card-subtitle>{{item.proyecto.folio}}</mat-card-subtitle>
+            </div>
+        
+        
+        </mat-card-content>
+        <mat-card-actions align="end">         
+            <button mat-button *ngIf="!notificacion.respuesta" (click)="responder(notificacion)">
+                <mat-icon style="color: green;">check</mat-icon>
+                Aceptar
+            </button>            
+            <button mat-button *ngIf="notificacion.respuesta" (click)="responder(notificacion)">
+                <mat-icon color="warn">close</mat-icon>
+                Rechazar
+            </button>
+        </mat-card-actions>
+    </mat-card> -->
+<!-- </div> -->

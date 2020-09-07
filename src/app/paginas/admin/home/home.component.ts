@@ -3,9 +3,10 @@ import { NotificacionesService } from 'src/app/services/notificaciones/notificac
 import { MAT_STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import { ProyectosService } from 'src/app/services/proyectos/proyectos.service';
 import { Usuario } from 'src/app/modelos/usuario.model';
-import { catchError } from 'rxjs/operators';
+import { catchError, finalize, tap } from 'rxjs/operators';
 import { throwError } from 'rxjs';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
+import { Proyectos } from 'src/app/modelos/proyectos.model';
 
 @Component({
   selector: 'app-home',
@@ -19,17 +20,23 @@ export class HomeComponent implements OnInit {
 
   // notificaciones: {Array ,aceptados:number};
   // notificaciones:any=[];  
+  form: any;
+  formProyecto = this._formBuilder.group({
+    titulo: new FormControl('', Validators.required),
+    linea: new FormControl('', Validators.required),
+    tipo: new FormControl('', Validators.required)
+  });
+
   cargando: boolean = true
   aceptado: boolean = false;
   notificacionSeleccionado: any;
   editar: boolean = false;
-  miSolicitud: any;
-  alumnos: any;
-  formProyecto = this._formBuilder.group({
-    titulo: new FormControl('', Validators.required),
-    linea: new FormControl('', Validators.required),
-    tipo: new FormControl('',Validators.required)
-  });
+  misSolicitudes: any = {};
+  miProyecto: Proyectos;
+  alumnos: Usuario[] = [];
+
+  objectKeys = Object.keys;
+
   constructor(
     private _formBuilder: FormBuilder,
     private _notificacionService: NotificacionesService,
@@ -39,6 +46,7 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     this.getSolicitud();
     this.listarAlumnos();
+    const testObject = {};
   }
 
   editar_titulo() {
@@ -62,7 +70,7 @@ export class HomeComponent implements OnInit {
   iconos(value: string) {
     switch (value) {
       case 'REGISTRO DE PROYECTO':
-        return 'note_add';
+        return 'book';
       case 'CAMBIO DE TITULO DEL PROYECTO':
         return 'compare_arrows';
       case 'CANCELACION DEL PROYECTO':
@@ -84,18 +92,25 @@ export class HomeComponent implements OnInit {
     }
   }
 
+  enviarSolicitud() {
+    this._proyectoService.enviarSolicitud(this.miProyecto.folio).pipe(
+      tap(res => {
+        this.misSolicitudes();
+      })
+    ).subscribe();
+  }
 
   agregarIntegrante(alumno: Usuario) {
     alumno.myTeam = !alumno.myTeam;
     if (alumno.myTeam)
-      this._proyectoService.agregarIntegrante(this.miSolicitud.proyecto.folio, alumno.num_control).pipe(
+      this._proyectoService.agregarIntegrante(this.miProyecto.folio, alumno.num_control).pipe(
         catchError(error => {
           alumno.myTeam = !alumno.myTeam;
           return throwError(error);
         })
       ).subscribe(resp => this.getSolicitud());
     else
-      this._proyectoService.eliminarIntegrante(this.miSolicitud.proyecto.folio, alumno.num_control).pipe(
+      this._proyectoService.eliminarIntegrante(this.miProyecto.folio, alumno.num_control).pipe(
         catchError(error => {
           alumno.myTeam = !alumno.myTeam;
           return throwError(error);
@@ -104,24 +119,25 @@ export class HomeComponent implements OnInit {
   }
 
   getSolicitud() {
-    this._notificacionService.miSolicitud().subscribe((solicitud) => {      
+    this._notificacionService.miSolicitud().pipe(
+      finalize(() => this.cargando = false)
+    ).subscribe((solicitud) => {
       if (!solicitud.mensaje) {
-        this.miSolicitud = solicitud;
+        this.misSolicitudes = solicitud.data;
+        this.miProyecto = solicitud.proyecto;
         this.formProyecto.get('titulo').setValue(solicitud.proyecto.titulo)
         this.formProyecto.get('linea').setValue(solicitud.proyecto.titulo)
         this.formProyecto.get('tipo').setValue(solicitud.proyecto.titulo)
-        // if ('REGISTRO DE PROYECTO' in solicitud.data)
-        //   this.listarAlumnos();
       }
-      this.cargando = false;
     });
 
   }
 
 
   listarAlumnos() {
-    this._proyectoService.listaAlumnos().subscribe((alumnos: any) => {
-      this.alumnos = alumnos;
+    this._proyectoService.listaAlumnos().subscribe((alumnos) => {      
+      if (alumnos != null)
+        this.alumnos = alumnos;      
     })
 
   }

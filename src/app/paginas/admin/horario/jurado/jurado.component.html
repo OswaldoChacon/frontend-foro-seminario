@@ -1,25 +1,55 @@
 <div fxLayout="column">
-  <div fxLayout.xs="column" fxLayout="row" fxLayoutGap="12px" fxLayoutAlign="start center"
-    fxLayoutAlign.xs="center start"
-    style="background-color: #0d47a1;  min-height: 100px; max-height: 100px; margin:-24px -24px 20px; padding:24px; top:64px; position: sticky; z-index: 2;">
-    <div fxFlex="30" style="color:white" fxLayoutAlign="start center" fxLayoutGap="12px">
-      <mat-icon>group</mat-icon>
-      <mat-card-title class="font-600">Jurados</mat-card-title>
-    </div>
-    <!-- <div class="content-filtro" fxLayoutAlign="end center">
+    <div
+        class="main-container-header"
+        fxLayout.xs="column"
+        fxLayout="row"
+        fxLayoutGap="12px"
+        fxLayoutAlign="start center"
+        fxLayoutAlign.xs="center start"
+    >
+        <div
+            fxFlex="30"
+            style="color:white"
+            fxLayoutAlign="start center"
+            fxLayoutGap="12px"
+        >
+            <mat-icon>group</mat-icon>
+            <mat-card-title class="font-600">JURADOS</mat-card-title>
+        </div>
+        <!-- <div class="content-filtro" fxLayoutAlign="end center">
       <mat-icon matPrefix>search</mat-icon>
       <input class="input-filter" placeholder="Número de control" #inputFiltro />
     </div> -->
-  </div>
-  <mat-card>
-    <!-- <mat-card-header style="background-color: #EBEBEE;" fxLayoutGap="12px">
-      <h2 style="margin:0 !important">Jurado</h2>
-    </mat-card-header> -->
-    <mat-card-content>
-      <app-table [dataSource]="dataSource" [columnsHeader]="columnsHeader" [componentDialog]="componentDialog"
-        (emitData)="cargarTable($event)"></app-table>
-      <mat-paginator [length]="dataSource.total" [pageSize]="dataSource.por_pagina" showFirstLastButtons>
-      </mat-paginator>
-    </mat-card-content>
-  </mat-card>
+    </div>
+    <div
+        fxLayout.lt-md="column"
+        fxLayout="row"
+        fxLayoutGap.gt-sm="12px"
+    >
+        <div fxFlex="20">
+            <app-filtro
+                (opcionElegida)="filtroElegido=$event "
+                [opciones]="opciones"
+                [defaultValue]="'Todos'"
+            ></app-filtro>
+        </div>
+        <div fxFlex="80">
+            <mat-card>
+                <mat-card-content>
+                    <app-table
+                        [dataSource]="dataSource"
+                        [columnsHeader]="columnsHeader"
+                        [componentDialog]="componentDialog"
+                        (emitData)="cargarTable($event)"
+                    ></app-table>
+                    <mat-paginator
+                        [length]="dataSource.total"
+                        [pageSize]="dataSource.por_pagina"
+                        showFirstLastButtons
+                    >
+                    </mat-paginator>
+                </mat-card-content>
+            </mat-card>
+        </div>
+    </div>
 </div>

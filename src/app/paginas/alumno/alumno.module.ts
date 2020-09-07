@@ -9,16 +9,18 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { SolicitudesComponent } from './solicitudes/solicitudes.component';
 import { RegistrarSolicitudComponent } from './registrar-solicitud/registrar-solicitud.component';
+import { ComponentsModule } from 'src/app/components/components.module';
 
 
 @NgModule({
   declarations: [AlumnoComponent, RegistrarProyectoComponent, SolicitudesComponent, RegistrarSolicitudComponent],
   imports: [
     CommonModule,
+    ReactiveFormsModule,
     AlumnoRoutingModule,
     MaterialModule,
     SharedModule,
-    ReactiveFormsModule
+    ComponentsModule
   ]
 })
 export class AlumnoModule { }

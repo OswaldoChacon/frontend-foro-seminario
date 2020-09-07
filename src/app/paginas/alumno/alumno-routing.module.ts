@@ -3,7 +3,7 @@ import { Routes, RouterModule } from "@angular/router";
 import { SidenavComponent } from "src/app/shared/sidenav/sidenav.component";
 import { RegistrarProyectoComponent } from './registrar-proyecto/registrar-proyecto.component';
 import { HomeComponent } from '../admin/home/home.component';
-import { NotificacionesComponent } from 'src/app/shared/notificaciones/notificaciones.component';
+import { NotificacionesComponent } from 'src/app/components/notificaciones/notificaciones.component';
 import { SolicitudesComponent } from './solicitudes/solicitudes.component';
 import { RegistrarSolicitudComponent } from './registrar-solicitud/registrar-solicitud.component';
 

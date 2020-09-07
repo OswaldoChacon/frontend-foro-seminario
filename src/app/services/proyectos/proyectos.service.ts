@@ -1,16 +1,22 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Usuario } from 'src/app/modelos/usuario.model';
-import { map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProyectosService {
 
-  constructor(private _http: HttpClient) { }
+  constructor(private _http: HttpClient,
+    private _router: Router) { }
   registrarProyecto(body: any) {
-    return this._http.post(`api/registrar_proyecto`, body)
+    return this._http.post(`api/registrar_proyecto`, body).pipe(
+      tap(res=>{
+        this._router.navigate(['home']);
+      })
+    )
   }
 
   getProyectos(slug: string, pagina: number, folio: string, filtro: string) {
@@ -21,6 +27,9 @@ export class ProyectosService {
     });
   }
 
+  enviarSolicitud(folio:string){
+    return this._http.put(`api/enviar_solicitud/${folio}`,{enviando:true});
+  }
   participa(folio: string, participa: string) {
     return this._http.put(`api/proyecto/${folio}`, { 'participa': participa }
     );
@@ -37,7 +46,7 @@ export class ProyectosService {
   }
 
   listaAlumnos() {
-    return this._http.get(`api/lista_alumnos`);
+    return this._http.get<Usuario[]>(`api/lista_alumnos`);
   }
 
   agregarIntegrante(folio: string, num_control: string) {

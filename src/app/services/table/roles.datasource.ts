@@ -11,8 +11,7 @@ export class RolesDataSource extends DataSource<any>{
     private rolesSubject = new BehaviorSubject<Rol[]>([]);
     private loadingSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
     loading$ = this.loadingSubject.asObservable();
-    total = 0;
-    // roles = this.rolesSubject.asObservable();
+    total = 0;    
 
     constructor(private _rolService: RolesService) {
         super();

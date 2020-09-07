@@ -6,15 +6,14 @@ import { ProyectosComponent } from './proyectos/proyectos.component';
 import { ConfigurarForoComponent } from './configurar-foro/configurar-foro.component';
 import { MaterialModule } from "src/app/material.module";
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-// import { ListaForosComponent } from './lista-foros/lista-foros.component';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { ComponentsModule } from 'src/app/components/components.module';
 
 @NgModule({
   declarations: [
     ForosComponent,
     ProyectosComponent,
-    ConfigurarForoComponent,
-    // ListaForosComponent,    
+    ConfigurarForoComponent,    
   ],
   imports: [
     CommonModule,
@@ -23,6 +22,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
     FormsModule,
     SharedModule,
     ReactiveFormsModule,
+    ComponentsModule
   ]
 })
 export class ForosModule { }

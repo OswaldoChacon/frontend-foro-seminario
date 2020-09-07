@@ -12,12 +12,14 @@ import { HorarioJuradoDialogComponent } from 'src/app/dialogs/horario-jurado/hor
 })
 export class JuradoComponent implements OnInit {
 
-  constructor(private _juradoService: HorarioJuradoService) { }
   dataSource:JuradoDataSource;
   columnsHeader = { 'num_control':'No. Control','nombreCompleto':'Nombre completo'};
   componentDialog = HorarioJuradoDialogComponent;
   @ViewChild(MatPaginator,{static: false}) paginator: MatPaginator;
-  columnas = ['num_control','nombre','acciones'];  
+  opciones = ['Todos','Asignados','Pendientes'];  
+  filtroElegido: string = ''
+
+  constructor(private _juradoService: HorarioJuradoService) { }
   ngOnInit(): void {
     // this.juradoService.getJuraro().subscribe();
     this.dataSource = new JuradoDataSource(this._juradoService);

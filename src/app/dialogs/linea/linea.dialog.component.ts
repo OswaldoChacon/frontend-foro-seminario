@@ -23,7 +23,7 @@ export class LineaDialogComponent implements OnInit {
 
   constructor(
     private _formBuilder: FormBuilder,
-    @Optional() @Inject(MAT_DIALOG_DATA) private data: { data: Linea, url: string },
+    @Optional() @Inject(MAT_DIALOG_DATA) public data: { data: Linea, url: string },
     private _dialog: MatDialogRef<LineaDialogComponent>,
     private _lineaService: LineaService) {
     _dialog.disableClose = true;
@@ -32,8 +32,12 @@ export class LineaDialogComponent implements OnInit {
   ngOnInit(): void {
     if (this.data.data) {
       this.editar = true;
-      this.formLinea.get('clave').setValue(this.data.data.clave);
-      this.formLinea.get('nombre').setValue(this.data.data.nombre);
+      this.formLinea.setValue({
+        clave: this.data.data.clave,
+        nombre: this.data.data.nombre
+      });
+      // this.formLinea.get('clave').setValue(this.data.data.clave);
+      // this.formLinea.get('nombre').setValue(this.data.data.nombre);
     }
   }
 

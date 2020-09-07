@@ -4,7 +4,7 @@
         style="background-color: #0d47a1;  min-height: 100px; max-height: 100px; margin:-24px -24px 20px; padding:24px; top:64px; position: sticky; z-index: 2;">
         <div fxFlex="30" style="color:white" fxLayoutAlign="start center" fxLayoutGap="12px">
             <mat-icon>{{title === 'Roles' ? 'supervised_user_circle':'category'}}</mat-icon>
-            <mat-card-title class="font-600">{{title}}</mat-card-title>
+            <mat-card-title class="font-600">{{title | uppercase}}</mat-card-title>
         </div>
     </div>
     <mat-card>       

@@ -36,7 +36,7 @@
                             <mat-menu #menuRoles="matMenu" xPosition="before">
                                 <mat-checkbox class="mat-menu-item" (change)="emitirData(data,$event,rol.nombre_)"
                                     [checked]="rol.is" *ngFor="let rol of data.roles"
-                                    (click)="$event.stopPropagation()">{{rol.nombre_}}</mat-checkbox>
+                                    (click)="$event.stopPropagation()">{{rol.nombre_ | uppercase}}</mat-checkbox>
                             </mat-menu>
                         </ng-container>
                         <ng-container *ngIf="data.no_foro">

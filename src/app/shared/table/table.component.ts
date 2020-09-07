@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, TemplateRef } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { UsuarioDialogComponent } from 'src/app/dialogs/usuario/usuario.dialog.component';
 import { ComponentType } from '@angular/cdk/portal';
@@ -10,14 +10,14 @@ import { ComponentType } from '@angular/cdk/portal';
   styleUrls: ['./table.component.css']
 })
 export class TableComponent implements OnInit {
-
   @Input() dataSource;
   @Input() columnsHeader;
   @Input() componentDialog: ComponentType<any>;
   @Input() url: string;
   @Output() emitData = new EventEmitter();
-  // componentDialog : ComponentType<any> = UsuarioDialogComponent;
+  // @Input() templateRef: TemplateRef<any>
   objectKeys = Object.keys;
+
   constructor(
     private _dialog: MatDialog
   ) { }
@@ -33,6 +33,7 @@ export class TableComponent implements OnInit {
       this.emitData.emit(res);
     });
   }
+
   editarRegistro(registro: any) {
     const dialogRef = this._dialog.open(this.componentDialog, {
       data: this.url != undefined ? { data: registro, url: this.url } : registro
@@ -44,6 +45,5 @@ export class TableComponent implements OnInit {
     this.emitData.emit({ data, opcion, valorOpcion });
 
   }
-
-
+  
 }

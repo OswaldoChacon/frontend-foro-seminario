@@ -1,6 +1,19 @@
+<div fxLayout="column">
+  <div fxLayout.xs="column" fxLayout="row" fxLayoutGap="12px" fxLayoutAlign="start center"
+    fxLayoutAlign.xs="center start"
+    class="main-container-header"
+    >
+    <div fxFlex="30" style="color:white" fxLayoutAlign="start center" fxLayoutGap="12px">
+      <!-- <mat-icon>forum</mat-icon> -->
+      <mat-card-title class="font-600">GENERAR HORARIO</mat-card-title>
+    </div>    
+  </div>
+
+
+
 <mat-card>
   <mat-card-header>
-    <app-card-header [title]="'Generar horario'"></app-card-header>
+    <mat-card-title>PARAMETROS DEL ALGORITMO</mat-card-title>
   </mat-card-header>
   <mat-card-content>
 
@@ -37,3 +50,4 @@
     <button (click)="form.ngSubmit.emit()" mat-raised-button color="primary">Generar horario</button>
   </mat-card-actions>
 </mat-card>
+</div>
