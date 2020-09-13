@@ -27,6 +27,7 @@ import { PortalModule } from '@angular/cdk/portal';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatBadgeModule } from '@angular/material/badge';
+import { MatBottomSheetModule } from '@angular/material/bottom-sheet'
 // Toastr
 
 
@@ -59,7 +60,8 @@ import { MatBadgeModule } from '@angular/material/badge';
     PortalModule,
     MatSlideToggleModule,
     MatGridListModule,
-    MatBadgeModule
+    MatBadgeModule,
+    MatBottomSheetModule
   ],
   exports: [
     MatButtonModule,
@@ -89,7 +91,8 @@ import { MatBadgeModule } from '@angular/material/badge';
     PortalModule,
     MatSlideToggleModule,
     MatGridListModule,
-    MatBadgeModule
+    MatBadgeModule,
+    MatBottomSheetModule
     // ToastrModule.forRoot()
   ]
 })

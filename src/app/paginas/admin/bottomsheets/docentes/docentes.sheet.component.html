@@ -1,0 +1,22 @@
+<!-- <div fxLayout="column" *ngFor="let docente of docentes" fxFlex="50">
+    <mat-checkbox (change)="asignarJurado($event,docente)" [checked]="docente.jurado" color="primary">
+      {{ docente.nombre }}</mat-checkbox>
+  </div> -->
+
+  <!-- <mat-selection-list (selectionChange)="test">
+      <mat-list-option (click)="test($event)" *ngFor="let docente of docentes">{{docente.nombre}}</mat-list-option>
+  </mat-selection-list> -->
+<div fxLayout="column" *ngFor="let docente of docentes">
+
+  <mat-checkbox (change)="asignarJurado($event,docente)" [checked]="docente.jurado" color="primary">
+    {{ docente.nombre }}</mat-checkbox>
+  </div>
+
+
+
+  <!-- <mat-selection-list #shoes>
+    <mat-list-option *ngFor="let shoe of typesOfShoes">
+      {{shoe}}
+    </mat-list-option>
+  </mat-selection-list> -->
+  

@@ -5,8 +5,8 @@ import { ForosDataSource } from "src/app/services/table/foros.datasource";
 import { ForoService } from "src/app/services/foro/foro.service";
 import { PageEvent, MatPaginator } from "@angular/material/paginator";
 import { MatDialog } from "@angular/material/dialog";
-import { ForoDialogComponent } from "src/app/dialogs/foro/foro.dialog.component";
-import { Foros } from "src/app/modelos/foro.model";
+import { ForoDialogComponent } from "../dialogs/foro/foro.dialog.component";
+import { Foro } from "src/app/modelos/foro.model";
 import { finalize, tap, takeWhile, first, catchError, map, debounceTime, distinctUntilChanged } from "rxjs/operators";
 import { of, throwError, fromEvent } from 'rxjs';
 
@@ -47,7 +47,7 @@ export class ForosComponent implements OnInit {
     this.dataSource.getForos(this.paginator.pageIndex + 1, this.input.nativeElement.value);
   }
 
-  cargarTable(event: { data?: Foros, opcion?: string, valorOpcion?: any }) {
+  cargarTable(event: { data?: Foro, opcion?: string, valorOpcion?: any }) {
     if (event.opcion === 'Eliminar')
       this.eliminarForo(event.data)
     if (event.opcion === 'refresh')
@@ -58,7 +58,7 @@ export class ForosComponent implements OnInit {
     }
   }
 
-  eliminarForo(foro: Foros) {
+  eliminarForo(foro: Foro) {
     this.dataSource.resetData()
     this._foroService.eliminarForo(foro.slug).pipe(
       catchError((error) => {

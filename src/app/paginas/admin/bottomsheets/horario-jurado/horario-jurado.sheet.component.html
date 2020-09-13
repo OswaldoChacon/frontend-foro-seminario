@@ -1,0 +1,35 @@
+<div fxLayout="column">
+    <mat-card-title>{{data.nombreCompleto}}</mat-card-title>
+    <div
+        fxFlex="100"
+        fxLayout="column"
+        fxLayout.gt-xs="row wrap"
+    >
+        <div
+            style="padding:0 12px; margin: 0 12px 12px; "
+            fxLayout="column"
+            *ngFor="let fecha of fechas"
+        >
+            <mat-checkbox
+                color="primary"
+                [checked]="fecha.checked"
+                (change)="seleccionarTodos($event,fecha)"
+            >
+                {{ fecha.fecha }}
+            </mat-checkbox>
+            <div
+                *ngFor="let intervalo of fecha.intervalos"
+                fxFlex="50"
+                style="padding-left: 30px;"
+            >
+                <mat-checkbox
+                    color="primary"
+                    [checked]="intervalo.selected"
+                    (change)="agregarHora($event,fecha,intervalo)"
+                >
+                    {{ intervalo.hora }}
+                </mat-checkbox>
+            </div>
+        </div>
+    </div>
+</div>

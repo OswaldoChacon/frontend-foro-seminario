@@ -8,7 +8,7 @@ import {
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ForoService } from 'src/app/services/foro/foro.service';
 import { finalize } from 'rxjs/operators';
-import { Fechas } from 'src/app/modelos/fechas.model';
+import { Fecha } from 'src/app/modelos/fecha.model';
 
 @Component({
   selector: 'app-fecha',
@@ -31,7 +31,7 @@ export class FechaDialogComponent implements OnInit {
     private _formBuilder: FormBuilder,
     private _dialog: MatDialogRef<FechaDialogComponent>,
     private _foroService: ForoService,
-    @Optional() @Inject(MAT_DIALOG_DATA) private data: { data: Fechas, url: string }
+    @Optional() @Inject(MAT_DIALOG_DATA) private data: { data: Fecha, url: string }
   ) {
     _dialog.disableClose = true;
   }

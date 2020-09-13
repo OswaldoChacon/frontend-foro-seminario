@@ -31,13 +31,11 @@ export class UsuariosComponent implements OnInit {
     email: "Email",
     acciones: "",
   };
-  // roles: Rol[] = [];
   roles: string[] = ['Todos']
   componentDialog = UsuarioDialogComponent;
   dataSource: UsuariosDataSource = null;
   rolSeleccionado: string = 'Todos';
-  // opciones:[]=['Todos']
-  // rolSeleccionado: string = '';
+
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild("inputFiltro", { static: true }) input: ElementRef;
@@ -49,12 +47,12 @@ export class UsuariosComponent implements OnInit {
 
   ngOnInit(): void {
     this.dataSource = new UsuariosDataSource(this._usuarioService);
-    this._rolService.getRoles("roles").pipe(map(roles => {        
-        return roles.map(rolesName => rolesName.nombre_)
-      })
-    ).subscribe((roles) => {      
-      this.roles.push(...roles);      
-    });    
+    this._rolService.getRoles("roles").pipe(map(roles => {
+      return roles.map(rolesName => rolesName.nombre_)
+    })
+    ).subscribe((roles) => {
+      this.roles.push(...roles);
+    });
   }
 
   seleccionarRol(rolSeleccionado: string) {
@@ -68,7 +66,8 @@ export class UsuariosComponent implements OnInit {
       this.eliminarUsuario(event.data.num_control);
     if (event.opcion instanceof MatCheckboxChange)
       this.agregarRol(event.opcion, event.data, event.valorOpcion);
-    if (event.opcion === "refresh") this.getUsuarios();
+    if (event.opcion === "refresh") 
+      this.getUsuarios();
   }
 
   ngAfterViewInit() {
@@ -84,18 +83,8 @@ export class UsuariosComponent implements OnInit {
       this.getUsuarios();
     })
     ).subscribe();
-
     this.getUsuarios();
-  }
-
-  eliminarUsuario(num_control: string) {
-    this.dataSource.resetData();
-    this._usuarioService.eliminarUsuario(num_control).pipe(catchError((error) => {
-      this.dataSource.handleError();
-      return throwError(error);
-    })
-    ).subscribe(() => this.getUsuarios());
-  }
+  }   
 
   getUsuarios() {
     this.dataSource.getUsuarios(
@@ -104,21 +93,23 @@ export class UsuariosComponent implements OnInit {
       this.input.nativeElement.value
     );
   }
-
-  agregarRol(event: MatCheckboxChange, user: Usuario, rol: string) {
-    const rolSelected = user.roles.find((roles) => roles.nombre_ === rol);
-    rolSelected.is = !rolSelected.is;
-    if (event.checked)
-      this._usuarioService.agregarRol(user.num_control, rol).pipe(catchError((error) => {
-            rolSelected.is = !rolSelected.is;
-            return throwError(error);
-          })
-        ).subscribe();
-    else
-      this._usuarioService.eliminarRol(user.num_control, rol).pipe(catchError((error) => {
-            rolSelected.is = !rolSelected.is;
-            return throwError(error);
-          })
-        ).subscribe();
+  
+  eliminarUsuario(num_control: string) {
+    this.dataSource.eliminarUsuario(num_control).subscribe(()=>this.getUsuarios());
+    // this.dataSource.resetData();
+    // this._usuarioService.eliminarUsuario(num_control).pipe(catchError((error) => {
+    //   this.dataSource.handleError();
+    //   return throwError(error);
+    // })
+    // ).subscribe(() => this.getUsuarios());
   }
+
+  agregarRol(event: MatCheckboxChange, usuario: Usuario, rol: string) {
+    const rolSelected = usuario.roles.find((roles) => roles.nombre_ === rol);    
+    if (event.checked)
+      this._usuarioService.agregarRol(usuario, rol, rolSelected).subscribe();
+    else
+      this._usuarioService.eliminarRol(usuario, rol, rolSelected).subscribe();
+  }
+  
 }

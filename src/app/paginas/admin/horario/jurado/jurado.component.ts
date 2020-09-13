@@ -3,7 +3,7 @@ import { HorarioJuradoService } from 'src/app/services/horario/horario-jurado.se
 import { JuradoDataSource } from 'src/app/services/table/jurado.datasource';
 import { MatPaginator } from '@angular/material/paginator';
 import { tap } from 'rxjs/operators';
-import { HorarioJuradoDialogComponent } from 'src/app/dialogs/horario-jurado/horario-jurado.dialog.component';
+import { HorarioJuradoSheetComponent } from '../../bottomsheets/horario-jurado/horario-jurado.sheet.component';
 
 @Component({
   selector: 'app-jurado',
@@ -12,18 +12,20 @@ import { HorarioJuradoDialogComponent } from 'src/app/dialogs/horario-jurado/hor
 })
 export class JuradoComponent implements OnInit {
 
-  dataSource:JuradoDataSource;
-  columnsHeader = { 'num_control':'No. Control','nombreCompleto':'Nombre completo'};
-  componentDialog = HorarioJuradoDialogComponent;
-  @ViewChild(MatPaginator,{static: false}) paginator: MatPaginator;
-  opciones = ['Todos','Asignados','Pendientes'];  
+  dataSource: JuradoDataSource;
+  columnsHeader = { 'num_control': 'No. Control', 'nombreCompleto': 'Nombre completo' };
+  // componentDialog = HorarioJuradoDialogComponent;
+  componentDialog = HorarioJuradoSheetComponent;
+  @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
+  opciones = ['Todos', 'Asignados', 'Pendientes'];
   filtroElegido: string = ''
 
   constructor(private _juradoService: HorarioJuradoService) { }
   ngOnInit(): void {
     // this.juradoService.getJuraro().subscribe();
     this.dataSource = new JuradoDataSource(this._juradoService);
-    this.dataSource.getJurado("1");
+    // this.dataSource.getJurado("1");
+    this.getJurado();
   }
   ngAfterViewInit(): void {
     //Called after ngAfterContentInit when the component's view has been initialized. Applies to components only.
@@ -31,12 +33,17 @@ export class JuradoComponent implements OnInit {
     this.paginator.page.pipe(
       tap(() => {
         this.dataSource.resetData();
-        this.dataSource.getJurado((this.paginator.pageIndex + 1).toString());
+        this.dataSource.getJurado((this.paginator.pageIndex + 1).toString(),this.filtroElegido);
       })
     ).subscribe();
   }
+
+  getJurado() {
+    this.dataSource.getJurado("1",this.filtroElegido);
+  }
+
   cargarTable(event: { data?: any, opcion?: any, valorOpcion?: string }) {
 
   }
- 
+
 }

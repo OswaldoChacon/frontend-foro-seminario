@@ -7,7 +7,7 @@ import { ForoService } from "src/app/services/foro/foro.service";
 import { finalize } from "rxjs/operators";
 import { ProyectosService } from "src/app/services/proyectos/proyectos.service";
 import { Router } from '@angular/router';
-import { Foros } from 'src/app/modelos/foro.model';
+import { Foro } from 'src/app/modelos/foro.model';
 import { Usuario } from 'src/app/modelos/usuario.model';
 import { Linea } from 'src/app/modelos/linea.model';
 
@@ -19,7 +19,7 @@ import { Linea } from 'src/app/modelos/linea.model';
 })
 export class RegistrarProyectoComponent implements OnInit, AfterViewChecked{
   cargando: boolean = true;  
-  foro: Foros;    
+  foro: Foro;
   form:FormGroupDirective;
 
   

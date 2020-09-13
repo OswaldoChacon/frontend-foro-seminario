@@ -57,6 +57,7 @@
     </div>
     <div
         fxFlex="70"
+        fxFlex.lt-md="100"
         *ngIf="objectKeys(_notificacionesService.notificaciones).length > 0; else sinNotificaciones"
     >
         <div *ngFor="let notificacionKey of _notificacionesService.notificaciones | keyvalue">
@@ -125,7 +126,7 @@
                         <button
                             mat-button
                             *ngIf="!notificacion.respuesta || notificacion.respuesta == null"
-                            (click)="responder(notificacion,notificacionKey.key)"
+                            (click)="responder(notificacion,notificacionKey.key,true)"
                         >
                             <mat-icon style="color: green;">check</mat-icon>
                             Aceptar
@@ -133,7 +134,7 @@
                         <button
                             mat-button
                             *ngIf="notificacion.respuesta || notificacion.respuesta == null"
-                            (click)="responder(notificacion,notificacionKey.key)"
+                            (click)="responder(notificacion,notificacionKey.key,false)"
                         >
                             <mat-icon color="warn">close</mat-icon>
                             Rechazar

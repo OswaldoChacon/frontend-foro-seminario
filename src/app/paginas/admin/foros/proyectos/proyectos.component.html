@@ -12,6 +12,8 @@
             style="color:white"
             fxLayoutAlign="start center"
             fxLayoutGap="12px"
+            fxShow
+            fxHide.xs
         >
             <mat-icon>collections_bookmark</mat-icon>
             <mat-card-title class="font-600">Proyectos</mat-card-title>
@@ -35,18 +37,12 @@
         fxLayout="row"
         fxLayoutGap.gt-sm="12px"
     >
-        <div fxFlex="20">
-            <!-- <mat-form-field appearance="outline" fxLayoutAlign.lt-md="end end">
-        <mat-label>Filtrar por:</mat-label>
-        <mat-select [value]="filtro" (selectionChange)="seleccionarFiltro($event.value)">          
-          <mat-option value="Aceptados">Aceptados</mat-option>
-          <mat-option value="No aceptados">No aceptados</mat-option>          
-        </mat-select>
-      </mat-form-field> -->
-            <app-filtro
+        <div fxFlex="20">            
+            <app-filtro                
                 [opciones]="opciones"
                 [defaultValue]="'Aceptados'"
                 (opcionElegida)="filtroElegido=$event; getProyectos()"
+
             ></app-filtro>
         </div>
         <div fxFlex="80">
@@ -56,6 +52,7 @@
                         [dataSource]="dataSource"
                         [columnsHeader]="columnsHeader"
                         [componentDialog]="componentDialog"
+                        [tipoDialog]="'BottomSheet'"
                         (emitData)="cargarTable($event)"
                     ></app-table>
                     <mat-paginator

@@ -11,7 +11,7 @@ import { HomeComponent } from './paginas/admin/home/home.component';
 import { RouterModule } from '@angular/router';
 import { LoginComponent } from './auth/login/login.component';
 import { AuthGuard } from './services/auth/guards/auth.guard';
-import { DashboardComponent } from './paginas/admin/dashboard/dashboard.component';
+// import { DashboardComponent } from './paginas/admin/dashboard/dashboard.component';
 import { TokenInterceptorService } from './services/interceptors/token-interceptor.service';
 import { NgxPermissionsModule } from 'ngx-permissions';
 import { NotFoundComponent } from './components/not-found/not-found.component';

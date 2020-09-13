@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { HttpClient, HttpParams } from "@angular/common/http";
 import { BehaviorSubject } from "rxjs";
 import { Router } from "@angular/router";
-import { Proyectos } from "src/app/modelos/proyectos.model";
+import { Proyecto } from "src/app/modelos/proyecto.model";
 import { map, tap, finalize } from 'rxjs/operators';
 
 @Injectable({
@@ -15,7 +15,7 @@ export class NotificacionesService {
   constructor(private _http: HttpClient, private _router: Router) { }
 
   miSolicitud() {
-    return this._http.get<{ data: any; proyecto: Proyectos; mensaje: string }>(`api/miSolicitud`);
+    return this._http.get<{ data: any; proyecto: Proyecto; mensaje: string }>(`api/miSolicitud`);
   }
 
   misNotificaciones(no_foro: string = 'Foro en curso', respuesta: string = 'Pendientes', enviados: string = 'Recibidos') {

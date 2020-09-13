@@ -1,12 +1,12 @@
 import { Component, OnInit, ViewChild, Output, EventEmitter, Input } from '@angular/core';
 import { Validators, FormControl, FormBuilder, NgForm } from '@angular/forms';
 import { ProyectosService } from 'src/app/services/proyectos/proyectos.service';
-import { Foros } from 'src/app/modelos/foro.model';
+import { Foro } from 'src/app/modelos/foro.model';
 import { Usuario } from 'src/app/modelos/usuario.model';
 import { Linea } from 'src/app/modelos/linea.model';
 import { finalize } from 'rxjs/operators';
 import { ForoService } from 'src/app/services/foro/foro.service';
-import { Proyectos } from 'src/app/modelos/proyectos.model';
+import { Proyecto } from 'src/app/modelos/proyecto.model';
 import { LineaService } from 'src/app/services/linea/linea.service';
 import { UsuarioService } from 'src/app/services/usuario/usuario.service';
 
@@ -19,7 +19,7 @@ export class FormularioProyectoComponent implements OnInit {
 
   @ViewChild('form') form: NgForm;
   @Output() formulario = new EventEmitter<any>();
-  @Input() proyecto: Proyectos;
+  @Input() proyecto: Proyecto;
 
   formRegistrar = this._formBuilder.group({
     titulo: ['', [Validators.required, Validators.maxLength(255)]],
@@ -35,7 +35,7 @@ export class FormularioProyectoComponent implements OnInit {
   lineas: Linea[];
   tipos: Linea[];
   docentes: Usuario[];
-  foro: Foros;
+  foro: Foro;
 
   constructor(
     private _formBuilder: FormBuilder,
@@ -46,7 +46,7 @@ export class FormularioProyectoComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    // console.log(this.proyecto);
+    console.log(this.proyecto);
     if (this.proyecto) {
       this.editar = true;
       this.cargarData();
@@ -70,8 +70,8 @@ export class FormularioProyectoComponent implements OnInit {
   }
 
   actualizarProyecto() {
-    console.log("l");
-    // this._proyectoService.registrarProyecto(this.formRegistrar.value).subscribe();
+    // console.log("l");
+    this._proyectoService.actualizarProyecto(this.formRegistrar.value,this.proyecto.folio).subscribe();
   }
 
   cargarData() {

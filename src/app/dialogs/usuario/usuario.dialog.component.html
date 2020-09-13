@@ -33,6 +33,7 @@
                 El número de control ya ha sido registrado
             </mat-error>
         </mat-form-field>
+        <ng-container *ngIf="editar">
         <mat-form-field appearance="fill">
             <mat-label>Nombre del usuario</mat-label>
             <input
@@ -67,6 +68,7 @@
                 <mat-error *ngIf="formUsuario.get('apellidoM').hasError('required')">El campo email es requerido</mat-error>
             </mat-form-field>
         </div>
+    </ng-container>
         <mat-form-field appearance="fill">
             <mat-label>Email</mat-label>
             <input

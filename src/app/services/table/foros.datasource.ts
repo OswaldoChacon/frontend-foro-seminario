@@ -1,17 +1,17 @@
 import { DataSource } from "@angular/cdk/table";
 import { CollectionViewer } from "@angular/cdk/collections";
 import { BehaviorSubject, of } from "rxjs";
-import { Foros } from "src/app/modelos/foro.model";
+import { Foro } from "src/app/modelos/foro.model";
 import { ForoService } from "../foro/foro.service";
 import { finalize, catchError } from "rxjs/operators";
 
-export class ForosDataSource extends DataSource<Foros> {
-  private forosSubject = new BehaviorSubject<Foros[]>([]);
+export class ForosDataSource extends DataSource<Foro> {
+  private forosSubject = new BehaviorSubject<Foro[]>([]);
   private forosLoading = new BehaviorSubject<boolean>(true);
   loading$ = this.forosLoading.asObservable();
   total: number = 0;
   por_pagina: number = 0;
-  private foros: Foros[] = [];
+  private foros: Foro[] = [];
   constructor(private _foroService: ForoService) {
     super();
   }
@@ -24,7 +24,7 @@ export class ForosDataSource extends DataSource<Foros> {
         // }),
         finalize(() => this.forosLoading.next(false))
       )
-      .subscribe((foros: Foros[]) => {
+      .subscribe((foros: Foro[]) => {
         this.total = foros["total"];
         this.por_pagina = foros["per_page"];
         this.forosSubject.next(foros["data"]);

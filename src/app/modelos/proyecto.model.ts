@@ -1,7 +1,7 @@
 import { Usuario } from './usuario.model';
 import { Linea } from './linea.model';
 
-export class Proyectos {
+export class Proyecto {
   folio: string;
   titulo: string;
   empresa?: string;
@@ -24,4 +24,6 @@ export class Proyectos {
   jurado? : any;
   enviado?:boolean;
   enviar?:boolean;
+  permitir_cambios?:boolean;
+  cancelar?:boolean;
 }

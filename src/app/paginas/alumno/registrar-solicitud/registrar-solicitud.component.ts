@@ -3,7 +3,7 @@ import { FormBuilder, Validators, FormControl } from '@angular/forms';
 import { Rol } from 'src/app/modelos/rol.model';
 import { RolesService } from 'src/app/services/rol/rol.service';
 import { SolicitudesService } from 'src/app/services/solicitudes.service';
-import { Proyectos } from 'src/app/modelos/proyectos.model';
+import { Proyecto } from 'src/app/modelos/proyecto.model';
 import { Usuario } from 'src/app/modelos/usuario.model';
 import { finalize } from 'rxjs/operators';
 
@@ -21,7 +21,7 @@ export class RegistrarSolicitudComponent implements OnInit {
     tipo_solicitud: [this.solicitudes,[Validators.required]]
   });
   
-  proyectoEnCurso:Proyectos;
+  proyectoEnCurso:Proyecto;
   docentes:Usuario[];
   constructor(
     private _formBuilder: FormBuilder,

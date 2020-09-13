@@ -1,64 +1,50 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AdminRoutingModule } from './admin-routing.module';
+import { FormsModule,ReactiveFormsModule } from '@angular/forms';
+import { MaterialModule } from '../../material.module';
+
 import { AdminComponent } from './admin.component';
 import { UsuariosComponent } from './usuarios/usuarios.component';
 import { LineasComponent } from './lineas/lineas.component';
-import { MaterialModule } from '../../material.module';
-import { FormsModule,ReactiveFormsModule } from '@angular/forms';
-// import { AsignarJuradoComponent } from './foros/asignar-jurado/asignar-jurado.component';
-import { OverviewDialogComponent } from '../../dialogs/overview/overview.dialog.component';
-// import { HorarioComponent } from '../admin/horario/horario.component';
 import { JuradoComponent } from './horario/jurado/jurado.component';
-import { LineaDialogComponent } from '../../dialogs/linea/linea.dialog.component';
 import { UsuarioDialogComponent } from '../../dialogs/usuario/usuario.dialog.component';
-import { ForoDialogComponent } from '../../dialogs/foro/foro.dialog.component';
-import { DocentesDiaogComponent } from '../../dialogs/docentes/docentes.dialog.component';
 import { HorarioJuradoDialogComponent } from '../../dialogs/horario-jurado/horario-jurado.dialog.component';
-import { RolesDialogComponent } from '../../dialogs/roles/roles.dialog.component';
-// import { UsersService } from '../services/usuarios/users.service';
+
 import { SharedModule } from '../../shared/shared.module';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { NgxPermissionsModule } from 'ngx-permissions';
-import { RouterModule } from '@angular/router';
-import { FechaDialogComponent } from 'src/app/dialogs/fecha/fecha.dialog.component';
+
+
+
 import { GenerarHorarioComponent } from './horario/generar-horario/generar-horario.component';
 import { RolesSolicitudComponent } from './roles-solicitud/roles-solicitud.component';
 import { ComponentsModule } from 'src/app/components/components.module';
+import { DialogsModule } from './dialogs/dialogs.module';
+
+
 
 
 @NgModule({
   declarations: [
-    AdminComponent,
-    DashboardComponent,
+    AdminComponent,    
     UsuariosComponent,
-    LineasComponent,    
-    // AsignarJuradoComponent,
-    OverviewDialogComponent,
-    // HorarioComponent,
+    LineasComponent,        
     JuradoComponent,    
-    UsuarioDialogComponent,
-    LineaDialogComponent,
-    ForoDialogComponent,
-    DocentesDiaogComponent,
-    HorarioJuradoDialogComponent,
-    FechaDialogComponent, 
-    RolesDialogComponent,
+    UsuarioDialogComponent,    
+    HorarioJuradoDialogComponent,    
     GenerarHorarioComponent, 
     RolesSolicitudComponent
   ],
   imports: [
-    CommonModule,
-    // RouterModule,
-    AdminRoutingModule,
-    MaterialModule,
-    FormsModule,
-    SharedModule,
+    CommonModule,    
     ReactiveFormsModule,
-    ComponentsModule
+    AdminRoutingModule,
+    FormsModule,
+    MaterialModule,
+    SharedModule,
+    ComponentsModule,
+    DialogsModule
   ],
-  providers:[
-    // UsersService
+  providers:[    
   ]
 })
 export class AdminModule { }

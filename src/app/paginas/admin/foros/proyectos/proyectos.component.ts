@@ -6,9 +6,10 @@ import { tap, debounceTime, distinctUntilChanged } from "rxjs/operators";
 import { MatCheckboxChange } from "@angular/material/checkbox";
 import { ProyectosService } from "src/app/services/proyectos/proyectos.service";
 import { MatDialog } from "@angular/material/dialog";
-import { DocentesDiaogComponent } from "src/app/dialogs/docentes/docentes.dialog.component";
-import { Proyectos } from "src/app/modelos/proyectos.model";
+import { Proyecto } from "src/app/modelos/proyecto.model";
 import { fromEvent } from 'rxjs';
+import { DocentesSheetComponent } from '../../bottomsheets/docentes/docentes.sheet.component';
+
 
 @Component({
   selector: "app-proyectos",
@@ -26,7 +27,8 @@ export class ProyectosComponent implements OnInit {
 
   displayedColumns = ["folio", "titulo", "participa"];
   columnsHeader = { 'participa': 'Part.', 'folio': 'Folio', 'titulo': 'Titulo' };
-  componentDialog = DocentesDiaogComponent;
+  // componentDialog = DocentesDiaogComponent;
+  componentDialog = DocentesSheetComponent;
   dataSource: ProyectosDataSource;
   filtroElegido: string = 'Aceptados'
   opciones: string[]=['Aceptados','No aceptados'];
@@ -44,7 +46,7 @@ export class ProyectosComponent implements OnInit {
     this.getProyectos();
   }
 
-  cargarTable(event: { data?: Proyectos, opcion?: any, valorOpcion?: string }) {
+  cargarTable(event: { data?: Proyecto, opcion?: any, valorOpcion?: string }) {
     if (event.opcion instanceof MatCheckboxChange)
       this.participa(event.opcion, event.data.folio)
   }

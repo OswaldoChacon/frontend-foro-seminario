@@ -8,7 +8,7 @@ import { NotificacionesComponent } from 'src/app/components/notificaciones/notif
 
 const routes: Routes = [
   {
-    path: "", component: SidenavComponent, children: [
+    path: "", component: ProfesorComponent, children: [
       // {path:'registrar-alumno',component:},
       // {path:''}
       { path: 'home', component: HomeComponent },

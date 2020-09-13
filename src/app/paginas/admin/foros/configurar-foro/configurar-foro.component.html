@@ -3,7 +3,12 @@
     mode="indeterminate"
     *ngIf="cargando; else configuracionForo"
     class="table-loading"
-></mat-progress-bar>
+>
+</mat-progress-bar>
+
+
+
+
 
 
 
@@ -15,7 +20,7 @@
             fxLayoutGap="12px"
             fxLayoutAlign="start center"
             fxLayoutAlign.lt-md="center start"
-            class="main-container-header"
+            class="main-container-header header"
         >
             <div
                 style="color:white"
@@ -28,6 +33,10 @@
             </div>
         </div>
         <!-- <div fxLayout.lt-md="column" fxLayout="row" fxLayoutGap="12px"> -->
+
+
+
+
 
 
 
@@ -62,9 +71,7 @@
                                     formControlName="duracion"
                                     placeholder="Duración de exposición"
                                 >
-                                <mat-error *ngIf="formConfigForo.get('duracion').hasError('required')">
-                                    El tiempo de exposición es requerido
-                                </mat-error>
+                                <mat-error *ngIf="formConfigForo.get('duracion').hasError('required')">El tiempo de exposición es requerido</mat-error>
                                 <mat-error *ngIf="formConfigForo.get('duracion').hasError('min')">
                                     El tiempo de exposición debe ser igual o mayor a 15
                                 </mat-error>
@@ -108,7 +115,7 @@
                 </mat-card>
             </mat-tab>
             <mat-tab label="Fechas">
-                <mat-card>                    
+                <mat-card>
                     <mat-card-content>
                         <app-table
                             [dataSource]="dataSource"
@@ -119,55 +126,92 @@
                         ></app-table>
                     </mat-card-content>
                 </mat-card>
-                <ng-template [ngIf]="mostrarEspaciosTiempo">
-                    <mat-card class="intervalos mat-elevation-z0">
-                        <mat-card-header>
-                            <mat-card-title>Elige los intervalos</mat-card-title>
-                        </mat-card-header>
-                        <mat-card-content>
-                            <div
-                                fxLayout="row wrap"
-                                fxLayout.xs="column"
-                                fxLayoutGap="40px"
-                            >
-                                <!-- fxLayoutAlign="center start" -->
-                                <div *ngIf="!(fecha.length > 0)">
-                                    <span>Sin espacios de tiempo</span>
-                                </div>
-                                <div *ngFor="let intervalo of fecha.intervalos; let i = index">
-                                    <mat-checkbox
-                                        (change)="guardarBreak($event, intervalo)"
-                                        color="primary"
-                                        value="{{ intervalo.posicion }}"
-                                        [checked]="intervalo.break"
-                                    >
-                                        {{ intervalo.hora }}
-                                    </mat-checkbox>
-                                </div>
-                            </div>
-                        </mat-card-content>
-                        <mat-card-actions align="end">
-                            <button
-                                mat-raised-button
-                                color="primary"
-                                (click)="cerrarET()"
-                            >
-                                Listo
-                            </button>
-                        </mat-card-actions>
-                    </mat-card>
-                </ng-template>
             </mat-tab>
             <mat-tab label="Docentes">
+                <!-- <div fxLayout="row wrap"  fxLayoutGap="12px">
+                <div *ngFor="let docente of docentes" fxFlex="45"> -->
                 <mat-card>
-                    <mat-card-header>
-                        <mat-card-title>title</mat-card-title>
-                        <mat-card-subtitle>subtitle</mat-card-subtitle>
-                    </mat-card-header>
-                    <mat-card-content>sss</mat-card-content>
+                    <mat-card-content>
+                        <mat-list fxLayout="row wrap">
+                            <mat-list-item
+                                *ngFor="let docente of docentes"
+                                style="font-size: 12px !important;"
+                                fxFlex.xs="100"
+                                fxFlex="50"
+                            >
+                                <!-- <div fxLayout="row">
+                                    <div fxFlex="75"> -->
+                                <img
+                                    matListAvatar
+                                    src="../../../../assets/img/perfil2.png"
+                                >
+                                <span
+                                    matLine
+                                    style="font-weight: 600;"
+                                >
+                                    {{docente.nombreCompleto}}
+                                </span>
+                                <span matLine>{{docente.num_control}}</span>
+                                <ng-container>                                    
+                                    <!-- <button mat-icon-button>
+                                        <mat-icon class="icon-transparent">start</mat-icon>
+                                    </button> -->
+                                    <mat-checkbox color="primary" [checked]="docente.taller" (change)="elegirMaestro($event,docente)"></mat-checkbox>
+                                </ng-container>
+                                <!-- </div>
+                                    <div fxFlex="25"> -->
+                                <!-- <div fxFlex="20">
+                                    <mat-form-field>
+                                        <mat-select>
+                                            <mat-option
+                                                *ngFor="let item of ['A','B','C']"
+                                                [value]="item"
+                                            >
+                                                {{item}}
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div> -->
+                                <!-- </div> -->
+                                <!-- </div> -->
+
+
+
+
+
+
+                            </mat-list-item>
+                        </mat-list>
+                    </mat-card-content>
                 </mat-card>
+
+
+
+
+                <!-- <mat-card>
+                            <mat-card-content>                              
+                              <mat-icon mat-card-avatar>home</mat-icon>
+                              <mat-card-title>
+
+                                {{docente.nombreCompleto}}
+                              </mat-card-title>
+                            </mat-card-content>
+                        </mat-card> -->
+                <!-- </div>
+                </div> -->
+
+
+
+
+
+
+
             </mat-tab>
         </mat-tab-group>
+
+
+
+
 
 
 
@@ -255,6 +299,10 @@
         </ng-template>
       </div> -->
         <!-- </div> -->
+
+
+
+
 
 
 

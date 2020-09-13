@@ -9,16 +9,15 @@
 .intervalos {
   margin-top: 45px;
 }
-.row-selected {
-  background-color: gold;
-  /* #FF9800   */
-}
-.blue {
+/* .row-selected {
+  background-color: gold;  
+} */
+/* .blue {
   color: blue;
 }
 .edit {
   color: rgb(235, 238, 37);
-}
+} */
 
 input[type="number"]::-webkit-outer-spin-button,
 input[type="number"]::-webkit-inner-spin-button {
@@ -45,4 +44,15 @@ input[type="number"]::-webkit-outer-spin-button {
   .mat-icon-button {
     width: 30px;
   }
+}
+
+
+.header{
+  margin-bottom: 0px !important;
+}
+
+
+.icon-transparent{
+  color: tomato;
+  /* border:black; */
 }

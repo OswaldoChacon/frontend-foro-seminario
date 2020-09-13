@@ -35,7 +35,7 @@ export class HttpErrorInterceptor implements HttpInterceptor {
         if(event instanceof HttpResponse){
           if(event.status !==204 ){
             if(event.body.message)
-              this._toastr.showToastOk(event.body.message,"");            
+              this._toastr.showToastOk(event.body.message,'');
           }
         }
       }),
@@ -43,15 +43,11 @@ export class HttpErrorInterceptor implements HttpInterceptor {
         if (error instanceof HttpErrorResponse) {  
           if(error.status === 401)
             this.handleAuthError();
-          if(error.status > 500)
-            this._toastr.showToastError(error.error,"");
-          if(error.error.message)
-            this._toastr.showToastError(error.error.message,"");         
-        } else {
-          // backend error
-          // mensaje = `Server-side error: ${error.status} ${error.message}`;
-        }           
-        // this.router.navigate(['home']);
+          else if(error.status >= 500)
+            this._toastr.showToastError('Ha ocurrido problemas con el servidor','Intente de nuevo');
+          else if(error.error.message)
+            this._toastr.showToastError(error.error.message,'');
+        }         
         return throwError(error);
       })
     );

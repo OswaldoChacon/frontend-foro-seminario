@@ -1,6 +1,6 @@
 import { Time } from "@angular/common";
 
-export class Fechas {
+export class Fecha {
   fecha: Date;
   //   foros_id: number;
   hora?:string;

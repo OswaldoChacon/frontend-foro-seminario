@@ -1,0 +1,24 @@
+<mat-card-title>Elige los intervalos</mat-card-title>
+
+<div
+    fxLayout="column"
+    fxLayoutGap="12px"
+    style="padding-left: 16px;"
+>
+    <div *ngIf="!(data.length > 0); else intervalos">
+        <span>Sin espacios de tiempo</span>
+    </div>
+    <ng-template #intervalos>
+
+        <div *ngFor="let intervalo of data.intervalos; let i = index">
+            <mat-checkbox
+                (change)="guardarBreak($event, intervalo)"
+                color="primary"
+                value="{{ intervalo.posicion }}"
+                [checked]="intervalo.break"
+            >
+                {{ intervalo.hora }}
+            </mat-checkbox>
+        </div>
+    </ng-template>
+</div>

@@ -1,3 +1,26 @@
-<mat-toolbar color="primary">
-    <ng-content></ng-content>    
+<!-- <mat-toolbar style="z-index: 9999; position: sticky; top:0;background-color: #0D47A1; color:white; min-height: 64px !important;"> -->
+<mat-toolbar
+    style="z-index: 9999; position: sticky; top:0;background-color: white; color:black; min-height: 64px !important;">   
+    <ng-content></ng-content>
+    <span class="btn-user"></span>
+    <button mat-icon-button [matMenuTriggerFor]="menu">
+        <mat-icon>account_circle</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">      
+        <div *ngIf="_authService.getRoles().length > 1">            
+            <a mat-menu-item *ngFor="let rol of _authService.getRoles()" [routerLink]="['/' + rol]" routerLinkActive="active">
+                {{ rol}}
+            </a>
+            <mat-divider></mat-divider>
+        </div>
+        
+        <a mat-menu-item [routerLink]="['/' + 'Docente']" routerLinkActive="active">
+            <mat-icon>perm_identity</mat-icon>
+            Mi perfil
+        </a>        
+        <button mat-menu-item (click)="_authService.logout()">
+            <mat-icon>exit_to_app</mat-icon>
+            <span>Cerrar sesión</span>
+        </button>
+    </mat-menu>
 </mat-toolbar>

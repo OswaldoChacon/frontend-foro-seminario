@@ -1,17 +1,17 @@
 import { DataSource } from "@angular/cdk/table";
-import { Proyectos } from "src/app/modelos/proyectos.model";
+import { Proyecto } from "src/app/modelos/proyecto.model";
 import { BehaviorSubject } from "rxjs";
 import { CollectionViewer } from "@angular/cdk/collections";
 import { finalize, catchError } from 'rxjs/operators';
 import { ProyectosService } from '../proyectos/proyectos.service';
 
-export class ProyectosDataSource extends DataSource<Proyectos> {
-  private proyectosSubject: BehaviorSubject<Proyectos[]> = new BehaviorSubject<Proyectos[]>([]);
+export class ProyectosDataSource extends DataSource<Proyecto> {
+  private proyectosSubject: BehaviorSubject<Proyecto[]> = new BehaviorSubject<Proyecto[]>([]);
   private loadingSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
   loading$ = this.loadingSubject.asObservable();
   total: number;
   por_pagina: number;
-  private proyectos: Proyectos[];
+  private proyectos: Proyecto[];
   private docentes: any;
   constructor(private proyectoService: ProyectosService, private slug: string) {
     super();

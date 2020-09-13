@@ -1,6 +1,6 @@
 // import { Fechas } from '../paginas/admin/foros/foros.component';
 
-export class Foros{    
+export class Foro{    
   slug: string;
   no_foro: number;
   nombre: string;
@@ -14,5 +14,6 @@ export class Foros{
   prefijo?: string;
   user_id?: number;
   fechas?: [];
+  docentes?:[]
 
 }

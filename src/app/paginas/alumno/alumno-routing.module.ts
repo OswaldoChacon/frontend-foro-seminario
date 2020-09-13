@@ -6,12 +6,13 @@ import { HomeComponent } from '../admin/home/home.component';
 import { NotificacionesComponent } from 'src/app/components/notificaciones/notificaciones.component';
 import { SolicitudesComponent } from './solicitudes/solicitudes.component';
 import { RegistrarSolicitudComponent } from './registrar-solicitud/registrar-solicitud.component';
+import { AlumnoComponent } from './alumno.component';
 
 const routes: Routes = [
   {
     path: '', component: SidenavComponent, 
     children: [
-      { path: 'home', component: HomeComponent },
+      { path: 'home', component: AlumnoComponent },
       { path: 'registrar-proyecto', component: RegistrarProyectoComponent },
       { path: 'notificaciones', component: NotificacionesComponent},
       { path: 'mis-solicitudes', component: SolicitudesComponent},

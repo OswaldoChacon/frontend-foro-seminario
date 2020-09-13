@@ -5,7 +5,7 @@ import { ProyectosService } from "src/app/services/proyectos/proyectos.service";
 import { MatCheckboxChange } from "@angular/material/checkbox";
 import { catchError, finalize, map, tap } from "rxjs/operators";
 import { of } from "rxjs";
-import { Proyectos } from 'src/app/modelos/proyectos.model';
+import { Proyecto } from 'src/app/modelos/proyecto.model';
 
 @Component({
   selector: "app-docentes",
@@ -17,7 +17,7 @@ export class DocentesDiaogComponent implements OnInit {
   constructor(
     private _dialog: MatDialogRef<DocentesDiaogComponent>,
     private _proyectoService: ProyectosService,
-    @Optional() @Inject(MAT_DIALOG_DATA) public data: Proyectos
+    @Optional() @Inject(MAT_DIALOG_DATA) public data: Proyecto
   ) {
     _dialog.disableClose = true;
   }

@@ -21,10 +21,14 @@
                     style="background-image: url('../../../assets/img/perfil2.png'); background-size: cover;"
                 >
                 </div>
-                <mat-card-title>Ariosto</mat-card-title>
-                <mat-card-subtitle style="margin-bottom: 0 !important;">maestro18@gmail.com</mat-card-subtitle>
+                <mat-card-title>{{usuarioLogueado.nombre}}</mat-card-title>
+                <mat-card-subtitle style="margin-bottom: 0 !important;">
+                    {{usuarioLogueado.email}}
+                    <!-- maestro18@gmail.com -->
+                </mat-card-subtitle>
             </div>
             <mat-divider></mat-divider>
+
 
 
 
@@ -71,6 +75,7 @@
                         <mat-icon matListIcon>category</mat-icon>
                         Tipos de solicitudes
                     </a>
+
 
 
                     <a
@@ -134,8 +139,9 @@
                             </a>
                         </mat-nav-list>
                     </mat-expansion-panel>
-                    <a *ngxPermissionsOnly="['Docente']">
-                        <mat-list-item role="listitems">Proyectos</mat-list-item>
+                    <a mat-list-item *ngxPermissionsOnly="['Docente']">
+                        <mat-icon matListIcon>collections_bookmark</mat-icon>
+                        Proyectos                        
                     </a>
                     <a
                         [routerLink]="['asignar-jurado']"
@@ -202,10 +208,8 @@
         </div>
     </mat-sidenav>
     <mat-sidenav-content>
-        <mat-toolbar style="z-index: 9999; position: sticky; top:0;background-color: white; color:black; min-height: 64px !important;">
-            <!-- <mat-toolbar style="z-index: 9999; position: sticky; top:0;background-color: #0D47A1; color:white; min-height: 64px !important;"> -->
-
-
+        <!-- <mat-toolbar style="z-index: 9999; position: sticky; top:0;background-color: #0D47A1; color:white; min-height: 64px !important;"> -->
+        <!-- <mat-toolbar style="z-index: 9999; position: sticky; top:0;background-color: white; color:black; min-height: 64px !important;">
             <button mat-icon-button>
                 <mat-icon
                     aria-label="label"
@@ -215,23 +219,6 @@
                 </mat-icon>
             </button>
             <span class="btn-user"></span>
-            <!-- <button mat-icon-button [matMenuTriggerFor]="menuNotificaciones">       
-        <mat-icon matBadge="15" matBadgeColor="warn">notifications</mat-icon>
-      </button>
-      <mat-menu #menuNotificaciones="matMenu" xPosition="before" >
-
-        <mat-nav-list style="width: 100% !important;">
-          <mat-list-item *ngFor="let item of notificaciones" style="height: 299px !important">
-            <div fxFlex="25">
-              <mat-icon>book</mat-icon>
-            </div>
-            <div fxFlex="75">
-              <h3 matLine> {{item.proyecto.titulo}} </h3>
-              <p matLine> {{item.proyecto.folio}} </p>
-            </div>
-          </mat-list-item>
-        </mat-nav-list>
-      </mat-menu> -->
             <button
                 mat-icon-button
                 [matMenuTriggerFor]="menu"
@@ -256,7 +243,17 @@
                     </a>
                 </div>
             </mat-menu>
-        </mat-toolbar>
+        </mat-toolbar> -->
+        <app-header>
+            <button mat-icon-button>
+                <mat-icon
+                    aria-label="label"
+                    (click)="sidenav.toggle()"
+                    >
+                    menu
+                </mat-icon>
+            </button>
+        </app-header>
         <div
             class="main-container"
             style="padding:24px"
@@ -264,6 +261,8 @@
 
 
             <router-outlet></router-outlet>
+
+
         </div>
     </mat-sidenav-content>
 </mat-sidenav-container>

@@ -2,9 +2,9 @@ import { Component, OnInit, Optional, Inject, ViewChild, Output,EventEmitter } f
 import { ForoService } from 'src/app/services/foro/foro.service';
 import { FormGroup, FormControl, Validators, FormGroupDirective } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { Foros } from 'src/app/modelos/foro.model';
+import { Foro } from 'src/app/modelos/foro.model';
 import { finalize } from 'rxjs/operators';
-import { HttpErrorResponse } from '@angular/common/http';
+
 
 
 @Component({
@@ -28,7 +28,7 @@ export class ForoDialogComponent implements OnInit {
   editar: boolean = false;
   constructor(private _foroService: ForoService,
     private _dialog: MatDialogRef<ForoDialogComponent>,
-    @Optional() @Inject (MAT_DIALOG_DATA) public data: Foros ) { 
+    @Optional() @Inject (MAT_DIALOG_DATA) public data: Foro ) { 
       _dialog.disableClose = true;
   }
 

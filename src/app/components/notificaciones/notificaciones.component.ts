@@ -33,9 +33,10 @@ export class NotificacionesComponent implements OnInit {
     console.log(this.foroElegido);
   }
 
-  responder(notificacion: any, solicitud: string) {
-    console.log(solicitud);
-    notificacion.respuesta = !notificacion.respuesta;
+  responder(notificacion: any, solicitud: string,valor:boolean) {
+    console.log(notificacion);
+    notificacion.respuesta = valor;
+    console.log(notificacion);
     this._notificacionesService.responderNotificacion(notificacion.respuesta, notificacion.proyecto.folio, solicitud).pipe(
       tap(()=>{
         notificacion.editar = false;

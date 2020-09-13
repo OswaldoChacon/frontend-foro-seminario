@@ -28,7 +28,7 @@
     >
         <div fxFlex="20">
             <app-filtro
-                (opcionElegida)="filtroElegido=$event "
+                (opcionElegida)="filtroElegido=$event; getJurado() "
                 [opciones]="opciones"
                 [defaultValue]="'Todos'"
             ></app-filtro>
@@ -40,6 +40,7 @@
                         [dataSource]="dataSource"
                         [columnsHeader]="columnsHeader"
                         [componentDialog]="componentDialog"
+                        [tipoDialog]="'BottomSheet'"
                         (emitData)="cargarTable($event)"
                     ></app-table>
                     <mat-paginator

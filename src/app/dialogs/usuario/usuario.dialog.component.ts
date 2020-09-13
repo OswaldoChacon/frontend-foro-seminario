@@ -24,9 +24,9 @@ import { finalize, tap } from 'rxjs/operators';
 export class UsuarioDialogComponent implements OnInit {
   formUsuario = this._formBuilder.group({
     email: ["", [Validators.required, Validators.email]],
-    nombre: new FormControl("", [Validators.required]),
-    apellidoP: new FormControl("", [Validators.required]),
-    apellidoM: new FormControl("", [Validators.required]),
+    nombre: new FormControl(""),
+    apellidoP: new FormControl(""),
+    apellidoM: new FormControl(""),
     num_control: new FormControl("", [Validators.required])
   });
   guardando: boolean = false;
@@ -53,6 +53,10 @@ export class UsuarioDialogComponent implements OnInit {
     }
   }
 
+  agregarFormControls() {
+
+  }
+  
   registrarUsuario() {
     this.guardando = true;
     this._usuarioService.guardarUsuario(this.formUsuario.value).pipe(

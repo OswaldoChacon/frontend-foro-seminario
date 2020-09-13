@@ -1,5 +1,5 @@
 import { CollectionViewer, DataSource } from "@angular/cdk/collections";
-import { Observable, BehaviorSubject, of, merge } from "rxjs";
+import { Observable, BehaviorSubject, of, merge, throwError } from "rxjs";
 import { Linea } from "src/app/modelos/linea.model";
 import { LineaService } from "../linea/linea.service";
 import { finalize, catchError } from "rxjs/operators";
@@ -26,7 +26,10 @@ export class LineaDataSource extends DataSource<Linea> {
   getLineas(url:string) {
     this.resetData();
     this._lineaService.getLineas(url).pipe(
-      catchError(() => []),
+      catchError(error => {
+        this.handleError();
+        return throwError(error)
+      }),
       finalize(() => this.loadingSubject.next(false))
     ).subscribe((res) => {
       this.lineas = res;
@@ -35,10 +38,21 @@ export class LineaDataSource extends DataSource<Linea> {
     });
   }
 
+  eliminarLinea(linea:Linea, url:string){
+    this.resetData();
+    return this._lineaService.eliminarLinea(linea.clave, url).pipe(
+      catchError((error) => {
+        this.handleError();
+        return throwError(error);
+      }),      
+    );
+  }
+
   handleError() {
     this.lineaSubject.next(this.lineas);
     this.loadingSubject.next(false);
   }
+
   resetData() {
     this.lineaSubject.next([]);
     this.loadingSubject.next(true);

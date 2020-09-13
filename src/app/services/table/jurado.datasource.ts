@@ -11,30 +11,32 @@ export class JuradoDataSource extends DataSource<Usuario> {
   loading$ = this.loadingSubject.asObservable()
   total: number;
   por_pagina: number;
+
   constructor(private juradoService: HorarioJuradoService) {
     super();
   }
+  
   connect(collectionViewer: CollectionViewer) {
     return this.juradoSubject.asObservable();
   }
+  
   disconnect() {
     this.juradoSubject.complete();
   }
-  getJurado(pagina: string) {
-    this.juradoService.getJurado(pagina).pipe(
-        finalize(()=>this.loadingSubject.next(false))
+  
+  getJurado(pagina: string,filtro:string) {
+    this.juradoService.getJurado(pagina,filtro).pipe(
+      finalize(() => this.loadingSubject.next(false))
     ).subscribe((res) => {
       this.juradoSubject.next(res["jurado"]["data"]);
       this.total = res["jurado"]["total"];
       this.por_pagina = res["jurado"]["per_page"];
-      localStorage.setItem('fechas',JSON.stringify(res['fechas']));
+      localStorage.setItem('fechas', JSON.stringify(res['fechas']));
     });
   }
- 
- 
- 
-  resetData(){
-      this.loadingSubject.next(true);
-      this.juradoSubject.next([]);
+
+  resetData() {
+    this.loadingSubject.next(true);
+    this.juradoSubject.next([]);
   }
 }

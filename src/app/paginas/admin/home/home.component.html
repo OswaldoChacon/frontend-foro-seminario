@@ -1,4 +1,4 @@
-<mat-progress-bar
+<!-- <mat-progress-bar
     value="50"
     mode="indeterminate"
     *ngIf="cargando; else data"
@@ -19,9 +19,7 @@
             fxLayout="column"
             fxLayoutGap="12px"
         >
-            <div>
-                <!-- fxFlex="48" -->
-                <!-- fxFlex.lt-md="100" -->
+            <div>                
                 <mat-card>
                     <mat-card-header>
                         <mat-card-title>PROYECTO EN CURSO</mat-card-title>
@@ -48,8 +46,7 @@
                             </div>
                         </ng-container>
                     </mat-card-content>
-                    <mat-card-actions [ngClass]="{'mat-card-actions-without-padding': !(miProyecto?.editar || miProyecto?.enviar)}">
-                        <!-- <mat-card-actions> -->
+                    <mat-card-actions [ngClass]="{'mat-card-actions-without-padding': !(miProyecto?.editar || miProyecto?.enviar)}">                        
                         <ng-container *ngIf="miProyecto?.editar || miProyecto?.enviar; else misProyectos">
                             <button
                                 mat-raised-button
@@ -112,8 +109,7 @@
                                             {{ itemSolicitud.key}}
                                         </h6>
                                     </mat-list-item>
-                                </mat-list>
-                                <!-- </mat-nav-list> -->
+                                </mat-list>                                
                             </div>
                         </div>
                         <ng-template #sinSolicitud>
@@ -124,8 +120,7 @@
                         <a
                             mat-menu-item
                             [routerLink]="['../mis-solicitudes']"
-                        >
-                            <!-- Ver todas mis solicitudes -->
+                        >                            
                             {{objectKeys(misSolicitudes).length ? 'Ver más detalles':'Ver todas mis solicitudes' }}
                             <mat-icon class="align-right">keyboard_arrow_right</mat-icon>
                         </a>
@@ -150,7 +145,7 @@
                     style="overflow-y: scroll; max-height: 300px;"                    
                     [ngStyle]="{'padding.px': alumnos.length > 0 ? '0':'16'}"
                 >
-                <!-- error por undefined alumnos pero ya esta declarado porque -->
+                error por undefined alumnos pero ya esta declarado porque 
                     <ng-container *ngIf="!alumnos || alumnos.length === 0; else listadoAlumnos">
                         <h3>Sin integrantes</h3>
                     </ng-container>
@@ -190,4 +185,4 @@
             </mat-card>
         </div>
     </div>
-</ng-template>
+</ng-template> -->
