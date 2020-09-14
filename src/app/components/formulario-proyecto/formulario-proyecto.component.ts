@@ -46,7 +46,6 @@ export class FormularioProyectoComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    console.log(this.proyecto);
     if (this.proyecto) {
       this.editar = true;
       this.cargarData();
@@ -70,7 +69,6 @@ export class FormularioProyectoComponent implements OnInit {
   }
 
   actualizarProyecto() {
-    // console.log("l");
     this._proyectoService.actualizarProyecto(this.formRegistrar.value,this.proyecto.folio).subscribe();
   }
 

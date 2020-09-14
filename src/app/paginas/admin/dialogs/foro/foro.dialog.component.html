@@ -27,6 +27,9 @@
                 required
             >
             <mat-error *ngIf="formForo.get('no_foro').hasError('required')">El campo No. Foro es requerido</mat-error>
+            <mat-error *ngIf="formForo.get('no_foro').hasError('serverError')">
+                {{formForo.get('no_foro').errors?.serverError}}
+            </mat-error>
         </mat-form-field>
         <mat-form-field appearance="fill">
             <mat-label>Nombre del foro</mat-label>
@@ -50,6 +53,9 @@
                 <mat-option value="Agosto-Diciembre">Agosto-Diciembre</mat-option>
             </mat-select>
             <mat-error *ngIf="formForo.get('periodo').hasError('required')">El campo periodo es requerido</mat-error>
+            <mat-error *ngIf="formForo.get('periodo').hasError('serverError')">
+                {{formForo.get('periodo').errors?.serverError}}
+            </mat-error>
         </mat-form-field>
         <mat-form-field appearance="fill">
             <mat-label>Año</mat-label>
@@ -66,7 +72,9 @@
                 </mat-option>
             </mat-select>
             <mat-error *ngIf="formForo.get('anio').hasError('required')">El campo año es requerido</mat-error>
-            <mat-error *ngIf="formForo.get('anio').hasError('serverError')"></mat-error>
+            <mat-error *ngIf="formForo.get('anio').hasError('serverError')">
+                {{formForo.get('anio').errors?.serverError}}
+            </mat-error>
         </mat-form-field>
     </form>
 </mat-dialog-content>

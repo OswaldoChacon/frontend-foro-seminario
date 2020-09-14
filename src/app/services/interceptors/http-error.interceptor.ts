@@ -7,7 +7,7 @@ import {
   HttpErrorResponse,
   HttpResponse,
 } from "@angular/common/http";
-import { Observable, throwError } from "rxjs";
+import { Observable, of, throwError } from "rxjs";
 import { retry, catchError, tap } from "rxjs/operators";
 import { ToastService } from '../toast/toast.service';
 import { AuthService } from '../auth/auth.service';
@@ -44,7 +44,7 @@ export class HttpErrorInterceptor implements HttpInterceptor {
           if(error.status === 401)
             this.handleAuthError();
           else if(error.status >= 500)
-            this._toastr.showToastError('Ha ocurrido problemas con el servidor','Intente de nuevo');
+            this._toastr.showToastError('Inténtelo de nuevo','Ha ocurrido un error con el servidor');
           else if(error.error.message)
             this._toastr.showToastError(error.error.message,'');
         }         

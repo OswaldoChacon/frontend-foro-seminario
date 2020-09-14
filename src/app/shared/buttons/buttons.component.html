@@ -1,13 +1,25 @@
 <mat-dialog-actions align="end">
-  <div *ngIf="!guardando; else spinner">
-    <button mat-raised-button color="primary" [disabled]="form.form.invalid" (click)="form.ngSubmit.emit()">
-      Guardar
-    </button>
-    <button mat-raised-button color="warn" [mat-dialog-close]="1">
-      Cancelar
-    </button>
-  </div>
-  <ng-template #spinner>
-    <mat-progress-spinner mode="indeterminate" diameter="25"></mat-progress-spinner>
-  </ng-template>
+    <div *ngIf="!guardando; else spinner">
+        <button
+            mat-raised-button
+            color="primary"
+            [disabled]="form.form.invalid"
+            (click)="form.ngSubmit.emit()"
+        >
+            Guardar
+        </button>
+        <button
+            mat-raised-button
+            color="warn"
+            [mat-dialog-close]="1"
+        >
+            Cancelar
+        </button>
+    </div>
+    <ng-template #spinner>
+        <mat-progress-spinner
+            mode="indeterminate"
+            diameter="25"
+        ></mat-progress-spinner>
+    </ng-template>
 </mat-dialog-actions>

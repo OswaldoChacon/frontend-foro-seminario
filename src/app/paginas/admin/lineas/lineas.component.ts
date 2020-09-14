@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Linea } from 'src/app/modelos/linea.model';
 import { LineaService } from 'src/app/services/linea/linea.service';
-import { MatDialog } from '@angular/material/dialog';
 import { LineaDialogComponent } from '../dialogs/linea/linea.dialog.component';
 import { LineaDataSource } from 'src/app/services/table/lineas.datasource';
 import { Router } from '@angular/router';

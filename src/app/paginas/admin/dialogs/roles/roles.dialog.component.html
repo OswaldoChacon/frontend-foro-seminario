@@ -7,24 +7,25 @@
         <h2>Editando registro...</h2>
     </ng-container>
     <ng-template #nuevoRegistro>
-        <h2>Nuevo registro</h2>        
+        <h2>Nuevo registro</h2>
     </ng-template>
 </div>
 <mat-divider></mat-divider>
 <mat-dialog-content>
     <form
         [formGroup]="formRol"
-        (ngSubmit)="editar ? editarRol() : guardarRol()"
+        (ngSubmit)="!editar ? guardarRol():actualizarRol()"
         #form="ngForm"
     >
-
         <mat-form-field appearance="fill">
             <mat-label>Nombre</mat-label>
             <input
                 matInput
                 formControlName="nombre_"
                 required
-            >
+            >            
+            <mat-error *ngIf="formRol.get('nombre_').hasError('required')">El campo nombre es requerido</mat-error>
+            <mat-error *ngIf="formRol.get('nombre_').hasError('serverError')">{{formRol.get('nombre_').errors?.serverError}}</mat-error>
         </mat-form-field>
     </form>
 </mat-dialog-content>

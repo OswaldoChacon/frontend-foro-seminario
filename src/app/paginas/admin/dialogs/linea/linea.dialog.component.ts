@@ -4,7 +4,6 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Linea } from 'src/app/modelos/linea.model';
 import { LineaService } from 'src/app/services/linea/linea.service';
 import { finalize } from 'rxjs/operators';
-import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-lineas',
@@ -35,38 +34,13 @@ export class LineaDialogComponent implements OnInit {
       this.formLinea.setValue({
         clave: this.data.data.clave,
         nombre: this.data.data.nombre
-      });
-      // this.formLinea.get('clave').setValue(this.data.data.clave);
-      // this.formLinea.get('nombre').setValue(this.data.data.nombre);
+      });      
     }
-  }
-
-  editarLinea() {
-    this.guardando = true;
-    this._lineaService.actualizarLinea(this.data.data.clave, this.formLinea.value, this.data.url).pipe(
-      finalize(() => this.guardando = false)
-    )
-      .subscribe(
-        (res: any) => {
-          this._dialog.close({ opcion: 'refresh' });
-        },
-        (err: HttpErrorResponse) => {
-          const errores = err.error.errors;
-          Object.keys(errores).forEach(fields => {
-            const field = this.formLinea.get(fields);
-            if (field) {
-              field.setErrors({
-                serverError: errores[fields]
-              });
-            }
-          });
-        }
-      );
   }
 
   guardarLinea() {
     this.guardando = true;
-    this._lineaService.guardarLinea(this.formLinea.value, this.data.url).pipe(
+    this._lineaService.guardarLinea(this.formLinea, this.data.url).pipe(
       finalize(() => this.guardando = false)
     ).subscribe(
       res => {
@@ -74,4 +48,13 @@ export class LineaDialogComponent implements OnInit {
       }
     );
   }
+
+  actualizarLinea() {
+    this.guardando = true;
+    this._lineaService.actualizarLinea(this.data.data.clave, this.formLinea, this.data.url).pipe(
+      finalize(() => this.guardando = false)
+    ).subscribe(() => this._dialog.close({ opcion: 'refresh' }));
+  }
+
+  
 }

@@ -19,28 +19,13 @@ export class BreaksSheetComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    console.log(this.data);
   }
 
-  guardarBreak(event: MatCheckboxChange, intervalo: Fecha["intervalos"]) {
-    intervalo.break = !intervalo.break;
+  guardarBreak(event: MatCheckboxChange, intervalo: Fecha["intervalos"]) {    
     if (event.checked) {
-      this._foroService.agregarBreak(this.data.fecha, {
-        hora: intervalo.hora,
-        posicion: intervalo.posicion,
-      }).pipe(
-        catchError(() => {
-          intervalo.break = !intervalo.break;
-          return of([]);
-        })
-      ).subscribe();
+      this._foroService.agregarBreak(this.data.fecha,intervalo).subscribe();
     } else {
-      this._foroService.eliminarBreak(this.data.fecha, intervalo.posicion).pipe(
-        catchError(() => {
-          intervalo.break = !intervalo.break;
-          return of([]);
-        })
-      ).subscribe();
+      this._foroService.eliminarBreak(this.data.fecha, intervalo).subscribe();
     }
   }
 

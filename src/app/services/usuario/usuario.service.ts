@@ -1,17 +1,23 @@
 import { Injectable } from "@angular/core";
 import {
   HttpClient,
+  HttpErrorResponse,
   HttpParams,
 } from "@angular/common/http";
 import { Usuario } from "../../modelos/usuario.model";
 import { catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
+import { FormGroup } from '@angular/forms';
+import { FormErrorService } from '../formerror/form-error.service';
+
 
 @Injectable({
   providedIn: "root",
 })
 export class UsuarioService {
-  constructor(private _http: HttpClient) {
+  constructor(private _http: HttpClient,
+    private _formError: FormErrorService
+    ) {
   }
 
   getUsuarios(pagina: number, rol: string, num_control: string) {
@@ -23,8 +29,12 @@ export class UsuarioService {
     });
   }
 
-  guardarUsuario(user: Usuario) {
-    return this._http.post(`api/usuarios`, user);
+  guardarUsuario(usuario: FormGroup) {
+    return this._http.post(`api/usuarios`, usuario.value).pipe(
+      catchError(error=>{
+        return this._formError.handleError(error, usuario);
+      })
+    );
   }
 
   agregarRol(usuario: Usuario, rol: string, rolSelected: any) {    
@@ -49,10 +59,14 @@ export class UsuarioService {
     );
   }  
 
-  actualizarUsuario(num_control: string, user: Usuario) {
+  actualizarUsuario(num_control: string, usuario: FormGroup) {
     return this._http.put(
       `api/usuarios/${num_control}`,
-      user
+      usuario.value
+    ).pipe(
+      catchError(error=>{
+        return this._formError.handleError(error, usuario);
+      })
     );
   }
 

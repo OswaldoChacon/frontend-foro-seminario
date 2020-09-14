@@ -15,7 +15,6 @@ export class FiltroComponent implements OnInit {
   ngOnInit(): void {}
 
   seleccionarOpcion(valor: string) {    
-    console.log(valor);
     this.opcionElegida.emit(valor);
   }
 }

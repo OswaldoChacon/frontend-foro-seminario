@@ -1,14 +1,12 @@
 import { Component, OnInit, ViewChild, ElementRef } from "@angular/core";
-import { MatTabGroup } from "@angular/material/tabs";
-import { MatTableDataSource } from "@angular/material/table";
 import { ForosDataSource } from "src/app/services/table/foros.datasource";
 import { ForoService } from "src/app/services/foro/foro.service";
 import { PageEvent, MatPaginator } from "@angular/material/paginator";
 import { MatDialog } from "@angular/material/dialog";
 import { ForoDialogComponent } from "../dialogs/foro/foro.dialog.component";
 import { Foro } from "src/app/modelos/foro.model";
-import { finalize, tap, takeWhile, first, catchError, map, debounceTime, distinctUntilChanged } from "rxjs/operators";
-import { of, throwError, fromEvent } from 'rxjs';
+import { tap, debounceTime, distinctUntilChanged } from "rxjs/operators";
+import { fromEvent } from 'rxjs';
 
 @Component({
   selector: "app-foros",
@@ -59,12 +57,6 @@ export class ForosComponent implements OnInit {
   }
 
   eliminarForo(foro: Foro) {
-    this.dataSource.resetData()
-    this._foroService.eliminarForo(foro.slug).pipe(
-      catchError((error) => {
-        this.dataSource.cargarForosLocal();
-        return throwError(error)
-      })
-    ).subscribe(res => this.getForos());
+    this.dataSource.eliminarForo(foro.slug).subscribe(res => this.getForos());
   }
 }

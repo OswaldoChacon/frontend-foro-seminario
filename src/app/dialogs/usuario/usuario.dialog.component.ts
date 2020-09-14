@@ -30,9 +30,7 @@ export class UsuarioDialogComponent implements OnInit {
     num_control: new FormControl("", [Validators.required])
   });
   guardando: boolean = false;
-  editar: boolean = false;
-
-  @ViewChild("form") form: FormGroupDirective;// myNgForm;  
+  editar: boolean = false; 
 
   constructor(
     @Optional() @Inject(MAT_DIALOG_DATA) public data: Usuario,
@@ -43,59 +41,34 @@ export class UsuarioDialogComponent implements OnInit {
 
 
   ngOnInit(): void {
+    console.log(this.formUsuario);
     if (this.data != null) {
       this.editar = true;
-      this.formUsuario.controls["num_control"].setValue(this.data.num_control);
-      this.formUsuario.controls["nombre"].setValue(this.data.nombre);
-      this.formUsuario.controls["apellidoP"].setValue(this.data.apellidoP);
-      this.formUsuario.controls["apellidoM"].setValue(this.data.apellidoM);
-      this.formUsuario.controls["email"].setValue(this.data.email);
+      this.cargarDatosFormulario();
     }
-  }
-
-  agregarFormControls() {
-
-  }
+  }  
   
   registrarUsuario() {
-    this.guardando = true;
-    this._usuarioService.guardarUsuario(this.formUsuario.value).pipe(
+    this.guardando = true;    
+    this._usuarioService.guardarUsuario(this.formUsuario).pipe(
       finalize(() => this.guardando = false)
-    ).subscribe(
-      (res: any) => {
-        this._dialog.close({ opcion: 'refresh' });
-      },
-      (err: HttpErrorResponse) => {
-        let errores = err.error.errors;
-        Object.keys(errores).forEach(fields => {
-          let field = this.formUsuario.get(fields);
-          if (field) {
-            field.setErrors({
-              serverError: errores[fields]
-            });
-          }
-        });
-      }
-    );
+    ).subscribe(() => this._dialog.close({ opcion: 'refresh' }));
   }
 
   actualizarUsuario() {
     this.guardando = true;
-    this._usuarioService.actualizarUsuario(this.data.num_control, this.form.value).pipe(
+    this._usuarioService.actualizarUsuario(this.data.num_control, this.formUsuario).pipe(
       finalize(() => this.guardando = false)
-    ).subscribe(
-      res => this._dialog.close({ opcion: 'refresh' }),
-      (err: HttpErrorResponse) => {
-        const errores = err.error.errors;
-        Object.keys(errores).forEach(fields => {
-          const field = this.formUsuario.get(fields);
-          if (field) {
-            field.setErrors({
-              serverError: errores[fields]
-            });
-          }
-        });
-      }
-    );
+    ).subscribe(() => this._dialog.close({ opcion: 'refresh' }));
+  }
+
+  cargarDatosFormulario(){
+    this.formUsuario.setValue({
+      num_control: this.data.num_control,
+      nombre:this.data.nombre,
+      apellidoP:this.data.apellidoP,
+      apellidoM:this.data.apellidoM,
+      email: this.data.email
+    });    
   }
 }

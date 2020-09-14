@@ -15,4 +15,5 @@ export class Usuario {
         }
     ]
     myTeam?: boolean;
+    taller?:boolean;
 }

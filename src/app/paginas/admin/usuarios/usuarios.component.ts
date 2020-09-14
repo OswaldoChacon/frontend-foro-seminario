@@ -1,23 +1,19 @@
 import { Component, OnInit, ViewChild, ElementRef } from "@angular/core";
 import { UsuarioService } from "src/app/services/usuario/usuario.service";
 import { Usuario } from "src/app/modelos/usuario.model";
-import { MatPaginator, PageEvent } from "@angular/material/paginator";
-import { Subject, of, throwError, fromEvent } from "rxjs";
+import { MatPaginator } from "@angular/material/paginator";
+import { fromEvent } from "rxjs";
 import {
   debounceTime,
-  distinctUntilChanged,
-  finalize,
-  tap,
-  catchError,
-  takeWhile,
+  distinctUntilChanged,  
+  tap,  
   map,
 } from "rxjs/operators";
-import { MatDialog } from "@angular/material/dialog";
 import { UsuarioDialogComponent } from "src/app/dialogs/usuario/usuario.dialog.component";
 import { UsuariosDataSource } from "src/app/services/table/usuarios.datasource";
 import { MatCheckboxChange } from "@angular/material/checkbox";
 import { RolesService } from "src/app/services/rol/rol.service";
-import { Rol } from "../../../modelos/rol.model";
+
 @Component({
   selector: "app-usuarios",
   templateUrl: "./usuarios.component.html",
@@ -63,7 +59,7 @@ export class UsuariosComponent implements OnInit {
 
   cargarTable(event: { data?: Usuario; opcion?: any; valorOpcion?: string }) {
     if (event.opcion === "Eliminar")
-      this.eliminarUsuario(event.data.num_control);
+      this.eliminarUsuario(event.data);
     if (event.opcion instanceof MatCheckboxChange)
       this.agregarRol(event.opcion, event.data, event.valorOpcion);
     if (event.opcion === "refresh") 
@@ -94,14 +90,8 @@ export class UsuariosComponent implements OnInit {
     );
   }
   
-  eliminarUsuario(num_control: string) {
-    this.dataSource.eliminarUsuario(num_control).subscribe(()=>this.getUsuarios());
-    // this.dataSource.resetData();
-    // this._usuarioService.eliminarUsuario(num_control).pipe(catchError((error) => {
-    //   this.dataSource.handleError();
-    //   return throwError(error);
-    // })
-    // ).subscribe(() => this.getUsuarios());
+  eliminarUsuario(usuario: Usuario) {
+    this.dataSource.eliminarUsuario(usuario.num_control).subscribe(()=>this.getUsuarios());    
   }
 
   agregarRol(event: MatCheckboxChange, usuario: Usuario, rol: string) {

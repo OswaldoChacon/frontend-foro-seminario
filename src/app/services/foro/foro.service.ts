@@ -8,12 +8,15 @@ import { Linea } from 'src/app/modelos/linea.model';
 import { Usuario } from 'src/app/modelos/usuario.model';
 import { Router } from '@angular/router';
 import { of, throwError } from 'rxjs';
+import { FormErrorService } from '../formerror/form-error.service';
+import { FormGroup } from '@angular/forms';
 
 @Injectable({
   providedIn: "root",
 })
 export class ForoService {
   constructor(private _http: HttpClient,
+    private _formError: FormErrorService,    
     private _route: Router,) { }
   getForos(pagina: number, no_foro: number) {
     return this._http.get<Foro[]>(`api/foros`, {
@@ -24,71 +27,100 @@ export class ForoService {
   }
 
   getForo(slug: string) {
-    // return this.http.get<Foros>(`api/obtener_foro/${slug}`);
     return this._http.get<Foro>(`api/foros/${slug}`).pipe(
-      catchError((error)=>{
+      catchError((error) => {
         this._route.navigate(['/Administrador/foros']);
         return throwError(error);
       })
     );
   }
-  
-  guardarForo(foro: Foro) {
-    // return this.http.post(`api/registrar_foro`, foro);
-    return this._http.post(`api/foros`, foro);
+
+  guardarForo(foro: FormGroup) {
+    return this._http.post(`api/foros`, foro.value).pipe(
+      catchError(error => {
+        return this._formError.handleError(error, foro)
+      })
+    );
   }
-  
+
   eliminarForo(slug: string) {
     return this._http.delete(`api/foros/${slug}`);
   }
-  
-  actualizarForo(slug: string, foro: Foro) {
-    return this._http.put(`api/foros/${slug}`, foro);
+
+  actualizarForo(slug: string, foro: FormGroup) {
+    return this._http.put(`api/foros/${slug}`, foro.value).pipe(
+      catchError(error => {
+        return this._formError.handleError(error, foro)
+      })
+    );
   }
-  
+
   activar_desactivar(slug: string, valor: number) {
     return this._http.put(`api/activar_foro/${slug}`, { acceso: valor });
   }
-  
-  configurarForo(slug: string, foro: Foro) {
-    return this._http.put(`api/configurar_foro/${slug}`, foro);
+
+  configurarForo(slug: string, foro: FormGroup) {
+    return this._http.put(`api/configurar_foro/${slug}`, foro.value).pipe(
+      catchError(error => {
+        return this._formError.handleError(error, foro)
+      })
+    );;
   }
-  
+
   getFechaForo() { }
 
   agregarFechaForo(slug: string, fecha: any) {
     if (fecha["fecha"] != "")
       fecha["fecha"] = formatDate(fecha["fecha"], "yyyy-MM-dd", "en");
-    // return this.http.post(`/api/agregar_fechaForo/${slug}`, fecha);
     return this._http.post(`/api/fechaforo`, fecha, {
       params: new HttpParams().set('slug', slug)
     });
   }
 
   eliminarFechaForo(fecha: Date) {
-    // return this.http.delete(`/api/eliminar_fechaForo/${fecha}`);
     return this._http.delete(`/api/fechaforo/${fecha}`);
   }
 
-  actualizarFechaForo(fecha:Date,fechaUpdate:any) { 
-    return this._http.put(`/api/fechaforo/${fecha}`,fechaUpdate);
+  actualizarFechaForo(fecha: Date, fechaUpdate: any) {
+    return this._http.put(`/api/fechaforo/${fecha}`, fechaUpdate);
   }
 
-  agregarBreak(fecha: Date, receso) {
-    return this._http.post(`api/agregar_break/${fecha}`, receso);
+  agregarBreak(fecha: Date, intervalo: Fecha['intervalos']) {
+    intervalo.break = !intervalo.break;
+    return this._http.post(`api/agregar_break/${fecha}`, {
+      hora: intervalo.hora,
+      posicion: intervalo.posicion,
+    }).pipe(
+      catchError(error => {
+        intervalo.break = !intervalo.break;
+        return throwError(error)
+      })
+    );
   }
 
-  eliminarBreak(fecha: Date, posicion: number) {
+  eliminarBreak(fecha: Date, intervalo: Fecha['intervalos']) {
+    intervalo.break = !intervalo.break;
     return this._http.delete(`api/eliminar_break/${fecha}`, {
-      params: new HttpParams().set("posicion", posicion.toString()),
-    });
+      params: new HttpParams().set("posicion", intervalo.posicion.toString()),
+    }).pipe(
+      catchError(() => {
+        intervalo.break = !intervalo.break;
+        return of([]);
+      })
+    )
   }
 
   foroActual() {
     return this._http.get<{ foro: Foro, lineas: Linea[], tipos: Linea[], docentes: Usuario[] }>(`api/foro_actual`);
   }
 
-  agregarMaestroTaller(slug:string,usuario: Usuario,valor:boolean){
-    return this._http.post(`api/agregar_maestro/${slug}`,{num_control:usuario.num_control,agregar:valor});
+  agregarMaestroTaller(slug: string, usuario: Usuario, valor: boolean) {
+    usuario.taller = !usuario.taller;
+    return this._http.post(`api/agregar_maestro/${slug}`, { num_control: usuario.num_control, agregar: valor }).pipe(
+      catchError(error => {
+        usuario.taller = !usuario.taller;
+        return throwError(error);
+      })
+    );
   }
 }

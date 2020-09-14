@@ -81,7 +81,8 @@
                 </ng-container>
 
                 <ng-container *ngSwitchDefault>
-                    <span class="text-content">{{data[column] ? data[column]:'Sin valor'}}</span>
+                    <span class="text-content">{{data[column] }}</span>
+                    <!-- ? data[column]:'Sin valor' -->
                 </ng-container>
             </ng-container>
         </mat-cell>

@@ -16,6 +16,8 @@ import { FechaDialogComponent } from '../../dialogs/fecha/fecha.dialog.component
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { BreaksSheetComponent } from '../../bottomsheets/breaks.sheet/breaks.sheet.component';
 import { Usuario } from 'src/app/modelos/usuario.model';
+import { MatDialog } from '@angular/material/dialog';
+import { BreaksDialogComponent } from '../../dialogs/breaks/breaks.dialog.component';
 
 
 @Component({
@@ -32,8 +34,7 @@ export class ConfigurarForoComponent implements OnInit {
     duracion: new FormControl("", [Validators.required, Validators.min(15)]),
     num_maestros: new FormControl("", [Validators.required, Validators.min(2)]),
   });
-
-  // mostrarEspaciosTiempo = false;
+  
   dataSource: FechasDataSource = null;
   componentDialog = FechaDialogComponent;
   columnsHeader = { 'fecha': 'Fecha', 'hora_inicio': 'Hora de inicio', 'hora_termino': 'Hora de termino', 'acciones': '' }
@@ -46,7 +47,8 @@ export class ConfigurarForoComponent implements OnInit {
     private _foroService: ForoService,
     private _formBuilder: FormBuilder,    
     private _activeRoute: ActivatedRoute,
-    private _bottomSheet: MatBottomSheet
+    private _bottomSheet: MatBottomSheet,
+    private _dialog: MatDialog
   ) { }
 
   ngOnInit(): void {    
@@ -66,14 +68,12 @@ export class ConfigurarForoComponent implements OnInit {
         }),
         finalize(() => this.cargando = false)
       ).subscribe();
-    }
-    // this.getDocentes();
+    }   
   }
 
   elegirMaestro(event: MatCheckboxChange, docente: Usuario){
     const agregar = event.checked ? true:false;
-    this._foroService.agregarMaestroTaller(this.slug,docente,agregar).subscribe();
-    // this._foroService.lista_docentes().pipe(tap(res=>this.docentes = res)).subscribe();
+    this._foroService.agregarMaestroTaller(this.slug,docente,agregar).subscribe();    
   }
 
   cargarTable(event: { data?: Fecha, opcion?: any, valorOpcion?: string }) {
@@ -86,47 +86,33 @@ export class ConfigurarForoComponent implements OnInit {
   }
 
   configurarForo() {
-    this._foroService.configurarForo(this.foro.slug, this.formConfigForo.value).subscribe();
+    this._foroService.configurarForo(this.foro.slug, this.formConfigForo).subscribe();
   }
 
   eliminarFechaForo(fecha: Date) {    
-    this.dataSource.resetData();
-    this._foroService.eliminarFechaForo(fecha).pipe(
-      catchError(() => {
-        this.dataSource.handleError();
-        return throwError;
-      })
-    ).subscribe((res) => this.dataSource.getFechas(this.slug));
+   this.dataSource.eliminarFecha(fecha).subscribe((res) => this.dataSource.getFechas(this.slug));
   }
-
-
 
   mostrarET(fecha: Fecha) {
-
-    const bottomSheetRef = this._bottomSheet.open(BreaksSheetComponent,{
-      data: fecha
-    });    
+    const dialogRef = this._dialog.open(BreaksDialogComponent,{
+      data:fecha,      
+    });
+    // const bottomSheetRef = this._bottomSheet.open(BreaksSheetComponent,{
+    //   data: fecha
+    // });    
   }
 
-  guardarBreak(event: MatCheckboxChange, intervalo: Fecha["intervalos"]) {
-    intervalo.break = !intervalo.break;
-    if (event.checked) {
-      this._foroService.agregarBreak(this.fecha.fecha, {
-          hora: intervalo.hora,
-          posicion: intervalo.posicion,
-        }).pipe(
-          catchError(() => {
-            intervalo.break = !intervalo.break;
-            return of([]);
-          })
-        ).subscribe();
-    } else {
-      this._foroService.eliminarBreak(this.fecha.fecha, intervalo.posicion).pipe(
-          catchError(() => {
-            intervalo.break = !intervalo.break;
-            return of([]);
-          })
-        ).subscribe();
-    }
-  }
+  // guardarBreak(event: MatCheckboxChange, intervalo: Fecha["intervalos"]) {
+  //   intervalo.break = !intervalo.break;
+  //   if (event.checked) {
+  //     this._foroService.agregarBreak(this.fecha.fecha,intervalo).subscribe();
+  //   } else {
+  //     this._foroService.eliminarBreak(this.fecha.fecha, intervalo.posicion).pipe(
+  //         catchError(() => {
+  //           intervalo.break = !intervalo.break;
+  //           return of([]);
+  //         })
+  //       ).subscribe();
+  //   }
+  // }
 }

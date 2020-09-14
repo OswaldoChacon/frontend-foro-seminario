@@ -20,7 +20,6 @@ export class HorarioJuradoSheetComponent implements OnInit {
     private _horarioJuradoService: HorarioJuradoService) { }
   fechas: any;
   ngOnInit(): void {
-    console.log(this.data);
     this.fechas = JSON.parse(localStorage.getItem('fechas'));
     this.fechas.forEach(fecha => {
       let count = 0;

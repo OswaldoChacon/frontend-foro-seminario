@@ -29,45 +29,24 @@ export class RolesDialogComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.data.data) {
-      this.editar = true;
-      // this.formRol.get('clave').setValue(this.data.data.clave);
+      this.editar = true;      
       this.formRol.get('nombre_').setValue(this.data.data.nombre_);
     }
   }
 
-  editarRol() {
+  actualizarRol() {
     this.guardando = true;
-    this._rolService.actualizarRol(this.data.data.nombre_, this.formRol.value, this.data.url).pipe(
+    this._rolService.actualizarRol(this.data.data.nombre_, this.formRol, this.data.url).pipe(
       finalize(() => this.guardando = false)
-    )
-      .subscribe(
-        (res: any) => {
-          this._dialog.close({ opcion: 'refresh' });
-        },
-        (err: HttpErrorResponse) => {
-          const errores = err.error.errors;
-          Object.keys(errores).forEach(fields => {
-            const field = this.formRol.get(fields);
-            if (field) {
-              field.setErrors({
-                serverError: errores[fields]
-              });
-            }
-          });
-        }
-      );
+    ).subscribe(()=> this._dialog.close({ opcion: 'refresh'}));
 
   }
 
   guardarRol() {
     this.guardando = true;
-    this._rolService.guardarRol(this.formRol.value, this.data.url).pipe(
+    this._rolService.guardarRol(this.formRol, this.data.url).pipe(
       finalize(() => this.guardando = false)
-    ).subscribe(
-      res => {
-        this._dialog.close({ opcion: 'refresh' });
-      }
-    );
+    ).subscribe(() => this._dialog.close({ opcion: 'refresh' }));
 
 
   }

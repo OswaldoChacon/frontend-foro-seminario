@@ -118,7 +118,7 @@ mat-cell:first-child, mat-footer-cell:first-child, mat-header-cell:first-child {
 }
 
 .mat-dialog-content {
-  max-height: 85vh !important;  
+  /* max-height: 85vh !important;   */
 }
 
 .mat-dialog-actions {
