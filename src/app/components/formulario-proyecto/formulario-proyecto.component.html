@@ -3,23 +3,26 @@
     #form="ngForm"
     (ngSubmit)="!editar ? registrarProyecto():actualizarProyecto()"
 >
-    <mat-form-field appearance="fill">
+    <mat-form-field appearance="standard">
         <mat-label>Titulo del proyecto</mat-label>
         <input
             matInput
             formControlName="titulo"
             required
         >
-        <mat-icon matPrefix>book</mat-icon>
+        <mat-icon matSuffix>book</mat-icon>
         <mat-error *ngIf="formRegistrar.get('titulo').hasError('required')">El campo titulo es requerido</mat-error>
         <mat-error *ngIf="formRegistrar.get('titulo').hasError('maxlength')">El campo titulo 255es requerido</mat-error>
+        <mat-error *ngIf="formRegistrar.get('titulo').hasError('serverError')">
+            {{formRegistrar.get('titulo').errors?.serverError}}
+        </mat-error>
     </mat-form-field>
     <div
         fxLayout.gt-sm="row"
         fxLayout="column"
         fxLayoutGap.gt-sm="20px"
     >
-        <mat-form-field appearance="fill">
+        <mat-form-field appearance="standard">
             <mat-label>Linea de investigacion</mat-label>
             <mat-select
                 formControlName="linea"
@@ -36,8 +39,11 @@
             <mat-error *ngIf="formRegistrar.get('linea').hasError('required')">
                 El campo linea de investigación es requerido
             </mat-error>
+            <mat-error *ngIf="formRegistrar.get('linea').hasError('serverError')">
+                {{formRegistrar.get('linea').errors?.serverError}}
+            </mat-error>
         </mat-form-field>
-        <mat-form-field appearance="fill">
+        <mat-form-field appearance="standard">
             <mat-label>Tipo de proyecto</mat-label>
             <mat-select
                 formControlName="tipo"
@@ -51,9 +57,12 @@
                 </mat-option>
             </mat-select>
             <mat-error *ngIf="formRegistrar.get('tipo').hasError('required')">El campo tipo de solicitud es requerido</mat-error>
+            <mat-error *ngIf="formRegistrar.get('tipo').hasError('serverError')">
+                {{formRegistrar.get('tipo').errors?.serverError}}
+            </mat-error>
         </mat-form-field>
     </div>
-    <mat-form-field appearance="fill">
+    <mat-form-field appearance="standard">
         <mat-label>Objetivo</mat-label>
         <textarea
             matInput
@@ -64,16 +73,21 @@
         <mat-error *ngIf="formRegistrar.get('objetivo').hasError('maxlength')">
             El campo objetivo no debe exceder 255 caracteres
         </mat-error>
-
+        <mat-error *ngIf="formRegistrar.get('objetivo').hasError('serverError')">
+            {{formRegistrar.get('objetivo').errors?.serverError}}
+        </mat-error>
     </mat-form-field>
     <div
         fxLayout.gt-sm="row"
         fxLayout="column"
         fxLayoutGap.gt-sm="20px"
     >
-        <mat-form-field appearance="fill">
+        <mat-form-field appearance="standard">
             <mat-label>Asesor</mat-label>
-            <mat-select formControlName="asesor">
+            <mat-select
+                formControlName="asesor"
+                required
+            >
                 <mat-option
                     *ngFor="let docente of docentes"
                     [value]="docente.num_control"
@@ -81,10 +95,12 @@
                     {{ docente.nombreCompleto }}
                 </mat-option>
             </mat-select>
-            <!-- <mat-icon matPrefix>account_circle</mat-icon> -->
             <mat-error *ngIf="formRegistrar.get('asesor').hasError('required')">El campo asesor es requerido</mat-error>
+            <mat-error *ngIf="formRegistrar.get('asesor').hasError('serverError')">
+                {{formRegistrar.get('asesor').errors?.serverError}}
+            </mat-error>
         </mat-form-field>
-        <mat-form-field appearance="fill">
+        <mat-form-field appearance="standard">
             <mat-label>Empresa</mat-label>
             <input
                 matInput
@@ -93,6 +109,9 @@
             >
             <mat-icon matSuffix>business</mat-icon>
             <mat-error *ngIf="formRegistrar.get('empresa').hasError('required')">El campo empresa es requerido</mat-error>
+            <mat-error *ngIf="formRegistrar.get('empresa').hasError('serverError')">
+                {{formRegistrar.get('empresa').errors?.serverError}}
+            </mat-error>
         </mat-form-field>
     </div>
 </form>

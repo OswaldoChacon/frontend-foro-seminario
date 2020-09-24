@@ -7,6 +7,7 @@ import { NotificacionesComponent } from 'src/app/components/notificaciones/notif
 import { SolicitudesComponent } from './solicitudes/solicitudes.component';
 import { RegistrarSolicitudComponent } from './registrar-solicitud/registrar-solicitud.component';
 import { AlumnoComponent } from './alumno.component';
+import { MisProyectosComponent } from 'src/app/components/mis-proyectos/mis-proyectos.component';
 
 const routes: Routes = [
   {
@@ -16,6 +17,7 @@ const routes: Routes = [
       { path: 'registrar-proyecto', component: RegistrarProyectoComponent },
       { path: 'notificaciones', component: NotificacionesComponent},
       { path: 'mis-solicitudes', component: SolicitudesComponent},
+      { path: 'mis-proyectos', component: MisProyectosComponent},
       { path: 'registrar-solicitud', component: RegistrarSolicitudComponent},
       { path: '**', redirectTo: 'home' },
     ]

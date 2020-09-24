@@ -3,8 +3,6 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { HorarioJuradoService } from 'src/app/services/horario/horario-jurado.service';
 import { Usuario } from 'src/app/modelos/usuario.model';
-import { catchError } from 'rxjs/operators';
-import { throwError } from 'rxjs';
 
 @Component({
   selector: 'app-horario-jurado',
@@ -29,78 +27,55 @@ export class HorarioJuradoDialogComponent implements OnInit {
         intervalo.selected = this.data.horarios.some(horario => intervalo.posicion === horario.posicion);
       });
       this.checkedAll(fecha);
-      // let selected = fecha.intervalos.filter(intervalo => intervalo.selected === true);
-      // fecha.checked = selected.length === fecha.intervalos.length ? true : false;
     });
   }
 
 
 
   seleccionarTodos(event: MatCheckboxChange, fecha: any) {
-    fecha.checked= !fecha.checked;
+    fecha.checked = !fecha.checked;
     if (event.checked) {
-      this._horarioJuradoService.agregarHorarioAll(this.data.num_control, fecha).pipe(
-        catchError((error)=>{
-          fecha.checked= !fecha.checked;
-          return throwError(error);
-        })
-      ).subscribe(()=>this.checkAll(fecha));
-      
+      this._horarioJuradoService.agregarHorarioAll(this.data.num_control, fecha).subscribe(() => this.checkAll(fecha));
     }
     else {
-      this._horarioJuradoService.eliminarHorarioAll(this.data.num_control, fecha).pipe(
-        catchError((error)=>{
-          fecha.checked= !fecha.checked;
-          return throwError(error);
-        })
-      ).subscribe(()=>this.unCheckAll(fecha));      
+      this._horarioJuradoService.eliminarHorarioAll(this.data.num_control, fecha).subscribe(() => this.unCheckAll(fecha));
     }
   }
-  
-  agregarHora(event: MatCheckboxChange, fecha: any, intervalo:any) {    
+
+  agregarHora(event: MatCheckboxChange, fecha: any, intervalo: any) {
     intervalo.selected = !intervalo.selected;
-    if(event.checked)      
-      this._horarioJuradoService.agregarHorario(this.data.num_control,fecha.fecha, intervalo.hora, intervalo.posicion).pipe(
-        catchError((error)=>{
-          intervalo.selected = !intervalo.selected;
-          return throwError(error)
-        })
-      ).subscribe(()=>{
+    if (event.checked)      
+      this._horarioJuradoService.agregarHorario(this.data.num_control, fecha.fecha, intervalo).subscribe(() => {
         this.agregarHorario(intervalo.posicion);
         this.checkedAll(fecha);
       });
-    else       
-      this._horarioJuradoService.eliminarHorario(this.data.num_control,fecha.fecha,intervalo.posicion).pipe(
-        catchError((error)=>{
-          intervalo.selected = !intervalo.selected;
-          return throwError(error)
-        })
-      ).subscribe(()=>{
+    else      
+      this._horarioJuradoService.eliminarHorario(this.data.num_control, fecha.fecha, intervalo).subscribe(() => {
         this.quitarHorario(intervalo.posicion);
         this.checkedAll(fecha);
-      });        
+      });
   }
-  
-  checkedAll(fecha:any){
+
+  checkedAll(fecha: any) {
     const selected = fecha.intervalos.filter(intervalo => intervalo.selected === true);
     fecha.checked = selected.length === fecha.intervalos.length ? true : false;
   }
 
-  agregarHorario(posicion:number){
-    this.data.horarios.push({posicion:posicion})
+  agregarHorario(posicion: number) {
+    this.data.horarios.push({ posicion: posicion })
   }
-  
-  quitarHorario(posicion:number){
+
+  quitarHorario(posicion: number) {
     this.data.horarios = this.data.horarios.filter(intervalo => intervalo.posicion !== posicion)
   }
 
   checkAll(fecha: any) {
     fecha.intervalos.forEach(intervalo => {
-      this.data.horarios.push({posicion:intervalo.posicion})
+      this.data.horarios.push({ posicion: intervalo.posicion })
       intervalo.selected = true;
     });
   }
-  
+
   unCheckAll(fecha: any) {
     this.data.horarios = [];
     fecha.intervalos.forEach(intervalo => {

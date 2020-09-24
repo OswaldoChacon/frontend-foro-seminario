@@ -1,0 +1,67 @@
+<ng-container [ngSwitch]="true">
+    <ng-container *ngSwitchCase="cargando">
+        <mat-progress-bar
+            value="50"
+            mode="indeterminate"
+            class="table-loading"
+        ></mat-progress-bar>
+
+    </ng-container>
+    <ng-container *ngSwitchCase="proyectos.length">
+        <div fxLayout="row wrap">
+            <mat-card
+                fxFlex="45"
+                fxFlex.xs="100"
+                *ngFor="let proyecto of proyectos"
+            >
+                <mat-card-content>
+                    <div
+                        fxLayout="row"
+                        fxLayout.xs="column"
+                    >
+                        <div
+                            fxFlex.xs="100"
+                            fxFlex="80"
+                        >
+                            <mat-card-title>{{proyecto.titulo}}</mat-card-title>
+                            <mat-card-subtitle>
+                                {{proyecto.linea_de_investigacion.nombre}}
+                                <br>
+                                {{proyecto.tipo_de_proyecto.nombre}}
+                            </mat-card-subtitle>
+                        </div>
+                        <div
+                            fxFlex.xs="100"
+                            fxFlex="20"
+                            fxLayoutAlign="end start"
+                        >
+                            <ng-container *ngIf="proyecto.inTime; else bookMark">
+                                <mat-slide-toggle
+                                    color="warn"
+                                    [checked]="proyecto.permitir_cambios ? 'true':'false'"
+                                    (change)="permitirCambios(proyecto, !proyecto.permitir_cambios)"
+                                ></mat-slide-toggle>
+                            </ng-container>
+                            <ng-template #bookMark>
+                                <mat-icon>bookmark</mat-icon>
+                            </ng-template>
+                        </div>
+                    </div>
+                </mat-card-content>
+                <mat-card-actions class="mat-card-actions-without-padding">
+                    <a mat-menu-item>
+                        Ver más detalles
+                        <mat-icon class="align-right">keyboard_arrow_right</mat-icon>
+                    </a>
+                </mat-card-actions>
+            </mat-card>
+        </div>
+    </ng-container>
+    <ng-container *ngSwitchDefault>
+        <mat-card>
+            <mat-card-content>
+                <app-alerta [mensaje]="'No tienes ningún proyecto registrado'"></app-alerta>
+            </mat-card-content>
+        </mat-card>
+    </ng-container>
+</ng-container>

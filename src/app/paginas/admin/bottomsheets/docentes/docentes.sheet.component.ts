@@ -33,20 +33,28 @@ export class DocentesSheetComponent implements OnInit {
   asignarJurado(event: MatCheckboxChange, docente: Usuario) {    
     docente.jurado = !docente.jurado;
     if (event.checked)
-      this._proyectoService.asignarJurado(this.data.folio, docente.num_control).pipe(
-        catchError(() => {
-          docente.jurado = false;
-          return of([]);
-        })
-      ).subscribe(() => this.agregarJurado(docente.num_control));
+      this._proyectoService.asignarJurado(this.data.folio, docente).subscribe(() => this.agregarJurado(docente.num_control));
     else
-      this._proyectoService.eliminarJurado(this.data.folio, docente.num_control).pipe(
-        catchError(() => {
-          docente.jurado = true;
-          return of([]);
-        })
-      ).subscribe(() => this.quitarJurado(docente.num_control));
+      this._proyectoService.eliminarJurado(this.data.folio, docente).subscribe(() => this.quitarJurado(docente.num_control));
   }
+
+  // asignarJurado(event: MatCheckboxChange, docente: Usuario) {    
+  //   docente.jurado = !docente.jurado;
+  //   if (event.checked)
+  //     this._proyectoService.asignarJurado(this.data.folio, docente.num_control).pipe(
+  //       catchError(() => {
+  //         docente.jurado = false;
+  //         return of([]);
+  //       })
+  //     ).subscribe(() => this.agregarJurado(docente.num_control));
+  //   else
+  //     this._proyectoService.eliminarJurado(this.data.folio, docente.num_control).pipe(
+  //       catchError(() => {
+  //         docente.jurado = true;
+  //         return of([]);
+  //       })
+  //     ).subscribe(() => this.quitarJurado(docente.num_control));
+  // }
 
   agregarJurado(num_control: string) {
     this.data.jurado.push({ num_control: num_control });

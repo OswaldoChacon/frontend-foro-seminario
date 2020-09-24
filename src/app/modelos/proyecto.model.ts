@@ -5,15 +5,14 @@ export class Proyecto {
   folio: string;
   titulo: string;
   empresa?: string;
-  objetivo?: string;
-  asesor?: number;
-  tipos_proyectos: Linea
-  lineadeinvestigacion: Linea
+  objetivo?: string;  
+  tipo_de_proyecto: Linea;
+  linea_de_investigacion: Linea;  
   // asesora:{
   //   num_control:string;
   //   nombreCompleto:string;
   // }
-  asesora: Usuario;
+  asesor: Usuario;
   editar?:boolean;
   participa?: number;
   aceptado?: number;
@@ -26,4 +25,5 @@ export class Proyecto {
   enviar?:boolean;
   permitir_cambios?:boolean;
   cancelar?:boolean;
+  inTime?:boolean;
 }

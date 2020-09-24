@@ -3,7 +3,7 @@ import { HttpClient, HttpParams } from "@angular/common/http";
 import { Foro } from "src/app/modelos/foro.model";
 import { formatDate } from "@angular/common";
 import { Fecha } from "src/app/modelos/fecha.model";
-import { map, catchError } from 'rxjs/operators';
+import { catchError } from 'rxjs/operators';
 import { Linea } from 'src/app/modelos/linea.model';
 import { Usuario } from 'src/app/modelos/usuario.model';
 import { Router } from '@angular/router';
@@ -11,12 +11,13 @@ import { of, throwError } from 'rxjs';
 import { FormErrorService } from '../formerror/form-error.service';
 import { FormGroup } from '@angular/forms';
 
+
 @Injectable({
   providedIn: "root",
 })
 export class ForoService {
   constructor(private _http: HttpClient,
-    private _formError: FormErrorService,    
+    private _formError: FormErrorService,
     private _route: Router,) { }
   getForos(pagina: number, no_foro: number) {
     return this._http.get<Foro[]>(`api/foros`, {
@@ -38,7 +39,7 @@ export class ForoService {
   guardarForo(foro: FormGroup) {
     return this._http.post(`api/foros`, foro.value).pipe(
       catchError(error => {
-        return this._formError.handleError(error, foro)
+        return this._formError.handleError(error, foro);        
       })
     );
   }
@@ -55,8 +56,15 @@ export class ForoService {
     );
   }
 
-  activar_desactivar(slug: string, valor: number) {
-    return this._http.put(`api/activar_foro/${slug}`, { acceso: valor });
+  // activar_desactivar(slug: string, valor: number) {
+  activar_desactivar(foro: Foro, valor: number) {
+    foro.activo = !foro.activo;
+    return this._http.put(`api/activar_foro/${foro.slug}`, { activo: valor }).pipe(
+      catchError(error=>{
+        foro.activo = !foro.activo;
+        return throwError(error);
+      })
+    );
   }
 
   configurarForo(slug: string, foro: FormGroup) {
@@ -69,21 +77,26 @@ export class ForoService {
 
   getFechaForo() { }
 
-  agregarFechaForo(slug: string, fecha: any) {
-    if (fecha["fecha"] != "")
-      fecha["fecha"] = formatDate(fecha["fecha"], "yyyy-MM-dd", "en");
-    return this._http.post(`/api/fechaforo`, fecha, {
+  guardarFechaForo(slug: string, fecha: FormGroup) {
+    // if (fecha.["fecha"] != "")
+    //   fecha["fecha"] = formatDate(fecha["fecha"], "yyyy-MM-dd", "en");
+    return this._http.post(`/api/fechaforo`, fecha.value, {
       params: new HttpParams().set('slug', slug)
-    });
-  }
-
-  eliminarFechaForo(fecha: Date) {
-    return this._http.delete(`/api/fechaforo/${fecha}`);
+    }).pipe(
+      catchError(error=>{
+        return this._formError.handleError(error,fecha)
+        return throwError(error)
+      })
+    );
   }
 
   actualizarFechaForo(fecha: Date, fechaUpdate: any) {
     return this._http.put(`/api/fechaforo/${fecha}`, fechaUpdate);
   }
+  
+  eliminarFechaForo(fecha: Date) {
+    return this._http.delete(`/api/fechaforo/${fecha}`);
+  }  
 
   agregarBreak(fecha: Date, intervalo: Fecha['intervalos']) {
     intervalo.break = !intervalo.break;

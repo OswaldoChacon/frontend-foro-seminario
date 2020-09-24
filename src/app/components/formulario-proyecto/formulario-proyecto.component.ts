@@ -45,15 +45,11 @@ export class FormularioProyectoComponent implements OnInit {
     private _usuarioService: UsuarioService
   ) { }
 
-  ngOnInit(): void {
+  ngOnInit(): void {    
     if (this.proyecto) {
       this.editar = true;
-      this.cargarData();
-    }
-    // else{
-      // this._lineaService.getLineas('lineas').subscribe(res=>this.lineas);
-      // this._lineaService.getLineas('tiposProyecto').subscribe(res=>this.tipos);
-    // }
+      this.cargarDatosFormulario();
+    }    
     this._lineaService.getLineas('lineas').subscribe(lineas=>this.lineas=lineas);
     this._lineaService.getLineas('tiposProyecto').subscribe(tipos=>this.tipos=tipos);
     this._usuarioService.getDocentes().subscribe(docentes=>this.docentes=docentes);    
@@ -65,20 +61,26 @@ export class FormularioProyectoComponent implements OnInit {
 
   registrarProyecto() {
     // this.form.ngSubmit.emit();
-    this._proyectoService.registrarProyecto(this.formRegistrar.value).subscribe();
+    this._proyectoService.registrarProyecto(this.formRegistrar).subscribe();
   }
 
   actualizarProyecto() {
-    this._proyectoService.actualizarProyecto(this.formRegistrar.value,this.proyecto.folio).subscribe();
+    this._proyectoService.actualizarProyecto(this.formRegistrar,this.proyecto.folio).subscribe();
   }
 
-  cargarData() {
-    this.formRegistrar.get('titulo').setValue(this.proyecto.titulo);
-    this.formRegistrar.get('linea').setValue(this.proyecto.lineadeinvestigacion.clave);
-    this.formRegistrar.get('tipo').setValue(this.proyecto.tipos_proyectos.clave);
-    this.formRegistrar.get('asesor').setValue(this.proyecto.asesora.num_control);
-    this.formRegistrar.get('empresa').setValue(this.proyecto.empresa);
-    this.formRegistrar.get('objetivo').setValue(this.proyecto.objetivo);    
+  cargarDatosFormulario() {    
+    this.formRegistrar.setValue({
+      titulo: this.proyecto.titulo,
+      linea: this.proyecto.linea_de_investigacion.clave,
+      tipo: this.proyecto.tipo_de_proyecto.clave,
+      asesor: this.proyecto.asesor != null ? this.proyecto.asesor.num_control:'',
+      empresa: this.proyecto.empresa,
+      objetivo: this.proyecto.objetivo,
+    })
+    console.log(this.formRegistrar);
+    if(this.proyecto?.aceptado == 1){      
+    this.formRegistrar.get('asesor').disable();
+    }   
   }
 
 }

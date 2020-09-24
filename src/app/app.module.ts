@@ -11,17 +11,14 @@ import { HomeComponent } from './paginas/admin/home/home.component';
 import { RouterModule } from '@angular/router';
 import { LoginComponent } from './auth/login/login.component';
 import { AuthGuard } from './services/auth/guards/auth.guard';
-// import { DashboardComponent } from './paginas/admin/dashboard/dashboard.component';
 import { TokenInterceptorService } from './services/interceptors/token-interceptor.service';
 import { NgxPermissionsModule } from 'ngx-permissions';
-import { NotFoundComponent } from './components/not-found/not-found.component';
 import { AdminModule } from './paginas/admin/admin.module';
 import { HttpErrorInterceptor } from './services/interceptors/http-error.interceptor';
-import { AdminComponent } from './paginas/admin/admin.component';
 import { SharedModule } from './shared/shared.module';
 import { ForgotPasswordDialogComponent } from './dialogs/forgot-password/forgot-password.dialog.component';
 import { ComponentsModule } from './components/components.module';
-// import { SharedModule } from './shared/shared.module';
+
 
 
 @NgModule({
@@ -45,7 +42,7 @@ import { ComponentsModule } from './components/components.module';
     ToastrModule.forRoot({
       preventDuplicates: true,
       maxOpened: 1,
-      timeOut: 3000,
+      timeOut: 2000,
     }),
     NgxPermissionsModule.forRoot(),
     RouterModule,

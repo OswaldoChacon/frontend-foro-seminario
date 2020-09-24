@@ -1,3 +1,15 @@
+<app-header>
+    <button mat-icon-button>
+        <mat-icon
+            aria-label="label"
+            (click)="sidenav.toggle()"
+        >
+            menu
+        </mat-icon>
+    </button>
+</app-header>
+
+
 <mat-sidenav-container>
     <mat-sidenav
         #sidenav
@@ -5,207 +17,175 @@
         [opened]="mobileQuery.matches"
         autosize
     >
-        <div
-            fxLayout="column"
-            style="height: 100%;"
-        >
-            <div
-                fxLayout="column"
-                style="padding:12px 16px;min-height:136px; max-height:136px; background-color: #fff; font-size: 16px;"
-                fxLayoutGap="6px"
-                fxLayoutAlign="end start"
+
+
+        <mat-nav-list>
+            <a
+                mat-list-item
+                [routerLink]="['home']"
+                routerLinkActive="active"
+                *ngxPermissionsOnly="['Administrador','Docente','Alumno']"
             >
-                <!-- <div style="border-radius: 50%; background-color: #0D47A1; height: 40px; width: 40px;"> -->
-                <div
-                    mat-card-avatar
-                    style="background-image: url('../../../assets/img/perfil2.png'); background-size: cover;"
+                <mat-icon matListIcon>home</mat-icon>
+                Inicio
+            </a>
+            <a
+                mat-list-item
+                [routerLink]="['notificaciones']"
+                routerLinkActive="active"
+            >
+                <mat-icon matListIcon>notifications</mat-icon>
+                <span
+                    matBadge="{{_notificacionService.totalNotificaciones}}"
+                    matBadgeOverlap="false"
+                    matBadgeColor="warn"
                 >
-                </div>
-                <mat-card-title>{{usuarioLogueado.nombre}}</mat-card-title>
-                <mat-card-subtitle style="margin-bottom: 0 !important;">
-                    {{usuarioLogueado.email}}
-                    <!-- maestro18@gmail.com -->
-                </mat-card-subtitle>
-            </div>
-            <mat-divider></mat-divider>
+                    Notificaciones
+                </span>
+            </a>
+            <a
+                mat-list-item
+                [routerLink]="['roles']"
+                routerLinkActive="active"
+                *ngxPermissionsOnly="['Administrador']"
+            >
+                <mat-icon matListIcon>supervised_user_circle</mat-icon>
+                Roles
+            </a>
+            <a
+                mat-list-item
+                [routerLink]="['solicitudes']"
+                routerLinkActive="active"
+                *ngxPermissionsOnly="['Administrador']"
+            >
+                <mat-icon matListIcon>category</mat-icon>
+                Tipos de solicitudes
+            </a>
 
 
 
 
-            <div style="overflow: auto; padding-top:12px">
+            <a
+                mat-list-item
+                routerLink="usuarios"
+                [routerLinkActive]="['active']"
+                *ngxPermissionsOnly="['Administrador']"
+            >
+                <mat-icon matListIcon>account_box</mat-icon>
+                Usuarios
+            </a>
+            <a
+                mat-list-item
+                [routerLink]="['lineas-investigacion']"
+                routerLinkActive="active"
+                *ngxPermissionsOnly="['Administrador']"
+            >
+                <mat-icon matListIcon>notes</mat-icon>
+                Lineas de investigación
+            </a>
+            <a
+                mat-list-item
+                [routerLink]="['tipos-proyectos']"
+                routerLinkActive="active"
+                *ngxPermissionsOnly="['Administrador']"
+            >
+                <mat-icon matListIcon>library_books</mat-icon>
+                Tipos de proyectos
+            </a>
+            <a
+                mat-list-item
+                [routerLink]="['foros']"
+                routerLinkActive="active"
+                *ngxPermissionsOnly="['Administrador']"
+            >
+                <mat-icon matListIcon>forum</mat-icon>
+                Foros
+            </a>
+            <mat-expansion-panel
+                class="mat-elevation-z0"
+                *ngxPermissionsOnly="['Administrador']"
+            >
+                <mat-expansion-panel-header>
+                    <mat-icon matListIcon>access_time</mat-icon>
+                    Horarios
+                </mat-expansion-panel-header>
                 <mat-nav-list>
                     <a
+                        class="submenu"
                         mat-list-item
-                        [routerLink]="['home']"
-                        routerLinkActive="active"
-                        *ngxPermissionsOnly="['Administrador','Docente','Alumno']"
+                        [routerLink]="['jurado']"
                     >
-                        <mat-icon matListIcon>home</mat-icon>
-                        Inicio
+                        Horario del jurado
                     </a>
                     <a
+                        class="submenu"
                         mat-list-item
-                        [routerLink]="['notificaciones']"
-                        routerLinkActive="active"
+                        [routerLink]="['generar_horario']"
                     >
-                        <mat-icon matListIcon>notifications</mat-icon>
-                        <span
-                            matBadge="{{_notificacionService.totalNotificaciones}}"
-                            matBadgeOverlap="false"
-                            matBadgeColor="warn"
-                        >
-                            Notificaciones
-                        </span>
-                    </a>
-                    <a
-                        mat-list-item
-                        [routerLink]="['roles']"
-                        routerLinkActive="active"
-                        *ngxPermissionsOnly="['Administrador']"
-                    >
-                        <mat-icon matListIcon>supervised_user_circle</mat-icon>
-                        Roles
-                    </a>
-                    <a
-                        mat-list-item
-                        [routerLink]="['solicitudes']"
-                        routerLinkActive="active"
-                        *ngxPermissionsOnly="['Administrador']"
-                    >
-                        <mat-icon matListIcon>category</mat-icon>
-                        Tipos de solicitudes
-                    </a>
-
-
-
-                    <a
-                        mat-list-item
-                        routerLink="usuarios"
-                        [routerLinkActive]="['active']"
-                        *ngxPermissionsOnly="['Administrador']"
-                    >
-                        <mat-icon matListIcon>account_box</mat-icon>
-                        Usuarios
-                    </a>
-                    <a
-                        mat-list-item
-                        [routerLink]="['lineas-investigacion']"
-                        routerLinkActive="active"
-                        *ngxPermissionsOnly="['Administrador']"
-                    >
-                        <mat-icon matListIcon>notes</mat-icon>
-                        Lineas de investigación
-                    </a>
-                    <a
-                        mat-list-item
-                        [routerLink]="['tipos-proyectos']"
-                        routerLinkActive="active"
-                        *ngxPermissionsOnly="['Administrador']"
-                    >
-                        <mat-icon matListIcon>library_books</mat-icon>
-                        Tipos de proyectos
-                    </a>
-                    <a
-                        mat-list-item
-                        [routerLink]="['foros']"
-                        routerLinkActive="active"
-                        *ngxPermissionsOnly="['Administrador']"
-                    >
-                        <mat-icon matListIcon>forum</mat-icon>
-                        Foros
-                    </a>
-                    <mat-expansion-panel
-                        class="mat-elevation-z0"
-                        *ngxPermissionsOnly="['Administrador']"
-                    >
-                        <mat-expansion-panel-header>
-                            <mat-icon matListIcon>access_time</mat-icon>
-                            Horarios
-                        </mat-expansion-panel-header>
-                        <mat-nav-list>
-                            <a
-                                class="submenu"
-                                mat-list-item
-                                [routerLink]="['jurado']"
-                            >
-                                Horario del jurado
-                            </a>
-                            <a
-                                class="submenu"
-                                mat-list-item
-                                [routerLink]="['generar_horario']"
-                            >
-                                Generar horario
-                            </a>
-                        </mat-nav-list>
-                    </mat-expansion-panel>
-                    <a mat-list-item *ngxPermissionsOnly="['Docente']">
-                        <mat-icon matListIcon>collections_bookmark</mat-icon>
-                        Proyectos                        
-                    </a>
-                    <a
-                        [routerLink]="['asignar-jurado']"
-                        routerLinkActive="active"
-                        *ngxPermissionsOnly="['Docente']"
-                    >
-                        <mat-list-item role="listitems">Horario</mat-list-item>
-                    </a>
-                    <a
-                        mat-list-item
-                        [routerLink]="['registrar-proyecto']"
-                        routerLinkActive="active"
-                        *ngxPermissionsOnly="['Alumno']"
-                    >
-                        <mat-icon matListIcon>book</mat-icon>
-                        Registrar proyecto
-                    </a>
-                    <a
-                        mat-list-item
-                        [routerLink]="['registrar-solicitud']"
-                        routerLinkActive="active"
-                        *ngxPermissionsOnly="['Alumno']"
-                    >
-                        <mat-icon matListIcon>note_add</mat-icon>
-                        Registrar solicitud
-                    </a>
-                    <a
-                        mat-list-item
-                        [routerLink]="['mis-solicitudes']"
-                        routerLinkActive="active"
-                        *ngxPermissionsOnly="['Alumno']"
-                    >
-                        <!-- <mat-icon matListIcon>note_add</mat-icon> -->
-                        Solicitudes
-                    </a>
-                    <a
-                        mat-list-item
-                        [routerLink]="['mis-solicitudes']"
-                        routerLinkActive="active"
-                        *ngxPermissionsOnly="['Alumno']"
-                    >
-                        <mat-icon matListIcon>collections_bookmark</mat-icon>
-                        Mis proyectos
-                    </a>
-                    <!-- <mat-expansion-panel class="mat-elevation-z0" *ngxPermissionsOnly="['Administrador']">
-            <mat-expansion-panel-header>
-              <mat-icon matListIcon>receipt</mat-icon>
-              Registrar solicitudes
-            </mat-expansion-panel-header>
-            <mat-nav-list>
-              <a class="submenu" mat-list-item [routerLink]="['cambiar_asesor']">Horario del jurado</a>
-              <a class="submenu" mat-list-item [routerLink]="['generar_horario']">Generar horario</a>
-            </mat-nav-list>
-          </mat-expansion-panel> -->
-                    <a
-                        mat-list-item
-                        [routerLink]="[ 'cambiar_contrasena']"
-                    >
-                        <mat-icon matListIcon>lock_open</mat-icon>
-                        Cambiar contraseña
+                        Generar horario
                     </a>
                 </mat-nav-list>
-            </div>
-        </div>
+            </mat-expansion-panel>
+            <!-- <a
+            [routerLink]="['mis-proyectos']"
+                mat-list-item
+                *ngxPermissionsOnly="['Docente']"
+            >
+                <mat-icon matListIcon>collections_bookmark</mat-icon>
+                Mis proyectos
+            </a> -->            
+            <a
+                mat-list-item
+                [routerLink]="['registrar-proyecto']"
+                routerLinkActive="active"
+                *ngxPermissionsOnly="['Alumno']"
+            >
+                <mat-icon matListIcon>book</mat-icon>
+                Registrar proyecto
+            </a>
+            <a
+                mat-list-item
+                [routerLink]="['registrar-solicitud']"
+                routerLinkActive="active"
+                *ngxPermissionsOnly="['Alumno']"
+            >
+                <mat-icon matListIcon>note_add</mat-icon>
+                Registrar solicitud
+            </a>
+            <a
+                mat-list-item
+                [routerLink]="['mis-solicitudes']"
+                routerLinkActive="active"
+                *ngxPermissionsOnly="['Alumno']"
+            >
+                Solicitudes
+            </a>
+            <a
+                mat-list-item
+                [routerLink]="['mis-proyectos']"
+                routerLinkActive="active"
+                *ngxPermissionsOnly="['Alumno','Docente']"
+            >
+                <mat-icon matListIcon>collections_bookmark</mat-icon>
+                Mis proyectos
+            </a>
+            <a
+                [routerLink]="['asignar-jurado']"
+                routerLinkActive="active"
+                *ngxPermissionsOnly="['Docente']"
+            >
+                <mat-list-item role="listitems">Horario</mat-list-item>
+            </a>
+            <!-- <a
+                mat-list-item
+                [routerLink]="[ 'cambiar_contrasena']"
+            >
+                <mat-icon matListIcon>lock_open</mat-icon>
+                Cambiar contraseña
+            </a> -->
+        </mat-nav-list>
+
+
     </mat-sidenav>
     <mat-sidenav-content>
         <!-- <mat-toolbar style="z-index: 9999; position: sticky; top:0;background-color: #0D47A1; color:white; min-height: 64px !important;"> -->
@@ -244,7 +224,14 @@
                 </div>
             </mat-menu>
         </mat-toolbar> -->
-        <app-header>
+
+
+
+
+
+
+
+        <!-- <app-header>
             <button mat-icon-button>
                 <mat-icon
                     aria-label="label"
@@ -253,16 +240,20 @@
                     menu
                 </mat-icon>
             </button>
-        </app-header>
+        </app-header> -->
+
+
+
+
+
+
+
+
         <div
             class="main-container"
             style="padding:24px"
         >
-
-
             <router-outlet></router-outlet>
-
-
         </div>
     </mat-sidenav-content>
 </mat-sidenav-container>

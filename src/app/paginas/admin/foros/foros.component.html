@@ -1,48 +1,19 @@
-<div fxLayout="column">
+<div
+    fxLayout="column"
+    fxLayoutGap="12px"
+>
     <div
-        fxLayout.xs="column"
-        fxLayout="row"
-        fxLayoutGap="12px"
-        fxLayoutAlign="start center"
-        fxLayoutAlign.xs="center start"
-        class="main-container-header"
+        class="content-filtro"
+        fxLayoutAlign="end center"
     >
-        <div
-            fxFlex="30"
-            style="color:white"
-            fxLayoutAlign="start center"
-            fxLayoutGap="12px"
-            fxShow
-            fxHide.xs
-        >
-            <mat-icon>forum</mat-icon>
-            <mat-card-title class="font-600">FOROS</mat-card-title>
-        </div>
-        <div
-            class="content-filtro"
-            fxLayoutAlign="end center"
-        >
-            <mat-icon matPrefix>search</mat-icon>
-            <input
-                class="input-filter"
-                placeholder="Número de foro"
-                #inputFiltro
-            >
-        </div>
-    </div>
-
-
-
-    <mat-card>
-        <!-- <mat-card-header style="background-color: #EBEBEE;" fxLayoutGap="12px">
-      <div fxFlex fxLayoutAlign="start center">
-        <mat-card-title fxFlex fxLayoutAlign="start center" style="margin:0 !important">Foros</mat-card-title>
-      </div>
-      <div class="content-filtro" fxFlex="50" fxFlex.xs="75" fxLayoutAlign="start center">
         <mat-icon matPrefix>search</mat-icon>
-        <input class="input-filter" placeholder="Número de foro" #inputFiltro />
-      </div>
-    </mat-card-header> -->
+        <input
+            class="input-filter"
+            placeholder="Número de foro"
+            #inputFiltro
+        >
+    </div>
+    <mat-card>
         <mat-card-content>
             <app-table
                 [dataSource]="dataSource"

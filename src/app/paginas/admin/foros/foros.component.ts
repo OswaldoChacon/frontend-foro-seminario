@@ -14,10 +14,9 @@ import { fromEvent } from 'rxjs';
   styleUrls: ["./foros.component.css"],
 })
 export class ForosComponent implements OnInit {
-  columnsHeader = { 'activo': 'Activo', 'no_foro': 'No. Foro', 'periodo': 'Periodo', 'anio': 'Año', 'acciones': '' };
+  columnsHeader = { 'activo': 'Activo', 'no_foro': 'No. Foro', 'periodo': 'Periodo', 'anio': 'Año', 'fecha_limite':'Fecha limite de registro','acciones': '' };
   componentDialog = ForoDialogComponent;
-  dataSource: ForosDataSource = null;
-  pageEvent: PageEvent;
+  dataSource: ForosDataSource = null;  
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild('inputFiltro', { static: true }) input: ElementRef;
@@ -51,8 +50,9 @@ export class ForosComponent implements OnInit {
     if (event.opcion === 'refresh')
       this.getForos();
     if (event.opcion === 'Activar/Desactivar') {
-      this.dataSource.resetData();
-      this._foroService.activar_desactivar(event.data.slug, event.valorOpcion).subscribe(() => this.getForos())
+      // this.dataSource.resetData();
+      // this._foroService.activar_desactivar(event.data.slug, event.valorOpcion).subscribe(() => this.getForos())
+      this._foroService.activar_desactivar(event.data, event.valorOpcion).subscribe()
     }
   }
 

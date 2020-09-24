@@ -41,6 +41,9 @@
                 required
             >
             <mat-error *ngIf="formForo.get('nombre').hasError('required')">El campo nombre es requerido</mat-error>
+            <mat-error *ngIf="formForo.get('nombre').hasError('serverError')">
+                {{formForo.get('nombre').errors?.serverError}}
+            </mat-error>
         </mat-form-field>
         <mat-form-field appearance="fill">
             <mat-label>Periodo</mat-label>
@@ -49,8 +52,8 @@
                 formControlName="periodo"
                 required
             >
-                <mat-option value="Enero-Junio">Enero-Junio</mat-option>
-                <mat-option value="Agosto-Diciembre">Agosto-Diciembre</mat-option>
+                <mat-option value="ENERO-JUNIO">ENERO-JUNIO</mat-option>
+                <mat-option value="AGOSTO-DICIEMBRE">AGOSTO-DICIEMBRE</mat-option>
             </mat-select>
             <mat-error *ngIf="formForo.get('periodo').hasError('required')">El campo periodo es requerido</mat-error>
             <mat-error *ngIf="formForo.get('periodo').hasError('serverError')">
@@ -76,6 +79,19 @@
                 {{formForo.get('anio').errors?.serverError}}
             </mat-error>
         </mat-form-field>
+        <!-- <mat-form-field appearance="fill">
+            <input matInput type="date" formControlName="fecha_limite" required>
+        </mat-form-field> -->
+        <mat-form-field appearance="fill">
+            <mat-label>Fecha limite para el registro de proyectos</mat-label>
+            <input matInput [matDatepicker]="picker" formControlName="fecha_limite">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>            
+            <mat-datepicker #picker></mat-datepicker>
+            <mat-error *ngIf="formForo.get('fecha_limite').hasError('serverError')">
+                {{formForo.get('fecha_limite').errors?.serverError}}
+            </mat-error>
+        </mat-form-field>
+        
     </form>
 </mat-dialog-content>
 <app-buttons

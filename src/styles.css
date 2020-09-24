@@ -3,8 +3,9 @@
 @import "../node_modules/@angular/material/prebuilt-themes/indigo-pink.css";
 html, body {
   height: 100%;
-  margin: 0;
+  margin: 0;  
 }
+
 /* mat-dialog-content {
   flex-grow: 1;
 } */
@@ -16,16 +17,16 @@ html, body {
 }
 
 
-
-
-
 .main-container-header {
-  background-color: #0d47a1;
-  min-height: 85px;
-  max-height: 85px;
+  /* background-color: #0d47a1; */
+  background-color: #ffff;
+  /* min-height: 85px;
+  max-height: 85px; */
+  min-height: 65px;
+  max-height: 65px;
   margin: -24px -24px 20px;
   padding: 24px;
-  top: 64px;
+  /* top: 64px; */
   position: sticky;
   z-index: 2;
 }
@@ -34,9 +35,6 @@ html, body {
   font-weight: 600 !important;
 }
 
-.mat-list-item-content {
-  /* padding: 0 !important; */
-}
 
 /* input formulario */
 
@@ -76,13 +74,11 @@ html, body {
 }
 
 .mat-card-title {  
-  font-size: 18px !important;
+  font-size: 18px !important;  
   margin: 6px 0 !important;
 }
 
-/* .mat-form-field-underline {
-  background-color: green;
-} */
+
 
 /* margin que existe en la tabla responsive */
 
@@ -134,27 +130,24 @@ mat-cell:first-child, mat-footer-cell:first-child, mat-header-cell:first-child {
 
 @media (max-width: 599px) {
   .mat-cell {
-    width: 100% !important;
-    /* padding:10px; */
-    /* padding: 8px 0px 0px; */
+    width: 100% !important;    
     padding:8px 0px;
   }
   .mobile-label {
-    width: 30%;
-    padding-right: 20px;
+    min-width: 30%;
+    max-width: 30%;    
     display: inline-block;
     font-weight: bold;
   }
   .text-content {
-    /* padding-right: 16px; */
+    padding-left: 16px;
     width: 70%;
   }
   .nombre {
     display: none;
   }
   .mat-row {
-    min-height: max-content;
-    /* max-width: auto; */
+    min-height: max-content;    
     flex-direction: column;
     align-items: start;
     padding: 0px 6px !important;
@@ -198,8 +191,9 @@ mat-cell:first-child, mat-footer-cell:first-child, mat-header-cell:first-child {
 /* filtro */
 
 .content-filtro {
-  border-radius: 9999px;
+  /* border-radius: 9999px; */
   background-color: #ffff;
+  /* border: 1px solid black; */
   height: 45px;
   width: 100%;
   padding: 0.2rem 1rem;
@@ -221,6 +215,7 @@ mat-cell:first-child, mat-footer-cell:first-child, mat-header-cell:first-child {
 }
 .mat-card-actions-without-padding {
   padding:0 !important;
+  /* background-color: #F5F5F5; */
 }
 
 /* scroll */

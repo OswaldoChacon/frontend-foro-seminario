@@ -1,15 +1,17 @@
 .mat-toolbar {
-  /* position: fixed;
-    z-index: 999; */
-  /* width: 100% !important;     */
-  /* right: 0; */
+  z-index: 2;
+  position: sticky;
+  top: 0;
   padding: 0 46px;
+  min-height: 64px !important;
+  background-color: #0D47A1;
+  color: white;
 }
 
 .btn-user {
   flex: 1 1 auto;
 }
 
-.mat-menu-panel{
+.mat-menu-panel {
   max-width: none !important;
 }

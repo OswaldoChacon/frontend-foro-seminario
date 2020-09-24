@@ -1,6 +1,11 @@
 @media(min-width:600px) {
+
+    .mat-column-checkAll{
+        max-width: 10%;
+    }
+
     .mat-column-acceso{
-        max-width: 12%;        
+        max-width: 12%;
     }
     .mat-column-num_control{
         max-width: 18%;
@@ -12,11 +17,11 @@
         /* max-width: 82%; */
         padding-right: 16px;
     }
-    .mat-column-email{        
+    .mat-column-email{
         /* max-width: 40%;
         display: block; */
     }
-    .mat-column-acciones,  
+    .mat-column-acciones,
     .mat-column-folio{
         /* .mat-column-no_foro, */
         max-width: 12%;
@@ -65,7 +70,7 @@
 }
 
 .align-right {
-    display: flex;    
+    display: flex;
     justify-content: flex-end;
 }
 

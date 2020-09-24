@@ -1,21 +1,10 @@
-<div
-    class="main-container-header"
-    fxLayout.xs="column"
-    fxLayout="row"
-    fxLayoutGap="12px"
-    fxLayoutAlign="start center"
-    fxLayoutAlign.xs="center start"
-    style="color:white"
->
-    <mat-card-title>REGISTRO DE PROYECTO</mat-card-title>
-</div>
+
 <ng-container [ngSwitch]="true">
     <ng-container *ngSwitchCase="cargando">
         <mat-progress-bar
             mode="indeterminate"
             value="50"
-        >
-            <!-- *ngIf="this.cargando || foro; else formulario" -->
+        >            
         </mat-progress-bar>
     </ng-container>
     <ng-container *ngSwitchCase="foro != undefined">
@@ -26,97 +15,7 @@
                     <br>
                     {{ foro.periodo + ' '+ foro.anio | uppercase}}
                 </h3>
-                <app-formulario-proyecto (formulario)="form = $event"></app-formulario-proyecto>
-                <!-- <div [ngStyle.gt-xs]="{ 'padding.px': 20 }"> -->
-                <!-- <form
-                    [formGroup]="formRegistrar"
-                    #form="ngForm"
-                    (ngSubmit)="registrarProyecto()"
-                >
-                    <mat-form-field appearance="fill">
-                        <mat-label>Titulo del proyecto</mat-label>
-                        <input
-                            matInput
-                            formControlName="titulo"
-                            required
-                        >
-                        <mat-icon matPrefix>book</mat-icon>
-                        <mat-error *ngIf="formRegistrar.get('titulo').hasError('required')">El campo titulo es requerido</mat-error>
-                    </mat-form-field>
-                    <div
-                        fxLayout.gt-sm="row"
-                        fxLayout="column"
-                        fxLayoutGap.gt-sm="20px"
-                    >
-                        <mat-form-field appearance="fill">
-                            <mat-label>Linea de investigacion</mat-label>
-                            <mat-select
-                                formControlName="linea"
-                                required
-                            >
-                                <mat-option
-                                    *ngFor="let linea of lineas"
-                                    [value]="linea.clave"
-                                >
-                                    {{ linea.nombre }}
-                                </mat-option>
-                            </mat-select>
-                            <mat-error *ngIf="formRegistrar.get('linea').hasError('required')">El campo linea de investigación es requerido</mat-error>
-                        </mat-form-field>
-                        <mat-form-field appearance="fill">
-                            <mat-label>Tipo de proyecto</mat-label>
-                            <mat-select
-                                formControlName="tipo"
-                                required
-                            >
-                                <mat-option
-                                    *ngFor="let tipo of tipos"
-                                    [value]="tipo.clave"
-                                >
-                                    {{ tipo.nombre }}
-                                </mat-option>
-                            </mat-select>
-                            <mat-error *ngIf="formRegistrar.get('tipo').hasError('required')">El campo tipo de solicitud es requerido</mat-error>
-                        </mat-form-field>
-                    </div>
-                    <mat-form-field appearance="fill">
-                        <mat-label>Objetivo</mat-label>
-                        <textarea
-                            matInput
-                            formControlName="objetivo"
-                            required
-                        ></textarea>
-                        <mat-error *ngIf="formRegistrar.get('objetivo').hasError('required')">El campo objetivo es requerido</mat-error>
-                    </mat-form-field>
-                    <div
-                        fxLayout.gt-sm="row"
-                        fxLayout="column"
-                        fxLayoutGap.gt-sm="20px"
-                    >
-                        <mat-form-field appearance="fill">
-                            <mat-label>Asesor</mat-label>
-                            <mat-select formControlName="asesor">
-                                <mat-option
-                                    *ngFor="let docente of docentes"
-                                    [value]="docente.num_control"
-                                >
-                                    {{ docente.nombre }}
-                                </mat-option>
-                            </mat-select>                            
-                            <mat-error *ngIf="formRegistrar.get('asesor').hasError('required')">El campo asesor es requerido</mat-error>
-                        </mat-form-field>
-                        <mat-form-field appearance="fill">
-                            <mat-label>Empresa</mat-label>
-                            <input
-                                matInput
-                                formControlName="empresa"
-                                required
-                            >
-                            <mat-icon matSuffix>business</mat-icon>
-                            <mat-error *ngIf="formRegistrar.get('empresa').hasError('required')">El campo empresa es requerido</mat-error>
-                        </mat-form-field>
-                    </div>
-                </form> -->
+                <app-formulario-proyecto (formulario)="form = $event"></app-formulario-proyecto>                
             </mat-card-content>
             <mat-card-actions align="end">
                 <button

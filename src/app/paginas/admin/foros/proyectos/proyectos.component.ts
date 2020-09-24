@@ -9,6 +9,7 @@ import { MatDialog } from "@angular/material/dialog";
 import { Proyecto } from "src/app/modelos/proyecto.model";
 import { fromEvent } from 'rxjs';
 import { DocentesSheetComponent } from '../../bottomsheets/docentes/docentes.sheet.component';
+import { DocentesDiaogComponent } from '../../dialogs/docentes/docentes.dialog.component';
 
 
 @Component({
@@ -26,9 +27,9 @@ export class ProyectosComponent implements OnInit {
   ) { }
 
   displayedColumns = ["folio", "titulo", "participa"];
-  columnsHeader = { 'participa': 'Part.', 'folio': 'Folio', 'titulo': 'Titulo' };
-  // componentDialog = DocentesDiaogComponent;
-  componentDialog = DocentesSheetComponent;
+  columnsHeader = { 'participa': 'Part.', 'folio': 'Folio', 'titulo': 'Titulo','checkAlls':'' };
+  componentDialog = DocentesDiaogComponent;
+  // componentDialog = DocentesSheetComponent;
   dataSource: ProyectosDataSource;
   filtroElegido: string = 'Aceptados'
   opciones: string[]=['Aceptados','No aceptados'];

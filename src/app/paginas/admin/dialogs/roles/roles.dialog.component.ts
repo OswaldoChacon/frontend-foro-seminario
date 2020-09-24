@@ -4,7 +4,6 @@ import { Rol } from 'src/app/modelos/rol.model';
 import { FormBuilder, Validators, FormControl } from "@angular/forms";
 import { RolesService } from 'src/app/services/rol/rol.service';
 import { finalize } from 'rxjs/operators';
-import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-roles-dialog',
@@ -13,8 +12,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 })
 export class RolesDialogComponent implements OnInit {
 
-  formRol = this._formBuilder.group({
-    // clave : new FormControl('',[Validators.required]),
+  formRol = this._formBuilder.group({    
     nombre_: new FormControl('', [Validators.required])
   });
   guardando: boolean = false;
@@ -47,8 +45,6 @@ export class RolesDialogComponent implements OnInit {
     this._rolService.guardarRol(this.formRol, this.data.url).pipe(
       finalize(() => this.guardando = false)
     ).subscribe(() => this._dialog.close({ opcion: 'refresh' }));
-
-
   }
 
 }

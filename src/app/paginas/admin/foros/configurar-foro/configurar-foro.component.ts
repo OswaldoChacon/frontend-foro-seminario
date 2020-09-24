@@ -11,7 +11,6 @@ import { FechasDataSource } from "src/app/services/table/fechas.datasource";
 import { Fecha } from "src/app/modelos/fecha.model";
 import { finalize, catchError, tap, takeWhile } from "rxjs/operators";
 import { MatCheckboxChange } from "@angular/material/checkbox";
-import { throwError, of } from "rxjs";
 import { FechaDialogComponent } from '../../dialogs/fecha/fecha.dialog.component';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { BreaksSheetComponent } from '../../bottomsheets/breaks.sheet/breaks.sheet.component';
@@ -30,7 +29,7 @@ export class ConfigurarForoComponent implements OnInit {
 
   formConfigForo = this._formBuilder.group({
     lim_alumnos: new FormControl("", [Validators.required, Validators.min(1)]),
-    num_aulas: new FormControl("", [Validators.required, Validators.min(2)]),
+    num_aulas: new FormControl("", [Validators.required, Validators.min(1)]),
     duracion: new FormControl("", [Validators.required, Validators.min(15)]),
     num_maestros: new FormControl("", [Validators.required, Validators.min(2)]),
   });
@@ -42,7 +41,7 @@ export class ConfigurarForoComponent implements OnInit {
   fecha: Fecha;
   cargando = true;
   slug: string;
-  docentes: Usuario[];
+  docentes: Usuario[] = [];
   constructor(
     private _foroService: ForoService,
     private _formBuilder: FormBuilder,    

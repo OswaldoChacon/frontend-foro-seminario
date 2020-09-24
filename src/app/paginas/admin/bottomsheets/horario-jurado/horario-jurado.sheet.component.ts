@@ -70,7 +70,7 @@ export class HorarioJuradoSheetComponent implements OnInit {
 
 
     if(event.checked){
-      this._horarioJuradoService.agregarHorario(this.data.num_control,fecha.fecha, intervalo.hora, intervalo.posicion).pipe(
+      this._horarioJuradoService.agregarHorario(this.data.num_control,fecha.fecha, intervalo).pipe(
         tap(()=>{
         //   this.agregarHorario(intervalo.posicion);
         // this.checkedAll(fecha);

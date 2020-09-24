@@ -21,11 +21,11 @@ import { RolesService } from "src/app/services/rol/rol.service";
 })
 export class UsuariosComponent implements OnInit {
   columnsHeader = {
-    acceso: "Estatus",
-    num_control: "No. Control",
-    nombreCompleto: "Nombre completo",
-    email: "Email",
-    acciones: "",
+    acceso: 'Estatus',
+    num_control: 'No. Control',
+    nombreCompleto: 'Nombre completo',
+    email: 'Email',
+    acciones: '',
   };
   roles: string[] = ['Todos']
   componentDialog = UsuarioDialogComponent;

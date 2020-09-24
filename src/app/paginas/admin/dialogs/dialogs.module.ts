@@ -13,6 +13,7 @@ import { DocentesSheetComponent } from '../bottomsheets/docentes/docentes.sheet.
 import { HorarioJuradoSheetComponent } from '../bottomsheets/horario-jurado/horario-jurado.sheet.component';
 import { BreaksSheetComponent } from '../bottomsheets/breaks.sheet/breaks.sheet.component';
 import { BreaksDialogComponent } from './breaks/breaks.dialog.component';
+import { HorarioJuradoDialogComponent } from './horario-jurado/horario-jurado.dialog.component';
 
 
 @NgModule({
@@ -25,6 +26,7 @@ import { BreaksDialogComponent } from './breaks/breaks.dialog.component';
 
     DocentesSheetComponent,
     HorarioJuradoSheetComponent,
+    HorarioJuradoDialogComponent,
     BreaksSheetComponent,
     BreaksDialogComponent
 
@@ -45,6 +47,7 @@ import { BreaksDialogComponent } from './breaks/breaks.dialog.component';
 
     DocentesSheetComponent,
     HorarioJuradoSheetComponent,
+    HorarioJuradoDialogComponent,
     BreaksSheetComponent,
     BreaksDialogComponent
   ]

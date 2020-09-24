@@ -14,6 +14,7 @@
                 formControlName="fecha"
                 [min]="hoy"
                 [matDatepicker]="picker"
+                required
             >
             <mat-datepicker-toggle
                 matSuffix
@@ -21,6 +22,7 @@
             ></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
             <mat-error *ngIf="formFechaForo.get('fecha').hasError('required')">El campo fecha es requerido</mat-error>
+            <mat-error *ngIf="formFechaForo.get('fecha').hasError('serverError')">{{ formFechaForo.get('fecha').errors?.serverError }}</mat-error>
         </mat-form-field>
         <mat-form-field appearance="fill">
             <mat-label>Hora de inicio</mat-label>
@@ -28,7 +30,10 @@
                 type="time"
                 matInput
                 formControlName="hora_inicio"
+                required
             >
+            <mat-error *ngIf="formFechaForo.get('hora_inicio').hasError('required')">El campo hora inicio es requerido</mat-error>
+            <mat-error *ngIf="formFechaForo.get('hora_inicio').hasError('serverError')">{{ formFechaForo.get('hora_inicio').errors?.serverError }}</mat-error>
         </mat-form-field>
         <mat-form-field appearance="fill">
             <mat-label>Hora de termino</mat-label>
@@ -36,7 +41,10 @@
                 type="time"
                 matInput
                 formControlName="hora_termino"
+                required
             >
+            <mat-error *ngIf="formFechaForo.get('hora_inicio').hasError('required')">El campo hora termino es requerido</mat-error>
+            <mat-error *ngIf="formFechaForo.get('hora_termino').hasError('serverError')">{{ formFechaForo.get('hora_termino').errors?.serverError }}</mat-error>
         </mat-form-field>
     </form>
 </mat-dialog-content>

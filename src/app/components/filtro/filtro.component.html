@@ -1,7 +1,7 @@
 <mat-form-field>
   <!-- fxLayoutAlign.lt-md="end end" -->
   <!-- appearance="outline" -->
-    <mat-label>Filtrar por:</mat-label>
+    <mat-label>{{placeholder | titlecase}}</mat-label>
     <!-- <mat-select [value]="opcionElegida" (selectionChange)="seleccionarOpcion($event.value)">
       <mat-option [value]="'Todos'">Todos</mat-option>
       <mat-option *ngFor="let opcion of opciones" [value]="opcion.nombre_">{{opcion.nombre_}}</mat-option>

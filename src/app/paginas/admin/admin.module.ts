@@ -9,7 +9,6 @@ import { UsuariosComponent } from './usuarios/usuarios.component';
 import { LineasComponent } from './lineas/lineas.component';
 import { JuradoComponent } from './horario/jurado/jurado.component';
 import { UsuarioDialogComponent } from '../../dialogs/usuario/usuario.dialog.component';
-import { HorarioJuradoDialogComponent } from '../../dialogs/horario-jurado/horario-jurado.dialog.component';
 
 import { SharedModule } from '../../shared/shared.module';
 
@@ -29,8 +28,7 @@ import { DialogsModule } from './dialogs/dialogs.module';
     UsuariosComponent,
     LineasComponent,        
     JuradoComponent,    
-    UsuarioDialogComponent,    
-    HorarioJuradoDialogComponent,    
+    UsuarioDialogComponent,        
     GenerarHorarioComponent, 
     RolesSolicitudComponent
   ],

@@ -16,8 +16,7 @@ export class TableComponent implements OnInit {
   @Input() componentDialog: ComponentType<any>;
   @Input() url: string;
   @Output() emitData = new EventEmitter();
-  @Input() tipoDialog: string = 'MatDialog';
-  // @Input() templateRef: TemplateRef<any>
+  @Input() tipoDialog: string = 'MatDialog';  
   objectKeys = Object.keys;
 
   constructor(
@@ -39,20 +38,20 @@ export class TableComponent implements OnInit {
   }
 
   editarRegistro(registro: any) {
-    if (this.tipoDialog === 'MatDialog') {
+    // if (this.tipoDialog === 'MatDialog') {
       const dialogRef = this._dialog.open(this.componentDialog, {
         data: this.url != undefined ? { data: registro, url: this.url } : registro
       });
       dialogRef.afterClosed().subscribe(res => this.emitData.emit(res));
-    }
-    else if (this.tipoDialog === 'BottomSheet') {
-// aqui es el bottom sheet
-    const bottomSheetRef = this._bottomSheet.open(this.componentDialog,{
-      data: this.url != undefined ? { data: registro, url: this.url } : registro
-    });
-    bottomSheetRef.afterDismissed().subscribe(res=>this.emitData.emit(res));
+    // }
+//     else if (this.tipoDialog === 'BottomSheet') {
+// // aqui es el bottom sheet
+//     const bottomSheetRef = this._bottomSheet.open(this.componentDialog,{
+//       data: this.url != undefined ? { data: registro, url: this.url } : registro
+//     });
+//     bottomSheetRef.afterDismissed().subscribe(res=>this.emitData.emit(res));
+//     }    
 
-    }    
   }
 
   emitirData(data: any, opcion?: any, valorOpcion?: any) {

@@ -15,7 +15,7 @@ import { finalize } from 'rxjs/operators';
 export class RegistrarSolicitudComponent implements OnInit {
 
   cargando=true;
-  solicitudes: Rol[];
+  solicitudes: Rol[] = [];
   formSolicitud = this._formBuilder.group({
     motivo: ['', [Validators.required]],
     tipo_solicitud: [this.solicitudes,[Validators.required]]

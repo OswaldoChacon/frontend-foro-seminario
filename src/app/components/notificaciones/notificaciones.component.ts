@@ -11,7 +11,8 @@ import { tap } from 'rxjs/operators';
 export class NotificacionesComponent implements OnInit {
 
   objectKeys = Object.keys;
-  opcionesForo: string[] = [];
+  // cargando: boolean = true;
+  opcionesForo: string[] = ['Foro en curso'];
   opcionesRespuesta: string[] = ['Pendientes', 'Aceptados', 'Rechazados'];
   opcionesEnviados: string[] = ['Recibidos', 'No recibidos'];
 
@@ -25,23 +26,13 @@ export class NotificacionesComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    // this.rolActual = this._router.url.includes('Administrador') ? 'Administrador': this._router.url.includes('Alumno') ? 'Alumno':'Docente';
     this._notificacionesService.misForos().subscribe((foros: string[]) => this.opcionesForo.push(...foros));
     this.misNotificaciones();
-    // this.foroElegido = this.opcionesForo.includes('Foro en curso') ? 'Foro en curso':this.opcionesForo.length > 0 ? this.opcionesForo[0]:'';
-    console.log(this.opcionesForo.includes('Foro en curso'));
-    console.log(this.foroElegido);
   }
 
-  responder(notificacion: any, solicitud: string,valor:boolean) {
-    console.log(notificacion);
-    notificacion.respuesta = valor;
-    console.log(notificacion);
-    this._notificacionesService.responderNotificacion(notificacion.respuesta, notificacion.proyecto.folio, solicitud).pipe(
-      tap(()=>{
-        notificacion.editar = false;
-      })
-    ).subscribe();
+  responder(notificacion: any, solicitud: string, respuesta: boolean) {    
+    // this._notificacionesService.responderNotificacion(notificacion.respuesta, notificacion.proyecto.folio, solicitud, notificacion).subscribe(() => this.misNotificaciones());
+    this._notificacionesService.responderNotificacion(respuesta, notificacion.proyecto.folio, solicitud, notificacion).subscribe(() => this.misNotificaciones());
   }
 
   misNotificaciones() {

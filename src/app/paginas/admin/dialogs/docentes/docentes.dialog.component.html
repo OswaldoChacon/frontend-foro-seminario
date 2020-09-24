@@ -18,7 +18,7 @@
   <div fxLayout.gt-sm="row wrap" fxLayout.lt-md="column">
     <div *ngFor="let docente of docentes" fxFlex="50">
       <mat-checkbox (change)="asignarJurado($event,docente)" [checked]="docente.jurado" color="primary">
-        {{ docente.nombre }}</mat-checkbox>
+        {{ docente.nombreCompleto }}</mat-checkbox>
     </div>
   </div>
 </mat-dialog-content>

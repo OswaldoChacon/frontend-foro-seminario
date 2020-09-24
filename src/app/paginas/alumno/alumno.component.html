@@ -26,34 +26,35 @@
                 <!-- fxFlex.lt-md="100" -->
                 <mat-card>
                     <mat-card-header>
-                        <mat-card-title>PROYECTO EN CURSO</mat-card-title>
+                        <mat-card-title>Proyecto en curso</mat-card-title>
                     </mat-card-header>
                     <mat-card-content>
-                        <app-formulario-proyecto
+                        <!-- <app-formulario-proyecto
                                     (formulario)="form = $event"
                                     [proyecto]="miProyecto" 
                                     [hidden]="!miProyecto?.editar"
                                 >
-                                </app-formulario-proyecto>
+                                </app-formulario-proyecto> -->
                         <ng-container [ngSwitch]="true">
                             <app-alerta
                                 *ngSwitchCase="miProyecto === undefined"
                                 [mensaje]="'No tienes ningún proyecto en curso'"
                             ></app-alerta>
                             <div *ngSwitchCase="miProyecto?.editar">
-                                <!-- <app-formulario-proyecto
+                                <app-formulario-proyecto
                                     (formulario)="form = $event"
                                     [proyecto]="miProyecto"
                                 >
-                                </app-formulario-proyecto> -->
+                                </app-formulario-proyecto>
                             </div>
                             <div *ngSwitchDefault>
                                 <h4>{{miProyecto.titulo}}</h4>
                                 <h4 mat-card-subtitle>
                                     Folio: {{miProyecto.folio}}
                                     <br>
-                                    Asesor: {{miProyecto.asesora.nombreCompleto}}
+                                    Asesor: {{miProyecto.asesor.nombreCompleto}}
                                 </h4>
+                                <app-alerta [mensaje]="'El proyecto no fue aceptado'" *ngIf="!miProyecto.aceptado && !miProyecto.inTime"></app-alerta>
                             </div>
                         </ng-container>
                     </mat-card-content>
@@ -81,8 +82,9 @@
                                 color="primary"
                                 *ngSwitchCase="miProyecto?.editar"
                                 (click)="form.ngSubmit.emit();"
+                                [disabled]="form?.form.invalid" 
                             >                                
-                                Guardar
+                                Guardar cambios
                             </button>
                             <a
                                 mat-menu-item
@@ -113,7 +115,7 @@
             <div>
                 <mat-card>
                     <mat-card-header>
-                        <mat-card-title>SOLICITUDES RECIENTES</mat-card-title>
+                        <mat-card-title>Solicitudes pendientes</mat-card-title>
                     </mat-card-header>
                     <mat-card-content
                         [ngStyle]="{'padding.px': objectKeys(misSolicitudes).length ? '0':'16'}"
@@ -176,7 +178,7 @@
             <mat-card>
                 <mat-card-header>
                     <mat-card-title>
-                        {{miProyecto?.editar ? 'AÑADIR INTEGRANTES':'MI EQUIPO'}}
+                        {{miProyecto?.editar ? 'Añadir integrantes':'Mi equipo'}}
                     </mat-card-title>
                 </mat-card-header>
                 <mat-card-content
@@ -185,7 +187,9 @@
                 >
                     <!-- error por undefined alumnos pero ya esta declarado porque -->
                     <ng-container *ngIf="!alumnos || alumnos.length === 0; else listadoAlumnos">
-                        <h3>Sin integrantes</h3>
+                        <h3>                            
+                            {{miProyecto?.editar ? 'Sin alumnos disponibles':'Sin integrantes'}}
+                        </h3>
                     </ng-container>
                     <ng-template #listadoAlumnos>
                         <mat-list>

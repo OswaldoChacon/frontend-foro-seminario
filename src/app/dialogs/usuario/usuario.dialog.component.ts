@@ -1,27 +1,17 @@
-import { Component, OnInit, ViewChild, Inject, Optional, Output, EventEmitter } from "@angular/core";
-import {
-  MatDialogRef,
-  MAT_DIALOG_DATA
-} from "@angular/material/dialog";
-import {
-  FormBuilder,
-  FormGroup,
-  Validators,
-  FormControl,
-  FormGroupDirective
-} from "@angular/forms";
+import { Component, OnInit, Inject, Optional } from "@angular/core";
+import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
+import { FormBuilder,  Validators, FormControl } from "@angular/forms";
 import { UsuarioService } from "src/app/services/usuario/usuario.service";
-import { ToastrService } from "ngx-toastr";
 import { Usuario } from "src/app/modelos/usuario.model";
-import { HttpErrorResponse } from "@angular/common/http";
-import { ProgressSpinnerMode } from "@angular/material/progress-spinner";
-import { finalize, tap } from 'rxjs/operators';
+import { finalize } from 'rxjs/operators';
+
 @Component({
   selector: "app-agregar-usuario",
   templateUrl: "./usuario.dialog.component.html",
   styleUrls: ["./usuario.dialog.component.css"]
 })
 export class UsuarioDialogComponent implements OnInit {
+  
   formUsuario = this._formBuilder.group({
     email: ["", [Validators.required, Validators.email]],
     nombre: new FormControl(""),

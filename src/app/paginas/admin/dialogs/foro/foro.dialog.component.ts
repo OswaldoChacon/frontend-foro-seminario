@@ -17,10 +17,11 @@ export class ForoDialogComponent implements OnInit {
   anios = [];
   guardando: boolean = false;
   formForo = new FormGroup(({
-    no_foro: new FormControl("", [Validators.required]),
-    nombre: new FormControl("FORO DE PROPUESTAS DE PROYECTOS PARA TITULACIÓN INTEGRAL", [Validators.required]),
-    periodo: new FormControl("", [Validators.required]),
-    anio: new FormControl("", [Validators.required])
+    no_foro: new FormControl('', [Validators.required]),
+    nombre: new FormControl('FORO DE PROPUESTAS DE PROYECTOS PARA TITULACIÓN INTEGRAL', [Validators.required]),
+    periodo: new FormControl('', [Validators.required]),
+    anio: new FormControl('', [Validators.required]),
+    fecha_limite: new FormControl('')
   }));
   editar: boolean = false;
   constructor(private _foroService: ForoService,
@@ -34,17 +35,14 @@ export class ForoDialogComponent implements OnInit {
       this.anios.push(new Date().getFullYear() + i);
     if (this.data != null) {
       this.editar = true;
-      this.formForo.get('no_foro').setValue(this.data.no_foro);
-      this.formForo.get('nombre').setValue(this.data.nombre);
-      this.formForo.get('periodo').setValue(this.data.periodo);
-      this.formForo.get('anio').setValue(this.data.anio);
+      this.cargarDatosFormulario();
     }
   }
 
   guardarForo() {
     this.guardando = true;
     this._foroService.guardarForo(this.formForo).pipe(
-      finalize(()=>this.guardando=false)
+      finalize(() => this.guardando = false)
     ).subscribe(() => this._dialog.close({ opcion: 'refresh' })
     );
   }
@@ -56,4 +54,17 @@ export class ForoDialogComponent implements OnInit {
     ).subscribe(() => this._dialog.close({ opcion: 'refresh' }))
   }
 
+  cargarDatosFormulario() {    
+    // if (this.data.fecha_limite) {
+    //   this.data.fecha_limite = new Date(this.data.fecha_limite);
+    //   this.data.fecha_limite.setMinutes(this.data.fecha_limite.getMinutes() + this.data.fecha_limite.getTimezoneOffset());
+    // }
+    this.formForo.setValue({
+      no_foro: this.data.no_foro,
+      nombre: this.data.nombre,
+      periodo: this.data.periodo,
+      anio: this.data.anio,
+      fecha_limite: this.data.fecha_limite
+    });
+  }
 }

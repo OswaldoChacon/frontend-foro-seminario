@@ -4,6 +4,7 @@ import { JuradoDataSource } from 'src/app/services/table/jurado.datasource';
 import { MatPaginator } from '@angular/material/paginator';
 import { tap } from 'rxjs/operators';
 import { HorarioJuradoSheetComponent } from '../../bottomsheets/horario-jurado/horario-jurado.sheet.component';
+import { HorarioJuradoDialogComponent } from '../../dialogs/horario-jurado/horario-jurado.dialog.component';
 
 @Component({
   selector: 'app-jurado',
@@ -14,8 +15,8 @@ export class JuradoComponent implements OnInit {
 
   dataSource: JuradoDataSource;
   columnsHeader = { 'num_control': 'No. Control', 'nombreCompleto': 'Nombre completo' };
-  // componentDialog = HorarioJuradoDialogComponent;
-  componentDialog = HorarioJuradoSheetComponent;
+  componentDialog = HorarioJuradoDialogComponent;
+  // componentDialog = HorarioJuradoSheetComponent;
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
   opciones = ['Todos', 'Asignados', 'Pendientes'];
   filtroElegido: string = ''

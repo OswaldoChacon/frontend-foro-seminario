@@ -9,6 +9,7 @@ export class FiltroComponent implements OnInit {
   // opcionSeleccionada
   @Input() opciones: string[];
   @Input() defaultValue:string;
+  @Input() placeholder: string;
   @Output() opcionElegida: EventEmitter<string> = new EventEmitter();  
   constructor() {}
 

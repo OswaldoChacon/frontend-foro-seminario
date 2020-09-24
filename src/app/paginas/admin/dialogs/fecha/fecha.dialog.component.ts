@@ -17,8 +17,6 @@ import { Fecha } from 'src/app/modelos/fecha.model';
 })
 export class FechaDialogComponent implements OnInit {
 
-  @ViewChild('form') form: FormGroupDirective;
-
   formFechaForo = this._formBuilder.group({
     fecha: new FormControl("", [Validators.required]),
     hora_inicio: new FormControl("", [Validators.required]),
@@ -30,7 +28,7 @@ export class FechaDialogComponent implements OnInit {
   constructor(
     private _formBuilder: FormBuilder,
     private _dialog: MatDialogRef<FechaDialogComponent>,
-    private _foroService: ForoService,
+    private _foroService: ForoService,    
     @Optional() @Inject(MAT_DIALOG_DATA) private data: { data: Fecha, url: string }
   ) {
     _dialog.disableClose = true;
@@ -38,34 +36,16 @@ export class FechaDialogComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.data.data) {
-      this.editar=true;
-      // this.data.data.fecha.setMinutes(this.data.data.fecha.getMinutes() + this.data.data.fecha.getTimezoneOffset());      
-      this.formFechaForo.controls['fecha'].setValue(this.data.data.fecha);
-      this.formFechaForo.controls['hora_inicio'].setValue(this.data.data.hora_inicio);
-      this.formFechaForo.controls['hora_termino'].setValue(this.data.data.hora_termino);
+      this.editar=true;      
+      this.cargarDatosFormulario();
     }
   }
 
   guardarFechaForo() {
     this.guardando = true;
-    this._foroService.agregarFechaForo(this.data.url, this.formFechaForo.value).pipe(
+    this._foroService.guardarFechaForo(this.data.url, this.formFechaForo).pipe(
       finalize(() => this.guardando = false)
-    ).subscribe(
-      res => this._dialog.close({ opcion: 'refresh' })
-    );
-    // {data: this.formFechaForo.value}
-
-
-
-    // this.fechasDataSource.resetData();
-    // this.foroService
-    //   .agregarFechaForo(this.foro.slug, this.formFechaForo.value)
-    //   .pipe(finalize(() => this.fechasDataSource.cambiarValorSpinner()))
-    //   .subscribe((res) => {
-    //     this.fechasDataSource.agregarFecha(this.formFechaForo.value);
-    //     this.formFechaForo.reset();
-    //     formDirective.resetForm();
-    //   });
+    ).subscribe(() => this._dialog.close({ opcion: 'refresh' }));  
   }
 
   actualizarFechaForo() {
@@ -75,6 +55,19 @@ export class FechaDialogComponent implements OnInit {
     ).subscribe(
       res => this._dialog.close({ opcion: 'refresh' }),
     )
+  }
+
+  cargarDatosFormulario(){
+    // if (this.data.data.fecha) {
+    //   this.data.data.fecha = new Date(this.data.data.fecha);
+    //   this.data.data.fecha.setMinutes(this.data.data.fecha.getMinutes() + this.data.data.fecha.getTimezoneOffset());
+    // }
+    console.log(this.data.data.fecha);
+    this.formFechaForo.setValue({
+      fecha: this.data.data.fecha,
+      hora_inicio: this.data.data.hora_inicio,
+      hora_termino: this.data.data.hora_termino
+    })    
   }
 
 }

@@ -1,16 +1,10 @@
-import { Component, OnInit, ViewChild, AfterViewInit, ChangeDetectorRef, AfterViewChecked } from "@angular/core";
+import { Component, OnInit, ChangeDetectorRef, AfterViewChecked } from "@angular/core";
 import {
-  FormBuilder,  
   FormGroupDirective,
 } from "@angular/forms";
 import { ForoService } from "src/app/services/foro/foro.service";
 import { finalize } from "rxjs/operators";
-import { ProyectosService } from "src/app/services/proyectos/proyectos.service";
-import { Router } from '@angular/router';
 import { Foro } from 'src/app/modelos/foro.model';
-import { Usuario } from 'src/app/modelos/usuario.model';
-import { Linea } from 'src/app/modelos/linea.model';
-
 
 @Component({
   selector: "app-registrar-proyecto",
@@ -21,8 +15,8 @@ export class RegistrarProyectoComponent implements OnInit, AfterViewChecked{
   cargando: boolean = true;  
   foro: Foro;
   form:FormGroupDirective;
+  // guardando:boolean = false;
 
-  
   constructor(    
     private _foroService: ForoService,    
     private cdRef:ChangeDetectorRef

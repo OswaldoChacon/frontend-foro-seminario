@@ -10,7 +10,8 @@ export class Foro{
   num_aulas?: number;
   num_maestros?: number;
   duracion?: number;
-  acceso?: number;
+  activo?: number|boolean;
+  fecha_limite: Date;
   prefijo?: string;
   user_id?: number;
   fechas?: [];

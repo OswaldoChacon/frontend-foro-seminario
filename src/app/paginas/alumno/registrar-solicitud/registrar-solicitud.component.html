@@ -8,17 +8,18 @@
     <ng-container *ngSwitchCase="proyectoEnCurso !=undefined">
         <mat-card>
             <mat-card-header>
-                <mat-card-title>REGISTRAR SOLICITUD</mat-card-title>
-            </mat-card-header>
-            <mat-divider></mat-divider>
+                <mat-card-title>Registrar solicitud</mat-card-title>
+            </mat-card-header>            
             <mat-card-content>
                 <h4 class="font-600">{{ proyectoEnCurso.titulo }}</h4>
                 <h4 mat-card-subtitle>
-                    ASESOR: {{ proyectoEnCurso.asesora.nombreCompleto }}
+                    Folio: {{proyectoEnCurso.folio}}<br>
+                    Asesor: {{ proyectoEnCurso.asesor.nombreCompleto }}
                 </h4>
                 <form
                     [formGroup]="formSolicitud"
                     (ngSubmit)="registrarSolicitud()"
+                    
                     #form="ngForm"
                 >
                     <div fxLayout="column">
@@ -44,7 +45,6 @@
                                 </mat-error>
                             </mat-form-field>
                         </div>
-    
                         <mat-form-field appearance="outline">
                             <mat-label>Escribe el motivo de tu solicitud</mat-label>
                             <textarea
@@ -55,7 +55,6 @@
                                 Debes escribir el motivo de tu solicitud
                             </mat-error>
                         </mat-form-field>
-    
                         <mat-form-field
                             appearance="outline"
                             *ngIf="formSolicitud.get('nuevo_asesor')"
@@ -83,12 +82,12 @@
                                 formControlName="nuevo_titulo"
                             >
                         </mat-form-field>
+                        <!-- <mat-error *ngIf="formSolicitud.get('nuevo_titulo')?.hasError('required')">
+                            Debes escribir el nuevo titulo de tu proyecto
+                        </mat-error> -->
                     </div>
                 </form>
-            </mat-card-content>
-    
-            <mat-divider></mat-divider>
-    
+            </mat-card-content>                   
             <mat-card-actions align="end">
                 <button
                     mat-raised-button
@@ -107,11 +106,7 @@
                 <app-alerta [mensaje]="'No puedes registrar ningún solicitud por el momento'"></app-alerta>
             </mat-card-content>
         </mat-card>
-    </ng-container>
-    
+    </ng-container>    
 </ng-container>
-
-
 <ng-template #solicitud>
- 
 </ng-template>

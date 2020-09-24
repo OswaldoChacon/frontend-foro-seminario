@@ -22,6 +22,7 @@ export class FormErrorService {
           }
         });    
     }
+    console.log(form);
     return throwError(error);
   }
 }
