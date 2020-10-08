@@ -4,20 +4,20 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material.module';
-import { HttpClientModule, HTTP_INTERCEPTORS, HttpErrorResponse } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr';
 import { HomeComponent } from './paginas/admin/home/home.component';
 import { RouterModule } from '@angular/router';
 import { LoginComponent } from './auth/login/login.component';
 import { AuthGuard } from './services/auth/guards/auth.guard';
-import { TokenInterceptorService } from './services/interceptors/token-interceptor.service';
 import { NgxPermissionsModule } from 'ngx-permissions';
 import { AdminModule } from './paginas/admin/admin.module';
 import { HttpErrorInterceptor } from './services/interceptors/http-error.interceptor';
 import { SharedModule } from './shared/shared.module';
 import { ForgotPasswordDialogComponent } from './dialogs/forgot-password/forgot-password.dialog.component';
 import { ComponentsModule } from './components/components.module';
+import { NgxSpinnerModule } from "ngx-spinner";
 
 
 
@@ -26,8 +26,7 @@ import { ComponentsModule } from './components/components.module';
     AppComponent,
     HomeComponent,
     LoginComponent, 
-    ForgotPasswordDialogComponent
-    // DashboardComponent,
+    ForgotPasswordDialogComponent    
   ],
   imports: [
     BrowserModule,
@@ -47,19 +46,11 @@ import { ComponentsModule } from './components/components.module';
     NgxPermissionsModule.forRoot(),
     RouterModule,
     AdminModule,
-
-
-
-
-    ComponentsModule
+    ComponentsModule,
+    NgxSpinnerModule
   ],
   providers: [
-    AuthGuard,
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: TokenInterceptorService,
-      multi: true
-    },
+    AuthGuard,    
     {
       provide: HTTP_INTERCEPTORS,
       useClass: HttpErrorInterceptor,

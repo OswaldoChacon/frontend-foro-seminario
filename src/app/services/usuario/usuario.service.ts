@@ -9,6 +9,7 @@ import { catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
 import { FormGroup } from '@angular/forms';
 import { FormErrorService } from '../formerror/form-error.service';
+import { Router } from '@angular/router';
 
 
 @Injectable({
@@ -16,8 +17,9 @@ import { FormErrorService } from '../formerror/form-error.service';
 })
 export class UsuarioService {
   constructor(private _http: HttpClient,
-    private _formError: FormErrorService
-    ) {
+    private _formError: FormErrorService,
+    private _router: Router
+  ) {
   }
 
   getUsuarios(pagina: number, rol: string, num_control: string) {
@@ -29,18 +31,37 @@ export class UsuarioService {
     });
   }
 
-  guardarUsuario(usuario: FormGroup) {
-    return this._http.post(`api/usuarios`, usuario.value).pipe(
-      catchError(error=>{
-        return this._formError.handleError(error, usuario);
+  guardarUsuario(form: FormGroup) {
+    const rol = this._router.url.includes("Docente") ? "Docente" : null;
+    return this._http.post(`api/usuarios`, form.value,{
+      params: new HttpParams().set('rol',rol)
+    }).pipe(
+      catchError(error => {
+        return this._formError.handleError(error, form);
       })
     );
   }
 
-  agregarRol(usuario: Usuario, rol: string, rolSelected: any) {    
+  actualizarUsuario(num_control: string, form: FormGroup) {
+    return this._http.put(
+      `api/usuarios/${num_control}`,
+      form.value
+    ).pipe(
+      catchError(error => {
+        return this._formError.handleError(error, form);
+      })
+    );
+  }
+
+  eliminarUsuario(num_control: string) {
+    return this._http.delete(`api/usuarios/${num_control}`);
+  }
+
+  agregarRol(usuario: Usuario, rol: string, rolSelected: any) {
     rolSelected.is = !rolSelected.is;
-    return this._http.post(`api/agregar_rolUsuario/${usuario.num_control}`, {
+    return this._http.post(`api/agregar_rol`, {
       rol: rol,
+      num_control: usuario.num_control
     }).pipe(catchError((error) => {
       rolSelected.is = !rolSelected.is;
       return throwError(error);
@@ -50,35 +71,29 @@ export class UsuarioService {
 
   eliminarRol(usuario: Usuario, rol: string, rolSelected: any) {
     rolSelected.is = !rolSelected.is;
-    return this._http.delete(`api/eliminar_rolUsuario/${usuario.num_control}`, {
+    return this._http.delete(`api/eliminar_rol/${usuario.num_control}`, {
       params: new HttpParams().set("rol", rol),
     }).pipe(catchError((error) => {
       rolSelected.is = !rolSelected.is;
       return throwError(error);
     })
     );
-  }  
+  }
 
-  actualizarUsuario(num_control: string, usuario: FormGroup) {
-    return this._http.put(
-      `api/usuarios/${num_control}`,
-      usuario.value
-    ).pipe(
-      catchError(error=>{
-        return this._formError.handleError(error, usuario);
+  cambiarPassword(form: FormGroup) {
+    return this._http.put(`api/cambiar_contrasena`, form.value).pipe(
+      catchError(error => {
+        return this._formError.handleError(error, form);
       })
-    );
+    );;
   }
 
-  eliminarUsuario(num_control: string) {
-    return this._http.delete(`api/usuarios/${num_control}`);
+  getDocentes() {
+    return this._http.get<Usuario[]>(`api/alumno/docentes`);
   }
 
-  cambiarPassword(data: {password:string,nuevo_password:string}){
-    return this._http.put(`api/cambiar_contrasena`,data);
-  }
-
-  getDocentes(){
-    return this._http.get<Usuario[]>(`api/docentes`);
+  // tal vez no deberia estar aqui
+  getAlumnos() {
+    return this._http.get<Usuario[]>(`api/lista_alumnos`);
   }
 }

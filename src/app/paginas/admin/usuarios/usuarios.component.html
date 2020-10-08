@@ -24,13 +24,13 @@
             fxFlex.gt-xs="50"
             fxLayoutAlign="end end"
         >
-            <app-filtro
+            <app-filtro            
                 [opciones]="roles"
-                [defaultValue]="'Todos'"
-                [placeholder]="'Roles'"
-                (opcionElegida)="rolSeleccionado = $event; getUsuarios()"
-            ></app-filtro>
-        </div>
+                [defaultValue]="rolSeleccionado"
+                [placeholder]="'Filtrar por'"
+                (opcionElegida)="seleccionarRol($event)"
+                ></app-filtro>                
+            </div>
     </div>
     <div fxFlex="100">
         <mat-card>

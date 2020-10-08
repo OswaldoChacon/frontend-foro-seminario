@@ -18,38 +18,30 @@ export class UsuarioDialogComponent implements OnInit {
     apellidoP: new FormControl(""),
     apellidoM: new FormControl(""),
     num_control: new FormControl("", [Validators.required])
-  });
-  guardando: boolean = false;
+  });  
   editar: boolean = false; 
 
   constructor(
     @Optional() @Inject(MAT_DIALOG_DATA) public data: Usuario,
     private _formBuilder: FormBuilder,
     private _usuarioService: UsuarioService,
-    private _dialog: MatDialogRef<UsuarioDialogComponent>
-  ) { _dialog.disableClose = true; }
+    private _dialogRef: MatDialogRef<UsuarioDialogComponent>
+  ) { _dialogRef.disableClose = true; }
 
 
-  ngOnInit(): void {
-    console.log(this.formUsuario);
+  ngOnInit(): void {    
     if (this.data != null) {
       this.editar = true;
       this.cargarDatosFormulario();
     }
   }  
   
-  registrarUsuario() {
-    this.guardando = true;    
-    this._usuarioService.guardarUsuario(this.formUsuario).pipe(
-      finalize(() => this.guardando = false)
-    ).subscribe(() => this._dialog.close({ opcion: 'refresh' }));
+  registrarUsuario() {    
+    this._usuarioService.guardarUsuario(this.formUsuario).subscribe(() => this._dialogRef.close({ opcion: 'refresh' }));
   }
 
-  actualizarUsuario() {
-    this.guardando = true;
-    this._usuarioService.actualizarUsuario(this.data.num_control, this.formUsuario).pipe(
-      finalize(() => this.guardando = false)
-    ).subscribe(() => this._dialog.close({ opcion: 'refresh' }));
+  actualizarUsuario() {    
+    this._usuarioService.actualizarUsuario(this.data.num_control, this.formUsuario).subscribe(() => this._dialogRef.close({ opcion: 'refresh' }));
   }
 
   cargarDatosFormulario(){

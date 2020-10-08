@@ -4,6 +4,8 @@ import { LineaService } from 'src/app/services/linea/linea.service';
 import { LineaDialogComponent } from '../dialogs/linea/linea.dialog.component';
 import { LineaDataSource } from 'src/app/services/table/lineas.datasource';
 import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmacionDialogComponent } from 'src/app/dialogs/confirmacion/confirmacion.dialog.component';
 
 @Component({
   selector: 'app-lineas',
@@ -21,6 +23,7 @@ export class LineasComponent implements OnInit {
   constructor(
     private _lineaService: LineaService,
     private _router: Router,
+    private _dialog: MatDialog
   ) { }
 
   ngOnInit() {
@@ -38,6 +41,12 @@ export class LineasComponent implements OnInit {
   }
 
   eliminarLinea(linea: Linea) {
-    this.dataSource.eliminarLinea(linea, this.url).subscribe(() => this.dataSource.getLineas(this.url));
+    this._dialog.open(ConfirmacionDialogComponent, {
+      data: '¿Estas seguro de realizar esta acción?'
+    }).afterClosed().subscribe((res: boolean) => {
+      if (res)
+        this.dataSource.eliminarLinea(linea, this.url).subscribe(() => this.dataSource.getLineas(this.url));
+    });
+
   }
 }

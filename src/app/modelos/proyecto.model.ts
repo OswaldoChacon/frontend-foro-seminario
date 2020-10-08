@@ -7,14 +7,10 @@ export class Proyecto {
   empresa?: string;
   objetivo?: string;  
   tipo_de_proyecto: Linea;
-  linea_de_investigacion: Linea;  
-  // asesora:{
-  //   num_control:string;
-  //   nombreCompleto:string;
-  // }
+  linea_de_investigacion: Linea;   
   asesor: Usuario;
   editar?:boolean;
-  participa?: number;
+  participa?: number|boolean;
   aceptado?: number;
   cancelado?: number;
   calificacion_foro?: number;

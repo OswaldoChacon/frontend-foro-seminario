@@ -11,8 +11,8 @@
             required
         >
         <mat-icon matSuffix>book</mat-icon>
-        <mat-error *ngIf="formRegistrar.get('titulo').hasError('required')">El campo titulo es requerido</mat-error>
-        <mat-error *ngIf="formRegistrar.get('titulo').hasError('maxlength')">El campo titulo 255es requerido</mat-error>
+        <mat-error *ngIf="formRegistrar.get('titulo').hasError('required')">El campo titulo es obligatorio</mat-error>
+        <mat-error *ngIf="formRegistrar.get('titulo').hasError('maxlength')">El campo titulo no debe ser mayor a 255 caracteres</mat-error>
         <mat-error *ngIf="formRegistrar.get('titulo').hasError('serverError')">
             {{formRegistrar.get('titulo').errors?.serverError}}
         </mat-error>
@@ -33,11 +33,10 @@
                     [value]="linea.clave"
                 >
                     {{ linea.nombre }}
-                </mat-option>
-                <mat-option value="linea">linea</mat-option>
+                </mat-option>                
             </mat-select>
             <mat-error *ngIf="formRegistrar.get('linea').hasError('required')">
-                El campo linea de investigación es requerido
+                El campo linea de investigación es obligatorio
             </mat-error>
             <mat-error *ngIf="formRegistrar.get('linea').hasError('serverError')">
                 {{formRegistrar.get('linea').errors?.serverError}}
@@ -56,7 +55,7 @@
                     {{ tipo.nombre }}
                 </mat-option>
             </mat-select>
-            <mat-error *ngIf="formRegistrar.get('tipo').hasError('required')">El campo tipo de solicitud es requerido</mat-error>
+            <mat-error *ngIf="formRegistrar.get('tipo').hasError('required')">El campo tipo de solicitud es obligatorio</mat-error>
             <mat-error *ngIf="formRegistrar.get('tipo').hasError('serverError')">
                 {{formRegistrar.get('tipo').errors?.serverError}}
             </mat-error>
@@ -69,7 +68,7 @@
             formControlName="objetivo"
             required
         ></textarea>
-        <mat-error *ngIf="formRegistrar.get('objetivo').hasError('required')">El campo objetivo es requerido</mat-error>
+        <mat-error *ngIf="formRegistrar.get('objetivo').hasError('required')">El campo objetivo es obligatorio</mat-error>
         <mat-error *ngIf="formRegistrar.get('objetivo').hasError('maxlength')">
             El campo objetivo no debe exceder 255 caracteres
         </mat-error>
@@ -95,7 +94,7 @@
                     {{ docente.nombreCompleto }}
                 </mat-option>
             </mat-select>
-            <mat-error *ngIf="formRegistrar.get('asesor').hasError('required')">El campo asesor es requerido</mat-error>
+            <mat-error *ngIf="formRegistrar.get('asesor').hasError('required')">El campo asesor es obligatorio</mat-error>
             <mat-error *ngIf="formRegistrar.get('asesor').hasError('serverError')">
                 {{formRegistrar.get('asesor').errors?.serverError}}
             </mat-error>
@@ -108,7 +107,7 @@
                 required
             >
             <mat-icon matSuffix>business</mat-icon>
-            <mat-error *ngIf="formRegistrar.get('empresa').hasError('required')">El campo empresa es requerido</mat-error>
+            <mat-error *ngIf="formRegistrar.get('empresa').hasError('required')">El campo empresa es obligatorio</mat-error>
             <mat-error *ngIf="formRegistrar.get('empresa').hasError('serverError')">
                 {{formRegistrar.get('empresa').errors?.serverError}}
             </mat-error>

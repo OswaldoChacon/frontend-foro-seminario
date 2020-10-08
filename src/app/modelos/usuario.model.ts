@@ -16,4 +16,6 @@ export class Usuario {
     ]
     myTeam?: boolean;
     taller?:boolean;
+    horarios_count: number;
+    jurado_proyecto_count: number;
 }

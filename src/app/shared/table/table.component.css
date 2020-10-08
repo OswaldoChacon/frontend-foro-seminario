@@ -1,69 +1,46 @@
 @media(min-width:600px) {
-
-    .mat-column-checkAll{
-        max-width: 10%;
-    }
-
-    .mat-column-acceso{
+    .mat-column-acceso {
         max-width: 12%;
     }
-    .mat-column-num_control{
+    .mat-column-num_control {
         max-width: 18%;
     }
-    .mat-column-activo{
-        /* max-width: 8%; */
-    }
-    .mat-column-nombreCompleto, .mat-column-titulo{
-        /* max-width: 82%; */
+    .mat-column-nombreCompleto
+    /* , .mat-column-titulo  */
+    {
         padding-right: 16px;
     }
-    .mat-column-email{
-        /* max-width: 40%;
-        display: block; */
-    }
-    .mat-column-acciones,
-    .mat-column-folio{
-        /* .mat-column-no_foro, */
+    .mat-column-acciones, .mat-column-folio {
         max-width: 12%;
-        /* align-items: flex-end; */
-        /* max-width: initial; */
+        /* min-width: 15%; */
+        /* max-width: 15%; */
     }
-    .mat-column-clave{
+    .mat-column-clave {
         max-width: 30%;
         padding-right: 12px;
     }
-    .mat-column-nombre, .mat-column-clave, .mat-column-nombreCompleto{
-        /* padding-right: 14px; */
-    }
-    .mat-column-titulo{
+    .mat-column-titulo {
         padding: 0 14px;
+        /* min-width: 40%; */
+        max-width: 70% !important;
+        /* min-width: 70% !important; */
     }
-    .mat-column-nombre{
+    .mat-column-nombre {
         max-width: 60%;
-        /* max-width: max-content; */
     }
-    .mat-column-periodo{
-        /* max-width: 18%; */
-    }
-    .mat-column-anio{
-        /* max-width: 15%; */
-    }
-    .mat-column-participa{
+    .mat-column-participa,
+    .mat-column-EspaciosDeTiempoEnComun
+     {
+        min-width: 8%;
         max-width: 8%
     }
 }
-@media (min-width: 600px) and (max-width: 850px){
-    .mat-column-email{
+
+@media (min-width: 600px) and (max-width: 850px) {
+    .mat-column-email {
         display: none;
     }
 }
-/* .verificado {
-    color: green;
-}
-
-.error {
-    color: red;
-} */
 
 .icon-check {
     font-size: 18px;
@@ -74,9 +51,49 @@
     justify-content: flex-end;
 }
 
+/* Mensaje de tabla vacia centrado */
+.center-message {
+    text-align: center;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    background: white;
+  }
 
 
 
-.mat-card{
-    padding: 0 !important;
-}
+  
+/* Responsive table */
+
+.mobile-label {
+    display: none;
+  }
+  
+  @media (max-width: 599px) {
+    .mat-cell {
+      width: 100% !important;    
+      padding:8px 0px;
+    }
+    .mobile-label {
+      min-width: 30%;
+      max-width: 30%;    
+      display: inline-block;
+      font-weight: bold;
+    }
+    .text-content {
+      padding-left: 16px;
+      width: 70%;
+    }
+    .nombre {
+      display: none;
+    }
+    .mat-row {
+      min-height: max-content;    
+      flex-direction: column;
+      align-items: start;
+      padding: 0px 6px !important;
+    }
+  }
+  
+  .mat-row {
+    cursor: pointer;
+  }

@@ -28,8 +28,12 @@
                 required
             >
             <mat-icon matSuffix>vpn_key</mat-icon>
-            <mat-error *ngIf="formUsuario.get('num_control').hasError('required')">El campo número de control es requerido</mat-error>
-            <mat-error *ngIf="formUsuario.get('num_control').hasError('serverError')">{{ formUsuario.get('num_control').errors?.serverError }}</mat-error>
+            <mat-error *ngIf="formUsuario.get('num_control').hasError('required')">
+                El campo número de control es obligatorio
+            </mat-error>
+            <mat-error *ngIf="formUsuario.get('num_control').hasError('serverError')">
+                {{ formUsuario.get('num_control').errors?.serverError }}
+            </mat-error>
         </mat-form-field>
         <ng-container *ngIf="editar">
             <mat-form-field appearance="fill">
@@ -37,10 +41,10 @@
                 <input
                     matInput
                     formControlName="nombre"
-                    >
-                    <!-- required -->
+                >
+                <!-- required -->
                 <mat-icon matSuffix>account_circle</mat-icon>
-                <mat-error *ngIf="formUsuario.get('nombre').hasError('required')">El campo nombre es requerido</mat-error>
+                <mat-error *ngIf="formUsuario.get('nombre').hasError('required')">El campo nombre es obligatorio</mat-error>
             </mat-form-field>
             <div
                 fxLayout.gt-sm="row"
@@ -52,18 +56,18 @@
                     <input
                         matInput
                         formControlName="apellidoP"
-                        >
-                        <!-- required -->
-                    <mat-error *ngIf="formUsuario.get('apellidoP').hasError('required')">El campo email es requerido</mat-error>
+                    >
+                    <!-- required -->
+                    <mat-error *ngIf="formUsuario.get('apellidoP').hasError('required')">El campo email es obligatorio</mat-error>
                 </mat-form-field>
                 <mat-form-field appearance="fill">
                     <mat-label>Apellido materno</mat-label>
                     <input
                         matInput
                         formControlName="apellidoM"
-                        >
-                        <!-- required -->
-                    <mat-error *ngIf="formUsuario.get('apellidoM').hasError('required')">El campo email es requerido</mat-error>
+                    >
+                    <!-- required -->
+                    <mat-error *ngIf="formUsuario.get('apellidoM').hasError('required')">El campo email es obligatorio</mat-error>
                 </mat-form-field>
             </div>
         </ng-container>
@@ -76,13 +80,14 @@
                 required
             >
             <mat-icon matSuffix>email</mat-icon>
-            <mat-error *ngIf="formUsuario.get('email').hasError('required')">El campo email es requerido</mat-error>
+            <mat-error *ngIf="formUsuario.get('email').hasError('required')">El campo email es obligatorio</mat-error>
             <mat-error *ngIf="formUsuario.get('email').hasError('email')">Formato de email incorrecto</mat-error>
-            <mat-error *ngIf="formUsuario.get('email').hasError('serverError')">{{ formUsuario.get('email').errors?.serverError }}</mat-error>
+            <mat-error *ngIf="formUsuario.get('email').hasError('serverError')">
+                {{ formUsuario.get('email').errors?.serverError }}
+            </mat-error>
         </mat-form-field>
     </form>
 </mat-dialog-content>
 <app-buttons
-    [form]="form"
-    [guardando]="guardando"
+    [form]="form"    
 ></app-buttons>

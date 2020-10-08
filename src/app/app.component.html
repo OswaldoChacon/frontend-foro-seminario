@@ -1,81 +1,10 @@
-<!-- <div fxLayout="row" fxFlex>
-  <mat-toolbar color="primary">
-    <button mat-icon-button>
-      <mat-icon aria-label="label" (click)="sidenav.toggle()">menu</mat-icon>
-    </button>
-    <span class="btn-user"></span>
-    <button mat-icon-button [matMenuTriggerFor]="menu">
-      <mat-icon aria-label="label">account_circle</mat-icon>
-    </button>
-    <mat-menu #menu="matMenu">
-      <button mat-menu-item>
-        <mat-icon>exit_to_app</mat-icon>
-        <span>Cerrar sesión</span>
-      </button>
-    </mat-menu>
-  </mat-toolbar>
-  <mat-sidenav-container class="sidenav-container" autosize>
-    <mat-sidenav
-      #sidenav
-      [mode]="screenWidth > 840 ? 'side' : 'over'"
-      [opened]="screenWidth > 840"
-      autosize
-    >
-      <mat-nav-list>
-        <a [routerLink]="['/oficina']" routerLinkActive="active">
-          <mat-list-item>
-            <mat-icon class="icon-sidenav-list" matListIcon>home</mat-icon>
-            Inicio
-          </mat-list-item>
-        </a>
-        <mat-divider></mat-divider>
-        <a [routerLink]="['usuarios']" routerLinkActive="active">
-          <mat-list-item role="listitem">
-            <mat-icon class="icon-sidenav-list" matListIcon>group</mat-icon>
-            Usuarios
-          </mat-list-item>
-        </a>
-        <mat-divider></mat-divider>
-        <a [routerLink]="['/lineas_investigacion']" routerLinkActive="active">
-          <mat-list-item role="listitem">
-            <mat-icon class="icon-sidenav-list" matListIcon>home</mat-icon>
-            Lineas de investigación
-          </mat-list-item>
-        </a>
-        <mat-divider></mat-divider>
-        <a [routerLink]="['/foros']" routerLinkActive="active">
-          <mat-list-item role="listitem">
-            <mat-icon class="icon-sidenav-list" matListIcon>library_books</mat-icon>
-            Tipos de proyectos
-          </mat-list-item>          
-        </a>
-        <mat-divider></mat-divider>
-        <a [routerLink]="['/foros']" routerLinkActive="active">
-          <mat-list-item role="listitem">
-            <mat-icon class="icon-sidenav-list" matListIcon>forum</mat-icon>
-            Foros
-          </mat-list-item>
-        </a>
-        <mat-divider></mat-divider>       
-      </mat-nav-list>
-    </mat-sidenav>
-    <mat-sidenav-content class="sidenav-content">     
-      <mat-card>
-        <router-outlet></router-outlet>
-      </mat-card>      
-    </mat-sidenav-content>
-  </mat-sidenav-container>
-</div>
- -->
-
- <router-outlet></router-outlet>
-  <!-- <mat-accordion>
-          <mat-expansion-panel>
-            <mat-expansion-panel-header>
-              <mat-panel-title>
-                Personal data
-              </mat-panel-title>              
-            </mat-expansion-panel-header>
-            s
-          </mat-expansion-panel>
-        </mat-accordion> -->
+<ngx-spinner
+    bdColor="rgba(255,251,251,0.81)"
+    size="medium"
+    color="#130c94"
+    type="ball-clip-rotate"
+    [fullScreen]="false"
+>
+    <p style="color: white">Cargando...</p>
+</ngx-spinner>
+<router-outlet></router-outlet>

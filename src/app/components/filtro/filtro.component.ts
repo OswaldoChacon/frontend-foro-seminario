@@ -5,8 +5,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
   templateUrl: "./filtro.component.html",
   styleUrls: ["./filtro.component.css"],
 })
-export class FiltroComponent implements OnInit {
-  // opcionSeleccionada
+export class FiltroComponent implements OnInit {  
   @Input() opciones: string[];
   @Input() defaultValue:string;
   @Input() placeholder: string;

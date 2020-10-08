@@ -25,8 +25,10 @@
                 required
             >
             <mat-icon matSuffix>vpn_key</mat-icon>
-            <mat-error *ngIf="formLinea.get('clave').hasError('required')">El campo clave es requerido</mat-error>
-            <mat-error *ngIf="formLinea.get('clave').hasError('serverError')">{{formLinea.get('clave').errors?.serverError}}</mat-error>
+            <mat-error *ngIf="formLinea.get('clave').hasError('required')">El campo clave es obligatorio</mat-error>
+            <mat-error *ngIf="formLinea.get('clave').hasError('serverError')">
+                {{formLinea.get('clave').errors?.serverError}}
+            </mat-error>
         </mat-form-field>
         <mat-form-field appearance="fill">
             <mat-label>Nombre</mat-label>
@@ -35,13 +37,11 @@
                 formControlName="nombre"
                 required
             >
-            <mat-error *ngIf="formLinea.get('nombre').hasError('required')">El campo nombre es requerido</mat-error>
-            <mat-error *ngIf="formLinea.get('nombre').hasError('serverError')">{{formLinea.get('nombre').errors?.serverError}}</mat-error>
+            <mat-error *ngIf="formLinea.get('nombre').hasError('required')">El campo nombre es obligatorio</mat-error>
+            <mat-error *ngIf="formLinea.get('nombre').hasError('serverError')">
+                {{formLinea.get('nombre').errors?.serverError}}
+            </mat-error>
         </mat-form-field>
     </form>
 </mat-dialog-content>
-<app-buttons
-    [form]="form"
-    [guardando]="guardando"
-></app-buttons>
-<!-- </div> -->
+<app-buttons [form]="form"></app-buttons>

@@ -1,27 +1,4 @@
-<!-- <span>{{data.num_control}}</span>
-<mat-dialog-content>
-    <div fxLayout="column" *ngFor="let fecha of fechas">
-        {{fecha.fecha}}
-        <div fxLayout="row wrap" *ngFor="let intervalo of fecha.intervalos">
-            <div fxFlex="50">
-                <mat-checkbox>{{intervalo.hora}}</mat-checkbox>
-            </div>
-        </div>
-
-    </div>
-</mat-dialog-content>
-<mat-dialog-actions>
-
-</mat-dialog-actions> -->
-
-
-
-
-
-
-
-
-<h3 mat-dialog-title>{{data.nombreCompleto}}</h3>
+<h2 mat-dialog-title>{{data.nombreCompleto}}</h2>
 <mat-dialog-content>
     <div
         fxFlex="100"
@@ -30,7 +7,7 @@
     >
         <div
             style="padding:0 12px; margin: 0 12px 12px; "
-            fxLayout="column"            
+            fxLayout="column"
             *ngFor="let fecha of fechas"
         >
             <mat-checkbox
@@ -53,42 +30,7 @@
                     {{ intervalo.hora }}
                 </mat-checkbox>
             </div>
-            <!-- <mat-selection-list> -->
-            <!-- <mat-list-option *ngFor="let intervalo of fecha.intervalos">{{ intervalo.hora }}</mat-list-option> -->
-            <!-- </mat-selection-list> -->
         </div>
-        <!-- <div
-        fxLayout="column"
-        *ngFor="let fecha of fechas"
-        style="padding-left:12px; margin-bottom: 12px;"
-        >
-        <mat-checkbox
-        color="primary"
-        [checked]="fecha.checked"
-        (change)="seleccionarTodos($event,fecha)"
-        >
-        {{ fecha.fecha }}
-    </mat-checkbox>
-    <div
-    fxLayout="row wrap"
-    fxLayout.xs="column"
-    style="padding: 0 20px;"
-    fxLayoutGap="12px"
-    >
-    <div
-    *ngFor="let intervalo of fecha.intervalos"
-    fxFlex="30"
-    >
-    <mat-checkbox
-    color="primary"
-    [checked]="intervalo.selected"
-    (change)="agregarHora($event,fecha,intervalo)"
-    >
-    {{ intervalo.hora }}
-</mat-checkbox>
-</div>
-</div>
-</div> -->
     </div>
 </mat-dialog-content>
 <mat-dialog-actions align="end">

@@ -1,21 +1,16 @@
-.content-header{
-    /* padding: 0 .5rem; */
-    width:100%
-}
-.mat-toolbar{
-    background-color: #EBEBEE;    
-}
-/* .content-filtro{
-    border-radius:9999px;
-    background-color: #ffff;
-    height: 42px;
-    padding: .2rem 1rem;     
-} */
-input{
-    width: 100%;
-    border:none
+.content-header {
+    width: 100%
 }
 
-input:focus{
+.mat-toolbar {
+    background-color: #EBEBEE;
+}
+
+input {
+    width: 100%;
+    border: none
+}
+
+input:focus {
     outline: none;
 }

@@ -7,9 +7,7 @@ import { MaterialModule } from '../material.module';
 import { NgxPermissionsModule } from 'ngx-permissions';
 import { ButtonsComponent } from './buttons/buttons.component';
 import { TableComponent } from './table/table.component';
-import { CambiarContrasenaComponent } from './cambiar-contrasena/cambiar-contrasena.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { CardHeaderComponent } from './card-header/card-header.component';
 import { AlertaComponent } from './alerta/alerta.component';
 
 @NgModule({
@@ -17,9 +15,7 @@ import { AlertaComponent } from './alerta/alerta.component';
     HeaderComponent,
     SidenavComponent,
     ButtonsComponent,
-    TableComponent,
-    CambiarContrasenaComponent,
-    CardHeaderComponent,
+    TableComponent,        
     AlertaComponent,
   ],
   imports: [
@@ -34,8 +30,7 @@ import { AlertaComponent } from './alerta/alerta.component';
     HeaderComponent,    
     SidenavComponent,
     ButtonsComponent,
-    TableComponent,
-    CardHeaderComponent,
+    TableComponent,    
     AlertaComponent,
   ]
 })

@@ -7,18 +7,16 @@ import { ConfigurarForoComponent } from "./configurar-foro/configurar-foro.compo
 
 const routes: Routes = [
   {
-    path: "",
+    path: '',
     component: ForosComponent,
   },
-  // children: [
-  { path: "proyectos/:id", component: ProyectosComponent },
-  { path: "configurar-foro/:id", component: ConfigurarForoComponent }  
-  // ],
-  // },
+  { path: 'proyectos/:id', component: ProyectosComponent },
+  { path: 'configurar-foro/:id', component: ConfigurarForoComponent }
+
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class ForosRoutingModule {}
+export class ForosRoutingModule { }

@@ -28,16 +28,16 @@ export class LineaService {
     );
   }
   
-  actualizarLinea(claveLinea: string, linea: FormGroup, url: string) {
-    return this.http.put(`api/${url}/${claveLinea}`, linea.value).pipe(
+  actualizarLinea(clave: string, linea: FormGroup, url: string) {
+    return this.http.put(`api/${url}/${clave}`, linea.value).pipe(
       catchError(error=>{
         return this._formError.handleError(error,linea);
       })
     );
   }
   
-  eliminarLinea(linea_id: string, url: string) {
-    return this.http.delete(`api/${url}/${linea_id}`);
+  eliminarLinea(clave: string, url: string) {
+    return this.http.delete(`api/${url}/${clave}`);
   }
 }
 

@@ -14,6 +14,7 @@ import { HorarioJuradoSheetComponent } from '../bottomsheets/horario-jurado/hora
 import { BreaksSheetComponent } from '../bottomsheets/breaks.sheet/breaks.sheet.component';
 import { BreaksDialogComponent } from './breaks/breaks.dialog.component';
 import { HorarioJuradoDialogComponent } from './horario-jurado/horario-jurado.dialog.component';
+import { ConfirmacionDialogComponent } from 'src/app/dialogs/confirmacion/confirmacion.dialog.component';
 
 
 @NgModule({
@@ -28,7 +29,8 @@ import { HorarioJuradoDialogComponent } from './horario-jurado/horario-jurado.di
     HorarioJuradoSheetComponent,
     HorarioJuradoDialogComponent,
     BreaksSheetComponent,
-    BreaksDialogComponent
+    BreaksDialogComponent,
+    ConfirmacionDialogComponent
 
   ],
   imports: [
@@ -45,11 +47,12 @@ import { HorarioJuradoDialogComponent } from './horario-jurado/horario-jurado.di
     RolesDialogComponent,
     FechaDialogComponent,
 
-    DocentesSheetComponent,
     HorarioJuradoSheetComponent,
     HorarioJuradoDialogComponent,
     BreaksSheetComponent,
-    BreaksDialogComponent
+    BreaksDialogComponent,
+    ConfirmacionDialogComponent,
+    DocentesSheetComponent,
   ]
 })
 export class DialogsModule { }

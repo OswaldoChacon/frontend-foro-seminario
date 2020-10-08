@@ -7,9 +7,7 @@ import { UsuarioService } from "../usuario/usuario.service";
 
 export class UsuariosDataSource extends DataSource<Usuario> {
   private usuarios: Usuario[];
-  private usuariosSubject = new BehaviorSubject<Usuario[]>([]);
-  private loadingSubject = new BehaviorSubject<boolean>(true);
-  loading$ = this.loadingSubject.asObservable();
+  private usuariosSubject = new BehaviorSubject<Usuario[]>([]);  
   total: number = 0;
   por_pagina: number = 0;
 
@@ -22,19 +20,11 @@ export class UsuariosDataSource extends DataSource<Usuario> {
   }
 
   disconnect() {
-    this.usuariosSubject.complete();
-    this.loadingSubject.complete();
+    this.usuariosSubject.complete();    
   }
 
-  getUsuarios(pagina: number, rol: string, num_control: string) {
-    this.resetData()
-    this._usuarioService.getUsuarios(pagina, rol, num_control).pipe(
-      catchError((error) => {
-        this.handleError();
-        return throwError(error)
-      }),
-      finalize(() => this.loadingSubject.next(false))
-    ).subscribe((usuarios) => {
+  getUsuarios(pagina: number, rol: string, num_control: string) {    
+    this._usuarioService.getUsuarios(pagina, rol, num_control).subscribe((usuarios) => {
       this.total = usuarios['total'];
       this.por_pagina = usuarios['per_page'];
       this.usuariosSubject.next(usuarios['data']);
@@ -42,21 +32,8 @@ export class UsuariosDataSource extends DataSource<Usuario> {
     });
   }
 
-  eliminarUsuario(num_control: string) {
-    this.resetData();
-    return this._usuarioService.eliminarUsuario(num_control).pipe(catchError((error) => {
-      this.handleError();
-      return throwError(error);
-    }));
+  eliminarUsuario(num_control: string) {    
+    return this._usuarioService.eliminarUsuario(num_control);
   }
-
-  handleError() {
-    this.usuariosSubject.next(this.usuarios);
-    this.loadingSubject.next(false);
-  }
-
-  resetData() {
-    this.usuariosSubject.next([]);
-    this.loadingSubject.next(true);
-  }
+  
 }

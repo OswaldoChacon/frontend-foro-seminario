@@ -15,11 +15,11 @@ import { Proyecto } from 'src/app/modelos/proyecto.model';
 export class DocentesDiaogComponent implements OnInit {
   docentes: any;
   constructor(
-    private _dialog: MatDialogRef<DocentesDiaogComponent>,
+    private _dialogRef: MatDialogRef<DocentesDiaogComponent>,
     private _proyectoService: ProyectosService,
     @Optional() @Inject(MAT_DIALOG_DATA) public data: Proyecto
   ) {
-    _dialog.disableClose = true;
+    _dialogRef.disableClose = true;
   }
 
   ngOnInit(): void {

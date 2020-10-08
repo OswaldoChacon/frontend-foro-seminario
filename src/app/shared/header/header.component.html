@@ -1,23 +1,38 @@
-<!-- <mat-toolbar style="z-index: 9999; position: sticky; top:0;background-color: #0D47A1; color:white; min-height: 64px !important;"> -->
-<mat-toolbar>   
+<mat-toolbar>
     <ng-content></ng-content>
     <span class="btn-user"></span>
-    <button mat-icon-button [matMenuTriggerFor]="menu">
+    <button
+        mat-icon-button
+        [matMenuTriggerFor]="menu"
+    >
         <mat-icon>account_circle</mat-icon>
     </button>
-    <mat-menu #menu="matMenu">      
-        <div *ngIf="_authService.getRoles().length > 1">            
-            <a mat-menu-item *ngFor="let rol of _authService.getRoles()" [routerLink]="['/' + rol]" routerLinkActive="active">
-                {{ rol}}
-            </a>
+    <mat-menu #menu="matMenu">
+        <div *ngIf="_authService.getRoles().length > 1 && _authService.includeTaller()">
+            <ng-container *ngFor="let rol of _authService.getRoles()">
+                <a
+                    mat-menu-item
+                    *ngIf="rol !== 'Taller'"
+                    [routerLink]="['/' + rol]"
+                    routerLinkActive="active"
+                >
+                    {{ rol}}
+                </a>
+            </ng-container>
             <mat-divider></mat-divider>
         </div>
-        
-        <a mat-menu-item [routerLink]="['/' + 'Docente']" routerLinkActive="active">
+        <a
+            mat-menu-item
+            [routerLink]="['perfil']"
+            routerLinkActive="active"
+        >
             <mat-icon>perm_identity</mat-icon>
             Mi perfil
-        </a>        
-        <button mat-menu-item (click)="_authService.logout()">
+        </a>
+        <button
+            mat-menu-item
+            (click)="_authService.logout()"
+        >
             <mat-icon>exit_to_app</mat-icon>
             <span>Cerrar sesión</span>
         </button>

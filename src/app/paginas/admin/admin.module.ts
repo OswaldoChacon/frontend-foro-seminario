@@ -3,21 +3,17 @@ import { CommonModule } from '@angular/common';
 import { AdminRoutingModule } from './admin-routing.module';
 import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from '../../material.module';
+import { SharedModule } from '../../shared/shared.module';
+import { ComponentsModule } from 'src/app/components/components.module';
+import { DialogsModule } from './dialogs/dialogs.module';
 
 import { AdminComponent } from './admin.component';
 import { UsuariosComponent } from './usuarios/usuarios.component';
 import { LineasComponent } from './lineas/lineas.component';
 import { JuradoComponent } from './horario/jurado/jurado.component';
 import { UsuarioDialogComponent } from '../../dialogs/usuario/usuario.dialog.component';
-
-import { SharedModule } from '../../shared/shared.module';
-
-
-
 import { GenerarHorarioComponent } from './horario/generar-horario/generar-horario.component';
 import { RolesSolicitudComponent } from './roles-solicitud/roles-solicitud.component';
-import { ComponentsModule } from 'src/app/components/components.module';
-import { DialogsModule } from './dialogs/dialogs.module';
 
 
 
@@ -30,7 +26,7 @@ import { DialogsModule } from './dialogs/dialogs.module';
     JuradoComponent,    
     UsuarioDialogComponent,        
     GenerarHorarioComponent, 
-    RolesSolicitudComponent
+    RolesSolicitudComponent,
   ],
   imports: [
     CommonModule,    

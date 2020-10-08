@@ -10,16 +10,12 @@ export class NoAuthGuard implements CanActivate {
   constructor(
     private authService: AuthService,
     private router: Router
-  ) {}
-  // next: ActivatedRouteSnapshot,
-  // state: RouterStateSnapshot
+  ) {}  
   canActivate() {
-    if (!this.authService.loggedIn()) {
-      // this.authService.redirectLogin();
+    if (!this.authService.loggedIn()) {  
       return true;
     }
-    this.authService.redirectLogin();
-    // this.router.navigate(["/login"]);
+    this.authService.redirectLogin();    
     return false;
   }
   

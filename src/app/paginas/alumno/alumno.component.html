@@ -1,230 +1,142 @@
-<mat-progress-bar
-    value="50"
-    mode="indeterminate"
-    *ngIf="cargando; else data"
-    class="table-loading"
-></mat-progress-bar>
-
-
-
-
-
-
-<ng-template #data>
+<div
+    fxLayout="row"
+    fxLayout.lt-md="column"
+    fxLayoutGap="12px"
+>
     <div
-        fxLayout="row"
-        fxLayout.lt-md="column"
+        fxFlex="60"
+        fxLayout="column"
         fxLayoutGap="12px"
     >
-        <div
-            fxFlex="60"
-            fxLayout="column"
-            fxLayoutGap="12px"
-        >
-            <div>
-                <!-- fxFlex="48" -->
-                <!-- fxFlex.lt-md="100" -->
-                <mat-card>
-                    <mat-card-header>
-                        <mat-card-title>Proyecto en curso</mat-card-title>
-                    </mat-card-header>
-                    <mat-card-content>
-                        <!-- <app-formulario-proyecto
-                                    (formulario)="form = $event"
-                                    [proyecto]="miProyecto" 
-                                    [hidden]="!miProyecto?.editar"
-                                >
-                                </app-formulario-proyecto> -->
-                        <ng-container [ngSwitch]="true">
-                            <app-alerta
-                                *ngSwitchCase="miProyecto === undefined"
-                                [mensaje]="'No tienes ningún proyecto en curso'"
-                            ></app-alerta>
-                            <div *ngSwitchCase="miProyecto?.editar">
-                                <app-formulario-proyecto
-                                    (formulario)="form = $event"
-                                    [proyecto]="miProyecto"
-                                >
-                                </app-formulario-proyecto>
-                            </div>
-                            <div *ngSwitchDefault>
-                                <h4>{{miProyecto.titulo}}</h4>
-                                <h4 mat-card-subtitle>
-                                    Folio: {{miProyecto.folio}}
-                                    <br>
-                                    Asesor: {{miProyecto.asesor.nombreCompleto}}
-                                </h4>
-                                <app-alerta [mensaje]="'El proyecto no fue aceptado'" *ngIf="!miProyecto.aceptado && !miProyecto.inTime"></app-alerta>
-                            </div>
-                        </ng-container>
-                    </mat-card-content>
-                    <mat-card-actions [ngClass]="{'mat-card-actions-without-padding': !(miProyecto?.editar || miProyecto?.enviar || miProyecto?.cancelar)}">
-                        <!-- <ng-container *ngIf="miProyecto?.editar || miProyecto?.enviar; else misProyectos"> -->
-                        <ng-container [ngSwitch]="true">
-                            <button
-                                mat-raised-button
-                                color="warn"
-                                (click)="enviarSolicitud()"
-                                *ngSwitchCase="miProyecto?.enviar"
-                            >
-                                Enviar solicitud
-                            </button>
-                            <button
-                                mat-raised-button
-                                color="warn"
-                                (click)="cancelarSolicitud()"
-                                *ngSwitchCase="miProyecto?.cancelar"
-                            >
-                                Cancelar solicitud
-                            </button>
-                            <button
-                                mat-raised-button
-                                color="primary"
-                                *ngSwitchCase="miProyecto?.editar"
-                                (click)="form.ngSubmit.emit();"
-                                [disabled]="form?.form.invalid" 
-                            >                                
-                                Guardar cambios
-                            </button>
-                            <a
-                                mat-menu-item
-                                [routerLink]="['../mis-solicitudes']"
-                                *ngSwitchDefault
-                            >
-                                Ver todos mis proyectos
-                                <mat-icon class="align-right">keyboard_arrow_right</mat-icon>
-                            </a>
-                        </ng-container>
-
-
-
-
-                        <!-- </ng-container> -->
-                        <ng-template #misProyectos>
-                            <!-- <a
-                                mat-menu-item
-                                [routerLink]="['../mis-solicitudes']"
-                            >
-                                Ver todos mis proyectos
-                                <mat-icon class="align-right">keyboard_arrow_right</mat-icon>
-                            </a> -->
-                        </ng-template>
-                    </mat-card-actions>
-                </mat-card>
-            </div>
-            <div>
-                <mat-card>
-                    <mat-card-header>
-                        <mat-card-title>Solicitudes pendientes</mat-card-title>
-                    </mat-card-header>
-                    <mat-card-content
-                        [ngStyle]="{'padding.px': objectKeys(misSolicitudes).length ? '0':'16'}"
-                        style="margin:0"
-                    >
-                        <div
-                            *ngIf="objectKeys(misSolicitudes).length; else sinSolicitud"
-                            fxLayoutGap="22px"
-                        >
-                            <div [ngClass.xs]="{'a': notificacionSeleccionado}">
-                                <mat-list style="padding:0">
-                                    <mat-list-item
-                                        *ngFor="let itemSolicitud of misSolicitudes | keyvalue"
-                                        (click)="elegirNotificacion(itemSolicitud.value)"
-                                    >
-                                        <mat-icon
-                                            matListIcon
-                                            [ngStyle]="{'background-color': setBackgroundColor(itemSolicitud.key)}"
-                                            style="background-color: red; color: white;"
-                                        >
-                                            {{iconos(itemSolicitud.key)}}
-                                        </mat-icon>
-                                        <h6
-                                            matLine
-                                            style="font-size:14px"
-                                        >
-                                            {{ itemSolicitud.key}}
-                                        </h6>
-                                    </mat-list-item>
-                                </mat-list>
-                                <!-- </mat-nav-list> -->
-                            </div>
-                        </div>
-                        <ng-template #sinSolicitud>
-                            <app-alerta [mensaje]="'Sin solicitudes'"></app-alerta>
-                        </ng-template>
-                    </mat-card-content>
-                    <mat-card-actions style="padding:0 !important">
-                        <a
-                            mat-menu-item
-                            [routerLink]="['../mis-solicitudes']"
-                        >
-                            <!-- Ver todas mis solicitudes -->
-                            {{objectKeys(misSolicitudes).length ? 'Ver más detalles':'Ver todas mis solicitudes' }}
-                            <mat-icon class="align-right">keyboard_arrow_right</mat-icon>
-                        </a>
-                    </mat-card-actions>
-                </mat-card>
-            </div>
-        </div>
-
-
-
-
-        <div
-            fxFlex="40"
-            fxLayout="column"
-            fxLayoutGap="12px"
-        >
+        <div>
             <mat-card>
                 <mat-card-header>
-                    <mat-card-title>
-                        {{miProyecto?.editar ? 'Añadir integrantes':'Mi equipo'}}
-                    </mat-card-title>
+                    <mat-card-title>Proyecto en curso</mat-card-title>
                 </mat-card-header>
-                <mat-card-content
-                    style="overflow-y: scroll; max-height: 300px;"
-                    [ngStyle]="{'padding.px': alumnos.length > 0 ? '0':'16'}"
-                >
-                    <!-- error por undefined alumnos pero ya esta declarado porque -->
-                    <ng-container *ngIf="!alumnos || alumnos.length === 0; else listadoAlumnos">
-                        <h3>                            
-                            {{miProyecto?.editar ? 'Sin alumnos disponibles':'Sin integrantes'}}
-                        </h3>
-                    </ng-container>
-                    <ng-template #listadoAlumnos>
-                        <mat-list>
-                            <mat-list-item
-                                *ngFor="let alumno of alumnos"
-                                style="font-size: 12px !important;"
+                <mat-card-content>
+                    <ng-container [ngSwitch]="true">
+                        <app-alerta
+                            *ngSwitchCase="miProyecto === undefined"
+                            [mensaje]="'No tienes ningún proyecto en curso'"
+                        ></app-alerta>
+                        <div *ngSwitchCase="miProyecto?.editar">
+                            <app-formulario-proyecto
+                                (formulario)="form = $event"
+                                [proyecto]="miProyecto"                                
                             >
-                                <img
-                                    matListAvatar
-                                    src="../../../../assets/img/perfil2.png"
-                                >
-                                <button
-                                    mat-icon-button
-                                    (click)="agregarIntegrante(alumno)"
-                                    *ngIf="alumno.myTeam != undefined"
-                                >
-                                    <mat-icon
-                                        matSuffix
-                                        style="color:#0D47A1"
-                                    >
-                                        {{ alumno.myTeam ? 'check':'person_add'}}
-                                    </mat-icon>
-                                </button>
-                                <span
-                                    matLine
-                                    style="font-weight: 600;"
-                                >
-                                    {{alumno.nombreCompleto}}
-                                </span>
-                                <span matLine>{{alumno.num_control}}</span>
-                            </mat-list-item>
-                        </mat-list>
-                    </ng-template>
+                            </app-formulario-proyecto>
+                        </div>
+                        <div *ngSwitchDefault>
+                            <h4>{{miProyecto.titulo}}</h4>
+                            <h4 mat-card-subtitle>
+                                Folio: {{miProyecto.folio}}
+                                <br>
+                                Linea de inv.: {{miProyecto.linea_de_investigacion.nombre}}
+                                <br>
+                                Tipo de proyecto: {{miProyecto.tipo_de_proyecto.nombre}}
+                                <br>
+                                Asesor: {{miProyecto.asesor.nombreCompleto}}
+                            </h4>                           
+                            <app-alerta
+                                [mensaje]="'El proyecto no fue aceptado'"
+                                *ngIf="!miProyecto.aceptado && !miProyecto.inTime"
+                            ></app-alerta>
+                        </div>
+                    </ng-container>
                 </mat-card-content>
+                <mat-card-actions [ngClass]="{'mat-card-actions-without-padding': !(miProyecto?.editar || miProyecto?.enviar || miProyecto?.cancelar)}">                    
+                    <ng-container [ngSwitch]="true">
+                        <button
+                            mat-raised-button
+                            color="warn"
+                            (click)="enviarSolicitud()"
+                            *ngSwitchCase="miProyecto?.enviar"
+                        >
+                            Enviar solicitud
+                        </button>
+                        <button
+                            mat-raised-button
+                            color="warn"
+                            (click)="cancelarSolicitud()"
+                            *ngSwitchCase="miProyecto?.cancelar"
+                        >
+                            Cancelar solicitud
+                        </button>
+                        <button
+                            mat-raised-button
+                            color="primary"
+                            *ngSwitchCase="miProyecto?.editar"
+                            (click)="form.ngSubmit.emit();"
+                            [disabled]="form?.form.invalid"
+                        >
+                            Guardar cambios
+                        </button>
+                        <a
+                            mat-menu-item
+                            [routerLink]="['../mis-proyectos']"
+                            *ngSwitchDefault
+                        >
+                            Ver todos mis proyectos
+                            <mat-icon class="align-right">keyboard_arrow_right</mat-icon>
+                        </a>
+                    </ng-container>
+                </mat-card-actions>
             </mat-card>
-        </div>
+        </div>       
     </div>
-</ng-template>
+    <div
+        fxFlex="40"
+        fxLayout="column"
+        fxLayoutGap="12px"
+    >
+        <mat-card>
+            <mat-card-header>
+                <mat-card-title>
+                    {{miProyecto?.editar && !miProyecto.aceptado ? 'Añadir integrantes':'Mi equipo'}}
+                </mat-card-title>
+            </mat-card-header>
+            <mat-card-content
+                style="overflow-y: scroll; max-height: 300px;"
+                [ngStyle]="{'padding.px': alumnos.length > 0  ? '0':'16'}"
+            >
+                <ng-container *ngIf="!alumnos || alumnos.length === 0; else listadoAlumnos">
+                    <h3>
+                        {{miProyecto?.editar ? 'Sin alumnos disponibles':'Sin integrantes'}}
+                    </h3>
+                </ng-container>
+                <ng-template #listadoAlumnos>
+                    <mat-list>
+                        <mat-list-item
+                            *ngFor="let alumno of alumnos"
+                            style="font-size: 12px !important;"
+                        >
+                            <img
+                                matListAvatar
+                                src="../../../../assets/img/perfil2.png"
+                            >
+                            <button
+                                mat-icon-button
+                                (click)="agregarIntegrante(alumno)"
+                                *ngIf="alumno.myTeam != undefined"
+                            >
+                                <mat-icon
+                                    matSuffix
+                                    style="color:#0D47A1"
+                                >
+                                    {{ alumno.myTeam ? 'check':'person_add'}}
+                                </mat-icon>
+                            </button>
+                            <span
+                                matLine
+                                style="font-weight: 600;"
+                            >
+                                {{alumno.nombreCompleto}}
+                            </span>
+                            <span matLine>{{alumno.num_control}}</span>
+                        </mat-list-item>
+                    </mat-list>
+                </ng-template>
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div>

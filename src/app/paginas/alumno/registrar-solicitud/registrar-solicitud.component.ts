@@ -14,22 +14,22 @@ import { finalize } from 'rxjs/operators';
 })
 export class RegistrarSolicitudComponent implements OnInit {
 
-  cargando=true;
+  cargando = true;
   solicitudes: Rol[] = [];
   formSolicitud = this._formBuilder.group({
     motivo: ['', [Validators.required]],
-    tipo_solicitud: [this.solicitudes,[Validators.required]]
+    tipo_solicitud: [this.solicitudes, [Validators.required]]
   });
-  
-  proyectoEnCurso:Proyecto;
-  docentes:Usuario[];
+
+  proyectoEnCurso: Proyecto;
+  docentes: Usuario[];
   constructor(
     private _formBuilder: FormBuilder,
     private _solicitudesService: SolicitudesService
   ) { }
 
   ngOnInit(): void {
-    this._solicitudesService.getregistrarSolicitud().pipe(finalize(()=>this.cargando = false)).subscribe((data) => {       
+    this._solicitudesService.getregistrarSolicitud().pipe(finalize(() => this.cargando = false)).subscribe((data) => {
       this.solicitudes = data.solicitudes;
       this.proyectoEnCurso = data.proyecto;
       this.docentes = data.docentes;
@@ -42,11 +42,11 @@ export class RegistrarSolicitudComponent implements OnInit {
     if (solicitud === 'CAMBIO DE TITULO DEL PROYECTO')
       this.formSolicitud.addControl('nuevo_titulo', new FormControl('', [Validators.required]));
     else if (solicitud === 'CAMBIO DE ASESOR')
-      this.formSolicitud.addControl('nuevo_asesor', new FormControl('', [Validators.required]));  
+      this.formSolicitud.addControl('nuevo_asesor', new FormControl('', [Validators.required]));
 
   }
 
-  registrarSolicitud(){
-    this._solicitudesService.registrarSolicitud(this.formSolicitud.value).subscribe(()=>this.formSolicitud.reset());
+  registrarSolicitud() {
+    this._solicitudesService.registrarSolicitud(this.formSolicitud).subscribe(() => this.formSolicitud.reset());
   }
 }

@@ -1,45 +1,111 @@
-<mat-toolbar color="primary" class="toolbar-header"></mat-toolbar>
-<div fxLayout="row" fxLayoutAlign="center center">
-  <div fxFlex.xs="80" fxFlex.sm="65" fxFlex.md="50" fxFlex.lg="30" fxFlex.xl="50">
-    <mat-card [ngStyle.xs]="{ 'width-top.px': -56 }">
-      <mat-toolbar class="card-header">
-        <span class="text-login">Iniciar sesión</span>
-      </mat-toolbar>
-      <mat-card-content>
-        <div fxLayout="row" fxLayoutAlign="space-around center">
-          <div fxFlex="100" fxFlex.gt-sm="50">
-            <img src="../../../assets/img/tecnm.png" alt="TecNM" class="TecNM" />
-          </div>
-          <div fxFlex="50" fxLayoutAlign="end center" fxHide fxShow.gt-sm>
-            <img src="../../../assets/img/ittg2.png" alt="ITTG" class="ittg" />
-          </div>
-        </div>
-        <form [formGroup]="formLogin" (ngSubmit)="login()" #form="ngForm">
-          <mat-form-field appearance="fill">
-            <mat-label>Número de control</mat-label>
-            <input matInput formControlName="num_control" #num_control="matInput" required />
-            <mat-icon [ngClass]="{'icon-active': num_control.focused}"  matPrefix>person</mat-icon>            
-            <mat-error *ngIf="formLogin.get('num_control').hasError('required')">El número de control es requerida
-            </mat-error>
-          </mat-form-field>                            
-              <mat-form-field appearance="fill">
-                <mat-label>Contraseña</mat-label>
-                <input matInput formControlName="password" [type]="hide ? 'password':'text'" #password="matInput" required />
-                <mat-icon  [ngClass]="{'icon-active': password.focused}" matPrefix>lock</mat-icon>                
-                <mat-error *ngIf="formLogin.get('password').hasError('required')">La contraseña es requerida</mat-error>
-              </mat-form-field>            
-        </form>
-      </mat-card-content>
-      <mat-card-actions fxLayout="column" align="center">        
-        <button mat-raised-button class="btn" color="primary" (click)="form.ngSubmit.emit()"
-          [disabled]="form.invalid || cargando">
-          <span *ngIf="!cargando; else spinner">Iniciar sesión</span>
-          <ng-template #spinner>
-            <mat-spinner style="margin:0 auto;" *ngIf="cargando" diameter="30" mode="indeterminate"></mat-spinner>
-          </ng-template>
-        </button>      
-        <button mat-button style="margin: 8px;" (click)="forgotPassword()">¿Olvidaste la contraseña?</button>      
-      </mat-card-actions>
-    </mat-card>
-  </div>
+<mat-toolbar
+    color="primary"
+    class="toolbar-header"
+></mat-toolbar>
+<div
+    fxLayout="row"
+    fxLayoutAlign="center center"
+>
+    <div
+        fxFlex.xs="80"
+        fxFlex.sm="65"
+        fxFlex.md="50"
+        fxFlex.lg="30"
+        fxFlex.xl="50"
+    >
+        <mat-card [ngStyle.xs]="{ 'width-top.px': -56 }">
+            <mat-toolbar class="card-header">
+                <span class="text-login">Iniciar sesión</span>
+            </mat-toolbar>
+            <mat-card-content>
+                <div
+                    fxLayout="row"
+                    fxLayoutAlign="space-around center"
+                >
+                    <div
+                        fxFlex="100"
+                        fxFlex.gt-sm="50"
+                    >
+                        <img
+                            src="../../../assets/img/tecnm.png"
+                            alt="TecNM"
+                            class="TecNM"
+                        >
+                    </div>
+                    <div
+                        fxFlex="50"
+                        fxLayoutAlign="end center"
+                        fxHide
+                        fxShow.gt-sm
+                    >
+                        <img
+                            src="../../../assets/img/ittg2.png"
+                            alt="ITTG"
+                            class="ittg"
+                        >
+                    </div>
+                </div>
+                <form
+                    [formGroup]="formLogin"
+                    (ngSubmit)="login()"
+                    #form="ngForm"
+                >
+                    <mat-form-field appearance="fill">
+                        <mat-label>Correo electrónico</mat-label>
+                        <input
+                            matInput
+                            formControlName="email"
+                            #email="matInput"
+                            required
+                        >
+                        <mat-icon
+                            [ngClass]="{'icon-active': email.focused}"
+                            matPrefix
+                        >
+                            person
+                        </mat-icon>
+                        <mat-error *ngIf="formLogin.get('email').hasError('required')">El email es obligatorio</mat-error>
+                    </mat-form-field>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Contraseña</mat-label>
+                        <input
+                            matInput
+                            formControlName="password"
+                            type="password"
+                            #password="matInput"
+                            required
+                        >
+                        <mat-icon
+                            [ngClass]="{'icon-active': password.focused}"
+                            matPrefix
+                        >
+                            lock
+                        </mat-icon>
+                        <mat-error *ngIf="formLogin.get('password').hasError('required')">La contraseña es obligatoria</mat-error>
+                    </mat-form-field>
+                </form>
+            </mat-card-content>
+            <mat-card-actions
+                fxLayout="column"
+                align="center"
+            >
+                <button
+                    mat-raised-button
+                    class="btn"
+                    color="primary"
+                    (click)="form.ngSubmit.emit()"
+                    [disabled]="form.invalid"
+                >
+                    <span>Iniciar sesión</span>
+                </button>
+                <button
+                    mat-button
+                    style="margin: 8px;"
+                    (click)="forgotPassword()"
+                >
+                    ¿Olvidaste la contraseña?
+                </button>
+            </mat-card-actions>
+        </mat-card>
+    </div>
 </div>

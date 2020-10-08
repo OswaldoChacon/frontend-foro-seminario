@@ -12,27 +12,20 @@ export class NotificacionesService {
   cargando: boolean = true;
   totalNotificaciones = 0;
   notificaciones: any = {};
-  // private rolActual = this._router.url.includes("Administrador") ? "Administrador" : this._router.url.includes("Alumno") ? "Alumno" : "Docente";
-  constructor(private _http: HttpClient, private _router: Router) { }
-
-  miSolicitud() {
-    return this._http.get<{ data: any; proyecto: Proyecto; mensaje: string }>(`api/miSolicitud`);
-  }
+  constructor(private _http: HttpClient, private _router: Router) { }  
 
   misNotificaciones(no_foro: string = 'Foro en curso', respuesta: string = 'Pendientes', enviados: string = 'Recibidos') {
     const rolActual = this._router.url.includes("Administrador") ? "Administrador" : this._router.url.includes("Alumno") ? "Alumno" : "Docente";
-    // return this._http.get(`api/misNotificaciones`);    
     let no_foro_split: string[];
     if (no_foro !== 'Foro en curso') {
       no_foro_split = no_foro.split(' ');
       no_foro = no_foro_split[no_foro_split.length - 1];
     }
-    this._http.get(`api/misNotificaciones`, {
+    this._http.get(`api/mis_notificaciones`, {
       params: new HttpParams()
         .set('rol', rolActual)
         .set('no_foro', no_foro)
-        .set('respuesta', respuesta)
-      // .set('enviados',enviados)
+        .set('respuesta', respuesta)      
     }).pipe(
       finalize(() => this.cargando = false)
     ).subscribe((res: any) => {
@@ -42,15 +35,18 @@ export class NotificacionesService {
   }
 
   responderNotificacion(respuesta: boolean, folio: string, solicitud: string, notificacion: any) {
+    const rolActual = this._router.url.includes("Administrador") ? "Administrador" : this._router.url.includes("Alumno") ? "Alumno" : "Docente";
     notificacion.editar = false;
     const respuestaAnterior = notificacion.respuesta;
     notificacion.respuesta = respuesta;
-    return this._http.put(`api/responder_notificacion/${folio}`, {
-      // respuesta: respuesta,
-      // solicitud: solicitud,
+    return this._http.put(`api/responder_notificacion/${folio}`, {      
       respuesta: notificacion.respuesta,
-      solicitud: solicitud
-    }).pipe(
+      solicitud: solicitud,
+      rol: rolActual,
+      folio: notificacion.folio,
+      comentarios: notificacion.comentarios
+    }
+    ).pipe(
       catchError(error => {
         notificacion.editar = true;
         notificacion.respuesta = respuestaAnterior === true ? false : respuestaAnterior === false ? true : null;
@@ -61,14 +57,8 @@ export class NotificacionesService {
 
   misForos() {
     const rolActual = this._router.url.includes("Administrador") ? "Administrador" : this._router.url.includes("Alumno") ? "Alumno" : "Docente";
-    return this._http.get<string[]>(`api/misForos`, {
+    return this._http.get<string[]>(`api/mis_foros`, {
       params: new HttpParams().set('rol', rolActual)
     });
-  }
-
-  // misNotificaciones(){
-  //   this._notificacionService.misNotificaciones().subscribe((res:any)=>{
-  //     this.notificaciones = res;
-  //   });
-  // }
+  }  
 }

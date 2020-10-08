@@ -7,39 +7,25 @@ import { finalize, catchError } from "rxjs/operators";
 
 export class ForosDataSource extends DataSource<Foro> {
   private forosSubject = new BehaviorSubject<Foro[]>([]);
-  private forosLoading = new BehaviorSubject<boolean>(true);
-  loading$ = this.forosLoading.asObservable();
   total: number = 0;
   por_pagina: number = 0;
   private foros: Foro[] = [];
   constructor(private _foroService: ForoService) {
     super();
   }
-  getForos(pagina:number,no_foro:number) {
+  getForos(pagina: number, no_foro: number) {
     this.resetData();
-    this._foroService.getForos(pagina,no_foro).pipe(
-        catchError((error) => {
-          this.handleError();
-          return throwError(error);
-        }),
-        finalize(() => this.forosLoading.next(false))
-      )
-      .subscribe((foros: Foro[]) => {
-        this.total = foros["total"];
-        this.por_pagina = foros["per_page"];
-        this.forosSubject.next(foros["data"]);
-        this.foros = foros["data"];
-      });
+    this._foroService.getForos(pagina, no_foro).subscribe((foros: Foro[]) => {
+      this.total = foros["total"];
+      this.por_pagina = foros["per_page"];
+      this.forosSubject.next(foros["data"]);
+      this.foros = foros["data"];
+    });
   }
 
-  eliminarForo(slug:string){
+  eliminarForo(slug: string) {
     this.resetData();
-    return this._foroService.eliminarForo(slug).pipe(
-      catchError((error) => {
-        this.handleError();
-        return throwError(error)
-      })
-    )
+    return this._foroService.eliminarForo(slug);
   }
 
   connect(CollectionViewer: CollectionViewer) {
@@ -48,16 +34,10 @@ export class ForosDataSource extends DataSource<Foro> {
 
   resetData() {
     this.forosSubject.next([]);
-    this.forosLoading.next(true);
   }
-  
+
   disconnect() {
     this.forosSubject.complete();
-    this.forosLoading.complete();
   }
-  
-  handleError(){
-    this.forosSubject.next(this.foros);
-    this.forosLoading.next(false);
-  }
+
 }

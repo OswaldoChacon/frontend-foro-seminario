@@ -1,4 +1,12 @@
-.content-tabs{
-    /* padding-top:20px !important    */
-    margin-top:20px;
+th, td {
+    padding: 6px;
+    text-align: left;
+}
+
+tr {
+    font-size: 14px;
+    /* font-weight: 600; */
+}
+.folio{
+    font-weight: 600;
 }

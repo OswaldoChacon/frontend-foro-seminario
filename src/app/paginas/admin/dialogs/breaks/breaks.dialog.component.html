@@ -1,32 +1,17 @@
-
-<div fxLayout="row">
-    <div
-        mat-card-avatar
-        class="header-image"
-    ></div>
-    <ng-container *ngIf="data; else nuevoRegistro">
-        <!-- <h4>{{data.nombreCompleto}}</h4>
-        <mat-icon [ngClass]="{'verificado': data.acceso == 1,'error':data.acceso == 0}">
-            {{data.acceso == 1 ? 'verified_user':'error'}}
-        </mat-icon> -->
-        <mat-card-title>Elige los intervalos</mat-card-title>        
-    </ng-container>
-    <ng-template #nuevoRegistro>
-        <h2>Nuevo registro</h2>
-    </ng-template>
+<div fxLayout="row" fxLayoutGap="24px">
+    <mat-icon class="icon-xg">free_breakfast</mat-icon>
+    <h2 mat-dialog-title>Elige los intervalos</h2>
 </div>
-<mat-dialog-content>    
+<mat-divider></mat-divider>
+<mat-dialog-content>
     <div
-    fxLayout="column"
-    fxLayoutGap="12px"
-    style="padding-left: 16px;"
->
-    <div *ngIf="!(data.length > 0); else intervalos">
-        <span>Sin espacios de tiempo</span>
-    </div>
-    <ng-template #intervalos>
-
-        <div *ngFor="let intervalo of data.intervalos; let i = index">
+    fxLayout.gt-sm="column"
+    fxLayout.lt-md="column"
+    >
+        <div
+            *ngFor="let intervalo of data.intervalos; let i = index"
+            fxFlex="100"
+        >
             <mat-checkbox
                 class="mat-list-item"
                 (change)="guardarBreak($event, intervalo)"
@@ -37,18 +22,13 @@
                 {{ intervalo.hora }}
             </mat-checkbox>
         </div>
-    </ng-template>
-</div>
+    </div>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
-<button mat-button [mat-dialog-close]="true">Listo</button>
+    <button
+        mat-button
+        [mat-dialog-close]="1"
+    >
+        ¡Listo!
+    </button>
 </mat-dialog-actions>
-
-
-<!-- <mat-dialog-content>
-    <mat-list>
-        <mat-list-item *ngFor="let intervalo of data.intervalos; let i = index">
-            <span matLine>{{intervalo.hora}}</span>
-        </mat-list-item>
-    </mat-list>
-</mat-dialog-content> -->

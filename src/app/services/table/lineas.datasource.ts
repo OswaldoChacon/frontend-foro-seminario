@@ -7,9 +7,8 @@ import { finalize, catchError } from "rxjs/operators";
 export class LineaDataSource extends DataSource<Linea> {
   private lineaSubject: BehaviorSubject<Linea[]> = new BehaviorSubject<Linea[]>([]);
   private lineas: Linea[] = [];
-  private loadingSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
-  loading$ = this.loadingSubject.asObservable();
   total: number = 0;
+
   constructor(private _lineaService: LineaService) {
     super();
   }
@@ -20,42 +19,18 @@ export class LineaDataSource extends DataSource<Linea> {
 
   disconnect() {
     this.lineaSubject.complete();
-    this.loadingSubject.complete();
   }
 
-  getLineas(url:string) {
-    this.resetData();
-    this._lineaService.getLineas(url).pipe(
-      catchError(error => {
-        this.handleError();
-        return throwError(error)
-      }),
-      finalize(() => this.loadingSubject.next(false))
-    ).subscribe((res) => {
+  getLineas(url: string) {
+    this._lineaService.getLineas(url).subscribe((res) => {
       this.lineas = res;
       this.lineaSubject.next(this.lineas);
-      this.total =  this.lineas?.length;
+      this.total = this.lineas?.length;
     });
   }
 
-  eliminarLinea(linea:Linea, url:string){
-    this.resetData();
-    return this._lineaService.eliminarLinea(linea.clave, url).pipe(
-      catchError((error) => {
-        this.handleError();
-        return throwError(error);
-      }),      
-    );
-  }
-
-  handleError() {
-    this.lineaSubject.next(this.lineas);
-    this.loadingSubject.next(false);
-  }
-
-  resetData() {
-    this.lineaSubject.next([]);
-    this.loadingSubject.next(true);
+  eliminarLinea(linea: Linea, url: string) {
+    return this._lineaService.eliminarLinea(linea.clave, url);
   }
 
   agregarLinea(linea: Linea) {

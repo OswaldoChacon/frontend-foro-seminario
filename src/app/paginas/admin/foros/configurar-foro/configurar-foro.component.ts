@@ -17,6 +17,7 @@ import { BreaksSheetComponent } from '../../bottomsheets/breaks.sheet/breaks.she
 import { Usuario } from 'src/app/modelos/usuario.model';
 import { MatDialog } from '@angular/material/dialog';
 import { BreaksDialogComponent } from '../../dialogs/breaks/breaks.dialog.component';
+import { ConfirmacionDialogComponent } from 'src/app/dialogs/confirmacion/confirmacion.dialog.component';
 
 
 @Component({
@@ -33,7 +34,7 @@ export class ConfigurarForoComponent implements OnInit {
     duracion: new FormControl("", [Validators.required, Validators.min(15)]),
     num_maestros: new FormControl("", [Validators.required, Validators.min(2)]),
   });
-  
+
   dataSource: FechasDataSource = null;
   componentDialog = FechaDialogComponent;
   columnsHeader = { 'fecha': 'Fecha', 'hora_inicio': 'Hora de inicio', 'hora_termino': 'Hora de termino', 'acciones': '' }
@@ -44,13 +45,12 @@ export class ConfigurarForoComponent implements OnInit {
   docentes: Usuario[] = [];
   constructor(
     private _foroService: ForoService,
-    private _formBuilder: FormBuilder,    
+    private _formBuilder: FormBuilder,
     private _activeRoute: ActivatedRoute,
-    private _bottomSheet: MatBottomSheet,
     private _dialog: MatDialog
   ) { }
 
-  ngOnInit(): void {    
+  ngOnInit(): void {
     if (this._activeRoute.snapshot.params.id) {
       this.slug = this._activeRoute.snapshot.params.id;
       this._foroService.getForo(this._activeRoute.snapshot.params.id).pipe(
@@ -59,20 +59,20 @@ export class ConfigurarForoComponent implements OnInit {
             lim_alumnos: foro.lim_alumnos,
             num_aulas: foro.num_aulas,
             duracion: foro.duracion,
-            num_maestros:foro.num_maestros
-          })          
+            num_maestros: foro.num_maestros
+          })
           this.foro = foro;
-          this.docentes = foro.docentes;          
+          this.docentes = foro.docentes;
           this.dataSource = new FechasDataSource(foro.fechas, this._foroService);
         }),
         finalize(() => this.cargando = false)
       ).subscribe();
-    }   
+    }
   }
 
-  elegirMaestro(event: MatCheckboxChange, docente: Usuario){
-    const agregar = event.checked ? true:false;
-    this._foroService.agregarMaestroTaller(this.slug,docente,agregar).subscribe();    
+  elegirMaestro(event: MatCheckboxChange, docente: Usuario) {
+    const agregar = event.checked ? true : false;
+    this._foroService.agregarMaestroTaller(this.slug, docente, agregar).subscribe();
   }
 
   cargarTable(event: { data?: Fecha, opcion?: any, valorOpcion?: string }) {
@@ -88,30 +88,19 @@ export class ConfigurarForoComponent implements OnInit {
     this._foroService.configurarForo(this.foro.slug, this.formConfigForo).subscribe();
   }
 
-  eliminarFechaForo(fecha: Date) {    
-   this.dataSource.eliminarFecha(fecha).subscribe((res) => this.dataSource.getFechas(this.slug));
+  eliminarFechaForo(fecha: Date) {
+    this._dialog.open(ConfirmacionDialogComponent, {
+      data: '¿Estas seguro de realizar esta acción? Todos los horarios de los maestros serán eliminados'
+    }).afterClosed().subscribe((res: boolean) => {
+      if (res)
+        this.dataSource.eliminarFecha(fecha).subscribe((res) => this.dataSource.getFechas(this.slug));
+    });
   }
 
   mostrarET(fecha: Fecha) {
-    const dialogRef = this._dialog.open(BreaksDialogComponent,{
-      data:fecha,      
+    const dialogRef = this._dialog.open(BreaksDialogComponent, {
+      data: fecha,
     });
-    // const bottomSheetRef = this._bottomSheet.open(BreaksSheetComponent,{
-    //   data: fecha
-    // });    
   }
 
-  // guardarBreak(event: MatCheckboxChange, intervalo: Fecha["intervalos"]) {
-  //   intervalo.break = !intervalo.break;
-  //   if (event.checked) {
-  //     this._foroService.agregarBreak(this.fecha.fecha,intervalo).subscribe();
-  //   } else {
-  //     this._foroService.eliminarBreak(this.fecha.fecha, intervalo.posicion).pipe(
-  //         catchError(() => {
-  //           intervalo.break = !intervalo.break;
-  //           return of([]);
-  //         })
-  //       ).subscribe();
-  //   }
-  // }
 }

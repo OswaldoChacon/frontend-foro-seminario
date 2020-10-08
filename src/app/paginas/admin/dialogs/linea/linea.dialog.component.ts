@@ -15,16 +15,15 @@ export class LineaDialogComponent implements OnInit {
   formLinea = this._formBuilder.group({
     clave: new FormControl('', [Validators.required]),
     nombre: new FormControl('', [Validators.required])
-  });
-  guardando: boolean = false;
+  });  
   editar: boolean = false;  
 
   constructor(
     private _formBuilder: FormBuilder,
     @Optional() @Inject(MAT_DIALOG_DATA) public data: { data: Linea, url: string },
-    private _dialog: MatDialogRef<LineaDialogComponent>,
+    private _dialogRef: MatDialogRef<LineaDialogComponent>,
     private _lineaService: LineaService) {
-    _dialog.disableClose = true;
+      _dialogRef.disableClose = true;
   }
 
   ngOnInit(): void {
@@ -38,18 +37,10 @@ export class LineaDialogComponent implements OnInit {
   }
 
   guardarLinea() {
-    this.guardando = true;
-    this._lineaService.guardarLinea(this.formLinea, this.data.url).pipe(
-      finalize(() => this.guardando = false)
-    ).subscribe(()=>this._dialog.close({ opcion: 'refresh' }));
+    this._lineaService.guardarLinea(this.formLinea, this.data.url).subscribe(()=>this._dialogRef.close({ opcion: 'refresh' }));
   }
 
-  actualizarLinea() {
-    this.guardando = true;
-    this._lineaService.actualizarLinea(this.data.data.clave, this.formLinea, this.data.url).pipe(
-      finalize(() => this.guardando = false)
-    ).subscribe(() => this._dialog.close({ opcion: 'refresh' }));
-  }
-
-  
+  actualizarLinea() {    
+    this._lineaService.actualizarLinea(this.data.data.clave, this.formLinea, this.data.url).subscribe(() => this._dialogRef.close({ opcion: 'refresh' }));
+  }  
 }

@@ -1,168 +1,158 @@
-<mat-progress-bar
+<!-- <mat-progress-bar
     value="50"
     mode="indeterminate"
     *ngIf="cargando; else configuracionForo"
     class="table-loading"
 >
-</mat-progress-bar>
-<ng-template #configuracionForo>
-    <mat-tab-group>
-        <mat-tab label="Configuracion">
-            <mat-card>
-                <mat-card-content>
-                    <form
-                        [formGroup]="formConfigForo"
-                        (ngSubmit)="configurarForo()"
-                        #form="ngForm"
-                    >
-                        <mat-form-field>
-                            <input
-                                type="number"
-                                matInput
-                                formControlName="lim_alumnos"
-                                placeholder="Número de alumnos por proyecto"
-                            >
-                            <mat-error *ngIf="formConfigForo.get('lim_alumnos').hasError('required')">
-                                El limite de alumnos por proyecto es requerido
-                            </mat-error>
-                            <mat-error *ngIf="formConfigForo.get('lim_alumnos').hasError('min')">
-                                El limite de alumnos por proyecto debe ser mayor a 0
-                            </mat-error>
-                            <mat-error *ngIf="formConfigForo.get('lim_alumnos').hasError('serverError')">
-                                {{formConfigForo.get('lim_alumnos').errors?.serverError}}
-                            </mat-error>
-                        </mat-form-field>
-                        <mat-form-field>
-                            <input
-                                type="number"
-                                matInput
-                                formControlName="duracion"
-                                placeholder="Duración de exposición"
-                            >
-                            <mat-error *ngIf="formConfigForo.get('duracion').hasError('required')">
-                                El tiempo de
-                                exposición es requerido
-                            </mat-error>
-                            <mat-error *ngIf="formConfigForo.get('duracion').hasError('min')">
-                                El tiempo de exposición debe ser igual o mayor a 15
-                            </mat-error>
-                            <mat-error *ngIf="formConfigForo.get('duracion').hasError('serverError')">
-                                {{formConfigForo.get('duracion').errors?.serverError}}
-                            </mat-error>
-                        </mat-form-field>
-                        <mat-form-field>
-                            <input
-                                type="number"
-                                matInput
-                                formControlName="num_aulas"
-                                placeholder="Número de aulas para el foro"
-                            >
-                            <mat-error *ngIf="formConfigForo.get('num_aulas').hasError('required')">
-                                El número de aulas
-                                es requerido
-                            </mat-error>
-                            <mat-error *ngIf="formConfigForo.get('num_aulas').hasError('min')">
-                                El número de aulas debe
-                                ser mayor a 1
-                            </mat-error>
-                            <mat-error *ngIf="formConfigForo.get('num_aulas').hasError('serverError')">
-                                {{formConfigForo.get('num_aulas').errors?.serverError}}
-                            </mat-error>
-                        </mat-form-field>
-                        <mat-form-field>
-                            <input
-                                type="number"
-                                matInput
-                                formControlName="num_maestros"
-                                placeholder="Número de maestros en el jurado"
-                            >
-                            <mat-error *ngIf="formConfigForo.get('num_maestros').hasError('required')">
-                                El número de maestros en el jurado es requerido
-                            </mat-error>
-                            <mat-error *ngIf="formConfigForo.get('num_maestros').hasError('min')">
-                                El número de maestros en el jurado debe ser mayor a 1
-                            </mat-error>
-                            <mat-error *ngIf="formConfigForo.get('num_maestros').hasError('serverError')">
-                                {{formConfigForo.get('num_maestros').errors?.serverError}}
-                            </mat-error>
-                        </mat-form-field>
-                    </form>
-                </mat-card-content>
-                <mat-card-actions
-                    align="end"
-                    *ngIf="foro.activo"
+</mat-progress-bar> -->
+<!-- <ng-template #configuracionForo> -->
+<mat-tab-group *ngIf="!cargando">
+    <mat-tab label="Configuracion">
+        <mat-card>
+            <mat-card-content>
+                <form
+                    [formGroup]="formConfigForo"
+                    (ngSubmit)="configurarForo()"
+                    #form="ngForm"
                 >
-                    <button
-                        mat-raised-button
-                        color="primary"
-                        [disabled]="formConfigForo.invalid"
-                        (click)="form.ngSubmit.emit()"
-                    >
-                        Guardar
-                    </button>
-                </mat-card-actions>
-            </mat-card>
-        </mat-tab>
-        <mat-tab label="Fechas">
-            <mat-card>
-                <mat-card-content>
-                    <ng-container *ngIf="docentes.length; else noFechas">
-                        <app-table
-                            [dataSource]="dataSource"
-                            [columnsHeader]="columnsHeader"
-                            [componentDialog]="componentDialog"
-                            [url]="slug"
-                            (emitData)="cargarTable($event)"
+                    <mat-form-field>
+                        <input
+                            type="number"
+                            matInput
+                            formControlName="lim_alumnos"
+                            placeholder="Número de alumnos por proyecto"
                         >
-                        </app-table>
-                    </ng-container>
-                    <ng-template #noFechas>
-                        <app-alerta [mensaje]="'No puedes agregar fechas de exposición a un foro inactivo'"></app-alerta>
-                    </ng-template>
-                </mat-card-content>
-            </mat-card>
-        </mat-tab>
-        <mat-tab label="Docentes">
-            <mat-card>
-                <mat-card-content>
-                    <ng-container *ngIf="docentes.length; else sinDocentes">
-                        <!-- *ngIf="foro.activo; else docentes" -->
-                        <mat-list fxLayout="row wrap">
-                            <mat-list-item
-                                *ngFor="let docente of docentes"
-                                style="font-size: 12px !important;"
-                                fxFlex.xs="100"
-                                fxFlex="50"
+                        <mat-error *ngIf="formConfigForo.get('lim_alumnos').hasError('required')">
+                            El limite de alumnos por proyecto es obligatorio
+                        </mat-error>
+                        <mat-error *ngIf="formConfigForo.get('lim_alumnos').hasError('min')">
+                            El limite de alumnos por proyecto debe ser mayor a 0
+                        </mat-error>
+                        <mat-error *ngIf="formConfigForo.get('lim_alumnos').hasError('serverError')">
+                            {{formConfigForo.get('lim_alumnos').errors?.serverError}}
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field>
+                        <input
+                            type="number"
+                            matInput
+                            formControlName="duracion"
+                            placeholder="Duración de exposición"
+                        >
+                        <mat-error *ngIf="formConfigForo.get('duracion').hasError('required')">El tiempo de exposición es obligatorio</mat-error>
+                        <mat-error *ngIf="formConfigForo.get('duracion').hasError('min')">
+                            El tiempo de exposición debe ser igual o mayor a 15
+                        </mat-error>
+                        <mat-error *ngIf="formConfigForo.get('duracion').hasError('serverError')">
+                            {{formConfigForo.get('duracion').errors?.serverError}}
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field>
+                        <input
+                            type="number"
+                            matInput
+                            formControlName="num_aulas"
+                            placeholder="Número de aulas para el foro"
+                        >
+                        <mat-error *ngIf="formConfigForo.get('num_aulas').hasError('required')">El número de aulas es obligatorio</mat-error>
+                        <mat-error *ngIf="formConfigForo.get('num_aulas').hasError('min')">
+                            El número de aulas debe
+                                ser mayor a 1
+                        </mat-error>
+                        <mat-error *ngIf="formConfigForo.get('num_aulas').hasError('serverError')">
+                            {{formConfigForo.get('num_aulas').errors?.serverError}}
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field>
+                        <input
+                            type="number"
+                            matInput
+                            formControlName="num_maestros"
+                            placeholder="Número de maestros en el jurado"
+                        >
+                        <mat-error *ngIf="formConfigForo.get('num_maestros').hasError('required')">
+                            El número de maestros en el jurado es obligatorio
+                        </mat-error>
+                        <mat-error *ngIf="formConfigForo.get('num_maestros').hasError('min')">
+                            El número de maestros en el jurado debe ser mayor a 1
+                        </mat-error>
+                        <mat-error *ngIf="formConfigForo.get('num_maestros').hasError('serverError')">
+                            {{formConfigForo.get('num_maestros').errors?.serverError}}
+                        </mat-error>
+                    </mat-form-field>
+                </form>
+            </mat-card-content>
+            <mat-card-actions
+                align="end"
+                *ngIf="foro.activo"
+            >
+                <button
+                    mat-raised-button
+                    color="primary"
+                    [disabled]="formConfigForo.invalid"
+                    (click)="form.ngSubmit.emit()"
+                >
+                    Guardar
+                </button>
+            </mat-card-actions>
+        </mat-card>
+    </mat-tab>
+    <mat-tab label="Fechas">
+        <mat-card>
+            <mat-card-content>
+                <ng-container *ngIf="docentes.length; else noFechas">
+                    <app-table
+                        [dataSource]="dataSource"
+                        [columnsHeader]="columnsHeader"
+                        [componentDialog]="componentDialog"
+                        [url]="slug"
+                        (emitData)="cargarTable($event)"
+                    >
+                    </app-table>
+                </ng-container>
+                <ng-template #noFechas>
+                    <app-alerta [mensaje]="'No puedes agregar fechas de exposición a un foro inactivo'"></app-alerta>
+                </ng-template>
+            </mat-card-content>
+        </mat-card>
+    </mat-tab>
+    <mat-tab label="Docentes">
+        <mat-card>
+            <mat-card-content>
+                <ng-container *ngIf="docentes.length; else sinDocentes">
+                    <mat-list fxLayout="row wrap">
+                        <mat-list-item
+                            *ngFor="let docente of docentes"
+                            style="font-size: 12px !important;"
+                            fxFlex.xs="100"
+                            fxFlex="50"
+                        >
+                            <img
+                                matListAvatar
+                                src="../../../../assets/img/perfil2.png"
                             >
-                                <img
-                                    matListAvatar
-                                    src="../../../../assets/img/perfil2.png"
-                                >
-                                <span
-                                    matLine
-                                    style="font-weight: 600;"
-                                >
-                                    {{docente.nombreCompleto}}
-                                </span>
-                                <span matLine>{{docente.num_control}}</span>
-                                <ng-container *ngIf="docente.taller != undefined">
-                                    <mat-checkbox
-                                        color="primary"
-                                        [checked]="docente.taller"
-                                        (change)="elegirMaestro($event,docente)"
-                                    ></mat-checkbox>
-                                </ng-container>
-                            </mat-list-item>
-                        </mat-list>
-                    </ng-container>
-                    <ng-template #sinDocentes>
-                        <app-alerta [mensaje]="'No puedes agregar docentes a este foro porque esta inactivo'"></app-alerta>
-                    </ng-template>
-
-
-
-                </mat-card-content>
-            </mat-card>
-        </mat-tab>
-    </mat-tab-group>
-</ng-template>
+                            <span
+                                matLine
+                                style="font-weight: 600;"
+                            >
+                                {{docente.nombreCompleto}}
+                            </span>
+                            <span matLine>{{docente.email}}</span>
+                            <span matLine>{{docente.num_control}}</span>
+                            <ng-container *ngIf="docente.taller != undefined">
+                                <mat-checkbox
+                                    color="primary"
+                                    [checked]="docente.taller"
+                                    (change)="elegirMaestro($event,docente)"
+                                ></mat-checkbox>
+                            </ng-container>
+                        </mat-list-item>
+                    </mat-list>
+                </ng-container>
+                <ng-template #sinDocentes>
+                    <app-alerta [mensaje]="'No puedes agregar docentes a este foro porque esta inactivo'"></app-alerta>
+                </ng-template>
+            </mat-card-content>
+        </mat-card>
+    </mat-tab>
+</mat-tab-group>

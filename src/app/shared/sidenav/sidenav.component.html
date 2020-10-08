@@ -8,8 +8,6 @@
         </mat-icon>
     </button>
 </app-header>
-
-
 <mat-sidenav-container>
     <mat-sidenav
         #sidenav
@@ -17,8 +15,6 @@
         [opened]="mobileQuery.matches"
         autosize
     >
-
-
         <mat-nav-list>
             <a
                 mat-list-item
@@ -28,6 +24,24 @@
             >
                 <mat-icon matListIcon>home</mat-icon>
                 Inicio
+            </a>
+            <a
+                mat-list-item
+                routerLink="usuarios"
+                [routerLinkActive]="['active']"
+                *ngxPermissionsOnly="['Administrador']"
+            >
+                <mat-icon matListIcon>account_box</mat-icon>
+                Usuarios
+            </a>
+            <a
+                mat-list-item
+                [routerLink]="['registrar-alumno']"
+                routerLinkActive="active"
+                *ngxPermissionsOnly="['Taller']"
+            >
+                <mat-icon matListIcon>account_box</mat-icon>
+                Registrar alumnos
             </a>
             <a
                 mat-list-item
@@ -60,19 +74,6 @@
             >
                 <mat-icon matListIcon>category</mat-icon>
                 Tipos de solicitudes
-            </a>
-
-
-
-
-            <a
-                mat-list-item
-                routerLink="usuarios"
-                [routerLinkActive]="['active']"
-                *ngxPermissionsOnly="['Administrador']"
-            >
-                <mat-icon matListIcon>account_box</mat-icon>
-                Usuarios
             </a>
             <a
                 mat-list-item
@@ -126,14 +127,6 @@
                     </a>
                 </mat-nav-list>
             </mat-expansion-panel>
-            <!-- <a
-            [routerLink]="['mis-proyectos']"
-                mat-list-item
-                *ngxPermissionsOnly="['Docente']"
-            >
-                <mat-icon matListIcon>collections_bookmark</mat-icon>
-                Mis proyectos
-            </a> -->            
             <a
                 mat-list-item
                 [routerLink]="['registrar-proyecto']"
@@ -186,6 +179,8 @@
         </mat-nav-list>
 
 
+
+
     </mat-sidenav>
     <mat-sidenav-content>
         <!-- <mat-toolbar style="z-index: 9999; position: sticky; top:0;background-color: #0D47A1; color:white; min-height: 64px !important;"> -->
@@ -231,6 +226,8 @@
 
 
 
+
+
         <!-- <app-header>
             <button mat-icon-button>
                 <mat-icon
@@ -241,6 +238,8 @@
                 </mat-icon>
             </button>
         </app-header> -->
+
+
 
 
 

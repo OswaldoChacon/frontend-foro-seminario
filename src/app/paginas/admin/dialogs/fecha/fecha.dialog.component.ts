@@ -22,52 +22,38 @@ export class FechaDialogComponent implements OnInit {
     hora_inicio: new FormControl("", [Validators.required]),
     hora_termino: new FormControl("", [Validators.required])
   });
-  hoy = new Date();
-  guardando: boolean = false;
+  hoy = new Date();  
   editar = false;
   constructor(
     private _formBuilder: FormBuilder,
-    private _dialog: MatDialogRef<FechaDialogComponent>,
-    private _foroService: ForoService,    
-    @Optional() @Inject(MAT_DIALOG_DATA) private data: { data: Fecha, url: string }
+    private _dialogRef: MatDialogRef<FechaDialogComponent>,
+    private _foroService: ForoService,
+    @Optional() @Inject(MAT_DIALOG_DATA) public data: { data: Fecha, url: string }
   ) {
-    _dialog.disableClose = true;
+    _dialogRef.disableClose = true;
   }
 
   ngOnInit(): void {
     if (this.data.data) {
-      this.editar=true;      
+      this.editar = true;
       this.cargarDatosFormulario();
     }
   }
 
-  guardarFechaForo() {
-    this.guardando = true;
-    this._foroService.guardarFechaForo(this.data.url, this.formFechaForo).pipe(
-      finalize(() => this.guardando = false)
-    ).subscribe(() => this._dialog.close({ opcion: 'refresh' }));  
+  guardarFechaForo() {    
+    this._foroService.guardarFechaForo(this.data.url, this.formFechaForo).subscribe(() => this._dialogRef.close({ opcion: 'refresh' }));
   }
 
-  actualizarFechaForo() {
-    this.guardando = true;
-    this._foroService.actualizarFechaForo(this.data.data.fecha,this.formFechaForo.value).pipe(
-      finalize(() => this.guardando = false)
-    ).subscribe(
-      res => this._dialog.close({ opcion: 'refresh' }),
-    )
+  actualizarFechaForo() {    
+    this._foroService.actualizarFechaForo(this.data.data.fecha, this.formFechaForo).subscribe(() => this._dialogRef.close({ opcion: 'refresh' }));
   }
 
-  cargarDatosFormulario(){
-    // if (this.data.data.fecha) {
-    //   this.data.data.fecha = new Date(this.data.data.fecha);
-    //   this.data.data.fecha.setMinutes(this.data.data.fecha.getMinutes() + this.data.data.fecha.getTimezoneOffset());
-    // }
-    console.log(this.data.data.fecha);
+  cargarDatosFormulario() {
     this.formFechaForo.setValue({
       fecha: this.data.data.fecha,
       hora_inicio: this.data.data.hora_inicio,
       hora_termino: this.data.data.hora_termino
-    })    
+    })
   }
 
 }

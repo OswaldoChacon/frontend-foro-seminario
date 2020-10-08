@@ -1,5 +1,4 @@
-<mat-dialog-actions align="end">
-    <div *ngIf="!guardando; else spinner">
+<mat-dialog-actions align="end">    
         <button
             mat-raised-button
             color="primary"
@@ -14,12 +13,5 @@
             [mat-dialog-close]="1"
         >
             Cancelar
-        </button>
-    </div>
-    <ng-template #spinner>
-        <mat-progress-spinner
-            mode="indeterminate"
-            diameter="25"
-        ></mat-progress-spinner>
-    </ng-template>
+        </button>  
 </mat-dialog-actions>

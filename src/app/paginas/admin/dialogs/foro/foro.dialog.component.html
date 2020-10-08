@@ -4,8 +4,7 @@
 >
     <mat-icon class="icon-xg">forum</mat-icon>
     <ng-container *ngIf="data; else nuevoRegistro">
-        <h3>{{data.no_foro+'° ' +data.nombre}}</h3>
-        <!-- [ngClass]="{'verificado': data.acceso == 1,'error':data.acceso == 0}" -->
+        <h2 mat-dialog-title>{{data.no_foro+'° ' +data.nombre}}</h2>
     </ng-container>
     <ng-template #nuevoRegistro>
         <h2>Nuevo registro</h2>
@@ -26,7 +25,7 @@
                 placeholder="No. Foro"
                 required
             >
-            <mat-error *ngIf="formForo.get('no_foro').hasError('required')">El campo No. Foro es requerido</mat-error>
+            <mat-error *ngIf="formForo.get('no_foro').hasError('required')">El campo No. Foro es obligatorio</mat-error>
             <mat-error *ngIf="formForo.get('no_foro').hasError('serverError')">
                 {{formForo.get('no_foro').errors?.serverError}}
             </mat-error>
@@ -40,7 +39,7 @@
                 type="text"
                 required
             >
-            <mat-error *ngIf="formForo.get('nombre').hasError('required')">El campo nombre es requerido</mat-error>
+            <mat-error *ngIf="formForo.get('nombre').hasError('required')">El campo nombre es obligatorio</mat-error>
             <mat-error *ngIf="formForo.get('nombre').hasError('serverError')">
                 {{formForo.get('nombre').errors?.serverError}}
             </mat-error>
@@ -55,7 +54,7 @@
                 <mat-option value="ENERO-JUNIO">ENERO-JUNIO</mat-option>
                 <mat-option value="AGOSTO-DICIEMBRE">AGOSTO-DICIEMBRE</mat-option>
             </mat-select>
-            <mat-error *ngIf="formForo.get('periodo').hasError('required')">El campo periodo es requerido</mat-error>
+            <mat-error *ngIf="formForo.get('periodo').hasError('required')">El campo periodo es obligatorio</mat-error>
             <mat-error *ngIf="formForo.get('periodo').hasError('serverError')">
                 {{formForo.get('periodo').errors?.serverError}}
             </mat-error>
@@ -74,27 +73,25 @@
                     {{anio}}
                 </mat-option>
             </mat-select>
-            <mat-error *ngIf="formForo.get('anio').hasError('required')">El campo año es requerido</mat-error>
+            <mat-error *ngIf="formForo.get('anio').hasError('required')">El campo año es obligatorio</mat-error>
             <mat-error *ngIf="formForo.get('anio').hasError('serverError')">
                 {{formForo.get('anio').errors?.serverError}}
             </mat-error>
         </mat-form-field>
-        <!-- <mat-form-field appearance="fill">
-            <input matInput type="date" formControlName="fecha_limite" required>
-        </mat-form-field> -->
-        <mat-form-field appearance="fill">
-            <mat-label>Fecha limite para el registro de proyectos</mat-label>
-            <input matInput [matDatepicker]="picker" formControlName="fecha_limite">
-            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>            
-            <mat-datepicker #picker></mat-datepicker>
+        <mat-form-field appearance="fill">        
+            <input
+                matInput
+                type="date"
+                formControlName="fecha_limite"
+                required
+            >
+            <mat-error *ngIf="formForo.get('fecha_limite').hasError('required')">El campo fecha limite es obligatorio</mat-error>
             <mat-error *ngIf="formForo.get('fecha_limite').hasError('serverError')">
                 {{formForo.get('fecha_limite').errors?.serverError}}
             </mat-error>
         </mat-form-field>
-        
     </form>
 </mat-dialog-content>
 <app-buttons
-    [form]="form"
-    [guardando]="guardando"
+    [form]="form"    
 ></app-buttons>

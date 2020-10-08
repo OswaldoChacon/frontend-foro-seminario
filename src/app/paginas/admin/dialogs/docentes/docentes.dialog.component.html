@@ -13,7 +13,8 @@
   </button>
 </mat-dialog-actions> -->
 
-<span>{{data.titulo}}</span>
+<!-- <span>{{data.titulo}}</span> -->
+<h2 mat-dialog-title>{{data.titulo}}</h2>
 <mat-dialog-content >
   <div fxLayout.gt-sm="row wrap" fxLayout.lt-md="column">
     <div *ngFor="let docente of docentes" fxFlex="50">

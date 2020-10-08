@@ -23,13 +23,12 @@
                 matInput
                 formControlName="nombre_"
                 required
-            >            
-            <mat-error *ngIf="formRol.get('nombre_').hasError('required')">El campo nombre es requerido</mat-error>
-            <mat-error *ngIf="formRol.get('nombre_').hasError('serverError')">{{formRol.get('nombre_').errors?.serverError}}</mat-error>
+            >
+            <mat-error *ngIf="formRol.get('nombre_').hasError('required')">El campo nombre es obligatorio</mat-error>
+            <mat-error *ngIf="formRol.get('nombre_').hasError('serverError')">
+                {{formRol.get('nombre_').errors?.serverError}}
+            </mat-error>
         </mat-form-field>
     </form>
 </mat-dialog-content>
-<app-buttons
-    [form]="form"
-    [guardando]="guardando"
-></app-buttons>
+<app-buttons [form]="form"></app-buttons>

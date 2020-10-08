@@ -10,19 +10,15 @@ import { ProyectosService } from 'src/app/services/proyectos/proyectos.service';
 })
 export class MisProyectosComponent implements OnInit {
 
-  proyectos: Proyecto[] = [];
-  cargando: boolean = true;
+  proyectos: Proyecto[] = [];  
   constructor(private _proyectoService: ProyectosService) { }
 
   ngOnInit(): void {
-    this._proyectoService.misProyectos().pipe(
-      tap(console.log),
-      finalize(()=>this.cargando=false)
-    ).subscribe(proyectos=>this.proyectos=proyectos);
+    this._proyectoService.misProyectos().subscribe(proyectos => this.proyectos = proyectos);
   }
 
-  permitirCambios(proyecto: Proyecto, cambio: boolean ){
-    this._proyectoService.permitirCambios(proyecto,cambio).subscribe();
-  
+  permitirCambios(proyecto: Proyecto, cambio: boolean) {
+    this._proyectoService.permitirCambios(proyecto, cambio).subscribe();
+
   }
 }

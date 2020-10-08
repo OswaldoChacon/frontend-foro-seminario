@@ -12,11 +12,11 @@ import { ForoService } from 'src/app/services/foro/foro.service';
 export class BreaksDialogComponent implements OnInit {
 
   constructor(
-    private _dialog: MatDialogRef<BreaksDialogComponent>,
+    private _dialogRef: MatDialogRef<BreaksDialogComponent>,
     private _foroService: ForoService,
     @Inject(MAT_DIALOG_DATA) public data: Fecha
   ) { 
-    // _dialog.disableClose = true;
+    _dialogRef.disableClose = true;
   }
 
   ngOnInit(): void {

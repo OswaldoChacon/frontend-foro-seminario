@@ -1,10 +1,8 @@
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpParams } from "@angular/common/http";
 import { Foro } from "src/app/modelos/foro.model";
-import { formatDate } from "@angular/common";
 import { Fecha } from "src/app/modelos/fecha.model";
 import { catchError } from 'rxjs/operators';
-import { Linea } from 'src/app/modelos/linea.model';
 import { Usuario } from 'src/app/modelos/usuario.model';
 import { Router } from '@angular/router';
 import { of, throwError } from 'rxjs';
@@ -36,10 +34,10 @@ export class ForoService {
     );
   }
 
-  guardarForo(foro: FormGroup) {
-    return this._http.post(`api/foros`, foro.value).pipe(
+  guardarForo(form: FormGroup) {
+    return this._http.post(`api/foros`, form.value).pipe(
       catchError(error => {
-        return this._formError.handleError(error, foro);        
+        return this._formError.handleError(error, form);
       })
     );
   }
@@ -56,11 +54,10 @@ export class ForoService {
     );
   }
 
-  // activar_desactivar(slug: string, valor: number) {
   activar_desactivar(foro: Foro, valor: number) {
     foro.activo = !foro.activo;
     return this._http.put(`api/activar_foro/${foro.slug}`, { activo: valor }).pipe(
-      catchError(error=>{
+      catchError(error => {
         foro.activo = !foro.activo;
         return throwError(error);
       })
@@ -75,28 +72,27 @@ export class ForoService {
     );;
   }
 
-  getFechaForo() { }
-
-  guardarFechaForo(slug: string, fecha: FormGroup) {
-    // if (fecha.["fecha"] != "")
-    //   fecha["fecha"] = formatDate(fecha["fecha"], "yyyy-MM-dd", "en");
-    return this._http.post(`/api/fechaforo`, fecha.value, {
+  guardarFechaForo(slug: string, form: FormGroup) {    
+    return this._http.post(`/api/fechaforo`, form.value, {
       params: new HttpParams().set('slug', slug)
     }).pipe(
-      catchError(error=>{
-        return this._formError.handleError(error,fecha)
-        return throwError(error)
+      catchError(error => {
+        return this._formError.handleError(error, form)
       })
     );
   }
 
-  actualizarFechaForo(fecha: Date, fechaUpdate: any) {
-    return this._http.put(`/api/fechaforo/${fecha}`, fechaUpdate);
+  actualizarFechaForo(fecha: Date, form: FormGroup) {
+    return this._http.put(`/api/fechaforo/${fecha}`, form.value).pipe(
+      catchError(error => {
+        return this._formError.handleError(error, form);
+      })
+    );
   }
-  
+
   eliminarFechaForo(fecha: Date) {
     return this._http.delete(`/api/fechaforo/${fecha}`);
-  }  
+  }
 
   agregarBreak(fecha: Date, intervalo: Fecha['intervalos']) {
     intervalo.break = !intervalo.break;
@@ -124,7 +120,7 @@ export class ForoService {
   }
 
   foroActual() {
-    return this._http.get<{ foro: Foro, lineas: Linea[], tipos: Linea[], docentes: Usuario[] }>(`api/foro_actual`);
+    return this._http.get<Foro>(`api/foro_actual`);
   }
 
   agregarMaestroTaller(slug: string, usuario: Usuario, valor: boolean) {
@@ -135,5 +131,17 @@ export class ForoService {
         return throwError(error);
       })
     );
+  }
+
+  generarHorario(form: FormGroup) {
+    return this._http.post('api/generar_horario',form.value).pipe(
+      catchError(error => {
+        return this._formError.handleError(error, form);
+      })
+    );
+  }
+  
+  getProyectosJurado(){
+    return this._http.get('api/proyectos_maestros');
   }
 }

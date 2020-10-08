@@ -21,6 +21,6 @@ export class CambiarContrasenaComponent implements OnInit {
   }
 
   cambiarPassword(){
-    this._usuarioService.cambiarPassword(this.formPassword.value).subscribe();
+    this._usuarioService.cambiarPassword(this.formPassword).subscribe(()=>this.formPassword.reset());
   }
 }

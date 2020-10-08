@@ -8,17 +8,19 @@ import { SolicitudesComponent } from './solicitudes/solicitudes.component';
 import { RegistrarSolicitudComponent } from './registrar-solicitud/registrar-solicitud.component';
 import { AlumnoComponent } from './alumno.component';
 import { MisProyectosComponent } from 'src/app/components/mis-proyectos/mis-proyectos.component';
+import { PerfilComponent } from 'src/app/components/perfil/perfil.component';
 
 const routes: Routes = [
   {
-    path: '', component: SidenavComponent, 
+    path: '', component: SidenavComponent,
     children: [
       { path: 'home', component: AlumnoComponent },
       { path: 'registrar-proyecto', component: RegistrarProyectoComponent },
-      { path: 'notificaciones', component: NotificacionesComponent},
-      { path: 'mis-solicitudes', component: SolicitudesComponent},
-      { path: 'mis-proyectos', component: MisProyectosComponent},
-      { path: 'registrar-solicitud', component: RegistrarSolicitudComponent},
+      { path: 'notificaciones', component: NotificacionesComponent },
+      { path: 'mis-solicitudes', component: SolicitudesComponent },
+      { path: 'mis-proyectos', component: MisProyectosComponent },
+      { path: 'registrar-solicitud', component: RegistrarSolicitudComponent },
+      { path: 'perfil', component: PerfilComponent },
       { path: '**', redirectTo: 'home' },
     ]
   },

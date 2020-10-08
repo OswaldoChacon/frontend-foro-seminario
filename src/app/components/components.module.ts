@@ -9,27 +9,35 @@ import { NotificacionesComponent } from './notificaciones/notificaciones.compone
 import { FormularioProyectoComponent } from './formulario-proyecto/formulario-proyecto.component';
 import { MisProyectosComponent } from './mis-proyectos/mis-proyectos.component';
 import { SharedModule } from '../shared/shared.module';
+import { PerfilComponent } from './perfil/perfil.component';
+import { NgxPermissionsModule } from 'ngx-permissions';
+import { CambiarContrasenaComponent } from './cambiar-contrasena/cambiar-contrasena.component';
 
 
 @NgModule({
   declarations: [
-    FiltroComponent, 
-    NotificacionesComponent, 
-    FormularioProyectoComponent, 
-    MisProyectosComponent
+    FiltroComponent,
+    NotificacionesComponent,
+    FormularioProyectoComponent,
+    MisProyectosComponent, 
+    PerfilComponent,
+    CambiarContrasenaComponent
   ],
   imports: [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
     MaterialModule,
-    SharedModule
+    SharedModule,
+    NgxPermissionsModule.forChild()
   ],
   exports: [
     FiltroComponent,
     NotificacionesComponent,
     FormularioProyectoComponent,
-    MisProyectosComponent
+    MisProyectosComponent,
+    PerfilComponent,
+    CambiarContrasenaComponent
   ]
 })
 export class ComponentsModule { }

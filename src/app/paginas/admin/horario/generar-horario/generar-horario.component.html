@@ -1,90 +1,187 @@
-<mat-card>
-    <mat-card-header>
-        <mat-card-title>PARAMETROS DEL ALGORITMO</mat-card-title>
-    </mat-card-header>
+<div
+    fxLayoutGap="20px"
+    fxLayout="column"
+>
+    <mat-card>
+        <mat-card-header>
+            <mat-card-title>PARAMETROS DEL ALGORITMO</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+            <form
+                [formGroup]="formHorario"
+                (ngSubmit)="generarHorario()"
+                #form="ngForm"
+            >
+                <input
+                    type="hidden"
+                    name="alpha"
+                    formControlName="alpha"
+                    required
+                >
+                <input
+                    type="hidden"
+                    name="beta"
+                    formControlName="beta"
+                    required
+                >
+                <input
+                    type="hidden"
+                    name="Q"
+                    formControlName="Q"
+                    required
+                >
+                <input
+                    type="hidden"
+                    name="evaporacion"
+                    formControlName="evaporation"
+                    required
+                >
+                <input
+                    type="hidden"
+                    name="t_minDenominador"
+                    formControlName="t_minDenominador"
+                    required
+                >
+                <div
+                    fxLayoutGap="12px"
+                    fxLayout.xs="column"
+                >
+                    <div fxFlex="30">
+                        <mat-form-field appearance="fill">
+                            <mat-label>Cantidad de iteraciones</mat-label>
+                            <input
+                                matInput
+                                type="number"
+                                formControlName="iterations"
+                                required
+                            >
+                            <mat-error *ngIf="formHorario.get('iterations').hasError('required')">
+                                El campo iteraciones es
+                            requerido
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div fxFlex="30">
+                        <mat-form-field appearance="fill">
+                            <mat-label>Cantidad de hormigas</mat-label>
+                            <input
+                                matInput
+                                type="number"
+                                formControlName="ants"
+                                required
+                            >
+                            <mat-error *ngIf="formHorario.get('ants').hasError('required')">El campo hormigas es requerido</mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div fxFlex="30">
+                        <mat-form-field appearance="fill">
+                            <mat-label>Estancado</mat-label>
+                            <input
+                                matInput
+                                type="number"
+                                formControlName="estancado"
+                                required
+                            >
+                            <mat-error *ngIf="formHorario.get('estancado').hasError('required')">
+                                El campo estancado es
+                            requerido
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </form>
+        </mat-card-content>
+        <mat-card-actions align="end">
+            <button
+                (click)="form.ngSubmit.emit()"
+                mat-raised-button
+                [disabled]="form.invalid"
+                color="primary"
+            >
+                Generar horario
+            </button>
+        </mat-card-actions>
+    </mat-card>
+
+    <mat-card *ngIf="horario != undefined" style="overflow-x: auto;">
+        <mat-card-header>
+            <button
+                mat-raised-button
+                color="primary"
+                (click)="fireEvent()"
+            >
+                Descargar como Excel
+            </button>
+        </mat-card-header>
+        <mat-card-content>
+            
+            <table #table>
+                <tbody>
+                    <ng-container *ngFor="let item of horario | keyvalue">
+                        <tr>
+                            <!-- fecha -->
+                            <td>{{item.key}}</td>
+                        </tr>
+                        <ng-container *ngFor="let item2 of item.value | keyvalue">
+                            <tr>
+                                <!-- horarios -->
+                                <td>{{item2.key}}</td>
+                                <ng-container *ngFor="let item3 of item2.value | keyvalue;  let i = index">
+                                    <!-- folio -->
+                                    <td *ngIf="objectKeys(item3.value).length > 0">
+                                        <span *ngIf="i > 0; else violaciones" class="folio">{{item3.key}}</span>
+                                        <ng-template #violaciones>Violaciones</ng-template>
+
+
+                                    </td>
+                                    <ng-container *ngFor="let item4 of item3.value | keyvalue">
+                                        <!-- jurado -->
+                                        <td>{{item4.value}}</td>
+                                        <!-- <td *ngIf="objectKeys(item4).length > 0">{{item4.value}}</td> -->
+                                    </ng-container>
+                                </ng-container>
+                            </tr>
+                        </ng-container>
+                    </ng-container>
+                </tbody>
+            </table>
+        </mat-card-content>
+    </mat-card>
+</div>
+
+
+
+
+
+
+<!-- {{horario | json}} -->
+
+
+
+<!-- <mat-card *ngIf="horario != undefined">
     <mat-card-content>
-
-
-        <form
-            [formGroup]="formHorario"
-            (ngSubmit)="generarHorario()"
-            #form="ngForm"
-        >
-            <input
-                type="hidden"
-                name="alpha"
-                formControlName="alpha"
-            >
-            <input
-                type="hidden"
-                name="beta"
-                formControlName="beta"
-            >
-            <input
-                type="hidden"
-                name="Q"
-                formControlName="Q"
-            >
-            <input
-                type="hidden"
-                name="evaporacion"
-                formControlName="evaporacion"
-            >
-            <input
-                type="hidden"
-                name="t_minDenominador"
-                formControlName="t_minDenominador"
-            >
+        <div *ngFor="let item of horario | keyvalue">
+            <span>{{item.key}}</span>
             <div
-                fxLayoutGap="12px"
-                fxLayout.xs="column"
+                *ngFor="let item2 of item.value | keyvalue"
+                fxLayout="row"
+                fxLayoutGap="20px"
+                style="margin-bottom: 16px"
             >
-                <div fxFlex="30">
-                    <mat-form-field appearance="fill">
-                        <mat-label>Cantidad de iteraciones</mat-label>
-                        <input
-                            matInput
-                            type="number"
-                            formControlName="iteraciones"
-                            required
-                        >
-                    </mat-form-field>
-                </div>
-                <div fxFlex="30">
-                    <mat-form-field appearance="fill">
-                        <mat-label>Cantidad de hormigas</mat-label>
-                        <input
-                            matInput
-                            type="number"
-                            formControlName="hormigas"
-                            required
-                        >
-                    </mat-form-field>
-                </div>
-                <div fxFlex="30">
-                    <mat-form-field appearance="fill">
-                        <mat-label>Estancado</mat-label>
-                        <input
-                            matInput
-                            type="number"
-                            formControlName="estancado"
-                            required
-                        >
-                    </mat-form-field>
+                <span>{{item2.key}}</span>
+                <div
+                    *ngFor="let item3 of item2.value | keyvalue"
+                    fxFlex="18"
+                >                     
+                    <span *ngIf="objectKeys(item3.value).length > 0">{{item3.key}}</span>
+                    <div
+                        *ngFor="let item4 of item3.value | keyvalue"
+                        style="margin-bottom: 12px; margin-top:12px"
+                    >
+                        <span>{{item4.value}}</span>
+                    </div>
                 </div>
             </div>
-        </form>
-
-
+        </div>
     </mat-card-content>
-    <mat-card-actions align="end">
-        <button
-            (click)="form.ngSubmit.emit()"
-            mat-raised-button
-            color="primary"
-        >
-            Generar horario
-        </button>
-    </mat-card-actions>
-</mat-card>
-
+</mat-card> -->

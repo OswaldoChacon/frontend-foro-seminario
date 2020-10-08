@@ -1,6 +1,16 @@
-<!-- <div class="barra">
-    <app-header></app-header>
-</div> -->
+<div fxLayout="column">
+    <app-alerta [mensaje]="'Considere definir bien las fechas y no modificarlas. 
+    En caso de cualquier modificación o agregar fecha, tendrá que elegir de nuevo 
+    el horario de todos los docentes'"></app-alerta>
+    <ng-container *ngIf="data.data; else nuevoRegistro">
+        <h2 mat-dialog-title>Editando registro</h2>
+        <br>
+    </ng-container>
+    <ng-template #nuevoRegistro>
+        <h2>Nuevo registro</h2>
+    </ng-template>
+</div>
+<mat-divider></mat-divider>
 <mat-dialog-content>
     <form
         [formGroup]="formFechaForo"
@@ -11,18 +21,15 @@
             <mat-label>Fecha</mat-label>
             <input
                 matInput
-                formControlName="fecha"
+                type="date"
                 [min]="hoy"
-                [matDatepicker]="picker"
+                formControlName="fecha"
                 required
             >
-            <mat-datepicker-toggle
-                matSuffix
-                [for]="picker"
-            ></mat-datepicker-toggle>
-            <mat-datepicker #picker></mat-datepicker>
-            <mat-error *ngIf="formFechaForo.get('fecha').hasError('required')">El campo fecha es requerido</mat-error>
-            <mat-error *ngIf="formFechaForo.get('fecha').hasError('serverError')">{{ formFechaForo.get('fecha').errors?.serverError }}</mat-error>
+            <mat-error *ngIf="formFechaForo.get('fecha').hasError('required')">El campo fecha es obligatorio</mat-error>
+            <mat-error *ngIf="formFechaForo.get('fecha').hasError('serverError')">
+                {{ formFechaForo.get('fecha').errors?.serverError }}
+            </mat-error>
         </mat-form-field>
         <mat-form-field appearance="fill">
             <mat-label>Hora de inicio</mat-label>
@@ -32,8 +39,10 @@
                 formControlName="hora_inicio"
                 required
             >
-            <mat-error *ngIf="formFechaForo.get('hora_inicio').hasError('required')">El campo hora inicio es requerido</mat-error>
-            <mat-error *ngIf="formFechaForo.get('hora_inicio').hasError('serverError')">{{ formFechaForo.get('hora_inicio').errors?.serverError }}</mat-error>
+            <mat-error *ngIf="formFechaForo.get('hora_inicio').hasError('required')">El campo hora inicio es obligatorio</mat-error>
+            <mat-error *ngIf="formFechaForo.get('hora_inicio').hasError('serverError')">
+                {{ formFechaForo.get('hora_inicio').errors?.serverError }}
+            </mat-error>
         </mat-form-field>
         <mat-form-field appearance="fill">
             <mat-label>Hora de termino</mat-label>
@@ -43,12 +52,11 @@
                 formControlName="hora_termino"
                 required
             >
-            <mat-error *ngIf="formFechaForo.get('hora_inicio').hasError('required')">El campo hora termino es requerido</mat-error>
-            <mat-error *ngIf="formFechaForo.get('hora_termino').hasError('serverError')">{{ formFechaForo.get('hora_termino').errors?.serverError }}</mat-error>
+            <mat-error *ngIf="formFechaForo.get('hora_inicio').hasError('required')">El campo hora termino es obligatorio</mat-error>
+            <mat-error *ngIf="formFechaForo.get('hora_termino').hasError('serverError')">
+                {{ formFechaForo.get('hora_termino').errors?.serverError }}
+            </mat-error>
         </mat-form-field>
     </form>
 </mat-dialog-content>
-<app-buttons
-    [form]="form"
-    [guardando]="guardando"
-></app-buttons>
+<app-buttons [form]="form"></app-buttons>

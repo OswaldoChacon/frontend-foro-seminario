@@ -1,2 +1,51 @@
-
-ss
+ <!-- <div>
+                <mat-card>
+                    <mat-card-header>
+                        <mat-card-title>Solicitudes pendientes</mat-card-title>
+                    </mat-card-header>
+                    <mat-card-content
+                        [ngStyle]="{'padding.px': objectKeys(misSolicitudes).length ? '0':'16'}"
+                        style="margin:0"
+                    >
+                        <div
+                            *ngIf="objectKeys(misSolicitudes).length; else sinSolicitud"
+                            fxLayoutGap="22px"
+                        >
+                            <div [ngClass.xs]="{'a': notificacionSeleccionado}">
+                                <mat-list style="padding:0">
+                                    <mat-list-item
+                                        *ngFor="let itemSolicitud of misSolicitudes | keyvalue"
+                                        (click)="elegirNotificacion(itemSolicitud.value)"
+                                    >
+                                        <mat-icon
+                                            matListIcon
+                                            [ngStyle]="{'background-color': setBackgroundColor(itemSolicitud.key)}"
+                                            style="background-color: red; color: white;"
+                                        >
+                                            {{iconos(itemSolicitud.key)}}
+                                        </mat-icon>
+                                        <h6
+                                            matLine
+                                            style="font-size:14px"
+                                        >
+                                            {{ itemSolicitud.key}}
+                                        </h6>
+                                    </mat-list-item>
+                                </mat-list>                                
+                            </div>
+                        </div>
+                        <ng-template #sinSolicitud>
+                            <app-alerta [mensaje]="'Sin solicitudes'"></app-alerta>
+                        </ng-template>
+                    </mat-card-content>
+                    <mat-card-actions style="padding:0 !important">
+                        <a
+                            mat-menu-item
+                            [routerLink]="['../mis-solicitudes']"
+                        >                            
+                            {{objectKeys(misSolicitudes).length ? 'Ver más detalles':'Ver todas mis solicitudes' }}
+                            <mat-icon class="align-right">keyboard_arrow_right</mat-icon>
+                        </a>
+                    </mat-card-actions>
+                </mat-card>
+            </div> -->

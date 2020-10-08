@@ -1,14 +1,9 @@
-
-
-
-
-
 <div
     fxLayout="column"
     fxLayoutGap="12px"
 >
     <div
-        fxLayout.xs="column"
+        fxLayout.lt-md="column"
         fxLayout="row"
         fxLayoutGap="12px"
     >
@@ -24,18 +19,24 @@
                     #inputFiltro
                 >
             </div>
-
-
         </div>
-        <div
-            fxFlex.gt-xs="50"
+        <div            
+            fxFlex="50"
             fxLayoutAlign="end end"
+            fxLayoutGap.gt-xs="20px"
+            fxLayout.xs="column"
         >
             <app-filtro
                 [opciones]="opciones"
-                [defaultValue]="'Aceptados'"
+                [defaultValue]="filtroElegido"
                 [placeholder]="'Estatus'"
                 (opcionElegida)="filtroElegido=$event; getProyectos()"
+            ></app-filtro>
+            <app-filtro
+                [opciones]="opciones2"
+                [defaultValue]="filtroElegido2"
+                [placeholder]="'Jurado'"
+                (opcionElegida)="filtroElegido2=$event; getProyectos()"
             ></app-filtro>
         </div>
     </div>

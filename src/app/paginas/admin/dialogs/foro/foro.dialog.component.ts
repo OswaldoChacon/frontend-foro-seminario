@@ -11,23 +11,21 @@ import { finalize } from 'rxjs/operators';
   styleUrls: ['./foro.dialog.component.css']
 })
 export class ForoDialogComponent implements OnInit {
-
-  @Output() guardandoStatus = new EventEmitter<boolean>();
-  @Output() formulario = new EventEmitter<FormGroupDirective>();
-  anios = [];
-  guardando: boolean = false;
+  
+  anios = [];  
   formForo = new FormGroup(({
     no_foro: new FormControl('', [Validators.required]),
     nombre: new FormControl('FORO DE PROPUESTAS DE PROYECTOS PARA TITULACIÓN INTEGRAL', [Validators.required]),
     periodo: new FormControl('', [Validators.required]),
     anio: new FormControl('', [Validators.required]),
-    fecha_limite: new FormControl('')
+    fecha_limite: new FormControl('',[Validators.required])
   }));
   editar: boolean = false;
-  constructor(private _foroService: ForoService,
-    private _dialog: MatDialogRef<ForoDialogComponent>,
+  constructor(
+    private _foroService: ForoService,
+    private _dialogRef: MatDialogRef<ForoDialogComponent>,
     @Optional() @Inject(MAT_DIALOG_DATA) public data: Foro) {
-    _dialog.disableClose = true;
+    _dialogRef.disableClose = true;
   }
 
   ngOnInit(): void {
@@ -39,26 +37,16 @@ export class ForoDialogComponent implements OnInit {
     }
   }
 
-  guardarForo() {
-    this.guardando = true;
-    this._foroService.guardarForo(this.formForo).pipe(
-      finalize(() => this.guardando = false)
-    ).subscribe(() => this._dialog.close({ opcion: 'refresh' })
+  guardarForo() {    
+    this._foroService.guardarForo(this.formForo).subscribe(() => this._dialogRef.close({ opcion: 'refresh' })
     );
   }
 
-  actualizarForo() {
-    this.guardando = true;
-    this._foroService.actualizarForo(this.data.slug, this.formForo).pipe(
-      finalize(() => this.guardando = false)
-    ).subscribe(() => this._dialog.close({ opcion: 'refresh' }))
+  actualizarForo() {    
+    this._foroService.actualizarForo(this.data.slug, this.formForo).subscribe(() => this._dialogRef.close({ opcion: 'refresh' }))
   }
 
-  cargarDatosFormulario() {    
-    // if (this.data.fecha_limite) {
-    //   this.data.fecha_limite = new Date(this.data.fecha_limite);
-    //   this.data.fecha_limite.setMinutes(this.data.fecha_limite.getMinutes() + this.data.fecha_limite.getTimezoneOffset());
-    // }
+  cargarDatosFormulario() {
     this.formForo.setValue({
       no_foro: this.data.no_foro,
       nombre: this.data.nombre,

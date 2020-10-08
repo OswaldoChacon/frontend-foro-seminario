@@ -1,40 +1,27 @@
-
-<ng-container [ngSwitch]="true">
-    <ng-container *ngSwitchCase="cargando">
-        <mat-progress-bar
-            mode="indeterminate"
-            value="50"
-        >            
-        </mat-progress-bar>
-    </ng-container>
-    <ng-container *ngSwitchCase="foro != undefined">
-        <mat-card>
-            <mat-card-content>
-                <h3 class="font-600">
-                    {{ foro.no_foro +'° '+ foro.nombre | uppercase }}
-                    <br>
-                    {{ foro.periodo + ' '+ foro.anio | uppercase}}
-                </h3>
-                <app-formulario-proyecto (formulario)="form = $event"></app-formulario-proyecto>                
-            </mat-card-content>
-            <mat-card-actions align="end">
-                <button
-                    mat-raised-button
-                    color="primary"
-                    (click)="onSubmit()"                    
-                    [disabled]="form?.form.invalid" 
-                    >
-                    <!-- (click)="form.ngSubmit.emit()"-->
-                    ¡Registrar!
-                </button>
-            </mat-card-actions>
-        </mat-card>
-    </ng-container>
-    <ng-container *ngSwitchDefault>
-        <mat-card>
-            <mat-card-content>
-                <app-alerta [mensaje]="'No puedes registrar ningún proyecto por el momento'"></app-alerta>
-            </mat-card-content>
-        </mat-card>
-    </ng-container>
-</ng-container>
+<mat-card *ngIf="foro != undefined; else sinForo">
+    <mat-card-content>
+        <h3 class="font-600">
+            {{ foro.no_foro +'° '+ foro.nombre | uppercase }}
+            <br>
+            {{ foro.periodo + ' '+ foro.anio | uppercase}}
+        </h3>
+        <app-formulario-proyecto (formulario)="form = $event"></app-formulario-proyecto>
+    </mat-card-content>
+    <mat-card-actions align="end">
+        <button
+            mat-raised-button
+            color="primary"
+            (click)="onSubmit()"
+            [disabled]="form?.form.invalid"
+        >
+            ¡Registrar!
+        </button>
+    </mat-card-actions>
+</mat-card>
+<ng-template #sinForo>
+    <mat-card>
+        <mat-card-content>
+            <app-alerta [mensaje]="'No puedes registrar ningún proyecto por el momento'"></app-alerta>
+        </mat-card-content>
+    </mat-card>
+</ng-template>

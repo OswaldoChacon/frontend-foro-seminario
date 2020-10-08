@@ -10,8 +10,7 @@ import { tap } from 'rxjs/operators';
 })
 export class NotificacionesComponent implements OnInit {
 
-  objectKeys = Object.keys;
-  // cargando: boolean = true;
+  objectKeys = Object.keys;  
   opcionesForo: string[] = ['Foro en curso'];
   opcionesRespuesta: string[] = ['Pendientes', 'Aceptados', 'Rechazados'];
   opcionesEnviados: string[] = ['Recibidos', 'No recibidos'];

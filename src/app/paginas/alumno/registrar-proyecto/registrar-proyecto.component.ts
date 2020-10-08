@@ -5,38 +5,33 @@ import {
 import { ForoService } from "src/app/services/foro/foro.service";
 import { finalize } from "rxjs/operators";
 import { Foro } from 'src/app/modelos/foro.model';
+import { LineaService } from 'src/app/services/linea/linea.service';
+import { UsuarioService } from 'src/app/services/usuario/usuario.service';
 
 @Component({
   selector: "app-registrar-proyecto",
   templateUrl: "./registrar-proyecto.component.html",
   styleUrls: ["./registrar-proyecto.component.css"],
 })
-export class RegistrarProyectoComponent implements OnInit, AfterViewChecked{
-  cargando: boolean = true;  
+export class RegistrarProyectoComponent implements OnInit, AfterViewChecked {
   foro: Foro;
-  form:FormGroupDirective;
-  // guardando:boolean = false;
+  form: FormGroupDirective;
 
-  constructor(    
-    private _foroService: ForoService,    
-    private cdRef:ChangeDetectorRef
+  constructor(
+    private _foroService: ForoService,
+    private cdRef: ChangeDetectorRef
   ) { }
 
   ngOnInit(): void {
-    this._foroService.foroActual().pipe(
-      finalize(() => (this.cargando = false))
-    ).subscribe((res) => {
-      this.foro = res.foro;      
-    });
-    
+    this._foroService.foroActual().subscribe(foro => this.foro = foro);
   }
 
-  ngAfterViewChecked(): void {   
+  ngAfterViewChecked(): void {
     this.cdRef.detectChanges();
   }
 
-  onSubmit() {        
-    this.form.ngSubmit.emit();    
+  onSubmit() {
+    this.form.ngSubmit.emit();
   }
 
 }

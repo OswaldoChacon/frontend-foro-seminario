@@ -44,12 +44,12 @@ export class HorarioJuradoDialogComponent implements OnInit {
 
   agregarHora(event: MatCheckboxChange, fecha: any, intervalo: any) {
     intervalo.selected = !intervalo.selected;
-    if (event.checked)      
+    if (event.checked)
       this._horarioJuradoService.agregarHorario(this.data.num_control, fecha.fecha, intervalo).subscribe(() => {
         this.agregarHorario(intervalo.posicion);
         this.checkedAll(fecha);
       });
-    else      
+    else
       this._horarioJuradoService.eliminarHorario(this.data.num_control, fecha.fecha, intervalo).subscribe(() => {
         this.quitarHorario(intervalo.posicion);
         this.checkedAll(fecha);
@@ -63,10 +63,12 @@ export class HorarioJuradoDialogComponent implements OnInit {
 
   agregarHorario(posicion: number) {
     this.data.horarios.push({ posicion: posicion })
+    this.data.horarios_count += 1;
   }
 
   quitarHorario(posicion: number) {
     this.data.horarios = this.data.horarios.filter(intervalo => intervalo.posicion !== posicion)
+    this.data.horarios_count -= 1;
   }
 
   checkAll(fecha: any) {
@@ -74,6 +76,7 @@ export class HorarioJuradoDialogComponent implements OnInit {
       this.data.horarios.push({ posicion: intervalo.posicion })
       intervalo.selected = true;
     });
+    this.data.horarios_count = fecha.intervalos.length;
   }
 
   unCheckAll(fecha: any) {
@@ -81,5 +84,6 @@ export class HorarioJuradoDialogComponent implements OnInit {
     fecha.intervalos.forEach(intervalo => {
       intervalo.selected = false;
     });
+    this.data.horarios_count = 0;
   }
 }
