@@ -5,16 +5,16 @@ import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
   templateUrl: "./filtro.component.html",
   styleUrls: ["./filtro.component.css"],
 })
-export class FiltroComponent implements OnInit {  
+export class FiltroComponent implements OnInit {
   @Input() opciones: string[];
-  @Input() defaultValue:string;
+  @Input() defaultValue: string;
   @Input() placeholder: string;
-  @Output() opcionElegida: EventEmitter<string> = new EventEmitter();  
-  constructor() {}
+  @Output() opcionElegida: EventEmitter<string> = new EventEmitter();
+  constructor() { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
-  seleccionarOpcion(valor: string) {    
+  seleccionarOpcion(valor: string) {
     this.opcionElegida.emit(valor);
   }
 }
