@@ -14,6 +14,8 @@ import { JuradoComponent } from './horario/jurado/jurado.component';
 import { UsuarioDialogComponent } from '../../dialogs/usuario/usuario.dialog.component';
 import { GenerarHorarioComponent } from './horario/generar-horario/generar-horario.component';
 import { RolesSolicitudComponent } from './roles-solicitud/roles-solicitud.component';
+import { PlantillasDialogComponent } from 'src/app/dialogs/PlantillasDialog/PlantillasDialog.component';
+import { PlantillasComponent } from './plantillas/plantillas.component';
 
 
 
@@ -24,9 +26,11 @@ import { RolesSolicitudComponent } from './roles-solicitud/roles-solicitud.compo
     UsuariosComponent,
     LineasComponent,        
     JuradoComponent,    
-    UsuarioDialogComponent,        
+    UsuarioDialogComponent,
+    PlantillasDialogComponent,
     GenerarHorarioComponent, 
     RolesSolicitudComponent,
+    PlantillasComponent
   ],
   imports: [
     CommonModule,    

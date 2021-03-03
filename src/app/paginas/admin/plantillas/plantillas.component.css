@@ -1,0 +1,16 @@
+.content-header {
+    width: 100%
+}
+
+.mat-toolbar {
+    background-color: #EBEBEE;
+}
+
+input {
+    width: 100%;
+    border: none
+}
+
+input:focus {
+    outline: none;
+}

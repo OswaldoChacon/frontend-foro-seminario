@@ -90,6 +90,23 @@
                                 <span>Config. Foro</span>
                             </a>
                         </ng-container>
+                        <ng-container *ngIf="data.Grupo">
+                            <a
+                                mat-menu-item
+                                [routerLink]="['proyectos',data.slug]"
+                            >
+                                <mat-icon>groups</mat-icon>
+                                <span>Grupos</span>
+                            </a>
+                            <a
+                                mat-menu-item
+                                [routerLink]="['configurar-foro',data.slug]"
+                                *ngIf="data.canActivate"
+                            >
+                                <mat-icon>settings</mat-icon>
+                                <span>Config. Foro</span>
+                            </a> 
+                        </ng-container>
                         <ng-container *ngIf="data.fecha">
                             <button
                                 mat-menu-item
@@ -132,7 +149,7 @@
                         <span *ngFor="let docente of data.jurado">
                             {{docente.nombreCompleto}}
                         </span>
-                    </div>                   
+                    </div>
                 </ng-container>
                 <ng-container *ngSwitchDefault>
                     <span class="text-content">{{data[column] }}</span>
@@ -144,7 +161,7 @@
     <mat-row
         *matRowDef="let data; columns: objectKeys(columnsHeader);"
         (click)="abrirDialog(data)"
-        ></mat-row>        
+        ></mat-row>
 </mat-table>
 <div
     *ngIf="!dataSource.total"

@@ -9,6 +9,7 @@ import { RolesSolicitudComponent } from './roles-solicitud/roles-solicitud.compo
 import { NotificacionesComponent } from 'src/app/components/notificaciones/notificaciones.component';
 import { SidenavComponent } from 'src/app/shared/sidenav/sidenav.component';
 import { PerfilComponent } from 'src/app/components/perfil/perfil.component';
+import { PlantillasComponent } from "./plantillas/plantillas.component";
 
 const routes: Routes = [
   {
@@ -26,6 +27,7 @@ const routes: Routes = [
       { path: 'jurado', component: JuradoComponent },
       { path: 'generar_horario', component: GenerarHorarioComponent },      
       { path: 'perfil', component: PerfilComponent },
+      { path: 'Plantillas', component: PlantillasComponent },
       { path: '**', redirectTo: 'home' },
     ],
   },

@@ -101,6 +101,7 @@
                 <mat-icon matListIcon>forum</mat-icon>
                 Foros
             </a>
+            
             <mat-expansion-panel
                 class="mat-elevation-z0"
                 *ngxPermissionsOnly="['Administrador']"
@@ -126,6 +127,15 @@
                     </a>
                 </mat-nav-list>
             </mat-expansion-panel>
+            <a
+                mat-list-item
+                [routerLink]="['Plantillas']"
+                routerLinkActive="active"
+                *ngxPermissionsOnly="['Administrador']"
+            >
+                <mat-icon matListIcon>assignment</mat-icon>
+                Plantillas de evaluacion
+            </a>
             <a
                 mat-list-item
                 [routerLink]="['registrar-proyecto']"
