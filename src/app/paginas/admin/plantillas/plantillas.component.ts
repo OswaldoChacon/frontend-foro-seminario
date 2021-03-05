@@ -1,8 +1,6 @@
-
 import { Component, OnInit, ViewChild, ElementRef } from "@angular/core";
 import { PlantillasDataSource } from 'src/app/services/table/plantillas.datasource';
 import { PlantillasService } from 'src/app/services/plantillas/plantillas.service';
-import { AuthService } from 'src/app/services/auth/auth.service';
 import { MatDialog } from '@angular/material/dialog'; 
 import { Plantilla } from 'src/app/modelos/plantilla.model';
 import { fromEvent } from "rxjs";
@@ -10,10 +8,8 @@ import {
   debounceTime,
   distinctUntilChanged,
   tap,
-  map,
 } from "rxjs/operators";
 import { MatPaginator } from "@angular/material/paginator";
-import { UsuarioDialogComponent } from "src/app/dialogs/usuario/usuario.dialog.component";
 import { PlantillasDialogComponent } from "src/app/dialogs/PlantillasDialog/PlantillasDialog.component";
 import { ConfirmacionDialogComponent } from "src/app/dialogs/confirmacion/confirmacion.dialog.component";
 @Component({
@@ -28,13 +24,11 @@ export class PlantillasComponent implements OnInit {
   @ViewChild("inputFiltro", { static: true }) input: ElementRef;
   constructor(
     private _PlantillasService: PlantillasService,
-    private _authService: AuthService,
     private _dialog: MatDialog
   ) {}
   
   ngOnInit(): void {
     this.dataSource = new PlantillasDataSource(this._PlantillasService);
-    console.log(this.dataSource)
     
   }
 

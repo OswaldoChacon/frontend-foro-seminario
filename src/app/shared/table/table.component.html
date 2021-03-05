@@ -93,19 +93,11 @@
                         <ng-container *ngIf="data.Grupo">
                             <a
                                 mat-menu-item
-                                [routerLink]="['proyectos',data.slug]"
+                                [routerLink]="['grupos',data.id]"
                             >
                                 <mat-icon>groups</mat-icon>
                                 <span>Grupos</span>
                             </a>
-                            <a
-                                mat-menu-item
-                                [routerLink]="['configurar-foro',data.slug]"
-                                *ngIf="data.canActivate"
-                            >
-                                <mat-icon>settings</mat-icon>
-                                <span>Config. Foro</span>
-                            </a> 
                         </ng-container>
                         <ng-container *ngIf="data.fecha">
                             <button

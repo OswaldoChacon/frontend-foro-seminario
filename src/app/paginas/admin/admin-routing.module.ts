@@ -24,6 +24,7 @@ const routes: Routes = [
       { path: 'lineas-investigacion', component: LineasComponent },
       { path: 'tipos-proyectos', component: LineasComponent },
       { path: 'foros', loadChildren: () => import('./foros/foros.module').then(m => m.ForosModule) },
+      { path: 'plantillas', loadChildren: () => import('./plantillas/plantillas.module').then(m => m.PlantillasModule) },
       { path: 'jurado', component: JuradoComponent },
       { path: 'generar_horario', component: GenerarHorarioComponent },      
       { path: 'perfil', component: PerfilComponent },

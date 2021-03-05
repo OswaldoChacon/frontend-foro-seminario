@@ -1,34 +1,32 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Plantilla } from 'src/app/modelos/Plantilla.model';
-import { map, tap, catchError } from 'rxjs/operators';
+import { catchError } from 'rxjs/operators';
 import { Router } from '@angular/router';
-import { Proyecto } from 'src/app/modelos/proyecto.model';
-import { throwError } from 'rxjs';
 import { FormGroup } from '@angular/forms';
 import { FormErrorService } from '../formerror/form-error.service';
 import { NotificacionesService } from '../notificaciones/notificaciones.service';
+import { Grupo } from 'src/app/modelos/grupo.model';
 
 @Injectable({
   providedIn: 'root'
 })
-export class PlantillasService {
+export class GruposService {
 
   constructor(private _http: HttpClient,
     private _formError: FormErrorService,
     private _notificacionesService: NotificacionesService,
     private _router: Router) { }
 
-    getPlantillas(pagina: number, nombre: string){
-            return this._http.get<Plantilla[]>(`api/plantillas`,{
+    getGrupos(id : number, pagina: number, nombre: string){
+            return this._http.get<Grupo[]>(`api/plantillas/grupos/${id}`,{
               params: new HttpParams()
                 .set('page', pagina.toString())
                 .set('nombre', nombre)
             });
     }
 
-    guardarPlantilla(form: FormGroup) {
-      return this._http.post(`api/plantillas`, form.value).pipe(
+    guardarGrupos(form: FormGroup) {
+      return this._http.post(`api/plantillas/grupos`, form.value).pipe(
         catchError(error => {
           return this._formError.handleError(error, form);
         })
@@ -37,9 +35,9 @@ export class PlantillasService {
   
 
 
-    actualizarPlantilla(id: number, form: FormGroup) {
+    actualizarGrupo(id: number, form: FormGroup) {
       return this._http.put(
-        `api/plantillas/${id}`,
+        `api/plantillas/grupos/${id}`,
         form.value
       ).pipe(
         catchError(error => {
@@ -48,8 +46,8 @@ export class PlantillasService {
       );
     }
 
-    eliminarPlantilla(id: number) {
-      return this._http.delete(`api/plantillas/${id}`);
+    eliminarGrupo(id: number) {
+      return this._http.delete(`api/plantillas/grupos/${id}`);
     }
 
     

@@ -15,7 +15,7 @@ import { UsuarioDialogComponent } from '../../dialogs/usuario/usuario.dialog.com
 import { GenerarHorarioComponent } from './horario/generar-horario/generar-horario.component';
 import { RolesSolicitudComponent } from './roles-solicitud/roles-solicitud.component';
 import { PlantillasDialogComponent } from 'src/app/dialogs/PlantillasDialog/PlantillasDialog.component';
-import { PlantillasComponent } from './plantillas/plantillas.component';
+import { GrupoDialogComponent } from 'src/app/dialogs/grupo/grupoDialog.component';
 
 
 
@@ -30,7 +30,7 @@ import { PlantillasComponent } from './plantillas/plantillas.component';
     PlantillasDialogComponent,
     GenerarHorarioComponent, 
     RolesSolicitudComponent,
-    PlantillasComponent
+    GrupoDialogComponent
   ],
   imports: [
     CommonModule,    
