@@ -83,4 +83,8 @@ export class GruposComponent implements OnInit {
     })
 
   }
+
+  ngOnDestroy(): void {
+    localStorage.removeItem('plantilla_id');
+  }
 }

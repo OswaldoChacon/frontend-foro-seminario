@@ -29,6 +29,19 @@
                 {{formGrupo.get('nombre').errors?.serverError}}
             </mat-error>
         </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>Ponderacion</mat-label>
+            <input
+                matInput
+                formControlName="ponderacion"
+                required
+            >
+            <mat-error *ngIf="formGrupo.get('ponderacion').hasError('required')">El campo ponderacion es obligatorio</mat-error>
+            <mat-error *ngIf="formGrupo.get('ponderacion').hasError('serverError')">
+                {{formGrupo.get('ponderacion').errors?.serverError}}
+            </mat-error>
+        </mat-form-field>
     </form>
 </mat-dialog-content>
 <app-buttons [form]="form"></app-buttons>

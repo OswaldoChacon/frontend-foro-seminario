@@ -10,7 +10,6 @@ const routes: Routes = [
     component: PlantillasComponent,
   },
   { path: 'grupos/:id', component: GruposComponent },
-  // { path: 'configurar-foro/:id', component: ConfigurarForoComponent }
 
 ];
 

@@ -6,6 +6,7 @@ import { GruposService } from "../grupos/grupos.service";
 export class GruposDataSource extends DataSource<Grupo> {
   private Grupos: Grupo[];
   private GruposSubject = new BehaviorSubject<Grupo[]>([]);  
+  // private GruposSubject: BehaviorSubject<Grupo[]> = new BehaviorSubject<Grupo[]>([]);
   total: number = 0;
   por_pagina: number = 0;
 
@@ -22,11 +23,12 @@ export class GruposDataSource extends DataSource<Grupo> {
   }
 
   getGrupos(pagina: number, nombre: string) {    
-    this._GruposService.getGrupos(this.id, pagina, nombre).subscribe((grupos) => {
-      this.total = grupos['total'];
-      this.por_pagina = grupos['per_page'];
-      this.GruposSubject.next(grupos['data']);
-      this.GruposSubject = grupos['data'];
+    this._GruposService.getGrupos(this.id, pagina, nombre).subscribe((res: any) => {
+      this.total = res['grupos']['total'];
+      this.por_pagina = res['grupos']['per_page'];
+      this.GruposSubject.next(res['grupos']['data']);
+      this.GruposSubject =  res['grupos']['data'];
+      localStorage.setItem('plantilla_id',res['plantilla_id']);  
     });
   }
 

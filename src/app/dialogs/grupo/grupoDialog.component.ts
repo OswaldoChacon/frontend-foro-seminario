@@ -9,10 +9,11 @@ import { GruposService } from 'src/app/services/grupos/grupos.service';
   styleUrls: ['./grupoDialog.component.css']
 })
 export class GrupoDialogComponent implements OnInit {
-
   formGrupo = this._formBuilder.group({
-    nombre: new FormControl("", [Validators.required])
-  });  
+    nombre: new FormControl("", [Validators.required]),
+    ponderacion: new FormControl("", [Validators.required]),
+    plantilla_id: localStorage.plantilla_id
+  });
   editar: boolean = false;
 
   constructor(
@@ -22,25 +23,26 @@ export class GrupoDialogComponent implements OnInit {
     private _dialogRef: MatDialogRef<GrupoDialogComponent>
   ) { _dialogRef.disableClose = true; }
 
-  ngOnInit(): void {    
+  ngOnInit(): void {
     if (this.data != null) {
       this.editar = true;
       this.cargarDatosFormulario();
     }
-  }  
+  }
 
   cargarDatosFormulario(){
     this.formGrupo.setValue({
       nombre: this.data.nombre,
       ponderacion: this.data.ponderacion,
-    });    
+      plantilla_id: localStorage.plantilla_id
+    });
   }
 
-  registrarGrupo() {    
+  registrarGrupo() {
     this._GruposService.guardarGrupos(this.formGrupo).subscribe(() => this._dialogRef.close({ opcion: 'refresh' }));
  }
 
- actualizarGrupo() {    
+ actualizarGrupo() {
   this._GruposService.actualizarGrupo(this.data.id, this.formGrupo).subscribe(() => this._dialogRef.close({ opcion: 'refresh' }));
 }
 
