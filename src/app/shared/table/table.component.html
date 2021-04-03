@@ -99,6 +99,15 @@
                                 <span>Grupos</span>
                             </a>
                         </ng-container>
+                        <ng-container *ngIf="data.Concepto">
+                            <a
+                                mat-menu-item
+                                [routerLink]="['conceptos',data.id]"
+                            >
+                                <mat-icon>article</mat-icon>
+                                <span>Conceptos</span>
+                            </a>
+                        </ng-container>
                         <ng-container *ngIf="data.fecha">
                             <button
                                 mat-menu-item

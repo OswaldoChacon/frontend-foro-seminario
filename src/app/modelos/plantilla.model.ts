@@ -1,5 +1,5 @@
 export class Plantilla{
-    id : number;
+    id: number;
     nombre: string;
     created_at: string;
 }
