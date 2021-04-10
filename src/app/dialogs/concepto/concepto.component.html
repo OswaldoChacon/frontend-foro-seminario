@@ -1,0 +1,47 @@
+<div
+    fxLayout="row"
+    fxLayoutGap="12px"
+>
+    <mat-icon class="icon-xg">supervised_user_circle</mat-icon>
+    <ng-container *ngIf="data; else nuevoRegistro">
+        <h2>Editando registro...</h2>
+    </ng-container>
+    <ng-template #nuevoRegistro>
+        <h2>Nuevo registro</h2>
+    </ng-template>
+</div>
+<mat-divider></mat-divider>
+<mat-dialog-content>
+    <form
+        [formGroup]="formConcepto"
+        (ngSubmit)="!editar ? guardarConcepto():actualizarConcepto()"
+        #form="ngForm"
+    >
+        <mat-form-field appearance="fill">
+            <mat-label>Nombre</mat-label>
+            <input
+                matInput
+                formControlName="conceptos"
+                required
+            >
+            <mat-error *ngIf="formConcepto.get('conceptos').hasError('required')">El campo nombre es obligatorio</mat-error>
+            <mat-error *ngIf="formConcepto.get('conceptos').hasError('serverError')">
+                {{formConcepto.get('conceptos').errors?.serverError}}
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>Nombre</mat-label>
+            <input
+                matInput
+                formControlName="conceptos"
+                required
+            >
+            <mat-error *ngIf="formConcepto.get('ponderacion').hasError('required')">El campo nombre es obligatorio</mat-error>
+            <mat-error *ngIf="formConcepto.get('ponderacion').hasError('serverError')">
+                {{formConcepto.get('ponderacion').errors?.serverError}}
+            </mat-error>
+        </mat-form-field>
+    </form>
+</mat-dialog-content>
+<app-buttons [form]="form"></app-buttons>

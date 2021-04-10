@@ -5,8 +5,7 @@ import { GruposService } from "../grupos/grupos.service";
 
 export class GruposDataSource extends DataSource<Grupo> {
   private Grupos: Grupo[];
-  private GruposSubject = new BehaviorSubject<Grupo[]>([]);  
-  // private GruposSubject: BehaviorSubject<Grupo[]> = new BehaviorSubject<Grupo[]>([]);
+  private GruposSubject = new BehaviorSubject<Grupo[]>([]);
   total: number = 0;
   por_pagina: number = 0;
 

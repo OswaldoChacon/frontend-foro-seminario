@@ -7,11 +7,13 @@ import { ComponentsModule } from 'src/app/components/components.module';
 import { PlantillasRoutingModule } from './plantilla-routing.module';
 import { PlantillasComponent } from './plantillas.component';
 import { GruposComponent } from './grupos/grupos.component';
+import { ConceptosComponent } from './conceptos/conceptos.component';
 
 @NgModule({
   declarations: [
     PlantillasComponent,
-    GruposComponent   
+    GruposComponent,
+    ConceptosComponent  
   ],
   imports: [
     CommonModule,

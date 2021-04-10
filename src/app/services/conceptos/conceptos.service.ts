@@ -4,6 +4,8 @@ import { map, tap, catchError } from 'rxjs/operators';
 import { FormGroup } from '@angular/forms';
 import { FormErrorService } from '../formerror/form-error.service';
 import { Concepto } from 'src/app/modelos/concepto.model';
+import { Router } from '@angular/router';
+import { NotificacionesService } from '../notificaciones/notificaciones.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +13,9 @@ import { Concepto } from 'src/app/modelos/concepto.model';
 export class ConceptoService {
 
   constructor(private _http: HttpClient,
-    private _formError: FormErrorService) { }
+    private _formError: FormErrorService,
+    private _notificacionesService: NotificacionesService,
+    private _router: Router) { }
 
     getConceptos(id : number, pagina: number, nombre: string){
             return this._http.get<Concepto[]>(`api/plantillas/grupos/conceptos/${id}`,{
@@ -21,7 +25,7 @@ export class ConceptoService {
             });
     }
 
-    guardarPlantilla(form: FormGroup) {
+    guardarConcepto(form: FormGroup) {
       return this._http.post(`api/plantillas/grupos/conceptos`, form.value).pipe(
         catchError(error => {
           return this._formError.handleError(error, form);
@@ -31,7 +35,7 @@ export class ConceptoService {
   
 
 
-    actualizarPlantilla(id: number, form: FormGroup) {
+    actualizarConcepto(id: number, form: FormGroup) {
       return this._http.put(
         `api/plantillas/grupos/conceptos/${id}`,
         form.value

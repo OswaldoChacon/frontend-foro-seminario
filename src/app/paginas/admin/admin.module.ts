@@ -16,6 +16,7 @@ import { GenerarHorarioComponent } from './horario/generar-horario/generar-horar
 import { RolesSolicitudComponent } from './roles-solicitud/roles-solicitud.component';
 import { PlantillasDialogComponent } from 'src/app/dialogs/PlantillasDialog/PlantillasDialog.component';
 import { GrupoDialogComponent } from 'src/app/dialogs/grupo/grupoDialog.component';
+import { ConceptoDialogComponent } from 'src/app/dialogs/concepto/concepto.component';
 
 
 
@@ -28,6 +29,7 @@ import { GrupoDialogComponent } from 'src/app/dialogs/grupo/grupoDialog.componen
     JuradoComponent,    
     UsuarioDialogComponent,
     PlantillasDialogComponent,
+    ConceptoDialogComponent,
     GenerarHorarioComponent, 
     RolesSolicitudComponent,
     GrupoDialogComponent
