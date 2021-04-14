@@ -40,7 +40,7 @@ export class ConceptosComponent implements OnInit {
     const params = this._activeRoute.snapshot.params;
     if (params) {
       this.dataSource = new ConceptosDataSource(this._ConceptosService, params.id);
-      this.getConceptos();      
+      // this.getConceptos();      
     }
   }
 

@@ -25,8 +25,7 @@ export class GruposDataSource extends DataSource<Grupo> {
     this._GruposService.getGrupos(this.id, pagina, nombre).subscribe((res: any) => {
       this.total = res['grupos']['total'];
       this.por_pagina = res['grupos']['per_page'];
-      this.GruposSubject.next(res['grupos']['data']);
-      this.GruposSubject =  res['grupos']['data'];
+      this.GruposSubject.next(res['grupos']['data']);      
       localStorage.setItem('plantilla_id',res['plantilla_id']);  
     });
   }

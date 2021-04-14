@@ -10,8 +10,8 @@ const routes: Routes = [
     path: '',
     component: PlantillasComponent,
   },
-  { path: 'grupos/:id', component: GruposComponent },
-  { path: 'conceptos/:id', component: ConceptosComponent },
+  { path: 'grupos/:id', component: GruposComponent},
+  { path: 'grupos/:id/conceptos/:id', component: ConceptosComponent },
 
 ];
 

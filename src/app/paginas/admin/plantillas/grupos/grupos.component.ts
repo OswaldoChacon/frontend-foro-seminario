@@ -30,10 +30,10 @@ export class GruposComponent implements OnInit {
 
   ngOnInit() {
     const params = this._activeRoute.snapshot.params;
-    if (params) {
+    // if (params) {
       this.dataSource = new GruposDataSource(this._GruposService, params.id);
-      this.getGrupos();      
-    }
+    //   this.getGrupos();      
+    // }
   }
 
   ngAfterViewInit() {

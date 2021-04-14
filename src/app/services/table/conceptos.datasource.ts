@@ -26,7 +26,6 @@ export class ConceptosDataSource extends DataSource<Concepto> {
       this.total = res['conceptos']['total'];
       this.por_pagina = res['conceptos']['per_page'];
       this.conceptoSubject.next(res['conceptos']['data']);
-      this.conceptoSubject =  res['conceptos']['data'];
       localStorage.setItem('grupo_id',res['grupo_id']);  
     });
   }
