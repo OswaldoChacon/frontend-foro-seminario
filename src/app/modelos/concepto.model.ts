@@ -3,4 +3,5 @@ export class Concepto{
     grupo_id: number;
     conceptos: string;
     ponderacion: number;
+    semiario : boolean;
 }

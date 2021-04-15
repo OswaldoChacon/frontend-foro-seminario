@@ -3,5 +3,6 @@ export class Grupo{
     nombre: string;
     ponderacion: number;
     plantilla_id : number;
+    semiario : boolean;
     created_at : Date;
 }
