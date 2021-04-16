@@ -18,26 +18,26 @@
         #form="ngForm"
     >
         <mat-form-field appearance="fill">
-            <mat-label>Nombre</mat-label>
+            <mat-label>Conceptos</mat-label>
             <input
                 matInput
                 formControlName="conceptos"
                 required
             >
-            <mat-error *ngIf="formConcepto.get('conceptos').hasError('required')">El campo nombre es obligatorio</mat-error>
+            <mat-error *ngIf="formConcepto.get('conceptos').hasError('required')">El campo concepto es obligatorio</mat-error>
             <mat-error *ngIf="formConcepto.get('conceptos').hasError('serverError')">
                 {{formConcepto.get('conceptos').errors?.serverError}}
             </mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="fill">
-            <mat-label>Nombre</mat-label>
+            <mat-label>Ponderacion</mat-label>
             <input
                 matInput
-                formControlName="conceptos"
+                formControlName="ponderacion"
                 required
             >
-            <mat-error *ngIf="formConcepto.get('ponderacion').hasError('required')">El campo nombre es obligatorio</mat-error>
+            <mat-error *ngIf="formConcepto.get('ponderacion').hasError('required')">El campo ponderacion es obligatorio</mat-error>
             <mat-error *ngIf="formConcepto.get('ponderacion').hasError('serverError')">
                 {{formConcepto.get('ponderacion').errors?.serverError}}
             </mat-error>

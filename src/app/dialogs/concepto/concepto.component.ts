@@ -15,6 +15,8 @@ export class ConceptoDialogComponent implements OnInit {
   formConcepto = this._formBuilder.group({
     conceptos: new FormControl("", [Validators.required]),
     ponderacion: new FormControl("", [Validators.required]),
+    seminario: 0,
+    grupo_id: localStorage.grupo_id,
   });  
   editar: boolean = false; 
 
@@ -45,6 +47,9 @@ export class ConceptoDialogComponent implements OnInit {
     this.formConcepto.setValue({
       conceptos: this.data.conceptos,
       ponderacion: this.data.ponderacion,
+      seminario: 0,
+      grupo_id: localStorage.grupo_id,
+
     });    
   }
 
