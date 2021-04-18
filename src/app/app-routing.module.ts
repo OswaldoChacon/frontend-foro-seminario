@@ -7,21 +7,21 @@ import { AuthGuard } from "./services/auth/guards/auth.guard";
 const routes: Routes = [
   { path: 'login', component: LoginComponent, canActivate: [NoAuthGuard] },
   {
-    path: 'Administrador',
+    path: 'administrador',
     canActivate: [AuthGuard],
     loadChildren: () =>
       import('./paginas/admin/admin.module').then((m) => m.AdminModule),
     data: { rol: 'Administrador' }
   },
   {
-    path: 'Docente',
+    path: 'docente',
     canActivate: [AuthGuard],
     loadChildren: () =>
       import('./paginas/profesor/profesor.module').then((m) => m.ProfesorModule),
     data: { rol: 'Docente' }
   },
   {
-    path: 'Alumno',
+    path: 'alumno',
     canActivate: [AuthGuard],
     loadChildren: () => import('./paginas/alumno/alumno.module').then((m) => m.AlumnoModule),
     data: { rol: 'Alumno' }

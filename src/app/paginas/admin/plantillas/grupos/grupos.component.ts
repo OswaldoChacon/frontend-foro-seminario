@@ -53,7 +53,7 @@ export class GruposComponent implements OnInit {
   }
   
   columnsHeader = {
-    acceso: 'Estatus',
+    activo: 'Estatus',
     nombre: 'Nombre',
     ponderacion: 'Ponderacion',
     created_at: 'Fecha de creacion',

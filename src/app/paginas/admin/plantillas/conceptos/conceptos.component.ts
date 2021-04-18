@@ -28,7 +28,7 @@ export class ConceptosComponent implements OnInit {
   ) { }
 
   columnsHeader = {
-    acceso: 'Estatus',
+    activo: 'Estatus',
     conceptos: 'Concepto',
     ponderacion: 'Ponderacion',
     created_at: 'Fecha de creacion',

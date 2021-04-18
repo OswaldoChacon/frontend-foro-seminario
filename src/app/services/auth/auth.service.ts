@@ -58,11 +58,11 @@ export class AuthService {
   redirectLogin() {
     this.getRoles();
     if (this.roles.includes("Administrador"))
-      this._router.navigate(['/Administrador']);
+      this._router.navigate(['/administrador']);
     else if (this.roles.includes("Docente"))
-      this._router.navigate(['/Docente']);
+      this._router.navigate(['/docente']);
     else if (this.roles.includes("Alumno"))
-      this._router.navigate(['/Alumno']);
+      this._router.navigate(['/alumno']);
   }
 
   forgotPassword(form: FormGroup) {

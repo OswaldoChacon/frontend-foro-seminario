@@ -28,7 +28,7 @@ export class HttpErrorInterceptor implements HttpInterceptor {
     next: HttpHandler
   ) {
     let tokenReq = request.clone({
-      url: `http://seminario.test/${request.url}`,
+      // url: `http://seminario.test/${request.url}`,
       setHeaders: {
         Authorization: `Bearer ${this._authService.getToken()}`
       },

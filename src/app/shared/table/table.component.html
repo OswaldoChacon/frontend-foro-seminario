@@ -124,7 +124,7 @@
                         class="icon-check text-content"
                         [ngClass]="{'verificado': data[column] == 1,'error':data[column] == 0}"
                     >
-                        {{data[column] == 1 ? 'verified_user':'error'}}
+                        {{data[column] == 1 ? 'verified_user':'error'}}                        
                     </mat-icon>
                 </ng-container>
                 <ng-container *ngSwitchCase="'activo'">

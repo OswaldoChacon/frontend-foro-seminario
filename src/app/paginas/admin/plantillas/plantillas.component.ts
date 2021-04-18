@@ -33,7 +33,7 @@ export class PlantillasComponent implements OnInit {
   }
 
   columnsHeader = {
-    acceso: 'Estatus',
+    activo: 'Estatus',
     nombre: 'Nombre',
     created_at: 'Fecha de creacion',
     acciones: '',

@@ -15,7 +15,7 @@ export class NotificacionesService {
   constructor(private _http: HttpClient, private _router: Router) { }  
 
   misNotificaciones(no_foro: string = 'Foro en curso', respuesta: string = 'Pendientes', enviados: string = 'Recibidos') {
-    const rolActual = this._router.url.includes("Administrador") ? "Administrador" : this._router.url.includes("Alumno") ? "Alumno" : "Docente";
+    const rolActual = this._router.url.includes("administrador") ? "Administrador" : this._router.url.includes("alumno") ? "Alumno" : "Docente";
     let no_foro_split: string[];
     if (no_foro !== 'Foro en curso') {
       no_foro_split = no_foro.split(' ');
@@ -35,7 +35,7 @@ export class NotificacionesService {
   }
 
   responderNotificacion(respuesta: boolean, folio: string, solicitud: string, notificacion: any) {
-    const rolActual = this._router.url.includes("Administrador") ? "Administrador" : this._router.url.includes("Alumno") ? "Alumno" : "Docente";
+    const rolActual = this._router.url.includes("administrador") ? "Administrador" : this._router.url.includes("alumno") ? "Alumno" : "Docente";
     notificacion.editar = false;
     const respuestaAnterior = notificacion.respuesta;
     notificacion.respuesta = respuesta;
@@ -56,7 +56,7 @@ export class NotificacionesService {
   }
 
   misForos() {
-    const rolActual = this._router.url.includes("Administrador") ? "Administrador" : this._router.url.includes("Alumno") ? "Alumno" : "Docente";
+    const rolActual = this._router.url.includes("administrador") ? "Administrador" : this._router.url.includes("alumno") ? "Alumno" : "Docente";
     return this._http.get<string[]>(`api/mis_foros`, {
       params: new HttpParams().set('rol', rolActual)
     });
