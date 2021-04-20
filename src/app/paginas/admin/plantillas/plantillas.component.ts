@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef } from "@angular/core";
 import { PlantillasDataSource } from 'src/app/services/table/plantillas.datasource';
 import { PlantillasService } from 'src/app/services/plantillas/plantillas.service';
-import { MatDialog } from '@angular/material/dialog'; 
+import { MatDialog } from '@angular/material/dialog';
 import { Plantilla } from 'src/app/modelos/plantilla.model';
 import { fromEvent } from "rxjs";
 import {
@@ -25,11 +25,11 @@ export class PlantillasComponent implements OnInit {
   constructor(
     private _PlantillasService: PlantillasService,
     private _dialog: MatDialog
-  ) {}
-  
+  ) { }
+
   ngOnInit(): void {
     this.dataSource = new PlantillasDataSource(this._PlantillasService);
-    
+
   }
 
   columnsHeader = {
@@ -42,8 +42,11 @@ export class PlantillasComponent implements OnInit {
   cargarTable(event: { data?: Plantilla; opcion?: any; }) {
     if (event.opcion === "Eliminar")
       this.eliminarPlantilla(event.data);
-    if (event.opcion === "refresh")
+    else if (event.opcion === "refresh")
       this.getPlantillas();
+    else if (event.opcion === 'Activar/Desactivar') {
+      console.log("slide")
+    }
   }
 
   ngAfterViewInit() {
@@ -62,7 +65,7 @@ export class PlantillasComponent implements OnInit {
     this.getPlantillas();
   }
 
-  
+
   getPlantillas() {
     this.dataSource.getPlantillas(
       this.paginator.pageIndex + 1,
@@ -70,7 +73,7 @@ export class PlantillasComponent implements OnInit {
     );
   }
 
-  eliminarPlantilla(plantilla: Plantilla) {    
+  eliminarPlantilla(plantilla: Plantilla) {
     this._dialog.open(ConfirmacionDialogComponent, {
       data: '¿Estas seguro de realizar esta acción?'
     }).afterClosed().subscribe((res: boolean) => {

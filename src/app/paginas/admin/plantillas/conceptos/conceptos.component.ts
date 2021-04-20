@@ -47,8 +47,11 @@ export class ConceptosComponent implements OnInit {
   cargarTable(event: { data?: Concepto; opcion?: any; }) {
     if (event.opcion === "Eliminar")
       this.eliminarConcepto(event.data);
-    if (event.opcion === "refresh")
+    else if (event.opcion === "refresh")
       this.getConceptos();
+    else if (event.opcion === 'Activar/Desactivar') {
+      console.log("slide")
+    }
   }
 
   ngAfterViewInit() {
@@ -61,8 +64,8 @@ export class ConceptosComponent implements OnInit {
     ).subscribe();
 
     this.paginator.page.pipe(tap(() => {
-        this.getConceptos();
-      })
+      this.getConceptos();
+    })
     ).subscribe();
     this.getConceptos();
   }
@@ -74,7 +77,7 @@ export class ConceptosComponent implements OnInit {
     );
   }
 
-  eliminarConcepto(Concepto: Concepto) {    
+  eliminarConcepto(Concepto: Concepto) {
     this._dialog.open(ConfirmacionDialogComponent, {
       data: '¿Estas seguro de realizar esta acción?'
     }).afterClosed().subscribe((res: boolean) => {

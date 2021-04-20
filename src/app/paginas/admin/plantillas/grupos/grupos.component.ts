@@ -4,12 +4,12 @@ import { Component, OnInit } from '@angular/core';
 import { MatPaginator } from "@angular/material/paginator";
 import { ActivatedRoute } from '@angular/router';
 import { GruposService } from 'src/app/services/grupos/grupos.service';
-import { MatDialog } from '@angular/material/dialog'; 
+import { MatDialog } from '@angular/material/dialog';
 import { GruposDataSource } from 'src/app/services/table/grupo.datasource';
 import { Grupo } from 'src/app/modelos/grupo.model';
 import { ConfirmacionDialogComponent } from 'src/app/dialogs/confirmacion/confirmacion.dialog.component';
 import { fromEvent } from "rxjs";
-import { debounceTime, distinctUntilChanged, tap} from "rxjs/operators";
+import { debounceTime, distinctUntilChanged, tap } from "rxjs/operators";
 import { GrupoDialogComponent } from 'src/app/dialogs/grupo/grupoDialog.component';
 @Component({
   selector: 'app-grupos',
@@ -31,7 +31,7 @@ export class GruposComponent implements OnInit {
   ngOnInit() {
     const params = this._activeRoute.snapshot.params;
     // if (params) {
-      this.dataSource = new GruposDataSource(this._GruposService, params.id);
+    this.dataSource = new GruposDataSource(this._GruposService, params.id);
     //   this.getGrupos();      
     // }
   }
@@ -51,7 +51,7 @@ export class GruposComponent implements OnInit {
     ).subscribe();
     this.getGrupos();
   }
-  
+
   columnsHeader = {
     activo: 'Estatus',
     nombre: 'Nombre',
@@ -63,8 +63,11 @@ export class GruposComponent implements OnInit {
   cargarTable(event: { data?: Grupo; opcion?: any; }) {
     if (event.opcion === "Eliminar")
       this.eliminarGrupo(event.data);
-    if (event.opcion === "refresh")
+    else if (event.opcion === "refresh")
       this.getGrupos();
+    else if (event.opcion === 'Activar/Desactivar') {
+      console.log("slide")
+    }
   }
 
   getGrupos() {
@@ -74,7 +77,7 @@ export class GruposComponent implements OnInit {
     );
   }
 
-  eliminarGrupo(Grupo: Grupo) {    
+  eliminarGrupo(Grupo: Grupo) {
     this._dialog.open(ConfirmacionDialogComponent, {
       data: '¿Estas seguro de realizar esta acción?'
     }).afterClosed().subscribe((res: boolean) => {
