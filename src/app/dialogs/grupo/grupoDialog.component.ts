@@ -12,7 +12,7 @@ export class GrupoDialogComponent implements OnInit {
   formGrupo = this._formBuilder.group({
     nombre: new FormControl("", [Validators.required]),
     ponderacion: new FormControl("", [Validators.required]),
-    plantilla_id: localStorage.plantilla_id
+    // plantilla_id: localStorage.plantilla_id
   });
   editar: boolean = false;
 
@@ -33,17 +33,16 @@ export class GrupoDialogComponent implements OnInit {
   cargarDatosFormulario(){
     this.formGrupo.setValue({
       nombre: this.data.nombre,
-      ponderacion: this.data.ponderacion,
-      plantilla_id: localStorage.plantilla_id
+      ponderacion: this.data.ponderacion,      
     });
   }
 
   registrarGrupo() {
-    this._GruposService.guardarGrupos(this.formGrupo).subscribe(() => this._dialogRef.close({ opcion: 'refresh' }));
+    this._GruposService.guardarGrupos(this.formGrupo, localStorage.plantilla_id).subscribe(() => this._dialogRef.close({ opcion: 'refresh' }));
  }
 
  actualizarGrupo() {
-  this._GruposService.actualizarGrupo(this.data.id, this.formGrupo).subscribe(() => this._dialogRef.close({ opcion: 'refresh' }));
+  this._GruposService.actualizarGrupo(this.data.id, localStorage.plantilla_id, this.formGrupo).subscribe(() => this._dialogRef.close({ opcion: 'refresh' }));
 }
 
 }

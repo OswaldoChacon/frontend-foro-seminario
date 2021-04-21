@@ -52,8 +52,7 @@ export class GruposComponent implements OnInit {
     this.getGrupos();
   }
 
-  columnsHeader = {
-    activo: 'Estatus',
+  columnsHeader = {    
     nombre: 'Nombre',
     ponderacion: 'Ponderacion',
     created_at: 'Fecha de creacion',

@@ -27,8 +27,7 @@ export class ConceptosComponent implements OnInit {
     private _dialog: MatDialog
   ) { }
 
-  columnsHeader = {
-    activo: 'Estatus',
+  columnsHeader = {    
     conceptos: 'Concepto',
     ponderacion: 'Ponderacion',
     created_at: 'Fecha de creacion',

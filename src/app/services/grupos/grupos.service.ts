@@ -17,40 +17,40 @@ export class GruposService {
     private _notificacionesService: NotificacionesService,
     private _router: Router) { }
 
-    getGrupos(id : number, pagina: number, nombre: string){
-            return this._http.get<Grupo[]>(`api/plantillas/grupos/${id}`,{
-              params: new HttpParams()
-                .set('page', pagina.toString())
-                .set('nombre', nombre)
-            });
-    }
+  getGrupos(id: number, pagina: number, nombre: string) {
+    return this._http.get<Grupo[]>(`api/plantillas/${id}/grupos`, {
+      params: new HttpParams()
+        .set('page', pagina.toString())
+        .set('nombre', nombre)
+    });
+  }
 
-    guardarGrupos(form: FormGroup) {
-      return this._http.post(`api/plantillas/grupos`, form.value).pipe(
-        catchError(error => {
-          return this._formError.handleError(error, form);
-        })
-      );
-    }
-  
+  guardarGrupos(form: FormGroup, plantilla: string) {
+    return this._http.post(`api/plantillas/${plantilla}/grupos`, form.value).pipe(
+      catchError(error => {
+        return this._formError.handleError(error, form);
+      })
+    );
+  }
 
 
-    actualizarGrupo(id: number, form: FormGroup) {
-      return this._http.put(
-        `api/plantillas/grupos/${id}`,
-        form.value
-      ).pipe(
-        catchError(error => {
-          return this._formError.handleError(error, form);
-        })
-      );
-    }
 
-    eliminarGrupo(id: number) {
-      return this._http.delete(`api/plantillas/grupos/${id}`);
-    }
+  actualizarGrupo(id: number, plantilla:string, form: FormGroup) {
+    return this._http.put(
+      `api/plantillas/${plantilla}/grupos/${id}`,
+      form.value
+    ).pipe(
+      catchError(error => {
+        return this._formError.handleError(error, form);
+      })
+    );
+  }
 
-    
-  
+  eliminarGrupo(id: number) {
+    return this._http.delete(`api/plantillas/grupos/${id}`);
+  }
+
+
+
 
 }
