@@ -10,12 +10,12 @@ import { Grupo } from 'src/app/modelos/grupo.model';
 @Injectable({
   providedIn: 'root'
 })
-export class GruposService {
+export class GrupoService {
 
   constructor(private _http: HttpClient,
-    private _formError: FormErrorService,
-    private _notificacionesService: NotificacionesService,
-    private _router: Router) { }
+    private formError: FormErrorService,
+    private notificacionesService: NotificacionesService,
+    private router: Router) { }
 
   getGrupos(id: number, pagina: number, nombre: string) {
     return this._http.get<Grupo[]>(`api/plantillas/${id}/grupos`, {
@@ -28,7 +28,7 @@ export class GruposService {
   guardarGrupos(form: FormGroup, plantilla: string) {
     return this._http.post(`api/plantillas/${plantilla}/grupos`, form.value).pipe(
       catchError(error => {
-        return this._formError.handleError(error, form);
+        return this.formError.handleError(error, form);
       })
     );
   }
@@ -41,13 +41,13 @@ export class GruposService {
       form.value
     ).pipe(
       catchError(error => {
-        return this._formError.handleError(error, form);
+        return this.formError.handleError(error, form);
       })
     );
   }
 
-  eliminarGrupo(id: number) {
-    return this._http.delete(`api/plantillas/grupos/${id}`);
+  eliminarGrupo(id: number, plantilla:string) {
+    return this._http.delete(`api/plantillas/${plantilla}/grupos/${id}`);
   }
 
 

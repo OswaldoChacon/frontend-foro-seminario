@@ -1,7 +1,7 @@
 import { CollectionViewer, DataSource } from "@angular/cdk/collections";
 import { Observable, BehaviorSubject, throwError } from "rxjs";
 import { Concepto } from "src/app/modelos/concepto.model";
-import { ConceptoService } from "../conceptos/conceptos.service";
+import { ConceptoService } from "../conceptos/concepto.service";
 
 export class ConceptosDataSource extends DataSource<Concepto> {
   private concepto: Concepto[];

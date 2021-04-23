@@ -15,8 +15,8 @@ import { UsuarioDialogComponent } from '../../dialogs/usuario/usuario.dialog.com
 import { GenerarHorarioComponent } from './horario/generar-horario/generar-horario.component';
 import { RolesSolicitudComponent } from './roles-solicitud/roles-solicitud.component';
 import { PlantillasDialogComponent } from 'src/app/dialogs/PlantillasDialog/PlantillasDialog.component';
-import { GrupoDialogComponent } from 'src/app/dialogs/grupo/grupoDialog.component';
-import { ConceptoDialogComponent } from 'src/app/dialogs/concepto/concepto.component';
+import { GrupoDialogComponent } from 'src/app/dialogs/grupo/grupo-dialog.component';
+import { ConceptoDialogComponent } from 'src/app/dialogs/concepto/concepto-dialog.component';
 
 
 
