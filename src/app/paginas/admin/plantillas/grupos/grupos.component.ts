@@ -3,14 +3,14 @@ import { ElementRef } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
 import { MatPaginator } from "@angular/material/paginator";
 import { ActivatedRoute } from '@angular/router';
-import { GruposService } from 'src/app/services/grupos/grupos.service';
+import { GrupoService } from 'src/app/services/grupos/grupo.service';
 import { MatDialog } from '@angular/material/dialog';
 import { GruposDataSource } from 'src/app/services/table/grupo.datasource';
 import { Grupo } from 'src/app/modelos/grupo.model';
 import { ConfirmacionDialogComponent } from 'src/app/dialogs/confirmacion/confirmacion.dialog.component';
 import { fromEvent } from "rxjs";
 import { debounceTime, distinctUntilChanged, tap } from "rxjs/operators";
-import { GrupoDialogComponent } from 'src/app/dialogs/grupo/grupoDialog.component';
+import { GrupoDialogComponent } from 'src/app/dialogs/grupo/grupo-dialog.component';
 @Component({
   selector: 'app-grupos',
   templateUrl: './grupos.component.html',
@@ -23,7 +23,7 @@ export class GruposComponent implements OnInit {
   @ViewChild('inputFiltro', { static: true }) input: ElementRef
   constructor(
     private _activeRoute: ActivatedRoute,
-    private _GruposService: GruposService,
+    private _GruposService: GrupoService,
     private _dialog: MatDialog
   ) { }
 
@@ -81,7 +81,7 @@ export class GruposComponent implements OnInit {
       data: '¿Estas seguro de realizar esta acción?'
     }).afterClosed().subscribe((res: boolean) => {
       if (res)
-        this.dataSource.eliminarGrupo(Grupo.id).subscribe(() => this.getGrupos());
+        this.dataSource.eliminarGrupo(Grupo.id,localStorage.plantilla_id).subscribe(() => this.getGrupos());
     })
 
   }
