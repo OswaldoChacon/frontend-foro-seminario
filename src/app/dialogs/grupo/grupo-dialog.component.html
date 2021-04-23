@@ -35,6 +35,7 @@
             <input
                 matInput
                 formControlName="ponderacion"
+                type="number"
                 required
             >
             <mat-error *ngIf="formGrupo.get('ponderacion').hasError('required')">El campo ponderacion es obligatorio</mat-error>
