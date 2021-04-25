@@ -29,15 +29,15 @@ export class SidenavComponent implements OnInit {
   ngOnInit(): void {
     this._notificacionService.misNotificaciones('Foro en curso');
     this.roles = this._authService.getRoles();
-    if (this._router.url.includes("administrador") && this.roles.includes("Administrador"))
-      this._permissionsService.addPermission("Administrador");
-    else if (this._router.url.includes("docente") && this.roles.includes("Docente")) {
-      this._permissionsService.addPermission("Docente");
+    if (this._router.url.includes("administrador") && this.roles.includes("administrador"))
+      this._permissionsService.addPermission("administrador");
+    else if (this._router.url.includes("docente") && this.roles.includes("docente")) {
+      this._permissionsService.addPermission("docente");
       if (this.roles.includes('Taller'))
         this._permissionsService.addPermission("Taller");
     }
-    else if (this._router.url.includes("alumno") && this.roles.includes("Alumno"))
-      this._permissionsService.addPermission("Alumno");
+    else if (this._router.url.includes("alumno") && this.roles.includes("alumno"))
+      this._permissionsService.addPermission("alumno");
   }
 
   logout() {

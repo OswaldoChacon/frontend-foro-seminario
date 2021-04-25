@@ -57,11 +57,11 @@ export class AuthService {
 
   redirectLogin() {
     this.getRoles();
-    if (this.roles.includes("Administrador"))
+    if (this.roles.includes("administrador"))
       this._router.navigate(['/administrador']);
-    else if (this.roles.includes("Docente"))
+    else if (this.roles.includes("docente"))
       this._router.navigate(['/docente']);
-    else if (this.roles.includes("Alumno"))
+    else if (this.roles.includes("alumno"))
       this._router.navigate(['/alumno']);
   }
 

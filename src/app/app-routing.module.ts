@@ -11,20 +11,20 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     loadChildren: () =>
       import('./paginas/admin/admin.module').then((m) => m.AdminModule),
-    data: { rol: 'Administrador' }
+    data: { rol: 'administrador' }
   },
   {
     path: 'docente',
     canActivate: [AuthGuard],
     loadChildren: () =>
       import('./paginas/profesor/profesor.module').then((m) => m.ProfesorModule),
-    data: { rol: 'Docente' }
+    data: { rol: 'docente' }
   },
   {
     path: 'alumno',
     canActivate: [AuthGuard],
     loadChildren: () => import('./paginas/alumno/alumno.module').then((m) => m.AlumnoModule),
-    data: { rol: 'Alumno' }
+    data: { rol: 'alumno' }
   },  
   { path: '**', redirectTo: 'login' },
 ];

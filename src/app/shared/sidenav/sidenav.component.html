@@ -19,7 +19,7 @@
                 mat-list-item
                 [routerLink]="['home']"
                 routerLinkActive="active"
-                *ngxPermissionsOnly="['Administrador','Docente','Alumno']"
+                *ngxPermissionsOnly="['administrador','docente','alumno']"
             >
                 <mat-icon matListIcon>home</mat-icon>
                 Inicio
@@ -28,7 +28,7 @@
                 mat-list-item
                 routerLink="usuarios"
                 [routerLinkActive]="['active']"
-                *ngxPermissionsOnly="['Administrador']"
+                *ngxPermissionsOnly="['administrador']"
             >
                 <mat-icon matListIcon>account_box</mat-icon>
                 Usuarios
@@ -60,7 +60,7 @@
                 mat-list-item
                 [routerLink]="['roles']"
                 routerLinkActive="active"
-                *ngxPermissionsOnly="['Administrador']"
+                *ngxPermissionsOnly="['administrador']"
             >
                 <mat-icon matListIcon>supervised_user_circle</mat-icon>
                 Roles
@@ -69,7 +69,7 @@
                 mat-list-item
                 [routerLink]="['solicitudes']"
                 routerLinkActive="active"
-                *ngxPermissionsOnly="['Administrador']"
+                *ngxPermissionsOnly="['administrador']"
             >
                 <mat-icon matListIcon>category</mat-icon>
                 Tipos de solicitudes
@@ -78,7 +78,7 @@
                 mat-list-item
                 [routerLink]="['lineas-investigacion']"
                 routerLinkActive="active"
-                *ngxPermissionsOnly="['Administrador']"
+                *ngxPermissionsOnly="['administrador']"
             >
                 <mat-icon matListIcon>notes</mat-icon>
                 Lineas de investigación
@@ -87,7 +87,7 @@
                 mat-list-item
                 [routerLink]="['tipos-proyectos']"
                 routerLinkActive="active"
-                *ngxPermissionsOnly="['Administrador']"
+                *ngxPermissionsOnly="['administrador']"
             >
                 <mat-icon matListIcon>library_books</mat-icon>
                 Tipos de proyectos
@@ -96,7 +96,7 @@
                 mat-list-item
                 [routerLink]="['foros']"
                 routerLinkActive="active"
-                *ngxPermissionsOnly="['Administrador']"
+                *ngxPermissionsOnly="['administrador']"
             >
                 <mat-icon matListIcon>forum</mat-icon>
                 Foros
@@ -104,7 +104,7 @@
             
             <mat-expansion-panel
                 class="mat-elevation-z0"
-                *ngxPermissionsOnly="['Administrador']"
+                *ngxPermissionsOnly="['administrador']"
             >
                 <mat-expansion-panel-header>
                     <mat-icon matListIcon>access_time</mat-icon>
@@ -131,7 +131,7 @@
                 mat-list-item
                 [routerLink]="['plantillas']"
                 routerLinkActive="active"
-                *ngxPermissionsOnly="['Administrador']"
+                *ngxPermissionsOnly="['administrador']"
             >
                 <mat-icon matListIcon>assignment</mat-icon>
                 Plantillas de evaluacion
@@ -140,7 +140,7 @@
                 mat-list-item
                 [routerLink]="['registrar-proyecto']"
                 routerLinkActive="active"
-                *ngxPermissionsOnly="['Alumno']"
+                *ngxPermissionsOnly="['alumno']"
             >
                 <mat-icon matListIcon>book</mat-icon>
                 Registrar proyecto
@@ -149,7 +149,7 @@
                 mat-list-item
                 [routerLink]="['registrar-solicitud']"
                 routerLinkActive="active"
-                *ngxPermissionsOnly="['Alumno']"
+                *ngxPermissionsOnly="['alumno']"
             >
                 <mat-icon matListIcon>note_add</mat-icon>
                 Registrar solicitud
@@ -158,7 +158,7 @@
                 mat-list-item
                 [routerLink]="['mis-solicitudes']"
                 routerLinkActive="active"
-                *ngxPermissionsOnly="['Alumno']"
+                *ngxPermissionsOnly="['alumno']"
             >
                 Solicitudes
             </a>
@@ -166,7 +166,7 @@
                 mat-list-item
                 [routerLink]="['mis-proyectos']"
                 routerLinkActive="active"
-                *ngxPermissionsOnly="['Alumno','Docente']"
+                *ngxPermissionsOnly="['alumno','docente']"
             >
                 <mat-icon matListIcon>collections_bookmark</mat-icon>
                 Mis proyectos
@@ -174,7 +174,7 @@
             <a
                 [routerLink]="['asignar-jurado']"
                 routerLinkActive="active"
-                *ngxPermissionsOnly="['Docente']"
+                *ngxPermissionsOnly="['docente']"
             >
                 <mat-list-item role="listitems">Horario</mat-list-item>
             </a>
