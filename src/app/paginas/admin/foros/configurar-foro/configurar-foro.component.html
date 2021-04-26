@@ -111,7 +111,7 @@
                     </app-table>
                 </ng-container>
                 <ng-template #noFechas>
-                    <app-alerta [mensaje]="'No puedes agregar fechas de exposición a un foro inactivo'"></app-alerta>
+                    <app-alerta [mensaje]="'No puedes agregar fechas de exposición'"></app-alerta>
                 </ng-template>
             </mat-card-content>
         </mat-card>
@@ -150,9 +150,12 @@
                     </mat-list>
                 </ng-container>
                 <ng-template #sinDocentes>
-                    <app-alerta [mensaje]="'No puedes agregar docentes a este foro porque esta inactivo'"></app-alerta>
+                    <app-alerta [mensaje]="'Sin registros'"></app-alerta>
                 </ng-template>
             </mat-card-content>
         </mat-card>
+    </mat-tab>
+    <mat-tab label="Plantillas">
+        s
     </mat-tab>
 </mat-tab-group>
