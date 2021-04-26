@@ -28,7 +28,7 @@ export class ForoService {
   getForo(slug: string) {
     return this._http.get<Foro>(`api/foros/${slug}`).pipe(
       catchError((error) => {
-        this._route.navigate(['/Administrador/foros']);
+        this._route.navigate(['/administrador/foros']);
         return throwError(error);
       })
     );
