@@ -20,32 +20,40 @@ import { ConfirmacionDialogComponent } from "src/app/dialogs/confirmacion/confir
 export class PlantillasComponent implements OnInit {
   dataSource: PlantillasDataSource = null;
   componentDialog = PlantillasDialogComponent;
-  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
-  @ViewChild("inputFiltro", { static: true }) input: ElementRef;
-  constructor(
-    private _PlantillasService: PlantillasService,
-    private _dialog: MatDialog
-  ) { }
-
-  ngOnInit(): void {
-    this.dataSource = new PlantillasDataSource(this._PlantillasService);
-
-  }
-
   columnsHeader = {
-    // activo: 'Estatus',
+    activo: 'Activo',
+    acceso: 'Estatus',
     nombre: 'Nombre',
     created_at: 'Fecha de creacion',
     acciones: '',
   };
 
-  cargarTable(event: { data?: Plantilla; opcion?: any; }) {
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  @ViewChild("inputFiltro", { static: true }) input: ElementRef;
+  constructor(
+    private PlantillasService: PlantillasService,
+    private _dialog: MatDialog
+  ) { }
+
+  ngOnInit(): void {
+    this.dataSource = new PlantillasDataSource(this.PlantillasService);
+
+  }
+
+  cargarTable(event: { data?: Plantilla, opcion?: any, valorOpcion?: any }) {
     if (event.opcion === "Eliminar")
       this.eliminarPlantilla(event.data);
     else if (event.opcion === "refresh")
       this.getPlantillas();
     else if (event.opcion === 'Activar/Desactivar') {
-      console.log("slide")
+      this._dialog.open(ConfirmacionDialogComponent, {
+        data: '¿Estas seguro de desactivar el foro? Esto podría eliminar los horarios establecido de los maestros?'
+      }).afterClosed().subscribe((res: boolean) => {
+        if (res)
+          this.PlantillasService.activarPlantilla(event.data, event.valorOpcion).subscribe();
+        else
+          event.data.activo = true;
+      })
     }
   }
 

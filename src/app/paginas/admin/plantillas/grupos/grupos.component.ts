@@ -19,6 +19,13 @@ import { GrupoDialogComponent } from 'src/app/dialogs/grupo/grupo-dialog.compone
 export class GruposComponent implements OnInit {
   dataSource: GruposDataSource = null;
   componentDialog = GrupoDialogComponent;
+  columnsHeader = {
+    acceso: 'Estatus',
+    nombre: 'Nombre',
+    ponderacion: 'Ponderacion',
+    created_at: 'Fecha de creacion',
+    acciones: '',
+  };
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild('inputFiltro', { static: true }) input: ElementRef
   constructor(
@@ -52,13 +59,6 @@ export class GruposComponent implements OnInit {
     this.getGrupos();
   }
 
-  columnsHeader = {    
-    nombre: 'Nombre',
-    ponderacion: 'Ponderacion',
-    created_at: 'Fecha de creacion',
-    acciones: '',
-  };
-
   cargarTable(event: { data?: Grupo; opcion?: any; }) {
     if (event.opcion === "Eliminar")
       this.eliminarGrupo(event.data);
@@ -81,7 +81,7 @@ export class GruposComponent implements OnInit {
       data: '¿Estas seguro de realizar esta acción?'
     }).afterClosed().subscribe((res: boolean) => {
       if (res)
-        this.dataSource.eliminarGrupo(Grupo.id,localStorage.plantilla_id).subscribe(() => this.getGrupos());
+        this.dataSource.eliminarGrupo(Grupo.id, localStorage.plantilla_id).subscribe(() => this.getGrupos());
     })
 
   }

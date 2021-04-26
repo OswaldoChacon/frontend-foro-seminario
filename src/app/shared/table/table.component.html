@@ -119,7 +119,7 @@
                         </ng-container>
                     </mat-menu>
                 </ng-container>
-                <ng-container *ngSwitchCase="'acceso'">
+                <ng-container *ngSwitchCase="('acceso')">
                     <mat-icon
                         class="icon-check text-content"
                         [ngClass]="{'verificado': data[column] == 1,'error':data[column] == 0}"
