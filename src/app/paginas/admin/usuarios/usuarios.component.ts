@@ -50,7 +50,7 @@ export class UsuariosComponent implements OnInit {
   ngOnInit(): void {
     this.dataSource = new UsuariosDataSource(this._usuarioService);
     this.misRoles = this._authService.getRoles();
-    if (this.misRoles.includes("Administrador")) {
+    if (this.misRoles.includes("administrador")) {
       this.rolSeleccionado = 'Todos';
       this.roles.push('Todos', 'Usuarios sin rol');
       this._rolService.getRoles("roles").pipe(map(roles => {
