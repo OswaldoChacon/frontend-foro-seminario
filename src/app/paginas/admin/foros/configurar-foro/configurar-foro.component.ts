@@ -28,7 +28,7 @@ import { ConfirmacionDialogComponent } from 'src/app/dialogs/confirmacion/confir
 
 export class ConfigurarForoComponent implements OnInit {
 
-  formConfigForo = this._formBuilder.group({
+  formConfigForo = this.formBuilder.group({
     lim_alumnos: new FormControl("", [Validators.required, Validators.min(1)]),
     num_aulas: new FormControl("", [Validators.required, Validators.min(1)]),
     duracion: new FormControl("", [Validators.required, Validators.min(15)]),
@@ -38,32 +38,31 @@ export class ConfigurarForoComponent implements OnInit {
   dataSource: FechasDataSource = null;
   componentDialog = FechaDialogComponent;
   columnsHeader = { 'fecha': 'Fecha', 'hora_inicio': 'Hora de inicio', 'hora_termino': 'Hora de termino', 'acciones': '' }
+  columnsHeaderPlantilla = {
+    activo: 'Activo',
+    nombre: 'Nombre'
+  }
   foro: Foro;
   fecha: Fecha;
   cargando = true;
   slug: string;
   docentes: Usuario[] = [];
   constructor(
-    private _foroService: ForoService,
-    private _formBuilder: FormBuilder,
-    private _activeRoute: ActivatedRoute,
-    private _dialog: MatDialog
+    private foroService: ForoService,
+    private formBuilder: FormBuilder,
+    private activeRoute: ActivatedRoute,
+    private dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
-    if (this._activeRoute.snapshot.params.id) {
-      this.slug = this._activeRoute.snapshot.params.id;
-      this._foroService.getForo(this._activeRoute.snapshot.params.id).pipe(
+    if (this.activeRoute.snapshot.params.id) {
+      this.slug = this.activeRoute.snapshot.params.id;      
+      this.foroService.getForo(this.slug).pipe(
         tap(foro => {
-          this.formConfigForo.setValue({
-            lim_alumnos: foro.lim_alumnos,
-            num_aulas: foro.num_aulas,
-            duracion: foro.duracion,
-            num_maestros: foro.num_maestros
-          })
+          this.formConfigForo.patchValue(foro)
           this.foro = foro;
           this.docentes = foro.docentes;
-          this.dataSource = new FechasDataSource(foro.fechas, this._foroService);
+          this.dataSource = new FechasDataSource(foro.fechas, this.foroService);
         }),
         finalize(() => this.cargando = false)
       ).subscribe();
@@ -72,7 +71,7 @@ export class ConfigurarForoComponent implements OnInit {
 
   elegirMaestro(event: MatCheckboxChange, docente: Usuario) {
     const agregar = event.checked ? true : false;
-    this._foroService.agregarMaestroTaller(this.slug, docente, agregar).subscribe();
+    this.foroService.agregarMaestroTaller(this.slug, docente, agregar).subscribe();
   }
 
   cargarTable(event: { data?: Fecha, opcion?: any, valorOpcion?: string }) {
@@ -85,11 +84,11 @@ export class ConfigurarForoComponent implements OnInit {
   }
 
   configurarForo() {
-    this._foroService.configurarForo(this.foro.slug, this.formConfigForo).subscribe();
+    this.foroService.configurarForo(this.slug, this.formConfigForo).subscribe();
   }
 
   eliminarFechaForo(fecha: Date) {
-    this._dialog.open(ConfirmacionDialogComponent, {
+    this.dialog.open(ConfirmacionDialogComponent, {
       data: '¿Estas seguro de realizar esta acción? Todos los horarios de los maestros serán eliminados'
     }).afterClosed().subscribe((res: boolean) => {
       if (res)
@@ -98,7 +97,7 @@ export class ConfigurarForoComponent implements OnInit {
   }
 
   mostrarET(fecha: Fecha) {
-    const dialogRef = this._dialog.open(BreaksDialogComponent, {
+    const dialogRef = this.dialog.open(BreaksDialogComponent, {
       data: fecha,
     });
   }

@@ -18,7 +18,7 @@ export class TableComponent implements OnInit {
   objectKeys = Object.keys;
 
   constructor(
-    private _dialog: MatDialog,
+    private dialog: MatDialog,
   ) { }
 
   ngOnInit(): void {
@@ -30,7 +30,7 @@ export class TableComponent implements OnInit {
     }
   }
   agregarRegistro() {
-    const dialogRef = this._dialog.open(this.componentDialog, {
+    const dialogRef = this.dialog.open(this.componentDialog, {
       data: this.url != undefined ? { url: this.url } : null
     });
     dialogRef.afterClosed().subscribe(res => {
@@ -39,7 +39,7 @@ export class TableComponent implements OnInit {
   }
 
   editarRegistro(registro: any) {
-    const dialogRef = this._dialog.open(this.componentDialog, {
+    const dialogRef = this.dialog.open(this.componentDialog, {
       data: this.url != undefined ? { data: registro, url: this.url } : registro
     });
     dialogRef.afterClosed().subscribe(res => this.emitData.emit(res));

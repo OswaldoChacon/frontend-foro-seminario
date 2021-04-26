@@ -21,11 +21,11 @@ export class ForosComponent implements OnInit {
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild('inputFiltro', { static: true }) input: ElementRef;
-  constructor(private _foroService: ForoService, 
-    private _dialog: MatDialog) { }
+  constructor(private foroService: ForoService,
+    private dialog: MatDialog) { }
 
   ngOnInit(): void {
-    this.dataSource = new ForosDataSource(this._foroService);
+    this.dataSource = new ForosDataSource(this.foroService);
     this.getForos();
     fromEvent(this.input.nativeElement, 'keyup').pipe(
       debounceTime(400),
@@ -52,23 +52,23 @@ export class ForosComponent implements OnInit {
     if (event.opcion === 'refresh')
       this.getForos();
     if (event.opcion === 'Activar/Desactivar') {
-      this._dialog.open(ConfirmacionDialogComponent,{
+      this.dialog.open(ConfirmacionDialogComponent, {
         data: '¿Estas seguro de desactivar el foro? Esto podría eliminar los horarios establecido de los maestros?'
-      }).afterClosed().subscribe((res:boolean)=>{
-        if(res)
-          this._foroService.activar_desactivar(event.data, event.valorOpcion).subscribe();
+      }).afterClosed().subscribe((res: boolean) => {
+        if (res)
+          this.foroService.activar_desactivar(event.data, event.valorOpcion).subscribe();
         else
-        event.data.activo = true;
-      })            
+          event.data.activo = true;
+      })
     }
   }
 
   eliminarForo(foro: Foro) {
-    this._dialog.open(ConfirmacionDialogComponent, {
+    this.dialog.open(ConfirmacionDialogComponent, {
       data: '¿Estas seguro de realizar esta acción?'
     }).afterClosed().subscribe((res: boolean) => {
       if (res)
         this.dataSource.eliminarForo(foro.slug).subscribe(res => this.getForos());
-    });    
+    });
   }
 }
