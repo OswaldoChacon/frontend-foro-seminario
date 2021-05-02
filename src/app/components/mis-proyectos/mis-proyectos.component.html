@@ -1,6 +1,6 @@
 <div
     fxLayout="row wrap"
-    *ngIf="proyectos.length; else sinProyecto"
+    *ngIf="proyectos.length; else sinProyecto"    
     fxLayoutGap="14px"
 >
     <mat-card
@@ -11,11 +11,11 @@
         <mat-card-content>
             <div
                 fxLayout="row"
-                fxLayout.xs="column"                
+                fxLayout.xs="column"
             >
                 <div
                     fxFlex.xs="100"
-                    fxFlex="80"                    
+                    fxFlex="80"
                 >
                     <mat-card-title>{{proyecto.titulo}}</mat-card-title>
                     <mat-card-subtitle>
@@ -47,7 +47,7 @@
             </div>
         </mat-card-content>
         <mat-card-actions class="mat-card-actions-without-padding">
-            <a mat-menu-item>
+            <a [routerLink]="['./',proyecto.folio]" mat-menu-item>
                 Ver más detalles
                 <mat-icon class="align-right">keyboard_arrow_right</mat-icon>
             </a>

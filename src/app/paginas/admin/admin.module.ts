@@ -14,7 +14,7 @@ import { JuradoComponent } from './horario/jurado/jurado.component';
 import { UsuarioDialogComponent } from '../../dialogs/usuario/usuario.dialog.component';
 import { GenerarHorarioComponent } from './horario/generar-horario/generar-horario.component';
 import { RolesSolicitudComponent } from './roles-solicitud/roles-solicitud.component';
-import { PlantillasDialogComponent } from 'src/app/dialogs/PlantillasDialog/PlantillasDialog.component';
+import { PlantillasDialogComponent } from 'src/app/dialogs/plantilla/plantilla-dialog.component';
 import { GrupoDialogComponent } from 'src/app/dialogs/grupo/grupo-dialog.component';
 import { ConceptoDialogComponent } from 'src/app/dialogs/concepto/concepto-dialog.component';
 

@@ -5,23 +5,23 @@ import { Plantilla } from "src/app/modelos/Plantilla.model";
 import { PlantillasService } from "src/app/services/plantillas/plantillas.service";
 
 @Component({
-  selector: 'app-PlantillasDialog',
-  templateUrl: './PlantillasDialog.component.html',
-  styleUrls: ['./PlantillasDialog.component.css']
+  selector: 'app-plantilla-dialog',
+  templateUrl: './plantilla-dialog.component.html',
+  styleUrls: ['./plantilla-dialog.component.css']
 })
 export class PlantillasDialogComponent implements OnInit {
 
-  formPlantilla = this._formBuilder.group({
+  formPlantilla = this.formBuilder.group({
     nombre: new FormControl("", [Validators.required])
   });  
   editar: boolean = false; 
 
   constructor(
     @Optional() @Inject(MAT_DIALOG_DATA) public data: Plantilla,
-    private _formBuilder: FormBuilder,
-    private _PlantillasService: PlantillasService,
-    private _dialogRef: MatDialogRef<PlantillasDialogComponent>
-  ) { _dialogRef.disableClose = true; }
+    private formBuilder: FormBuilder,
+    private plantillasService: PlantillasService,
+    private dialogRef: MatDialogRef<PlantillasDialogComponent>
+  ) { dialogRef.disableClose = true; }
 
 
   ngOnInit(): void {    
@@ -32,11 +32,11 @@ export class PlantillasDialogComponent implements OnInit {
   }  
   
   registrarPlantilla() {    
-     this._PlantillasService.guardarPlantilla(this.formPlantilla).subscribe(() => this._dialogRef.close({ opcion: 'refresh' }));
+     this.plantillasService.guardarPlantilla(this.formPlantilla).subscribe(() => this.dialogRef.close({ opcion: 'refresh' }));
   }
 
   actualizarPlantilla() {    
-     this._PlantillasService.actualizarPlantilla(this.data.id, this.formPlantilla).subscribe(() => this._dialogRef.close({ opcion: 'refresh' }));
+     this.plantillasService.actualizarPlantilla(this.data.id, this.formPlantilla).subscribe(() => this.dialogRef.close({ opcion: 'refresh' }));
   }
 
   cargarDatosFormulario(){

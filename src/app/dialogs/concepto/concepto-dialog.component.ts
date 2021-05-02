@@ -12,7 +12,7 @@ import { Optional } from '@angular/core';
 export class ConceptoDialogComponent implements OnInit {
 
 
-  formConcepto = this._formBuilder.group({
+  formConcepto = this.formBuilder.group({
     nombre: new FormControl("", [Validators.required]),
     ponderacion: new FormControl("", [Validators.required]),
     seminario: 0,
@@ -22,10 +22,12 @@ export class ConceptoDialogComponent implements OnInit {
 
   constructor(
     @Optional() @Inject(MAT_DIALOG_DATA) public data: Concepto,
-    private _formBuilder: FormBuilder,
-    private _ConceptoService: ConceptoService,
-    private _dialogRef: MatDialogRef<ConceptoDialogComponent>
-  ) { _dialogRef.disableClose = true; }
+    private formBuilder: FormBuilder,
+    private conceptoService: ConceptoService,
+    private dialogRef: MatDialogRef<ConceptoDialogComponent>
+  ) {
+    this.dialogRef.disableClose = true;
+  }
 
 
   ngOnInit(): void {
@@ -36,11 +38,11 @@ export class ConceptoDialogComponent implements OnInit {
   }
 
   guardarConcepto() {
-    this._ConceptoService.guardarConcepto(this.formConcepto, localStorage.grupo_id).subscribe(() => this._dialogRef.close({ opcion: 'refresh' }));
+    this.conceptoService.guardarConcepto(this.formConcepto, localStorage.grupo_id).subscribe(() => this.dialogRef.close({ opcion: 'refresh' }));
   }
 
   actualizarConcepto() {
-    this._ConceptoService.actualizarConcepto(this.data.id, this.formConcepto, localStorage.grupo_id).subscribe(() => this._dialogRef.close({ opcion: 'refresh' }));
+    this.conceptoService.actualizarConcepto(this.data.id, this.formConcepto, localStorage.grupo_id).subscribe(() => this.dialogRef.close({ opcion: 'refresh' }));
   }
 
   cargarDatosFormulario() {

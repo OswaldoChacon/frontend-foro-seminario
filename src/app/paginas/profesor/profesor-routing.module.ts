@@ -8,6 +8,7 @@ import { NotificacionesComponent } from 'src/app/components/notificaciones/notif
 import { MisProyectosComponent } from 'src/app/components/mis-proyectos/mis-proyectos.component';
 import { UsuariosComponent } from '../admin/usuarios/usuarios.component';
 import { PerfilComponent } from 'src/app/components/perfil/perfil.component';
+import { ProyectoComponent } from "src/app/components/proyecto/proyecto.component";
 
 const routes: Routes = [
   {
@@ -15,7 +16,8 @@ const routes: Routes = [
     component: ProfesorComponent, 
     children: [
       { path: 'registrar-alumno', component: UsuariosComponent },
-      { path: 'mis-proyectos', component: MisProyectosComponent },
+      { path: 'proyectos', component: MisProyectosComponent },
+      { path: 'proyectos/:id', component: ProyectoComponent },
       { path: 'home', component: HomeComponent },
       { path: 'notificaciones', component: NotificacionesComponent },
       { path: 'perfil', component: PerfilComponent },

@@ -10,7 +10,7 @@ import {
   tap,
 } from "rxjs/operators";
 import { MatPaginator } from "@angular/material/paginator";
-import { PlantillasDialogComponent } from "src/app/dialogs/PlantillasDialog/PlantillasDialog.component";
+import { PlantillasDialogComponent } from "src/app/dialogs/plantilla/plantilla-dialog.component";
 import { ConfirmacionDialogComponent } from "src/app/dialogs/confirmacion/confirmacion.dialog.component";
 @Component({
   selector: 'app-plantillas',

@@ -12,21 +12,21 @@ import { MatDialogRef } from '@angular/material/dialog';
 export class ForgotPasswordDialogComponent implements OnInit {
 
   cargando: boolean = false;
-  formEmail = this._formBuilder.group({
+  formEmail = this.formBuilder.group({
     email: new FormControl('',[Validators.required, Validators.email])
   });
-  constructor(private _authService: AuthService,
-    private _dialogRef: MatDialogRef<ForgotPasswordDialogComponent>,
-    private _formBuilder: FormBuilder) { }
+  constructor(private authService: AuthService,
+    private dialogRef: MatDialogRef<ForgotPasswordDialogComponent>,
+    private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
   }
 
   enviarPassword() {
     this.cargando = true;
-    this._authService.forgotPassword(this.formEmail).pipe(
+    this.authService.forgotPassword(this.formEmail).pipe(
       finalize(() => this.cargando = false)
-    ).subscribe(()=>this._dialogRef.close());
+    ).subscribe(()=>this.dialogRef.close());
   }
 
 }

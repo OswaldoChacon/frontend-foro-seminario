@@ -11,12 +11,12 @@ import { AuthService } from 'src/app/services/auth/auth.service';
 export class PerfilComponent implements OnInit {
 
   constructor(
-    private _formBuilder: FormBuilder,
-    private _authService: AuthService
+    private formBuilder: FormBuilder,
+    private authService: AuthService
   ) { }
 
   usuario: Usuario;
-  formPerfil = this._formBuilder.group({
+  formPerfil = this.formBuilder.group({
     email: new FormControl('', [Validators.required, Validators.email]),
     nombre: new FormControl('', [Validators.required]),
     apellidoP: new FormControl('', [Validators.required]),
@@ -26,7 +26,7 @@ export class PerfilComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this._authService.datosPersonales().subscribe((usuario) => {
+    this.authService.datosPersonales().subscribe((usuario) => {
       this.cargarDatosFormulario(usuario);
     });
     this.usuario = JSON.parse(localStorage.getItem('profile'));
@@ -34,7 +34,7 @@ export class PerfilComponent implements OnInit {
   }
 
   actualizarDatos() {
-    this._authService.actualizarDatos(this.formPerfil, this.usuario.num_control).subscribe()
+    this.authService.actualizarDatos(this.formPerfil, this.usuario.num_control).subscribe()
   }
 
   cargarDatosFormulario(usuario) {

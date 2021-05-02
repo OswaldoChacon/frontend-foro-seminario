@@ -1,7 +1,10 @@
 .align-right {
-    /* display: flex;    
+  /* display: flex;    
     justify-content: flex-end; */
-    float: right;
-    margin-top:10px
-  }
-  
+  float     : right;
+  margin-top: 10px
+}
+
+.mat-card {
+  margin-bottom: 10px;
+}

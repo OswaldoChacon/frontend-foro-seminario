@@ -12,6 +12,8 @@ import { SharedModule } from '../shared/shared.module';
 import { PerfilComponent } from './perfil/perfil.component';
 import { NgxPermissionsModule } from 'ngx-permissions';
 import { CambiarContrasenaComponent } from './cambiar-contrasena/cambiar-contrasena.component';
+import { RouterModule } from '@angular/router';
+import { ProyectoComponent } from './proyecto/proyecto.component';
 
 
 @NgModule({
@@ -21,10 +23,12 @@ import { CambiarContrasenaComponent } from './cambiar-contrasena/cambiar-contras
     FormularioProyectoComponent,
     MisProyectosComponent, 
     PerfilComponent,
-    CambiarContrasenaComponent
+    CambiarContrasenaComponent,    
+    ProyectoComponent
   ],
   imports: [
     CommonModule,
+    RouterModule,
     FormsModule,
     ReactiveFormsModule,
     MaterialModule,
@@ -37,7 +41,8 @@ import { CambiarContrasenaComponent } from './cambiar-contrasena/cambiar-contras
     FormularioProyectoComponent,
     MisProyectosComponent,
     PerfilComponent,
-    CambiarContrasenaComponent
+    CambiarContrasenaComponent,
+    ProyectoComponent
   ]
 })
 export class ComponentsModule { }

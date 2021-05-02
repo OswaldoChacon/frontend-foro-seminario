@@ -1,3 +1,4 @@
+import { ProyectosComponent } from './../admin/foros/proyectos/proyectos.component';
 import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
 import { SidenavComponent } from "src/app/shared/sidenav/sidenav.component";
@@ -18,7 +19,7 @@ const routes: Routes = [
       { path: 'registrar-proyecto', component: RegistrarProyectoComponent },
       { path: 'notificaciones', component: NotificacionesComponent },
       { path: 'mis-solicitudes', component: SolicitudesComponent },
-      { path: 'mis-proyectos', component: MisProyectosComponent },
+      { path: 'proyectos', component: MisProyectosComponent },      
       { path: 'registrar-solicitud', component: RegistrarSolicitudComponent },
       { path: 'perfil', component: PerfilComponent },
       { path: '**', redirectTo: 'home' },

@@ -1,7 +1,7 @@
 <mat-progress-bar
     value="50"
     mode="indeterminate"
-    *ngIf="_notificacionesService.cargando; else data"
+    *ngIf="notificacionesService.cargando; else data"
     class="table-loading"
 ></mat-progress-bar>
 
@@ -40,9 +40,9 @@
         <div
             fxFlex="70"
             fxFlex.lt-md="100"
-            *ngIf="objectKeys(_notificacionesService.notificaciones).length > 0; else sinNotificaciones"
+            *ngIf="objectKeys(notificacionesService.notificaciones).length > 0; else sinNotificaciones"
         >
-            <div *ngFor="let notificacionKey of _notificacionesService.notificaciones | keyvalue">
+            <div *ngFor="let notificacionKey of notificacionesService.notificaciones | keyvalue">
                 <h2>{{notificacionKey.key}}</h2>
                 <div fxLayout="row wrap">
                     <mat-card

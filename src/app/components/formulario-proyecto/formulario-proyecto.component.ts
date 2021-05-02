@@ -22,7 +22,7 @@ export class FormularioProyectoComponent implements OnInit {
   @Output() cargarDataEmit = new EventEmitter<boolean>();
   @Input() proyecto: Proyecto;
 
-  formRegistrar = this._formBuilder.group({
+  formRegistrar = this.formBuilder.group({
     titulo: ['', [Validators.required, Validators.maxLength(255)]],
     linea: new FormControl('', [Validators.required]),
     tipo: new FormControl('', [Validators.required]),
@@ -40,10 +40,10 @@ export class FormularioProyectoComponent implements OnInit {
 
   
   constructor(
-    private _formBuilder: FormBuilder,
-    private _proyectoService: ProyectosService,
-    private _lineaService: LineaService,
-    private _usuarioService: UsuarioService
+    private formBuilder: FormBuilder,
+    private proyectoService: ProyectosService,
+    private lineaService: LineaService,
+    private usuarioService: UsuarioService
   ) { }
 
   ngOnInit(): void {
@@ -51,9 +51,9 @@ export class FormularioProyectoComponent implements OnInit {
       this.editar = true;
       this.cargarDatosFormulario();
     }
-    this._lineaService.getLineas('alumno/lineas').subscribe(lineas => this.lineas = lineas);
-    this._lineaService.getLineas('alumno/tiposProyecto').subscribe(tipos => this.tipos = tipos);
-    this._usuarioService.getDocentes().subscribe(docentes => this.docentes = docentes);
+    this.lineaService.getLineas('alumno/lineas').subscribe(lineas => this.lineas = lineas);
+    this.lineaService.getLineas('alumno/tiposProyecto').subscribe(tipos => this.tipos = tipos);
+    this.usuarioService.getDocentes().subscribe(docentes => this.docentes = docentes);
   }
 
   ngAfterViewInit(): void {
@@ -61,11 +61,11 @@ export class FormularioProyectoComponent implements OnInit {
   }
 
   registrarProyecto() {
-    this._proyectoService.registrarProyecto(this.formRegistrar).subscribe();
+    this.proyectoService.registrarProyecto(this.formRegistrar).subscribe();
   }
 
   actualizarProyecto() {
-    this._proyectoService.actualizarProyecto(this.formRegistrar, this.proyecto.folio).subscribe(() => {
+    this.proyectoService.actualizarProyecto(this.formRegistrar, this.proyecto.folio).subscribe(() => {
       this.proyecto.enviar = false;
       this.proyecto.permitir_cambios = false;
       this.proyecto.editar = this.proyecto.aceptado ? false:true;      

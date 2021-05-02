@@ -20,22 +20,22 @@ export class NotificacionesComponent implements OnInit {
   enviadoElegido: string = 'Recibidos';
 
   constructor(
-    public _notificacionesService: NotificacionesService,
-    private _router: Router,
+    public notificacionesService: NotificacionesService,
+    private router: Router,
   ) { }
 
   ngOnInit(): void {
-    this._notificacionesService.misForos().subscribe((foros: string[]) => this.opcionesForo.push(...foros));
+    this.notificacionesService.misForos().subscribe((foros: string[]) => this.opcionesForo.push(...foros));
     this.misNotificaciones();
   }
 
   responder(notificacion: any, solicitud: string, respuesta: boolean) {    
-    // this._notificacionesService.responderNotificacion(notificacion.respuesta, notificacion.proyecto.folio, solicitud, notificacion).subscribe(() => this.misNotificaciones());
-    this._notificacionesService.responderNotificacion(respuesta, notificacion.proyecto.folio, solicitud, notificacion).subscribe(() => this.misNotificaciones());
+    // this.notificacionesService.responderNotificacion(notificacion.respuesta, notificacion.proyecto.folio, solicitud, notificacion).subscribe(() => this.misNotificaciones());
+    this.notificacionesService.responderNotificacion(respuesta, notificacion.proyecto.folio, solicitud, notificacion).subscribe(() => this.misNotificaciones());
   }
 
   misNotificaciones() {
-    this._notificacionesService.misNotificaciones(this.foroElegido, this.respuestaElegida, this.enviadoElegido);
+    this.notificacionesService.misNotificaciones(this.foroElegido, this.respuestaElegida, this.enviadoElegido);
   }
 
 }

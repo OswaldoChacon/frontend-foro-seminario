@@ -9,18 +9,20 @@ import { UsuarioService } from 'src/app/services/usuario/usuario.service';
 })
 export class CambiarContrasenaComponent implements OnInit {
 
-  formPassword = this._formBuilder.group({
-    password : new FormControl('',[Validators.required]),
-    nuevo_password : new FormControl('',[Validators.required])
+  formPassword = this.formBuilder.group({
+    password: new FormControl('', [Validators.required]),
+    nuevo_password: new FormControl('', [Validators.required])
   });
-  hide:boolean = true;
-  constructor(private _formBuilder: FormBuilder,
-    private _usuarioService: UsuarioService) { }
+  hide: boolean = true;
+  constructor(
+    private formBuilder: FormBuilder,
+    private usuarioService: UsuarioService
+    ) { }
 
   ngOnInit(): void {
   }
 
-  cambiarPassword(){
-    this._usuarioService.cambiarPassword(this.formPassword).subscribe(()=>this.formPassword.reset());
+  cambiarPassword() {
+    this.usuarioService.cambiarPassword(this.formPassword).subscribe(() => this.formPassword.reset());
   }
 }

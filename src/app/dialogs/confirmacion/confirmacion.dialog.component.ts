@@ -10,7 +10,7 @@ export class ConfirmacionDialogComponent implements OnInit {
 
   
   constructor(
-    public _dialogRef: MatDialogRef<ConfirmacionDialogComponent>,
+    public dialogRef: MatDialogRef<ConfirmacionDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public mensaje: string) { }
 
     
@@ -18,9 +18,9 @@ export class ConfirmacionDialogComponent implements OnInit {
     }
     
     cerrarDialogo(): void {
-      this._dialogRef.close(false);
+      this.dialogRef.close(false);
     }
     confirmado(): void {
-      this._dialogRef.close(true);
+      this.dialogRef.close(true);
     }
 }
