@@ -1,1 +1,80 @@
-<p>proyecto works!</p>
+<div
+    fxLayout="column"
+    fxLayoutGap="12px"
+>
+    <div
+        fxLayout="row"
+        fxLayout.xs="column"
+        class="border"
+    >
+        <div
+            fxFlex.gt-xs="30"
+            fxFlex.xs="100"
+            fxLayout="column"
+        >
+            <div>CLAVE</div>
+            <div>{{proyecto.clave}}</div>
+        </div>
+        <div
+            fxFlex.gt-xs="70"
+            fxFlex.xs="100"
+            fxLayout="column"
+        >
+            <div>NOMBRE DEL PROYECTO</div>
+            <div>{{proyecto.titulo}}</div>
+        </div>
+    </div>
+
+    <div *ngFor="let plantilla of plantillas">
+        <div
+            fxLayoutAlign="center center"
+            style="background-color: #1F4E79; color:White"
+        >
+            {{plantilla.nombre}}
+        </div>
+        <div>
+            <span fxFlex="20"></span>
+            <span fxFlex="40">Concepto a evaluar</span>
+            <span fxFlex="20">Ponderación</span>
+            <span fxFlex="20">Calificación</span>
+        </div>
+        <div
+            *ngFor="let grupo of plantilla.grupos; let i=index"
+            fxLayout="row"
+        >
+            <div
+                fxFlex="100"
+                fxLayoutGap="10px"
+            >
+                <div
+                fxLayoutAlign="center center"
+                    fxFlex="calc(10%-10px)"
+                    style="padding: 5px; background-color: #A6A6A6;"
+                >
+                    <span>{{i+1}}</span>
+                </div>
+                <div
+                fxLayoutAlign="start center"
+                    fxFlex="calc(50%-10px)"
+                    style="padding: 5px; background-color: #A6A6A6;"
+                >
+                    <span>{{grupo.nombre}}</span>
+                </div>
+                <div
+                fxLayoutAlign="center center"
+                    fxFlex="calc(20%-10px)"
+                    style="padding: 5px; background-color: #A6A6A6;"
+                >
+                    <span>{{grupo.ponderacion}}</span>
+                </div>
+                <div
+                fxLayoutAlign="center center"
+                    fxFlex="calc(20%-10px)"
+                    style="padding: 5px; background-color: #A6A6A6;"
+                >
+                    <span>{{grupo.ponderacion}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

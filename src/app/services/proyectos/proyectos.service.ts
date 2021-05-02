@@ -14,13 +14,13 @@ import { NotificacionesService } from '../notificaciones/notificaciones.service'
 })
 export class ProyectosService {
 
-  constructor(private _http: HttpClient,
-    private _formError: FormErrorService,
-    private _notificacionesService: NotificacionesService,
-    private _router: Router) { }
+  constructor(private http: HttpClient,
+    private formError: FormErrorService,
+    private notificacionesService: NotificacionesService,
+    private router: Router) { }
 
   getProyectos(slug: string, pagina: number, folio: string, filtro: string, jurado: string) {
-    return this._http.get(`api/proyectos/${slug}`, {
+    return this.http.get(`api/proyectos/${slug}`, {
       params: new HttpParams().set('page', pagina.toString())
         .set('folio', folio)
         .set('filtro', filtro)
@@ -29,30 +29,30 @@ export class ProyectosService {
   }
 
   registrarProyecto(proyecto: FormGroup) {
-    return this._http.post(`api/registrar_proyecto`, proyecto.value).pipe(
+    return this.http.post(`api/registrar_proyecto`, proyecto.value).pipe(
       tap(() => {
-        this._notificacionesService.misNotificaciones();
-        this._router.navigate(['home']);
+        this.notificacionesService.misNotificaciones();
+        this.router.navigate(['home']);
       }),
       catchError(error => {
-        return this._formError.handleError(error, proyecto);
+        return this.formError.handleError(error, proyecto);
       })
     );
   }
 
   actualizarProyecto(proyecto: FormGroup, folio: string) {
-    return this._http.put(`api/actualizar_proyecto/${folio}`, proyecto.value).pipe(
+    return this.http.put(`api/actualizar_proyecto/${folio}`, proyecto.value).pipe(
       tap(() => {
-        this._notificacionesService.misNotificaciones()
+        this.notificacionesService.misNotificaciones()
       }),
       catchError(error => {
-        return this._formError.handleError(error, proyecto);
+        return this.formError.handleError(error, proyecto);
       })
     );
   }
 
   participa(proyecto: Proyecto) {
-    return this._http.put(`api/proyecto_participa/${proyecto.folio}`, { participa: proyecto.participa }
+    return this.http.put(`api/proyecto_participa/${proyecto.folio}`, { participa: proyecto.participa }
     ).pipe(
       catchError(error => {
         proyecto.participa = !proyecto.participa;
@@ -62,7 +62,7 @@ export class ProyectosService {
   }
 
   asignarJurado(folio: string, docente: Usuario) {
-    return this._http.post(`api/asignar_jurado/${folio}`, { 'num_control': docente.num_control }).pipe(
+    return this.http.post(`api/asignar_jurado/${folio}`, { 'num_control': docente.num_control }).pipe(
       catchError(error => {
         docente.jurado = false;
         return throwError(error);
@@ -71,7 +71,7 @@ export class ProyectosService {
   }
 
   eliminarJurado(folio: string, docente: Usuario) {
-    return this._http.delete(`api/eliminar_jurado/${folio}`, {
+    return this.http.delete(`api/eliminar_jurado/${folio}`, {
       params: new HttpParams().set('num_control', docente.num_control)
     }).pipe(
       catchError(error => {
@@ -85,7 +85,7 @@ export class ProyectosService {
 
   // agregarIntegrante(folio: string, num_control: string) {
   agregarIntegrante(proyecto: Proyecto, alumno: Usuario) {
-    return this._http.post(`api/agregar_integrante`, { num_control: alumno.num_control }).pipe(
+    return this.http.post(`api/agregar_integrante`, { num_control: alumno.num_control }).pipe(
       catchError(error => {
         alumno.myTeam = !alumno.myTeam;
         return throwError(error);
@@ -94,7 +94,7 @@ export class ProyectosService {
   }
 
   eliminarIntegrante(proyecto: Proyecto, alumno: Usuario) {
-    return this._http.delete(`api/eliminar_integrante`, {
+    return this.http.delete(`api/eliminar_integrante`, {
       params: new HttpParams().set('num_control', alumno.num_control)
     }).pipe(
       catchError(error => {
@@ -105,7 +105,7 @@ export class ProyectosService {
   }
 
   enviarSolicitud(proyecto: Proyecto) {
-    return this._http.put(`api/enviar_solicitud/${proyecto.folio}`, { enviando: true }).pipe(
+    return this.http.put(`api/enviar_solicitud/${proyecto.folio}`, { enviando: true }).pipe(
       tap(() => {
         proyecto.editar = false;
         proyecto.enviar = false;
@@ -116,7 +116,7 @@ export class ProyectosService {
   }
 
   cancelarSolicitud(proyecto: Proyecto) {
-    return this._http.put(`api/cancelar_solicitud/${proyecto.folio}`, { enviando: false }).pipe(
+    return this.http.put(`api/cancelar_solicitud/${proyecto.folio}`, { enviando: false }).pipe(
       tap(() => {
         proyecto.editar = true;
         proyecto.enviar = true;
@@ -127,15 +127,15 @@ export class ProyectosService {
   }
 
   misProyectos() {
-    return this._http.get<Proyecto[]>('api/mis_proyectos');
+    return this.http.get<Proyecto[]>('api/mis_proyectos');
   }
 
   proyectoActual() {
-    return this._http.get<Proyecto>(`api/proyecto_actual`);
+    return this.http.get<Proyecto>(`api/proyecto_actual`);
   }
   permitirCambios(proyecto: Proyecto, cambio: boolean) {
     proyecto.permitir_cambios = cambio;
-    return this._http.put(`api/permitir_cambios/${proyecto.folio}`, { cambios: cambio }).pipe(
+    return this.http.put(`api/permitir_cambios/${proyecto.folio}`, { cambios: cambio }).pipe(
       catchError(error => {
         proyecto.permitir_cambios = !cambio;
         return throwError(error);

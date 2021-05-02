@@ -1,0 +1,18 @@
+.proyecto-detalles {
+    background-color: aqua;
+}
+
+.border {
+    border-color: blue;
+    border-style: solid;
+    border-width: 2px 0 2px 0;
+}
+
+div>* {
+    padding: 3px 10px;
+}
+
+span{
+    padding:10px;
+    /* background-color: gray; */
+}
