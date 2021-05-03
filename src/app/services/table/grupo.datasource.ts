@@ -1,7 +1,7 @@
 import { CollectionViewer, DataSource } from "@angular/cdk/collections";
 import { Observable, BehaviorSubject } from "rxjs";
 import { Grupo } from "src/app/modelos/grupo.model";
-import { GrupoService } from "../grupos/grupo.service";
+import { GrupoService } from "../grupo.service";
 
 export class GruposDataSource extends DataSource<Grupo> {
   private Grupos: Grupo[];

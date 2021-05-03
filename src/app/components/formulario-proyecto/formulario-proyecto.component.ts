@@ -1,14 +1,14 @@
 import { Component, OnInit, ViewChild, Output, EventEmitter, Input } from '@angular/core';
 import { Validators, FormControl, FormBuilder, NgForm } from '@angular/forms';
-import { ProyectosService } from 'src/app/services/proyectos/proyectos.service';
+import { ProyectoService } from 'src/app/services/proyecto.service';
 import { Foro } from 'src/app/modelos/foro.model';
 import { Usuario } from 'src/app/modelos/usuario.model';
 import { Linea } from 'src/app/modelos/linea.model';
 
 import { Proyecto } from 'src/app/modelos/proyecto.model';
-import { LineaService } from 'src/app/services/linea/linea.service';
-import { UsuarioService } from 'src/app/services/usuario/usuario.service';
-import { NotificacionesService } from 'src/app/services/notificaciones/notificaciones.service';
+import { LineaService } from 'src/app/services/linea.service';
+import { UsuarioService } from 'src/app/services/usuario.service';
+import { NotificacionesService } from 'src/app/services/notificaciones.service';
 
 @Component({
   selector: 'app-formulario-proyecto',
@@ -38,10 +38,10 @@ export class FormularioProyectoComponent implements OnInit {
   docentes: Usuario[];
   foro: Foro;
 
-  
+
   constructor(
     private formBuilder: FormBuilder,
-    private proyectoService: ProyectosService,
+    private proyectoService: ProyectoService,
     private lineaService: LineaService,
     private usuarioService: UsuarioService
   ) { }
@@ -68,7 +68,7 @@ export class FormularioProyectoComponent implements OnInit {
     this.proyectoService.actualizarProyecto(this.formRegistrar, this.proyecto.folio).subscribe(() => {
       this.proyecto.enviar = false;
       this.proyecto.permitir_cambios = false;
-      this.proyecto.editar = this.proyecto.aceptado ? false:true;      
+      this.proyecto.editar = this.proyecto.aceptado ? false : true;
     });
   }
 

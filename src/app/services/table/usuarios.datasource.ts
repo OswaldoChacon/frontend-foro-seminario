@@ -3,7 +3,7 @@ import { Observable, BehaviorSubject, throwError } from "rxjs";
 
 import { catchError, finalize, map, tap } from "rxjs/operators";
 import { Usuario } from "src/app/modelos/usuario.model";
-import { UsuarioService } from "../usuario/usuario.service";
+import { UsuarioService } from "../usuario.service";
 
 export class UsuariosDataSource extends DataSource<Usuario> {
   private usuarios: Usuario[];

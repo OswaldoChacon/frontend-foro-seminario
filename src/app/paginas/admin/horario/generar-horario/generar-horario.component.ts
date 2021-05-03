@@ -1,6 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
-import { ForoService } from 'src/app/services/foro/foro.service';
+import { ForoService } from 'src/app/services/foro.service';
 import * as XLSX from 'xlsx';
 
 @Component({

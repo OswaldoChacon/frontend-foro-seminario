@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Rol } from '../modelos/rol.model';
 import { Usuario } from '../modelos/usuario.model';
-import { FormErrorService } from './formerror/form-error.service';
+import { FormErrorService } from './form-error.service';
 import { catchError } from 'rxjs/operators';
 import { FormGroup } from '@angular/forms';
 

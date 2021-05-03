@@ -2,11 +2,11 @@ import { Component, OnInit, ChangeDetectorRef, AfterViewChecked } from "@angular
 import {
   FormGroupDirective,
 } from "@angular/forms";
-import { ForoService } from "src/app/services/foro/foro.service";
+import { ForoService } from "src/app/services/foro.service";
 import { finalize } from "rxjs/operators";
 import { Foro } from 'src/app/modelos/foro.model';
-import { LineaService } from 'src/app/services/linea/linea.service';
-import { UsuarioService } from 'src/app/services/usuario/usuario.service';
+import { LineaService } from 'src/app/services/linea.service';
+import { UsuarioService } from 'src/app/services/usuario.service';
 
 @Component({
   selector: "app-registrar-proyecto",

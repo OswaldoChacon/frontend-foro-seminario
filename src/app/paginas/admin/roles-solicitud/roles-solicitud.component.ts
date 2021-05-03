@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { RolesDataSource } from '../../../services/table/roles.datasource';
-import { RolesService } from 'src/app/services/rol/rol.service';
+import { RolesService } from 'src/app/services/rol.service';
 import { RolesDialogComponent } from '../dialogs/roles/roles.dialog.component';
 import { Router } from '@angular/router';
 import { Rol } from 'src/app/modelos/rol.model';

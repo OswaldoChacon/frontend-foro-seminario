@@ -6,7 +6,7 @@ import { catchError } from 'rxjs/operators';
 import { Usuario } from 'src/app/modelos/usuario.model';
 import { Router } from '@angular/router';
 import { of, throwError } from 'rxjs';
-import { FormErrorService } from '../formerror/form-error.service';
+import { FormErrorService } from './form-error.service';
 import { FormGroup } from '@angular/forms';
 
 

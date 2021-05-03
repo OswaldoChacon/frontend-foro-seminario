@@ -1,7 +1,7 @@
 import { Component, OnInit, Optional, Inject } from "@angular/core";
 import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
 import { Usuario } from "src/app/modelos/usuario.model";
-import { ProyectosService } from "src/app/services/proyectos/proyectos.service";
+import { ProyectoService } from "src/app/services/proyecto.service";
 import { MatCheckboxChange } from "@angular/material/checkbox";
 import { catchError } from "rxjs/operators";
 import { of } from "rxjs";
@@ -15,11 +15,11 @@ import { Proyecto } from 'src/app/modelos/proyecto.model';
 export class DocentesDiaogComponent implements OnInit {
   docentes: any;
   constructor(
-    private _dialogRef: MatDialogRef<DocentesDiaogComponent>,
-    private _proyectoService: ProyectosService,
+    private dialogRef: MatDialogRef<DocentesDiaogComponent>,
+    private proyectoService: ProyectoService,
     @Optional() @Inject(MAT_DIALOG_DATA) public data: Proyecto
   ) {
-    _dialogRef.disableClose = true;
+    dialogRef.disableClose = true;
   }
 
   ngOnInit(): void {
@@ -35,9 +35,9 @@ export class DocentesDiaogComponent implements OnInit {
   asignarJurado(event: MatCheckboxChange, docente: Usuario) {   
     docente.jurado=!docente.jurado;
     if(event.checked)
-      this._proyectoService.asignarJurado(this.data.folio,docente).subscribe(()=>this.agregarJurado(docente.num_control));
+      this.proyectoService.asignarJurado(this.data.folio,docente).subscribe(()=>this.agregarJurado(docente.num_control));
     else
-      this._proyectoService.eliminarJurado(this.data.folio,docente).subscribe(()=>this.quitarJurado(docente.num_control));
+      this.proyectoService.eliminarJurado(this.data.folio,docente).subscribe(()=>this.quitarJurado(docente.num_control));
   }
 
   agregarJurado(num_control:string){

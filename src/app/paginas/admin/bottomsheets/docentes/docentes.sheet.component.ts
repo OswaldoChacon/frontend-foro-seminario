@@ -2,7 +2,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { MatBottomSheetRef, MAT_BOTTOM_SHEET_DATA } from '@angular/material/bottom-sheet';
 import { catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
-import { ProyectosService } from 'src/app/services/proyectos/proyectos.service';
+import { ProyectoService } from 'src/app/services/proyecto.service';
 import { Usuario } from 'src/app/modelos/usuario.model';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 
@@ -15,8 +15,8 @@ export class DocentesSheetComponent implements OnInit {
   docentes: any;
 
 
-  constructor(private _bottomSheetRef: MatBottomSheetRef<DocentesSheetComponent>,
-    private _proyectoService: ProyectosService,
+  constructor(private bottomSheetRef: MatBottomSheetRef<DocentesSheetComponent>,
+    private proyectoService: ProyectoService,
     @Inject(MAT_BOTTOM_SHEET_DATA) public data: any
   ) { }
 
@@ -33,9 +33,9 @@ export class DocentesSheetComponent implements OnInit {
   asignarJurado(event: MatCheckboxChange, docente: Usuario) {    
     docente.jurado = !docente.jurado;
     if (event.checked)
-      this._proyectoService.asignarJurado(this.data.folio, docente).subscribe(() => this.agregarJurado(docente.num_control));
+      this.proyectoService.asignarJurado(this.data.folio, docente).subscribe(() => this.agregarJurado(docente.num_control));
     else
-      this._proyectoService.eliminarJurado(this.data.folio, docente).subscribe(() => this.quitarJurado(docente.num_control));
+      this.proyectoService.eliminarJurado(this.data.folio, docente).subscribe(() => this.quitarJurado(docente.num_control));
   }
 
   agregarJurado(num_control: string) {

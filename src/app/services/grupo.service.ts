@@ -3,8 +3,8 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { catchError } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { FormGroup } from '@angular/forms';
-import { FormErrorService } from '../formerror/form-error.service';
-import { NotificacionesService } from '../notificaciones/notificaciones.service';
+import { FormErrorService } from './form-error.service';
+import { NotificacionesService } from './notificaciones.service';
 import { Grupo } from 'src/app/modelos/grupo.model';
 
 @Injectable({

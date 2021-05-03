@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators, FormControl } from '@angular/forms';
 import { Rol } from 'src/app/modelos/rol.model';
-import { RolesService } from 'src/app/services/rol/rol.service';
+import { RolesService } from 'src/app/services/rol.service';
 import { SolicitudesService } from 'src/app/services/solicitudes.service';
 import { Proyecto } from 'src/app/modelos/proyecto.model';
 import { Usuario } from 'src/app/modelos/usuario.model';

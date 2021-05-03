@@ -1,5 +1,5 @@
 import { BehaviorSubject, Observable, throwError } from "rxjs";
-import { RolesService } from '../rol/rol.service';
+import { RolesService } from '../rol.service';
 import { CollectionViewer, DataSource } from '@angular/cdk/collections';
 import { catchError, finalize } from 'rxjs/operators';
 import { Rol } from 'src/app/modelos/rol.model';

@@ -2,7 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Fecha } from 'src/app/modelos/fecha.model';
-import { ForoService } from 'src/app/services/foro/foro.service';
+import { ForoService } from 'src/app/services/foro.service';
 
 @Component({
   selector: 'app-breaksdialog',

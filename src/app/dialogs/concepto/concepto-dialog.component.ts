@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
 import { FormBuilder, Validators, FormControl } from "@angular/forms";
 import { Concepto } from 'src/app/modelos/concepto.model';
-import { ConceptoService } from 'src/app/services/conceptos/concepto.service';
+import { ConceptoService } from 'src/app/services/concepto.service';
 import { Inject } from '@angular/core';
 import { Optional } from '@angular/core';
 @Component({

@@ -1,7 +1,7 @@
 import { CollectionViewer, DataSource } from "@angular/cdk/collections";
 import { Observable, BehaviorSubject, of, merge, throwError } from "rxjs";
 import { Linea } from "src/app/modelos/linea.model";
-import { LineaService } from "../linea/linea.service";
+import { LineaService } from "../linea.service";
 import { finalize, catchError } from "rxjs/operators";
 
 export class LineaDataSource extends DataSource<Linea> {

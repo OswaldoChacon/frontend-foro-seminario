@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, ElementRef } from "@angular/core";
-import { UsuarioService } from "src/app/services/usuario/usuario.service";
+import { UsuarioService } from "src/app/services/usuario.service";
 import { Usuario } from "src/app/modelos/usuario.model";
 import { MatPaginator } from "@angular/material/paginator";
 import { NgxPermissionsService } from 'ngx-permissions';
@@ -14,7 +14,7 @@ import {
 import { UsuarioDialogComponent } from "src/app/dialogs/usuario/usuario.dialog.component";
 import { UsuariosDataSource } from "src/app/services/table/usuarios.datasource";
 import { MatCheckboxChange } from "@angular/material/checkbox";
-import { RolesService } from "src/app/services/rol/rol.service";
+import { RolesService } from "src/app/services/rol.service";
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmacionDialogComponent } from 'src/app/dialogs/confirmacion/confirmacion.dialog.component';
 

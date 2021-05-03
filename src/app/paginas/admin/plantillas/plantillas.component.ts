@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef } from "@angular/core";
 import { PlantillasDataSource } from 'src/app/services/table/plantillas.datasource';
-import { PlantillasService } from 'src/app/services/plantillas/plantillas.service';
+import { PlantillaService } from 'src/app/services/plantilla.service';
 import { MatDialog } from '@angular/material/dialog';
 import { Plantilla } from 'src/app/modelos/plantilla.model';
 import { fromEvent } from "rxjs";
@@ -31,7 +31,7 @@ export class PlantillasComponent implements OnInit {
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild("inputFiltro", { static: true }) input: ElementRef;
   constructor(
-    private PlantillasService: PlantillasService,
+    private PlantillasService: PlantillaService,
     private _dialog: MatDialog
   ) { }
 

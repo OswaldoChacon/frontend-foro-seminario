@@ -1,6 +1,6 @@
 // import { DataSource } from "@angular/cdk/table";
 import { BehaviorSubject, Observable } from "rxjs";
-import { RolesService } from '../rol/rol.service';
+import { RolesService } from '../rol.service';
 import { CollectionViewer, DataSource } from '@angular/cdk/collections';
 import { SolicitudesService } from '../solicitudes.service';
 import { finalize } from 'rxjs/operators';

@@ -3,7 +3,7 @@ import { ElementRef } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
 import { MatPaginator } from "@angular/material/paginator";
 import { ActivatedRoute } from '@angular/router';
-import { GrupoService } from 'src/app/services/grupos/grupo.service';
+import { GrupoService } from 'src/app/services/grupo.service';
 import { MatDialog } from '@angular/material/dialog';
 import { GruposDataSource } from 'src/app/services/table/grupo.datasource';
 import { Grupo } from 'src/app/modelos/grupo.model';

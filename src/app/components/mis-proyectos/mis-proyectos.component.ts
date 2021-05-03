@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { finalize, tap } from 'rxjs/operators';
 import { Proyecto } from 'src/app/modelos/proyecto.model';
-import { ProyectosService } from 'src/app/services/proyectos/proyectos.service';
+import { ProyectoService } from 'src/app/services/proyecto.service';
 
 @Component({
   selector: 'app-mis-proyectos',
@@ -11,7 +11,7 @@ import { ProyectosService } from 'src/app/services/proyectos/proyectos.service';
 export class MisProyectosComponent implements OnInit {
 
   proyectos: Proyecto[] = [];
-  constructor(private proyectoService: ProyectosService) { }
+  constructor(private proyectoService: ProyectoService) { }
 
   ngOnInit(): void {
     this.proyectoService.misProyectos().subscribe(proyectos => this.proyectos = proyectos);

@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
-import { NotificacionesService } from './services/notificaciones/notificaciones.service';
+import { NotificacionesService } from './services/notificaciones.service';
 
 @Component({
   selector: "app-root",

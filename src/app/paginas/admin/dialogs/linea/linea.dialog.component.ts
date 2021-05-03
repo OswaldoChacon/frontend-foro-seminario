@@ -2,7 +2,7 @@ import { Component, OnInit, Inject, Optional, ViewChild } from '@angular/core';
 import { FormBuilder, Validators, FormControl, FormGroupDirective } from "@angular/forms";
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Linea } from 'src/app/modelos/linea.model';
-import { LineaService } from 'src/app/services/linea/linea.service';
+import { LineaService } from 'src/app/services/linea.service';
 import { finalize } from 'rxjs/operators';
 
 @Component({

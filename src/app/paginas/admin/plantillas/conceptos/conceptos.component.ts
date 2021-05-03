@@ -7,8 +7,8 @@ import { debounceTime, distinctUntilChanged, tap } from 'rxjs/operators';
 import { ConceptoDialogComponent } from 'src/app/dialogs/concepto/concepto-dialog.component';
 import { ConfirmacionDialogComponent } from 'src/app/dialogs/confirmacion/confirmacion.dialog.component';
 import { Concepto } from 'src/app/modelos/concepto.model';
-import { ConceptoService } from 'src/app/services/conceptos/concepto.service';
-import { ProyectosService } from 'src/app/services/proyectos/proyectos.service';
+import { ConceptoService } from 'src/app/services/concepto.service';
+import { ProyectoService } from 'src/app/services/proyecto.service';
 import { ConceptosDataSource } from 'src/app/services/table/conceptos.datasource';
 
 @Component({

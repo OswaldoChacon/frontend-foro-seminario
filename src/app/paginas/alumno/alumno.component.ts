@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { NotificacionesService } from 'src/app/services/notificaciones/notificaciones.service';
-import { ProyectosService } from 'src/app/services/proyectos/proyectos.service';
+import { NotificacionesService } from 'src/app/services/notificaciones.service';
+import { ProyectoService } from 'src/app/services/proyecto.service';
 import { Usuario } from 'src/app/modelos/usuario.model';
 import { finalize, tap } from 'rxjs/operators';
 import { FormBuilder, FormGroupDirective } from '@angular/forms';
 import { Proyecto } from 'src/app/modelos/proyecto.model';
-import { UsuarioService } from 'src/app/services/usuario/usuario.service';
+import { UsuarioService } from 'src/app/services/usuario.service';
 
 @Component({
   selector: 'app-alumno',
@@ -23,8 +23,8 @@ export class AlumnoComponent implements OnInit {
   objectKeys = Object.keys;
 
   constructor(
-    private _proyectoService: ProyectosService,
-    private _usuarioService: UsuarioService
+    private proyectoService: ProyectoService,
+    private usuarioService: UsuarioService
   ) { }
 
   ngOnInit(): void {
@@ -45,23 +45,23 @@ export class AlumnoComponent implements OnInit {
  
 
   enviarSolicitud() {
-    this._proyectoService.enviarSolicitud(this.miProyecto).pipe(tap(() => { this.getProyectoActual(); this.listarAlumnos() })).subscribe();
+    this.proyectoService.enviarSolicitud(this.miProyecto).pipe(tap(() => { this.getProyectoActual(); this.listarAlumnos() })).subscribe();
   }
 
   cancelarSolicitud() {
-    this._proyectoService.cancelarSolicitud(this.miProyecto).pipe(tap(() => { this.getProyectoActual(); this.listarAlumnos() })).subscribe();
+    this.proyectoService.cancelarSolicitud(this.miProyecto).pipe(tap(() => { this.getProyectoActual(); this.listarAlumnos() })).subscribe();
   }
 
   agregarIntegrante(alumno: Usuario) {
     alumno.myTeam = !alumno.myTeam;
     if (alumno.myTeam)
-      this._proyectoService.agregarIntegrante(this.miProyecto, alumno).subscribe(resp => this.getProyectoActual());
+      this.proyectoService.agregarIntegrante(this.miProyecto, alumno).subscribe(resp => this.getProyectoActual());
     else
-      this._proyectoService.eliminarIntegrante(this.miProyecto, alumno).subscribe(resp => this.getProyectoActual());
+      this.proyectoService.eliminarIntegrante(this.miProyecto, alumno).subscribe(resp => this.getProyectoActual());
   }
 
   getProyectoActual() {
-    this._proyectoService.proyectoActual().subscribe((proyecto) => {
+    this.proyectoService.proyectoActual().subscribe((proyecto) => {
       if (proyecto != null)
         this.miProyecto = proyecto;
     });
@@ -69,7 +69,7 @@ export class AlumnoComponent implements OnInit {
   }
 
   listarAlumnos() {
-    this._usuarioService.getAlumnos().subscribe(alumnos => {
+    this.usuarioService.getAlumnos().subscribe(alumnos => {
       if (alumnos != null)
         this.alumnos = alumnos;
     })

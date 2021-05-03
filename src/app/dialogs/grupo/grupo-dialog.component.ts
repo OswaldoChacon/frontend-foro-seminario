@@ -2,7 +2,7 @@ import { Component, OnInit, Inject, Optional } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
 import { FormBuilder, Validators, FormControl } from "@angular/forms";
 import { Grupo } from 'src/app/modelos/grupo.model';
-import { GrupoService } from 'src/app/services/grupos/grupo.service';
+import { GrupoService } from 'src/app/services/grupo.service';
 @Component({
   selector: 'app-grupo',
   templateUrl: './grupo-dialog.component.html',

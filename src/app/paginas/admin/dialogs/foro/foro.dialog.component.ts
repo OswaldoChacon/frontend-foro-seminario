@@ -1,5 +1,5 @@
 import { Component, OnInit, Optional, Inject, ViewChild, Output, EventEmitter } from '@angular/core';
-import { ForoService } from 'src/app/services/foro/foro.service';
+import { ForoService } from 'src/app/services/foro.service';
 import { FormGroup, FormControl, Validators, FormGroupDirective } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Foro } from 'src/app/modelos/foro.model';

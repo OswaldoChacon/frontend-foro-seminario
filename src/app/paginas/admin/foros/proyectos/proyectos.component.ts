@@ -4,7 +4,7 @@ import { ProyectosDataSource } from "src/app/services/table/proyectos.datasource
 import { MatPaginator } from "@angular/material/paginator";
 import { tap, debounceTime, distinctUntilChanged } from "rxjs/operators";
 import { MatCheckboxChange } from "@angular/material/checkbox";
-import { ProyectosService } from "src/app/services/proyectos/proyectos.service";
+import { ProyectoService } from "src/app/services/proyecto.service";
 import { Proyecto } from "src/app/modelos/proyecto.model";
 import { fromEvent } from 'rxjs';
 import { DocentesDiaogComponent } from '../../dialogs/docentes/docentes.dialog.component';
@@ -18,8 +18,8 @@ export class ProyectosComponent implements OnInit {
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild('inputFiltro', { static: true }) input: ElementRef
   constructor(
-    private _activeRoute: ActivatedRoute,
-    private _proyectoService: ProyectosService,
+    private activeRoute: ActivatedRoute,
+    private proyectoService: ProyectoService,
   ) { }
 
   displayedColumns = ["folio", "titulo", "participa"];
@@ -32,9 +32,9 @@ export class ProyectosComponent implements OnInit {
   opciones2: string[] = ['Asignados', 'Pendientes'];
 
   ngOnInit(): void {
-    const params = this._activeRoute.snapshot.params;
+    const params = this.activeRoute.snapshot.params;
     if (params) {
-      this.dataSource = new ProyectosDataSource(this._proyectoService, params.id);
+      this.dataSource = new ProyectosDataSource(this.proyectoService, params.id);
       this.getProyectos();      
     }
   }
@@ -67,7 +67,7 @@ export class ProyectosComponent implements OnInit {
 
   participa(event: MatCheckboxChange, proyecto: Proyecto) {    
     proyecto.participa = event.checked == true ? 1 : 0;
-    this._proyectoService.participa(proyecto).subscribe();
+    this.proyectoService.participa(proyecto).subscribe();
   }
 
   ngOnDestroy(): void {

@@ -2,10 +2,10 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { map, tap, catchError } from 'rxjs/operators';
 import { FormGroup } from '@angular/forms';
-import { FormErrorService } from '../formerror/form-error.service';
+import { FormErrorService } from './form-error.service';
 import { Concepto } from 'src/app/modelos/concepto.model';
 import { Router } from '@angular/router';
-import { NotificacionesService } from '../notificaciones/notificaciones.service';
+import { NotificacionesService } from './notificaciones.service';
 
 @Injectable({
   providedIn: 'root'

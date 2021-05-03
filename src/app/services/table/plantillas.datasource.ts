@@ -3,7 +3,7 @@ import { Observable, BehaviorSubject, throwError } from "rxjs";
 
 import { catchError, finalize, map, tap } from "rxjs/operators";
 import { Plantilla } from "src/app/modelos/Plantilla.model";
-import { PlantillasService } from "../plantillas/plantillas.service";
+import { PlantillaService } from "../plantilla.service";
 
 export class PlantillasDataSource extends DataSource<Plantilla> {
   private plantillas: Plantilla[];
@@ -11,7 +11,7 @@ export class PlantillasDataSource extends DataSource<Plantilla> {
   total: number = 0;
   por_pagina: number = 0;
 
-  constructor(private _PlantillasService: PlantillasService) {
+  constructor(private plantillasService: PlantillaService) {
     super();
   }
 
@@ -24,7 +24,7 @@ export class PlantillasDataSource extends DataSource<Plantilla> {
   }
 
   getPlantillas(pagina: number, nombre: string) {    
-    this._PlantillasService.getPlantillas(pagina, nombre).subscribe((plantillas) => {
+    this.plantillasService.getPlantillas(pagina, nombre).subscribe((plantillas) => {
       this.total = plantillas['total'];
       this.por_pagina = plantillas['per_page'];
       this.plantillasSubject.next(plantillas['data']);
@@ -33,7 +33,7 @@ export class PlantillasDataSource extends DataSource<Plantilla> {
   }
 
   eliminarPlantilla(id: number) {    
-    return this._PlantillasService.eliminarPlantilla(id);
+    return this.plantillasService.eliminarPlantilla(id);
   }
   
 }

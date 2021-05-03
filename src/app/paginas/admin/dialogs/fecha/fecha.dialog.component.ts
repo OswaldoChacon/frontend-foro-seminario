@@ -6,7 +6,7 @@ import {
   FormGroupDirective,
 } from "@angular/forms";
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { ForoService } from 'src/app/services/foro/foro.service';
+import { ForoService } from 'src/app/services/foro.service';
 import { finalize } from 'rxjs/operators';
 import { Fecha } from 'src/app/modelos/fecha.model';
 

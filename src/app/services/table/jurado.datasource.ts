@@ -1,6 +1,6 @@
 import { DataSource } from "@angular/cdk/table";
 import { CollectionViewer } from "@angular/cdk/collections";
-import { HorarioJuradoService } from "../horario/horario-jurado.service";
+import { HorarioJuradoService } from "../horario-jurado.service";
 import { BehaviorSubject } from "rxjs";
 import { Usuario } from "src/app/modelos/usuario.model";
 import { finalize } from 'rxjs/operators';

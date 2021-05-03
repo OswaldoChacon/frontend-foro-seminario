@@ -2,7 +2,7 @@ import { Component, OnInit, Inject, Optional } from "@angular/core";
 import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
 import { FormBuilder,  Validators, FormControl } from "@angular/forms";
 import { Plantilla } from "src/app/modelos/Plantilla.model";
-import { PlantillasService } from "src/app/services/plantillas/plantillas.service";
+import { PlantillaService } from "src/app/services/plantilla.service";
 
 @Component({
   selector: 'app-plantilla-dialog',
@@ -19,7 +19,7 @@ export class PlantillasDialogComponent implements OnInit {
   constructor(
     @Optional() @Inject(MAT_DIALOG_DATA) public data: Plantilla,
     private formBuilder: FormBuilder,
-    private plantillasService: PlantillasService,
+    private plantillasService: PlantillaService,
     private dialogRef: MatDialogRef<PlantillasDialogComponent>
   ) { dialogRef.disableClose = true; }
 

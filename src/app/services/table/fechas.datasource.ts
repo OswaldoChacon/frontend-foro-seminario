@@ -2,7 +2,7 @@ import { DataSource } from "@angular/cdk/table";
 import { CollectionViewer } from "@angular/cdk/collections";
 import { Observable, BehaviorSubject, throwError } from "rxjs";
 import { Fecha } from "src/app/modelos/fecha.model";
-import { ForoService } from "../foro/foro.service";
+import { ForoService } from "../foro.service";
 import { finalize, catchError } from "rxjs/operators";
 
 export class FechasDataSource extends DataSource<any> {

@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
-import { ForoService } from "src/app/services/foro/foro.service";
+import { ForoService } from "src/app/services/foro.service";
 import {
   FormControl,
   Validators,

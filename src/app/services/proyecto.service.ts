@@ -6,13 +6,13 @@ import { Router } from '@angular/router';
 import { Proyecto } from 'src/app/modelos/proyecto.model';
 import { throwError } from 'rxjs';
 import { FormGroup } from '@angular/forms';
-import { FormErrorService } from '../formerror/form-error.service';
-import { NotificacionesService } from '../notificaciones/notificaciones.service';
+import { FormErrorService } from './form-error.service';
+import { NotificacionesService } from './notificaciones.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ProyectosService {
+export class ProyectoService {
 
   constructor(private http: HttpClient,
     private formError: FormErrorService,

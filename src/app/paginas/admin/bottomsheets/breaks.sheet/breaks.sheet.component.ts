@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MAT_BOTTOM_SHEET_DATA } from '@angular/material/bottom-sheet';
 import { Fecha } from 'src/app/modelos/fecha.model';
-import { ForoService } from 'src/app/services/foro/foro.service';
+import { ForoService } from 'src/app/services/foro.service';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { catchError } from 'rxjs/operators';
 import { of } from 'rxjs';

@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef } from "@angular/core";
 import { ForosDataSource } from "src/app/services/table/foros.datasource";
-import { ForoService } from "src/app/services/foro/foro.service";
+import { ForoService } from "src/app/services/foro.service";
 import { MatPaginator } from "@angular/material/paginator";
 import { MatDialog } from "@angular/material/dialog";
 import { ForoDialogComponent } from "../dialogs/foro/foro.dialog.component";

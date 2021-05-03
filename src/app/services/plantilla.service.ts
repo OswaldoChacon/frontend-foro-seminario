@@ -5,14 +5,14 @@ import { Router } from '@angular/router';
 import { Proyecto } from 'src/app/modelos/proyecto.model';
 import { throwError } from 'rxjs';
 import { FormGroup } from '@angular/forms';
-import { FormErrorService } from '../formerror/form-error.service';
-import { NotificacionesService } from '../notificaciones/notificaciones.service';
+import { FormErrorService } from './form-error.service';
+import { NotificacionesService } from './notificaciones.service';
 import { Plantilla } from 'src/app/modelos/Plantilla.model';
 
 @Injectable({
   providedIn: 'root'
 })
-export class PlantillasService {
+export class PlantillaService {
 
   constructor(private http: HttpClient,
     private formError: FormErrorService) { }

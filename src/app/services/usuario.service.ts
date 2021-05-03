@@ -4,11 +4,11 @@ import {
   HttpErrorResponse,
   HttpParams,
 } from "@angular/common/http";
-import { Usuario } from "../../modelos/usuario.model";
+import { Usuario } from "../modelos/usuario.model";
 import { catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
 import { FormGroup } from '@angular/forms';
-import { FormErrorService } from '../formerror/form-error.service';
+import { FormErrorService } from './form-error.service';
 import { Router } from '@angular/router';
 
 

@@ -3,7 +3,7 @@ import { Proyecto } from "src/app/modelos/proyecto.model";
 import { BehaviorSubject } from "rxjs";
 import { CollectionViewer } from "@angular/cdk/collections";
 import { finalize, catchError } from 'rxjs/operators';
-import { ProyectosService } from '../proyectos/proyectos.service';
+import { ProyectoService } from '../proyecto.service';
 
 export class ProyectosDataSource extends DataSource<Proyecto> {
   private proyectosSubject: BehaviorSubject<Proyecto[]> = new BehaviorSubject<Proyecto[]>([]);
@@ -12,7 +12,7 @@ export class ProyectosDataSource extends DataSource<Proyecto> {
   por_pagina: number;
   private proyectos: Proyecto[];
 
-  constructor(private proyectoService: ProyectosService, private slug: string) {
+  constructor(private proyectoService: ProyectoService, private slug: string) {
     super();
   }
  

@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { HorarioJuradoService } from 'src/app/services/horario/horario-jurado.service';
+import { HorarioJuradoService } from 'src/app/services/horario-jurado.service';
 import { JuradoDataSource } from 'src/app/services/table/jurado.datasource';
 import { MatPaginator } from '@angular/material/paginator';
 import { tap } from 'rxjs/operators';

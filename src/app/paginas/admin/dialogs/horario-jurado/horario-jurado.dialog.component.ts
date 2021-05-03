@@ -1,7 +1,7 @@
 import { Component, OnInit, Optional, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatCheckboxChange } from '@angular/material/checkbox';
-import { HorarioJuradoService } from 'src/app/services/horario/horario-jurado.service';
+import { HorarioJuradoService } from 'src/app/services/horario-jurado.service';
 import { Usuario } from 'src/app/modelos/usuario.model';
 
 @Component({

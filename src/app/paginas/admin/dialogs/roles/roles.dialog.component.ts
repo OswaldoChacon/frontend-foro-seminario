@@ -2,7 +2,7 @@ import { Component, OnInit, Inject, Optional } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Rol } from 'src/app/modelos/rol.model';
 import { FormBuilder, Validators, FormControl } from "@angular/forms";
-import { RolesService } from 'src/app/services/rol/rol.service';
+import { RolesService } from 'src/app/services/rol.service';
 import { finalize } from 'rxjs/operators';
 
 @Component({

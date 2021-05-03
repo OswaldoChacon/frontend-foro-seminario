@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { NotificacionesService } from 'src/app/services/notificaciones/notificaciones.service';
+import { NotificacionesService } from 'src/app/services/notificaciones.service';
 import { MAT_STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
-import { ProyectosService } from 'src/app/services/proyectos/proyectos.service';
+import { ProyectoService } from 'src/app/services/proyecto.service';
 import { Usuario } from 'src/app/modelos/usuario.model';
 import { catchError, finalize, tap } from 'rxjs/operators';
 import { throwError } from 'rxjs';

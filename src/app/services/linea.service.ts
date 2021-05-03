@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { Linea } from 'src/app/modelos/linea.model';
-import { FormErrorService } from '../formerror/form-error.service';
+import { FormErrorService } from './form-error.service';
 import { catchError } from 'rxjs/operators';
 import { FormGroup } from '@angular/forms';
 

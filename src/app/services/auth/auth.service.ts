@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
 import { catchError, tap } from 'rxjs/operators';
 import { throwError } from 'rxjs';
 import { FormGroup } from '@angular/forms';
-import { FormErrorService } from '../formerror/form-error.service';
+import { FormErrorService } from '../form-error.service';
 
 @Injectable({
   providedIn: "root",

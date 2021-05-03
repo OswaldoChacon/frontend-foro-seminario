@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NotificacionesService } from 'src/app/services/notificaciones/notificaciones.service';
+import { NotificacionesService } from 'src/app/services/notificaciones.service';
 import { Router } from '@angular/router';
 import { tap } from 'rxjs/operators';
 

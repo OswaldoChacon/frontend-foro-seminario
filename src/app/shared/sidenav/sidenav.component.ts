@@ -4,7 +4,7 @@ import { NgxPermissionsService } from 'ngx-permissions';
 import { Router } from '@angular/router';
 import { MediaMatcher } from '@angular/cdk/layout';
 import { Usuario } from 'src/app/modelos/usuario.model';
-import { NotificacionesService } from 'src/app/services/notificaciones/notificaciones.service';
+import { NotificacionesService } from 'src/app/services/notificaciones.service';
 
 @Component({
   selector: 'app-sidenav',
