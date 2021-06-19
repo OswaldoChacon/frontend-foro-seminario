@@ -29,7 +29,7 @@ export class ProyectoService {
   }
 
   registrarProyecto(proyecto: FormGroup) {
-    return this.http.post(`api/registrar_proyecto`, proyecto.value).pipe(
+    return this.http.post(`api/proyectos`, proyecto.value).pipe(
       tap(() => {
         this.notificacionesService.misNotificaciones();
         this.router.navigate(['home']);
@@ -41,7 +41,7 @@ export class ProyectoService {
   }
 
   actualizarProyecto(proyecto: FormGroup, folio: string) {
-    return this.http.put(`api/actualizar_proyecto/${folio}`, proyecto.value).pipe(
+    return this.http.put(`api/proyectos/${folio}`, proyecto.value).pipe(
       tap(() => {
         this.notificacionesService.misNotificaciones()
       }),
